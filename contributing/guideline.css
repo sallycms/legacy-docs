@@ -1,0 +1,21 @@
+.class {
+	.tab-indented {
+		#my-id {
+			color: blue;
+			margin: 10px;
+			background: red;
+		}
+
+		/* Comments should still be written in C style */
+
+		/* Multiple short definitions can be written in a block */
+
+		.short { single: definition; }
+		.wee   { another: def; }
+		.tiny  { please: endthis; }
+	}
+
+	&-pay-attention { /* <- results in 'class-pay-attention' */
+		hard-to: find-this-classname;
+	}
+}

@@ -3,7 +3,12 @@ Dokumentation
 
 Auf diesen Seiten werden die Grundfunktionen von Sally beschrieben. Wir freuen
 uns über jede Mitarbeit :-) Wenn euch also etwas auffällt, was hier noch fehlt,
-zögert nicht und :doc:`erweitert die Dokumentation </general/contributing/docs>`.
+zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
+
+.. note::
+
+  Diese Dokumentation befindet sich noch in einem frühen Stadium und ist daher
+  noch nicht ganz perfekt. Wir bitte um Nachsicht. :-)
 
 .. toctree::
    :hidden:
@@ -37,6 +42,18 @@ zögert nicht und :doc:`erweitert die Dokumentation </general/contributing/docs>
    sallycms/forms/elements
    sallycms/mailing
    sallycms/logging
+   sallycms/assetcache
+
+   contributing/index
+   contributing/core
+   contributing/docs
+   contributing/coding-guidelines
+
+   addondevel/basics
+   addondevel/updates
+   addondevel/be-navigation
+
+   misc/from-redaxo
 
 Allgemeines
 -----------
@@ -46,10 +63,11 @@ Allgemeines
   * :doc:`general/install`
   * :doc:`general/updating`
   * :doc:`general/starterkit`
-  * :doc:`Änderungen beisteuern <general/contributing/index>`
+  * :doc:`Änderungen beisteuern <contributing/index>`
 
-    * :doc:`general/contributing/core`
-    * :doc:`general/contributing/docs`
+    * :doc:`Kernsystem <contributing/core>`
+    * :doc:`Coding Guidelines <contributing/coding-guidelines>`
+    * :doc:`Dokumentation <contributing/docs>`
 
 Projektentwicklung
 ------------------
@@ -84,6 +102,20 @@ SallyCMS-API
   * :doc:`AddOns und Plugins <sallycms/services/addon>`
 
 * :doc:`Utilities <sallycms/utilities/index>`
+
+AddOns entwickeln
+-----------------
+
+* :doc:`Grundlagen <addondevel/basics>`
+* :doc:`Update-Mechanismus <addondevel/updates>`
+* :doc:`developing/scaffold`
+* :doc:`Formulare erstellen <sallycms/forms/index>`
+* :doc:`Backend-Navigation <addondevel/be-navigation>`
+
+Sonstiges
+---------
+
+* :doc:`Änderungen gegenüber REDAXO <misc/from-redaxo>`
 
 Indexe und Tabellen
 ===================
