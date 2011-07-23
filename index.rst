@@ -29,6 +29,10 @@ zögert nicht und erweitert die Dokumentation.
   * :doc:`developing/mercurial`
   * :doc:`developing/develop/index`
 
+    * :doc:`developing/develop/articletypes`
+    * :doc:`developing/develop/templates` & :doc:`Layouts <developing/develop/layouts>`
+    * :doc:`developing/develop/modules`
+
 Indexe und Tabellen
 ===================
 

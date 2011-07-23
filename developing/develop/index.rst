@@ -8,9 +8,9 @@ regulären PHP-Dateien ausgelesen.
 Unterseiten
 -----------
 
-* [[Articletypes|Artikeltypen]]
-* [[Templates]]
-* [[Module]]
+* :doc:`Artikeltypen <articletypes>`
+* :doc:`Templates <templates>` & :doc:`Layouts <layouts>`
+* :doc:`Module <modules>`
 
 Einführung
 ----------
@@ -20,14 +20,18 @@ HTML-Code gemischt mit PHP-Tags. Der Umweg über die Datenbank bringt außer der
 Möglichkeit, das "Frontend" einer Website in einem SQL-Export zu sichern, keine
 ersichtlichen Vorteile. Im Gegenteil: Er verleitet dazu, unnötig viele Daten aus
 der Datenbank abzurufen, diese auch noch mit ``eval()`` auszuführen und umgeht
-so zielsicher einen möglichen "Opcode-Cache":http://de.wikipedia.org/wiki/Alternative_PHP_Cache.
+so zielsicher einen möglichen `Opcode-Cache
+<http://de.wikipedia.org/wiki/Alternative_PHP_Cache>`_.
 
 Die Gründe für eine Speicherung in normalen Dateien sind eindeutig:
 
 * Der Opcode-Cache kann verwendet werden.
-* Weniger Daten müssen zu jedem Slice / Artikel in der Datenbank gehalten werden.
-* Templates und Module können einfacher in "Versionskontrollsystemen":http://de.wikipedia.org/wiki/Mercurial verwaltet werden.
-* Das Deployment von Projekten ist einfacher; nachträgliche Updates erfordern keinen Datenbank-Import.
+* Weniger Daten müssen zu jedem Slice / Artikel in der Datenbank gehalten
+  werden.
+* Templates und Module können einfacher in `Versionskontrollsystemen
+  <http://de.wikipedia.org/wiki/Mercurial>`_ verwaltet werden.
+* Das Deployment von Projekten ist einfacher; nachträgliche Updates erfordern
+  keinen Datenbank-Import.
 
 Aufbau
 ------
@@ -39,8 +43,9 @@ Verzeichnisstruktur
 ^^^^^^^^^^^^^^^^^^^
 
 Alle Dateien, die serverseitig für das Frontend relevant sind (das schließt
-[[Assets]] wie CSS/JS/Images aus), werden in *develop/* gespeichert. Das
-Verzeichnis liegt direkt im Root einer Website.::
+:doc:`Assets </developing/assets>` wie CSS/JS/Images aus), werden in
+:file:`develop/` gespeichert. Das Verzeichnis liegt direkt im Root einer
+Website.::
 
   /
   +- assets/
@@ -59,10 +64,11 @@ Tipp
 
 Natürlich muss man sich bei der Entwicklung komplexer Projekte nicht auf diese
 beiden Verzeichnisse beschränken. So kann es durchaus ratsam sein, auch noch ein
-**develop/lib/**-Verzeichnis anzulegen, wenn im Frontend projektspezifische
+:file:`develop/lib`-Verzeichnis anzulegen, wenn im Frontend projektspezifische
 Klassen benötigt werden. Tatsächlich ist es so, dass das Verzeichnis
-**develop/lib** standardmäßig dem [[Autoloading|Autoloader]] von Sally bekannt
-ist, also keine weitere Konfiguration nötig ist, um es zu nutzen.
+:file:`develop/lib` standardmäßig dem :doc:`Autoloader </sallycms/autoloading>`
+von Sally bekannt ist, also keine weitere Konfiguration nötig ist, um es zu
+nutzen.
 
 Es ist auch problemlos möglich, Klassen mit in Templates/Modulen zu notieren
 oder Dateien, die keine Templates/Module sein sollen, in den entsprechenden
@@ -72,9 +78,9 @@ Dateinamen: Templates
 ^^^^^^^^^^^^^^^^^^^^^
 
 Jede Datei, die als Template erkannt und im Backend verfügbar sein soll, muss
-auf ``.php`` enden (zum Beispiel ``startseite.php``). In den Dateien können die
-Templates wie sie auch in REDAXO im Backend gepflegt wurden, eingetragen werden.
-Sie sollten sich regulär über einen PHP ``include`` einbinden lassen.
+auf ``.php`` enden (zum Beispiel :file:`startseite.php`). In den Dateien können
+die Templates wie sie auch in REDAXO im Backend gepflegt wurden, eingetragen
+werden. Sie sollten sich regulär über einen PHP ``include`` einbinden lassen.
 
 Dateinamen: Module
 ^^^^^^^^^^^^^^^^^^
@@ -82,8 +88,8 @@ Dateinamen: Module
 Module bestehen aus zwei Komponenten: **Eingabe** und **Ausgabe**. Beide sind
 optional. Sie müssen in separaten Dateien gepflegt werden:
 
-* Eingabe: ``.input.php``
-* Ausgabe: ``.output.php``
+* Eingabe: :file:`.input.php`
+* Ausgabe: :file:`.output.php`
 
 Für Module gelten die gleichen Regeln wie für Templates, was ihren Inhalt
 betrifft.
@@ -130,7 +136,7 @@ beliebig viele, eigene Daten in dieser Form in einem Template notieren kann. Je
 nach Einsatz können so bestimmte Variablen-Konstrukte einfach ersetzt werden.
 
 Genauere Informationen über diese Pflichtangaben sind in den Detail-Seiten zu
-:doc:`Templates </develop/templates>` und :doc:`Modulen </develop/modules>` enthalten.
+:doc:`Templates <templates>` und :doc:`Modulen <modules>` enthalten.
 
 Alle Metainformationen stehen über den entsprechenden
 :doc:`Service </sallycms/services/index>` auf PHP-Seite bereit.
@@ -159,8 +165,9 @@ auch Shortcuts bereit:
 
 Für alle Dateien gilt, dass ein Wert für **name** gesetzt werden muss. Dieser
 dient dazu, ein Template/Modul im Code anzusprechen. Es ist also möglich, ein
-Template als Datei ``foo.php`` zu speichern, es aber dennoch über **startseite**
-anzusprechen, wenn ``@sly name startseite`` im Template notiert ist.
+Template als Datei :file:`foo.php` zu speichern, es aber dennoch über
+**startseite** anzusprechen, wenn ``@sly name startseite`` im Template notiert
+ist.
 
 Der interne Name muss jeweils eindeutig sein (d.h. es kann durchaus ein Template
 **foo** und ein Modul **foo** geben).
