@@ -18,9 +18,6 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    general/install
    general/updating
    general/starterkit
-   general/contributing/index
-   general/contributing/core
-   general/contributing/docs
 
    developing/mercurial
    developing/develop/index
