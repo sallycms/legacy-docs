@@ -32,6 +32,11 @@ zögert nicht und :doc:`erweitert die Dokumentation </general/contributing/docs>
    sallycms/configuration
    sallycms/events/index
    sallycms/events/list
+   sallycms/forms/index
+   sallycms/forms/forms
+   sallycms/forms/elements
+   sallycms/mailing
+   sallycms/logging
 
 Allgemeines
 -----------
