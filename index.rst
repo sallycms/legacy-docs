@@ -45,6 +45,7 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    contributing/core
    contributing/docs
    contributing/coding-guidelines
+   contributing/sample
 
    addondevel/basics
    addondevel/updates

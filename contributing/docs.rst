@@ -10,6 +10,25 @@ wie beim :doc:`Beisteuern von Code <core>` genutzt werden, wobei auch hier Forks
 und anschließende Pull Requests bevorzugt werden sollten.
 
 Genaue Guidelines zur Arbeit an der Doku müssen sich erst noch herausbilden.
+Eine :doc:`Beispieldatei <sample>` ist verfügbar und erklärt die wichtigsten
+Formatierungen.
+
+Hier bereits einige Regeln für Neueinsteiger:
+
+* Alle Dateien sind als **UTF-8** (ohne Byte-Order-Mark) verfasst werden.
+* Zeilen dürfen nicht länger als **80 Zeichen** sein. Gute Editoren bieten eine
+  grafische Anzeige dieser Grenze.
+
+  * Dies gilt natürlich nicht für Quellcodes.
+  * Wenn durch einen Link oder eine URL diese Grenze überschreitet, ist das
+    *in Ausnahmefällen* auch okay. Bitte setzt euren Verstand ein und versucht,
+    ein harmonisches Gesamtbild zu erreichen.
+
+* Zeilenumbrüche sind als **Unix-Linebreaks** zu schreiben (``\n``).
+* Längere Quellcodes sollten über ``literalinclude`` eingebunden werden.
+* Commit-Nachrichten sollten **Englisch**, kurz und aussagekräftig sein. Mache
+  ggf. mehrere kleine Commits, wenn du an verschiedenen Stellen arbeitest.
+* Beachte die Warnungen von Sphinx!
 
 Einrichtung
 -----------
