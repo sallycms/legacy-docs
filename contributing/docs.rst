@@ -75,10 +75,18 @@ HTML erzeugen
 
       $ hg update 0.5
 
+#. Wenn du bereits eine Doku erzeugt hast, stelle nach einem Branch-Wechsel
+   unbedingt sicher, dass du **alle** Dateien in :file:`_build` löscht, da dort
+   auch Cache-Dateien liegen, die Sphinx sonst verwirren könnten.
+
+   ::
+
+      $ rm -rf build/*
+
 #. Führe Sphinx aus.
 
    ::
 
-      make html
+      $ make html
 
 #. Die erzeugten Dateien befinden sich im Verzeichnis :file:`_build/html`.
