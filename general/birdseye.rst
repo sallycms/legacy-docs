@@ -81,8 +81,8 @@ kurz angerissen werden soll.::
      +- import_export/       Datenbank-Exports (nicht per HTTP zugänglich)
      +- mediapool/           Medienpool
 
-Um an die Pfade zu gelangen, stellen die :doc:`Services <services/addon>` eine Reihe
-von Methoden zur Verfügung.
+Um an die Pfade zu gelangen, stellen die :doc:`Services </sallycms/services/addon>`
+eine Reihe von Methoden zur Verfügung.
 
 SallyCMS kümmert sich automatisch darum, dass :file:`data/config`,
 :file:`data/dyn/internal` und :file:`data/import_export` per htaccess für den
@@ -93,7 +93,8 @@ develop-Verzeichnis
 
 In :file:`develop` findet die eigentliche Projektentwicklung statt. Das
 Verzeichnis wird ebenfalls gegen Zugriff via HTTP geschützt. Aufgrund seiner
-Wichtigkeit wurde ihm ein :doc:`eigener Artikel <develop/index>` gewidmet.
+Wichtigkeit wurde ihm ein :doc:`eigener Artikel </developing/develop/index>`
+gewidmet.
 
 Die Sally-Bibliothek
 --------------------
@@ -162,7 +163,7 @@ definieren. Das Model selbst wüsste davon nichts.
 Services
 ^^^^^^^^
 
-:doc:Services </sallycms/services>` bieten einen Großteil der Kernfunktionalität
+:doc:`Services </sallycms/services>` bieten einen Großteil der Kernfunktionalität
 von Sally an. Sie dienen dazu, Models zu speichern oder anzulegen, AddOns zu
 verwalten, Templates zu synchronisieren etc. Sie sind als Singletons ausgelegt
 und werden über die ``sly_Service_Factory`` (die selbst kein Service ist)

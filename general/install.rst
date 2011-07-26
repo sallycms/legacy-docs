@@ -119,7 +119,9 @@ Setup neustarten
 Sollte es einmal notwendig sein, das Setup neu zu durchlaufen, kann dies
 entweder im Backend (auf der Systemseite) ausgelöst werden, oder in der
 :file:`data/config/sly_local.yml` angestoßen werden. Dort muss der Key ``SETUP``
-auf ``true`` gesetzt werden.::
+auf ``true`` gesetzt werden.
+
+.. sourcecode:: yaml
 
   SETUP: true
   SERVER: example.com

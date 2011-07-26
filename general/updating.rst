@@ -26,7 +26,9 @@ Sally aktualisieren
 ^^^^^^^^^^^^^^
 
 Die Datenbank wurde leicht geändert. Sie kann (muss aber nicht) wie folgt
-aktualisiert werden.::
+aktualisiert werden.
+
+.. sourcecode:: sql
 
   ALTER TABLE `sly_article`  CHANGE COLUMN `revision` `revision` INT(11) NOT NULL DEFAULT '0';
   ALTER TABLE `sly_article_slice`  CHANGE COLUMN `revision` `revision` INT(11) NOT NULL DEFAULT '0';
