@@ -61,3 +61,37 @@ Weiterhin:
   * Die Klasse ``first`` wurde entfernt (``:first-child`` kann für den gleichen
     Effekt genutzt werden).
   * Außerdem wurde die Nummerierung der ``page``-Klassen korrigiert.
+
+0.5-Branch
+----------
+
+0.4.x -> 0.5.0
+^^^^^^^^^^^^^^
+
+.. note::
+
+  Aufgrund der geänderten :doc:`Verzeichnisstruktur <birdseye>` empfehlen wir,
+  bestehende 0.4-Projekte neu anzulegen, anstatt in alten Projekten zu
+  versuchen, die Strukturänderungen nachzuahmen. Dies betrifft natürlich nicht
+  die Inhalte des Projekts.
+
+Lege als erstes einen Datenbank-Export (ohne Konfiguration!) an, der später in
+dem neuen Projekt importiert werden kann.
+
+#. Die webvariants-AddOns müssen auf die jeweils aktuellsten Versionen
+   aktualisiert werden. Projekte, die den Error Handler verwenden, sollten auch
+   im neuen Projekt das AddOn verwenden, da der :doc:`integrierte Error Handler
+   </sallycms/errorhandler>` nicht alle Funktionen des AddOns enthält.
+#. Übernimm deine develop-Dateien und deine Assets.
+#. Passe deine AddOns an die neue API (siehe unten) an.
+#. Gehe deine develop-Dateien durch und passe sie ebenfalls an die neue API an.
+#. Installiere das neue Projekt, installiere dann alle AddOns und spiele deinen
+   Datenbank-Dump ein.
+#. Testen & Feinschliff.
+
+API-Änderungen
+^^^^^^^^^^^^^^
+
+.. note::
+
+  TODO
