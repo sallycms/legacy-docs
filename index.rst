@@ -90,6 +90,10 @@ Projektentwicklung
 SallyCMS-API
 ------------
 
+.. note::
+
+  Siehe auch die aus dem PHP-Code generierte `API-Dokumentation <api/index.html>`_.
+
 * :doc:`Autoloader <sallycms/autoloading>`
 * :doc:`Kern-API <sallycms/slycore>`
 * :doc:`System-Konfiguration <sallycms/configuration>`
