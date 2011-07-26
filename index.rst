@@ -52,6 +52,7 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    addondevel/be-navigation
 
    misc/from-redaxo
+   misc/changelog
 
 Allgemeines
 -----------
@@ -114,6 +115,7 @@ Sonstiges
 ---------
 
 * :doc:`Änderungen gegenüber REDAXO <misc/from-redaxo>`
+* :doc:`Changelog <misc/changelog>`
 
 Indexe und Tabellen
 ===================
