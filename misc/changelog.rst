@@ -3,6 +3,18 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.0 (?? ?? 2011)
+------------------
+
+.. note::
+
+  Diese Liste umfasst nur die groben Änderungen, eine Detailliste befindet sich
+  im Dokument zum :doc:`Aktualisieren von SallyCMS-Projekten
+  </general/updating>`.
+
+* integrierter :doc:`Error Handler </sallycms/errorhandler>`
+* ...
+
 0.4.6 (14. Juli 2011)
 ---------------------
 
