@@ -290,9 +290,9 @@ Das Interface der folgenden Funktionen hat sich **geändert**:
 Die folgenden Funktionen sind mit diesem Release **deprecated** und sollten
 nicht mehr verwendet werden:
 
-* ``rex_message()`` (siehe ``sly_Util_Message::message()``)
-* ``rex_info()`` (siehe ``sly_Util_Message::info()``)
-* ``rex_warning()`` (siehe ``sly_Util_Message::warn()``)
+* ``rex_message()`` (siehe ``sly_Helper_Message::message()``)
+* ``rex_info()`` (siehe ``sly_Helper_Message::info()``)
+* ``rex_warning()`` (siehe ``sly_Helper_Message::warn()``)
 
 Das **Verhalten** der folgenden Funktionen hat sich geändert:
 
