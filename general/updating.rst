@@ -346,7 +346,9 @@ Die folgenden Klassen wurden **hinzugefügt**:
   * ``sly_Form_Input_Slider`` (HTML5-Element mit jQuery UI Fallback)
   * ``sly_Form_Input_URL`` (HTML5-Element)
   * Die Widgets (komplexe Elemente, die nicht nur aus einem einzelnen HTML-Tag
-    bestehen) wurden umbenannt. Das Suffix ``Button`` wurde jeweils entfernt.
+    bestehen) wurden umbenannt. Das Suffix ``Button`` wurde jeweils entfernt,
+    sodass aus ``sly_Form_Widget_LinkButton`` die Klasse
+    ``sly_Form_Widget_Link`` wurde.
 
 * ``sly_Util_ArticleSlice`` kümmert sich um Artikel-Slices.
 * ``sly_Util_BootCache`` implementiert den :doc:`BootCache
@@ -354,9 +356,88 @@ Die folgenden Klassen wurden **hinzugefügt**:
 * ``sly_Util_Slice``
 * ``sly_Viewable`` als Basis-Klasse für Controller, Formulare und Layouts
 
-.. note::
+Abgesehen von den hinzugefügten und entfernten Klassen ergeben sich die
+folgenden Änderungen an der API:
 
-  TODO
+* ``OOArticleSlice``
+
+  * ``__construct()`` erhielt nach ``$slot`` einen weiteren
+    ``$module``-Parameter.
+  * ``getArticleSliceById()`` erhielt nach ``$id`` einen weiteren
+    ``$clang``-Parameter (Standardwert ``false``).
+  * ``getModule()`` wurde deprecated.
+
+* ``sly_Controller_Base``
+
+  * ``setCurrentPage($page)`` wurde ergänzt (dient als Ersatz von
+    ``$REX['PAGE']``).
+  * Wird in ``factory()`` der Controller für eine Subpage nicht gefunden, wird
+    automatisch der Controller für die Hauptseite gesucht und zurückgegeben
+    (d.h. wenn ``sly_Controller_Myaddon_Mysubpage`` nicht existiert, wird
+    als Fallback ``sly_Controller_Myaddon`` gesucht).
+
+* ``sly_DB_PDO_Driver::getAvailable()`` gibt eine Liste von verfügbaren (d.h.
+  in PHP kompolierten) PDO-Treibern zurück.
+* ``sly_DB_Dump``
+
+  * ``getCharset()`` wurde entfernt, da alle Dumps in UTF-8 vorliegen. Eine
+    ``charset``-Angabe in Dumps wird also ignoriert.
+  * Der Platzhalter ``%TEMP_PREFIX%`` für SQL-Dumps steht nicht mehr zur
+    Verfügung. ``%USER%`` wird immer unterstützt (wenn niemand eingeloggt ist,
+    wird der Platzhalter durch einen leeren String ersetzt).
+  * Die Implementierung von ``readQueries()`` wurde durch MIT-lizensiertem Code
+    (aus Adminer) ersetzt. Damit werden Dumps auch schneller verarbeitet.
+
+* Formular-Framework
+
+  * Der ``$allowedAttributes``-Parameter wurde überall entfernt. Elemente
+    unterstützen damit beliebige HTML-Attribute.
+  * ``sly_Form_Input_Base`` unterstützt für alle Input-Elemente das
+    HTML5-Attribut ``placeholder`` (``->setPlaceholder($str)``).
+  * ``sly_Form_Input_Base::setReadOnly()`` hat ``true`` als Standard-Argument
+    und kann jetzt ohne Argumente aufgerufen werden.
+  * ``sly_Form_Input_Boolean::setChecked()`` hat ``true`` als Standard-Argument
+    und kann jetzt ohne Argumente aufgerufen werden.
+  * Selects (Checkbox-Gruppe, Radiobutton-Gruppe, DropDowns):
+
+    * ``setValues()`` verlangt zwingend ein Array als Argument.
+    * ``removeValue($key)`` wurde hinzugefügt.
+    * ``setMultiple()`` wird nur noch für DropDown-Elemente unterstützt und kann
+      jetzt ohne Argumente aufgerufen werden.
+
+  * Widgets:
+
+    * Die Basisklasse wurde entfernt (``sly_Form_Widget``).
+    * Es werden keine globalen IDs mehr verwendet; die Elemente verwenden die
+      ID für ihre erzeugten HTML-Elemente, die auch im Konstruktor der Objekte
+      angegeben wurde (kein ``REX_LINK_1`` bzw. ``REX_LINK[1]`` mehr). Der
+      Bedarf, die IDs ggf. über Offsets zu verändern, um sie eindeutig zu
+      machen, ist damit nicht mehr gegeben.
+    * Linklist-Widgets verwenden ebenfalls das Linkmap-Popup und dafür keinen
+      Artikelfilter mehr. Der Filter konnte sich nicht durchsetzen und wurde
+      daher entfernt.
+    * Linklist-Widgets können Artikel mehrmals enthalten.
+    * Die angezeigten Werte in den Widgets sind nun informativer:
+
+      * Artikel werden mit ihrem Namen und Dateien mit (wenn vorhanden) ihrem
+        Titel angezeigt.
+      * Benutzer mit ``advancedMode[]`` sehen bei Links die Artikel-ID und bei
+        Dateien den Dateinamen (z.B. "Mein Artikel [12]" und "Logo (logo.png)").
+
+  * ``sly_Form_Base``
+
+    * ``->addElements()`` verlangt zwingend ein Array.
+    * ``->addRows()`` verlangt zwingend ein Array.
+    * ``->isMultilingual()`` verlangt zwingend ein Array.
+
+  * ``sly_Form_ElementBase::setDisabled()`` hat ``true`` als Standard-Argument
+    und kann jetzt ohne Argumente aufgerufen werden.
+  * ``sly_Form_DateTime``
+
+    * ``->setWithTime($withTime = true)`` wurde hinzugefügt.
+    * Das Element wird, wenn möglich, den nativen HTML5-Datetime-Picker
+      verwenden. Das ist bisher nur in Opera 11+ möglich. Alle anderen Browser
+      erhalten den bekannten jQuery UI Fallback.
 
 Events
 """"""
