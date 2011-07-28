@@ -144,6 +144,11 @@ Globale Variablen
     * ``ARTICLE_ID`` steht in ``sly_Core::getCurrentArticleId()`` zur Verfügung.
     * ``USER`` steht über ``sly_Util_User::getCurrentUser()`` zur Verfügung.
     * ``LOCALES`` steht über ``sly_I18N::getLocales()`` zur Verfügung.
+    * ``PERM`` steht über ``sly_Authorisation::getRights()`` zur Verfügung.
+    * ``EXTPERM`` steht über ``sly_Authorisation::getExtendedRights()`` zur
+      Verfügung.
+    * ``EXTRAPERM`` steht über ``sly_Authorisation::getExtraRights()`` zur
+      Verfügung.
 
   * ``$I18N`` wurde entfernt. Die Instanz kann über ``sly_Core::getI18N()``
     abgerufen und über ``::setI18N()`` gesetzt werden.
@@ -377,7 +382,7 @@ folgenden Änderungen an der API:
     als Fallback ``sly_Controller_Myaddon`` gesucht).
 
 * ``sly_DB_PDO_Driver::getAvailable()`` gibt eine Liste von verfügbaren (d.h.
-  in PHP kompolierten) PDO-Treibern zurück.
+  in PHP kompilierten) PDO-Treibern zurück.
 * ``sly_DB_Dump``
 
   * ``getCharset()`` wurde entfernt, da alle Dumps in UTF-8 vorliegen. Eine
@@ -388,10 +393,20 @@ folgenden Änderungen an der API:
   * Die Implementierung von ``readQueries()`` wurde durch MIT-lizensiertem Code
     (aus Adminer) ersetzt. Damit werden Dumps auch schneller verarbeitet.
 
+* Die ``render()``-Methoden verschiedener Objekte (Formulare, Tabellen, ...)
+  gibt nun konsistent den erzeugten HTML-Code zurück, anstatt ihn teilweise
+  selber auszugeben. Es ist daher nötig, immer ``print $obj->render()`` zu
+  schreiben.
 * Formular-Framework
 
+  * Alle vom Formular-System geworfenen Exceptions sind nun Instanzen von
+    ``sly_Form_Exception`` (statt ``sly_Exception``).
   * Der ``$allowedAttributes``-Parameter wurde überall entfernt. Elemente
     unterstützen damit beliebige HTML-Attribute.
+  * Der Konstruktor von ``sly_Form`` verlangt nun zwingend die Angabe der
+    ``$method``.
+  * Die ``render()``-Methode von ``sly_Form`` hat keinen ``$print``-Parameter
+    mehr (nur noch den ``$omitFormTag``-Parameter).
   * ``sly_Form_Input_Base`` unterstützt für alle Input-Elemente das
     HTML5-Attribut ``placeholder`` (``->setPlaceholder($str)``).
   * ``sly_Form_Input_Base::setReadOnly()`` hat ``true`` als Standard-Argument
@@ -424,27 +439,145 @@ folgenden Änderungen an der API:
       * Benutzer mit ``advancedMode[]`` sehen bei Links die Artikel-ID und bei
         Dateien den Dateinamen (z.B. "Mein Artikel [12]" und "Logo (logo.png)").
 
-  * ``sly_Form_Base``
+  * ``sly_Form_Base`` (betrifft Formulare, Fieldsets und Slices)
 
-    * ``->addElements()`` verlangt zwingend ein Array.
-    * ``->addRows()`` verlangt zwingend ein Array.
-    * ``->isMultilingual()`` verlangt zwingend ein Array.
+    * ``addElements()`` verlangt zwingend ein Array.
+    * ``addRows()`` verlangt zwingend ein Array.
+    * ``isMultilingual()`` verlangt zwingend ein Array.
 
   * ``sly_Form_ElementBase::setDisabled()`` hat ``true`` als Standard-Argument
     und kann jetzt ohne Argumente aufgerufen werden.
   * ``sly_Form_DateTime``
 
-    * ``->setWithTime($withTime = true)`` wurde hinzugefügt.
+    * ``setWithTime($withTime = true)`` wurde hinzugefügt.
     * Das Element wird, wenn möglich, den nativen HTML5-Datetime-Picker
       verwenden. Das ist bisher nur in Opera 11+ möglich. Alle anderen Browser
       erhalten den bekannten jQuery UI Fallback.
 
+  * ``sly_Form_Fieldset::clearElements()`` wurde in ``::clearRows()`` umbenannt.
+  * ``sly_Form_Helper:: getCategorySelect()`` hat einen weiteren Parameter
+    ``$addHomepage = true`` erhalten.
+  * ``sly_Form_Text::setText()`` wurde hinzugefügt.
+
+* ``addMsg()`` wurde vom Interface ``sly_I18N_Base`` entfernt.
+* Models
+
+  * Artikel
+
+    * ``getUrl()`` wurde um ``$divider = '&amp;'``  und ``$disableCache =
+      false`` erweitert (da ``rex_getUrl()`` entfernt wurde). ``$disableCache``
+      ist nur für den internen Gebrauch durch Sally gedacht.
+    * ``hasTemplate()`` wurde hinzugefügt.
+
+  * ``sly_Model_User::hasPerm()`` ist **deprecated** und sollte nicht mehr
+    verwendet werden. ``hasRight()`` ist die neue Version.
+  * siehe auch die Hinweise zu ``sly_Model_Medium`` und
+    ``sly_Model_MediaCategory`` weiter oben
+
+* Services
+
+  * AddOns / Plugins
+
+    * Die beiden Services für AddOns und Plugins wurden weiter vereinheitlicht.
+    * ``getDependencies()`` wurde in den Basis-Service verschoben.
+    * ``dependencyHelper()`` wurde in den Basis-Service verschoben.
+    * ``isRequired()`` wurde in den Basis-Service verschoben.
+    * Es können nicht mehr nur Abhängigkeiten zu AddOns, sondern auch zu
+      Plugins angegeben werden. Dazu müssen AddOn und Plugin als String mit
+      einem Schrägstrich getrennt notiert werden (``myaddon/myplugin``).
+
+  * ``sly_Service_Article::touch()`` wurde hinzugefügt und setzt ``updatedate``
+    und ``updateuser`` neu.
+  * Factory
+
+    * ``getMediumService()`` wurde hinzugefügt.
+    * ``getMediaCategoryService()`` wurde hinzugefügt.
+
+  * Services für Medien und Medienkategorien wurde ergänzt. Siehe die
+    `API-Dokumentation <../api/index.html>`_ für mehr Details.
+
+* Tabellen-Framework
+
+  * ``sly_Table_Column::setIndex()`` wurde hinzugefügt, damit die
+    ``render()``-Methode kompatibel zur Basisklasse ist (um
+    ``E_STRICT``-Meldungen zu vermeiden).
+  * ``sly_Table_Column::setTable()`` wurde ergänzt, um die Bezugstabelle für
+    eine Spalte zu setzen.
+  * ``setIndex()`` und ``setTable()`` sollten in der Regel nicht von Userland
+    Code aufgerufen werden.
+  * Tabellen müssen nun durch die Umstellung auf ``sly_Viewable`` als Basis
+    wie folgt gerendert werden:
+
+    * Vor dem Rumpf muss ``$table->openBuffer()`` aufgerufen werden.
+    * Nach dem Rumpf muss ``$table->closeBuffer()`` aufgerufen werden.
+    * Die Ausgabe erfolgt direkt im Anschluss via ``print $table->render()``
+      (das ``print`` ist ebenfalls neu in Sally 0.5).
+
+* ``sly_Authorisation``: ``getRights()``, ``getExtendedRights()`` und
+  ``getExtraRights()`` wurden hinzugefügt.
+* ``sly_Configuration`` wirft bei Problemen Instanzen von ``sly_Exception``
+  (anstatt wie bisher teilweise ``Exception``).
+* ``sly_Core``
+
+  * enthält die Instanz des aktuellen Error Handlers (``getErrorHandler()``
+    und ``setErrorHandler()``)
+  * enthält die Instanz des I18N-Objects (``getI18N()`` und ``setI18N()``)
+  * siehe Abschnitt über ``$REX`` für die Liste der neu hinzugefügten Methoden,
+    um auf Systemkonfigurationen zuzugreifen. Diese sind in jedem Fall dem
+    direkten Zugriff via ``sly_Core::config()->get('...')`` vorzuziehen.
+  * ``registerListeners()`` dient dazu, die :doc:`Frontend-Listener
+    </developing/listeners>` zu registrieren und sollte nicht von Userland Code
+    aufgerufen werden.
+  * ``getCurrentPage()`` gibt die aktuelle Backend-Seite zurück.
+
+* I18N
+
+  * Der Konstruktor von ``sly_I18N()`` wurde um ``$setlocale = true`` erweitert
+    und wird wenn ``true`` dann das Locale setzen, wie es vorher schon
+    ``sly_set_locale()`` getan hat. Um dies nachträglich zu erledigen, kann
+    auch ``->setLocale()`` aufgerufen werden.
+  * Sprachdateien müssen auf ``.yml`` enden.
+  * ``addMsg()`` wurde entfernt.
+
+* ``sly_Layout``: Der gesetzte Seitentitel wird automatisch mit ``sly_html()``
+  verarbeitet.
+* ``sly_Loader::findClass()`` wurde hinzugefügt.
+* ``sly_Log::getInstance()`` gibt nun echte Singletons zurück.
+* Utilities
+
+  * ``sly_Util_Array::hasget()`` wurde hinzugefügt, um Zugriffe auf die
+    Konfiguration zu beschleunigen.
+  * ``sly_Util_Array::flatten()`` wurde als Ersatz für ``array_flatten()``
+    hinzugefügt.
+  * ``sly_Util_Directory::create()`` gibt im Erfolgsfall den Pfad anstatt
+    ``true`` zurück.
+  * ``sly_Util_Directory::delete()`` wurde hinzugefügt, um ein Verzeichnis
+    zu löschen. ``deleteFiles()`` kann nun auch rekursiv arbeiten. ``copyTo()``
+    kopiert ein Verzeichnis.
+  * ``sly_Util_HTTP::queryString()`` ersetzt ``rex_param_string()``.
+  * ``sly_Util_Language::hasPermissionOnLanguage()`` wurde hinzugefügt.
+  * ``formatDate()``, ``formatTime()`` und ``formatDatetime()`` wurden
+    ``sly_Util_String`` hinzugefügt. Ebenso kam ``escapePHP()`` hinzu.
+
+Backend
+"""""""
+
+* Die Basisklasse für Backend-Controller muss nun ``sly_Controller_Backend``
+  (statt ``sly_Controller_Sally``) sein. Dies wird dazu führen, dass die meisten
+  AddOns, die ein eigenes Backend mitbringen, entweder mit 0.4 oder 0.5
+  kompatibel sind, aber nie mit beiden Versionen.
+* Assets müssen aufgrund der geänderten Verzeichnisstruktur nun via
+  ``../sally/data/dyn/......`` verlinkt werden (man beachte das hinzugekommene
+  ``sally/``).
+* Das CSS wurde aufgeräumt und einige Klassen haben sich geändert. Alle
+  aufzulisten wäre unmöglich -- und auch unnötig, da der Großteil des Markups
+  von Sally generiert wird.
+
 Events
 """"""
 
-.. note::
-
-  TODO
+* ``SLY_BOOTCACHE_CLASSES_[FRONTEND|BACKEND]`` wird gefeuert, wenn der
+  :doc:`BootCache </sallycms/bootcache>` erzeugt wird.
 
 rex_vars
 """"""""
