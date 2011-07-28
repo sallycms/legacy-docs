@@ -155,7 +155,7 @@ Konstanten
   * ``SLY_SALLYFOLDER`` gibt den absoluten Pfad zum :file:`sally`-Verzeichnis
     an (z. B. :file:`/var/www/myproject/sally/`).
   * ``SLY_COREFOLDER`` gibt den absoluten Pfad zum :file:`core`-Verzeichnis an.
-  * AddOns sollten ihre eigenen Pfad entweder über ``dirname(__FILE__)`` in
+  * AddOns sollten ihren eigenen Pfad entweder über ``dirname(__FILE__)`` in
     ihrer :file:`config.inc.php` oder über ``SLY_ADDONFOLDER.'/myaddon'``
     ermitteln.
   * Die Konstanten ``E_RECOVERABLE_ERROR``, ``E_DEPRECATED`` und
