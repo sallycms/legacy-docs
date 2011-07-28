@@ -97,10 +97,6 @@ API-Änderungen
 Im Folgenden werden soweit möglich alle API-Änderungen zwischen dem 0.4- und dem
 0.5-Branch beschrieben.
 
-.. note::
-
-  TODO
-
 Konfiguration
 """""""""""""
 
@@ -114,7 +110,7 @@ Konfiguration
   * ``SERVER``, ``ERROR_EMAIL``, ``SESSION_DURATION`` und ``USE_GZIP`` wurden
     entfernt.
   * Die ``INSTNAME`` wird nicht mehr aus einem Timestamp, sondern einem SHA-1
-    Hash eines Zufallswerts.
+    Hash eines Zufallswerts ermittelt.
   * Der Zugriff auf die wichtigsten Konfigurationen sollte nun über die neuen
     API-Methoden in ``sly_Core`` stattfinden.
 
@@ -147,6 +143,7 @@ Globale Variablen
     * ``CUR_CLANG`` ist über ``sly_Core::getCurrentClang()`` zu erreichen.
     * ``ARTICLE_ID`` steht in ``sly_Core::getCurrentArticleId()`` zur Verfügung.
     * ``USER`` steht über ``sly_Util_User::getCurrentUser()`` zur Verfügung.
+    * ``LOCALES`` steht über ``sly_I18N::getLocales()`` zur Verfügung.
 
   * ``$I18N`` wurde entfernt. Die Instanz kann über ``sly_Core::getI18N()``
     abgerufen und über ``::setI18N()`` gesetzt werden.
@@ -182,14 +179,14 @@ Datei(system)
 * Die Datei :file:`sally/include/functions/function_rex_url.inc.php` wurde
   entfernt. Mit ihr wurden auch ``rex_getUrl()`` und ``rex_param_string()``
   entfernt.
+* Das Cache-Verzeichnis :file:`dyn/internal/sally/files` existiert nicht mehr.
 
 Datenbank
 """""""""
 
 * Die ``type``-Angaben in ``sly_slice_value`` wurden jeweils von ``REX_...`` in
-  ``SLY_...`` umbenannt,
-  da sich die API der rex_vars geändert und sie teilweise auch völlig neu
-  implementiert wurden.
+  ``SLY_...`` umbenannt, da sich die API der rex_vars geändert und sie teilweise
+  auch völlig neu implementiert wurden.
 * Die Indexe von ``sly_article``, ``sly_article_slice``, ``sly_file``,
   ``sly_file_category`` und ``sly_registry`` wurden angepasst.
 
@@ -204,3 +201,179 @@ Bestehende Daten gehen dabei nicht verloren.
   ALTER TABLE `sly_file` ADD KEY KEY `filename` (`filename`(255));
   ALTER TABLE `sly_article` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`);
   ALTER TABLE `sly_registry` DROP INDEX `name`, ADD PRIMARY KEY (`name`);
+
+JavaScript
+""""""""""
+
+Der Großteil der JavaScript-API wurde neu implementiert, um ohne kryptische IDs
+auszukommen. Die Änderungen, die nur die Funktionsweise der vorimplementierten
+Widgets ("Mediabutton", "Medialistbuton", etc.) betreffen, sollen hier nicht
+dargelegt werden.
+
+* Der Medienpool kann nun über ``sly.openMediapool(subpage, value, callback)``
+  geöffnet werden. Der ``callback`` ist der *Name* einer JavaScript-Funktion,
+  die vom Popup aufgerufen wird, wenn eine Datei übernommen werden soll. Der
+  Callback erhält die Parameter ``(filename, fullName, title, link)`` übergeben.
+
+  * ``filename`` ist der Dateiname, z. B. ``foo.jpg``.
+  * ``fullName`` ist der anzuzeigende Titel (z. B. "Meine Datei (foo.jpg)").
+  * ``title`` ist der Dateititel (z. B. "Meine Datei", kann leer sein).
+  * ``link`` ist der Pfad zur Datei, z. B. ``data/mediapool/foo.jpg``.
+
+  Der Name des Callbacks darf keine Punkte enthalten.
+
+* Die Linkmap kann nun über ``sly.openLinkmap(value, callback)`` geöffnet
+  werden. Der ``callback`` ist der *Name* einer JavaScript-Funktion, die vom
+  Popup aufgerufen wird, wenn eine Datei übernommen werden soll. Der Callback
+  erhält die Parameter ``(id, fullName, name, link)`` übergeben.
+
+  * ``id`` ist die ID des ausgewählten Artikels.
+  * ``fullName`` ist der anzuzeigende Titel (z. B. "Mein Artikel [1]").
+  * ``name`` ist der Artikelname (z. B. "Mein Artikel").
+  * ``link`` ist die virtuelle Artikel-URL (z. B. ``sally://1/``).
+
+  Der Name des Callbacks darf keine Punkte enthalten.
+
+* Popups können nun allgemein über ``sly.openCenteredPopup(name, link, width,
+  height, extra)`` geöffnet werden. Die Namen ``slymediapool`` und
+  ``slylinkmap`` sind für Sally und den Medienpool respektive Linkmap
+  reserviert.
+* Keine der bisher existierenden JavaScript-Funktionen (``addREX...``, ...)
+  wurde übernommen. Alle neuen Funktionen sind Eigenschaften des globalen
+  ``sly``-Objekts.
+
+Globale Funktionen
+""""""""""""""""""
+
+Die folgenden Funktionen wurden **entfernt** (soweit möglich wurde die
+Alternativ-API angegeben):
+
+* ``rex_send_file()`` (durch den :doc:`Asset-Cache </sallycms/assetcache>`
+  obsolet)
+* ``rex_send_gzip()`` (es wird immer gzip verwendet, soweit möglich)
+* ``rex_module_exists()``
+* ``rex_execPreSaveAction()`` (Actions werden über :doc:`Frontend-Listener
+  </developing/listeners>` umgesetzt)
+* ``rex_execPostSaveAction()``
+* ``_rex_execSaveAction()``
+* ``rex_getActionModeBit()``
+* ``rex_deleteCacheSliceContent()``
+* ``rex_deleteDir`` (siehe ``sly_Util_Directory->delete()``)
+* ``rex_deleteFiles()`` (siehe ``sly_Util_Directory->deleteFiles()``)
+* ``rex_create_lang()`` (wurde mit dem ``sly_I18N``-Konstruktor zusammengeführt)
+* ``sly_set_locale()`` (wird beim Anlegen eines ``sly_I18N``-Objekts erledigt)
+* ``rex_info_block()``
+* ``rex_warning_block()``
+* ``rex_message_block()``
+* ``rex_highlight_string()``
+* ``rex_highlight_file()``
+* ``_rex_highlight()``
+* ``array_flatten()`` (siehe ``sly_Util_Array::flatten()``)
+* ``rex_getUrl()`` (URLs können nur noch direkt von Artikel-Models abgerufen
+  werden)
+* ``rex_param_string()`` (mit ``sly_Util_HTTP::queryString()`` zusammengeführt)
+
+Es wurden keine neuen globalen Funktionen hinzugefügt.
+
+Das Interface der folgenden Funktionen hat sich **geändert**:
+
+* ``rex_send_last_modified()`` kann ohne Timestamp aufgerufen werden und
+  verwendet in diesem Fall die aktuelle Zeit (``time()``).
+* Der Parameter ``$direction`` in ``rex_moveSlice()`` muss ``up`` oder ``down``
+  sein (nicht mehr ``moveup`` bzw. ``movedown``).
+* ``rex_slice_module_exists()`` erhielt einen zweiten Parameter (``$clang``),
+  um die Existenz von Slices in einer Sprache zu überprüfen. Der Parameter ist
+  Pflicht.
+* Die Datentypen ``rex-template-id``, ``rex-module-id``, ``rex-action-id``,
+  ``rex-slot`` und ``rex-ctype-id`` für ``_rex_cast_var()`` wurden entfernt.
+
+Die folgenden Funktionen sind mit diesem Release **deprecated** und sollten
+nicht mehr verwendet werden:
+
+* ``rex_message()`` (siehe ``sly_Util_Message::message()``)
+* ``rex_info()`` (siehe ``sly_Util_Message::info()``)
+* ``rex_warning()`` (siehe ``sly_Util_Message::warn()``)
+
+Das **Verhalten** der folgenden Funktionen hat sich geändert:
+
+* ``rex_send_article()``: "Dynamische Bereiche" (``<!--DYN-->``) werden nicht
+  mehr besonders beachtet und daher bei der Berechnung von ETags nicht mehr
+  entfernt. Gleichzeitig wird der HTTP-Header ``Content-MD5`` nicht mehr
+  gesendet.
+* ``rex_moveSlice()`` wirft im Fehlerfall eine ``sly_Exception`` anstatt einen
+  Error auszuösen.
+
+Klassen
+"""""""
+
+Die folgenden Klassen wurden **entfernt**:
+
+* ``OOMedia`` wurde durch ``sly_Model_Medium`` ersetzt. Sehr spezielle Methoden
+  wie ``toIcon()``, ``toImage()`` etc. wurden nicht übernommen. Die
+  `API-Dokumentation <../api/index.html>`_ beschreibt das neue Interface.
+* ``OOMediaCategory`` wurde durch ``sly_Model_MediaCategory`` ersetzt. Die
+  `API-Dokumentation <../api/index.html>`_ beschreibt das neue Interface.
+* ``sly_Model_Media_Medium`` wurde in ``sly_Model_Medium`` umbenannt. Ebenso
+  wurde mit dem dazugehörigen Service verfahren.
+* ``sly_Model_Media_Category`` wurde in ``sly_Model_MediaCategory`` umbenannt.
+  Ebenso wurde mit dem dazugehörigen Service verfahren.
+* ``OOArticle`` und ``OOCategory`` wurden entfernt. Siehe die dazugehörigen
+  Utility-Klassen, um die statischen Getter zu finden (z. B.
+  ``sly_Util_Article::findById()``).
+* ``sly_Form_FreeformArea`` wurde entfernt, da es sich effektiv nicht von
+  ``sly_Form_Container`` unterschied.
+* ``sly_Form_Widget`` wurde entfernt, da es keine Basisklasse für die Widgets
+  mehr geben muss.
+* ``rex_var_globals`` wurde ersatzlos gestrichen.
+
+Die folgenden Klassen wurden **hinzugefügt**:
+
+* die Klassen für den Error Handler
+
+  * ``sly_ErrorHandler_Base``
+  * ``sly_ErrorHandler_Development``
+  * ``sly_ErrorHandler_Production``
+  * ``sly_ErrorHandler`` (Interface)
+
+* Formular-Framework
+
+  * ``sly_Form_Exception``
+  * ``sly_Form_Input_Boolean`` als neue Basisklasse für Checkboxen und
+    Radiobuttons
+  * ``sly_Form_Input_Email`` (HTML5-Element)
+  * ``sly_Form_Input_Number`` (HTML5-Element)
+  * ``sly_Form_Input_Range`` (HTML5-Element)
+  * ``sly_Form_Input_Slider`` (HTML5-Element mit jQuery UI Fallback)
+  * ``sly_Form_Input_URL`` (HTML5-Element)
+  * Die Widgets (komplexe Elemente, die nicht nur aus einem einzelnen HTML-Tag
+    bestehen) wurden umbenannt. Das Suffix ``Button`` wurde jeweils entfernt.
+
+* ``sly_Util_ArticleSlice`` kümmert sich um Artikel-Slices.
+* ``sly_Util_BootCache`` implementiert den :doc:`BootCache
+  </sallycms/bootcache>`.
+* ``sly_Util_Slice``
+* ``sly_Viewable`` als Basis-Klasse für Controller, Formulare und Layouts
+
+.. note::
+
+  TODO
+
+Events
+""""""
+
+.. note::
+
+  TODO
+
+rex_vars
+""""""""
+
+.. note::
+
+  TODO
+
+
+0.5.0 -> 0.5.x
+^^^^^^^^^^^^^^
+
+* Das wird die Zeit zeigen...
