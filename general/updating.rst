@@ -118,7 +118,7 @@ Konfiguration
     * ``::getSiteStartArticleId()``
     * ``::getNotFoundArticleId()``
     * ``::getDefaultLocale()``
-    * ``::getDefaultLanguageId()``
+    * ``::getDefaultClangId()``
     * ``::getVersion()`` (erlaubt die Angabe des Formats, z.B. ``X.Y``)
     * ``::getDefaultArticleType()``
     * ``::getCachingStrategy()``
