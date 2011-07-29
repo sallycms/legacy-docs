@@ -578,14 +578,39 @@ Events
 
 * ``SLY_BOOTCACHE_CLASSES_[FRONTEND|BACKEND]`` wird gefeuert, wenn der
   :doc:`BootCache </sallycms/bootcache>` erzeugt wird.
+* "The Events that were formerly known as 'Actions'"
+
+  * Beim Bearbeiten von Slices werden nun Events ausgelöst. Bei den Events
+    wird jeweils ``ADD``, ``EDIT`` oder ``DELETE`` als Funktion angenommen.
+  * *Vor dem Speichern* eines Slices wird das Event
+    ``SLY_SLICE_PRESAVE_[Funktion]`` ausgelöst. Dem Event werden ``module``,
+    ``article_id`` und ``clang`` als Parameter übergeben. Das Subject sind die
+    Slice-Daten.
+  * *Nach dem Speichern* eines Slices wird das Event
+    ``SLY_SLICE_POSTSAVE_[Funktion]`` ausgelöst. Dem Event wird
+    ``article_slice_id`` als Parameter übergeben. Das Subject ist ein leerer
+    String, in dem die Listener ihre Nachrichten (Infos oder Warnungen)
+    unterbringen können.
 
 rex_vars
 """"""""
 
-.. note::
-
-  TODO
-
+* Die Platzhalter wurden jeweils von ``REX_...`` in ``SLY_...`` umbenannt. Dies
+  betrifft auch die Speicherung in der Datenbank (siehe weiter oben für das
+  SQL-Script, mit dem bestehende Daten aktualisiert werden können).
+* Die "Buttons" wurden in "Widgets" umbenannt (siehe oben für die Klassennamen).
+  Die Platzhalter lauten damit wie ``SLY_LINK_WIDGET``, ``SLY_LINKLIST_WIDGET``
+  etc.
+* Die Alternativen für Medien (``REX_FILE_...``) wurden entfernt. Verwende
+  ``SLY_MEDIA_...`` stattdessen.
+* ``SLY_ARTICLE`` kann nicht mehr auf einzelne Eigenschaften des jeweiligen
+  Artikels zugreifen (``SLY_ARTICLE[field=description]``). Das war in Sally
+  seit langem nicht mehr möglich und führte daher schon lange zu Fehlern. Jetzt
+  wurde der dafür zuständige Code auch entfernt.
+* ``REX_MODULE_ID``, ``REX_SLICE_ID``, ``REX_CTYPE_ID``, ``REX_SLOT`` wurden
+  entfernt (da ``rex_var_globals`` entfernt wurde).
+* ``SLY_LINK`` gibt jetzt die Artikel-ID zurück. ``SLY_LINK_URL`` kann zum
+  Zugriff auf die URL verwendet werden.
 
 0.5.0 -> 0.5.x
 ^^^^^^^^^^^^^^
