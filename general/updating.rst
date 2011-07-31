@@ -315,9 +315,9 @@ Die folgenden Klassen wurden **entfernt**:
 
 * ``OOMedia`` wurde durch ``sly_Model_Medium`` ersetzt. Sehr spezielle Methoden
   wie ``toIcon()``, ``toImage()`` etc. wurden nicht übernommen. Die
-  `API-Dokumentation <../api/index.html>`_ beschreibt das neue Interface.
+  `API-Dokumentation <../coco/index.html>`_ beschreibt das neue Interface.
 * ``OOMediaCategory`` wurde durch ``sly_Model_MediaCategory`` ersetzt. Die
-  `API-Dokumentation <../api/index.html>`_ beschreibt das neue Interface.
+  `API-Dokumentation <../coco/index.html>`_ beschreibt das neue Interface.
 * ``sly_Model_Media_Medium`` wurde in ``sly_Model_Medium`` umbenannt. Ebenso
   wurde mit dem dazugehörigen Service verfahren.
 * ``sly_Model_Media_Category`` wurde in ``sly_Model_MediaCategory`` umbenannt.
@@ -494,7 +494,7 @@ folgenden Änderungen an der API:
     * ``getMediaCategoryService()`` wurde hinzugefügt.
 
   * Services für Medien und Medienkategorien wurde ergänzt. Siehe die
-    `API-Dokumentation <../api/index.html>`_ für mehr Details.
+    `API-Dokumentation <../coco/index.html>`_ für mehr Details.
 
 * Tabellen-Framework
 
