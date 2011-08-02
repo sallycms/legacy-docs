@@ -65,6 +65,9 @@ Weiterhin:
 0.5-Branch
 ----------
 
+Eine Übersicht über die neuen Features und Verbesserungen gibt der `News-Beitrag
+im Sally-Wiki <https://projects.webvariants.de/news/47>`_.
+
 0.4.x -> 0.5.0
 ^^^^^^^^^^^^^^
 
