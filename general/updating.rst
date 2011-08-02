@@ -543,6 +543,8 @@ folgenden Änderungen an der API:
   verarbeitet.
 * ``sly_Loader::findClass()`` wurde hinzugefügt.
 * ``sly_Log::getInstance()`` gibt nun echte Singletons zurück.
+* ``sly_Layout_Navigation_Sally`` wurde in ``sly_Layout_Navigation_Backend``
+  umbenannt.
 * Utilities
 
   * ``sly_Util_Array::hasget()`` wurde hinzugefügt, um Zugriffe auf die
