@@ -62,6 +62,11 @@ Weiterhin:
     Effekt genutzt werden).
   * Außerdem wurde die Nummerierung der ``page``-Klassen korrigiert.
 
+0.4.6 -> 0.4.7
+^^^^^^^^^^^^^^
+
+* Nichts tun :-)
+
 0.5-Branch
 ----------
 
