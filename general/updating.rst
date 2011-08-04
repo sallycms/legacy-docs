@@ -61,3 +61,8 @@ Weiterhin:
   * Die Klasse ``first`` wurde entfernt (``:first-child`` kann für den gleichen
     Effekt genutzt werden).
   * Außerdem wurde die Nummerierung der ``page``-Klassen korrigiert.
+
+0.4.6 -> 0.4.7
+^^^^^^^^^^^^^^
+
+* Nichts tun :-)
