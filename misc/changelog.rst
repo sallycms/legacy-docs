@@ -3,8 +3,8 @@ Changelog
 
 *(notorisch unvollständig)*
 
-0.5.0 (?? ?? 2011)
-------------------
+0.5.0 (4. August 2011)
+----------------------
 
 .. note::
 
@@ -13,7 +13,16 @@ Changelog
   </general/updating>`.
 
 * integrierter :doc:`Error Handler </sallycms/errorhandler>`
-* ...
+* neue :doc:`Verzeichnisstruktur </general/birdseye>`
+* neue Content-Verwaltung
+* JavaScript-Refactoring
+* BootCache zur Verbesserung der Leistung
+* HTML5-Unterstützung in ``sly_Form``
+* neue Dokumentation
+* ``$REX`` wurde entfernt.
+* u.v.m.
+
+Siehe dazu auch den `News-Beitrag <https://projects.webvariants.de/news/48>`_
 
 0.4.6 (14. Juli 2011)
 ---------------------
