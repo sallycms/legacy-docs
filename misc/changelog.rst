@@ -24,6 +24,21 @@ Changelog
 
 Siehe dazu auch den `News-Beitrag <https://projects.webvariants.de/news/48>`_
 
+0.4.7 (3. August 2011)
+----------------------
+
+* ``FILEPERM`` und ``DIRPERM`` werden nun konsequenter von Sally für erzeugte
+  Dateien und Verzeichnisse verwendet.
+* Fehler, die in Modulen auftreten, werden von der Content-Seite abgefangen und
+  ausgegeben.
+* Bugfix: Assets wurden vom IE7/IE8 nicht beim ersten Aufruf geladen (`#3711
+  <https://projects.webvariants.de/issues/3711>`_).
+* Bugfix: CSS-Fix für überlange (tiefe) Strukturen
+* Bugfix: ``sly_Util_Article::isSiteStartArticle()`` und
+  ``sly_Util_Article::isNotFoundArticle()`` sollten statisch sein.
+* Bugfix: SQL-Fehler in ``OOArticleSlice::getNextSlice()`` und
+  ``OOArticle::getPreviousSlice()``
+
 0.4.6 (14. Juli 2011)
 ---------------------
 
