@@ -71,7 +71,7 @@ Weiterhin:
 ----------
 
 Eine Übersicht über die neuen Features und Verbesserungen gibt der `News-Beitrag
-im Sally-Wiki <https://projects.webvariants.de/news/47>`_.
+im Sally-Wiki <https://projects.webvariants.de/news/48>`_.
 
 0.4.x -> 0.5.0
 ^^^^^^^^^^^^^^
