@@ -212,7 +212,7 @@ Bestehende Daten gehen dabei nicht verloren.
   ALTER TABLE `sly_article` DROP INDEX `id`, ADD PRIMARY KEY (`id`, `clang`);
   ALTER TABLE `sly_article_slice` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`), ADD KEY `find_article` (`article_id`, `clang`);
   ALTER TABLE `sly_file` ADD KEY `filename` (`filename`(255));
-  ALTER TABLE `sly_article` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`);
+  ALTER TABLE `sly_article` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`, `clang`);
   ALTER TABLE `sly_registry` DROP INDEX `name`, ADD PRIMARY KEY (`name`);
 
 JavaScript
