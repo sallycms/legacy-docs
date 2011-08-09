@@ -53,8 +53,8 @@ Weiterhin:
 0.4.5 -> 0.4.6
 ^^^^^^^^^^^^^^
 
-* ``sly_Util_Navigation`` hat kleinere Änderungen erfahren, die ggf. Anpassungen
-  des CSS-Codes erfordern:
+* ``sly_Util_Pager`` hat kleinere Änderungen erfahren, die ggf. Anpassungen des
+  CSS-Codes erfordern:
 
   * Das aktuelle Element erhält die Klasse ``active`` und wrappt seinen Text in
     ein ``<span>``-Element.
