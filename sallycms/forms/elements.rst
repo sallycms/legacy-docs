@@ -17,10 +17,14 @@ Struktur
 
     * ``sly_Form_Input_Button``
     * ``sly_Form_Input_Checkbox``
+    * ``sly_Form_Input_Email``
     * ``sly_Form_Input_File``
+    * ``sly_Form_Input_Number``
     * ``sly_Form_Input_Password``
     * ``sly_Form_Input_Radio``
+    * ``sly_Form_Input_Range``
     * ``sly_Form_Input_Text``
+    * ``sly_Form_Input_URL``
 
   * ``sly_Form_Select_Base``
 
@@ -32,10 +36,10 @@ Struktur
   * ``sly_Form_Textarea``
   * ``sly_Form_Widget``
 
-    * ``sly_Form_Widget_LinkButton``
-    * ``sly_Form_Widget_LinkListButton``
-    * ``sly_Form_Widget_MediaButton``
-    * ``sly_Form_Widget_MediaListButton``
+    * ``sly_Form_Widget_Link``
+    * ``sly_Form_Widget_LinkList``
+    * ``sly_Form_Widget_Media``
+    * ``sly_Form_Widget_MediaList``
 
 Gemeinsame API
 --------------
