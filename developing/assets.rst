@@ -29,9 +29,11 @@ Im Standard-Layout eines Sally-Projekts werden diese Dateien im Verzeichnis
   |  |  +- main.js
   |  |  +- ...
   |  +- (ggf. weitere Verzeichnisse, je nach Bedarf)
-  +- data
   +- develop
   +- sally
+     +- backend
+     +- core
+     +- data
 
 Assets verlinken
 ----------------

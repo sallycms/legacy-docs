@@ -19,8 +19,8 @@ Grundlagen
 ^^^^^^^^^^
 
 Der obige Code erstellt eine Logdatei namens :file:`mylog.log` (Endung wird
-automatisch angefügt!) im Verzeichnis :file:`data/dyn/internal/sally/logs`. Über
-diese Instanz können nun Daten ausgegeben werden.
+automatisch angefügt!) im Verzeichnis :file:`sally/data/dyn/internal/sally/logs`.
+Über diese Instanz können nun Daten ausgegeben werden.
 
 .. sourcecode:: php
 
