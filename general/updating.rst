@@ -62,7 +62,7 @@ Weiterhin:
     Effekt genutzt werden).
   * Außerdem wurde die Nummerierung der ``page``-Klassen korrigiert.
 
-0.4.6 -> 0.4.7
+0.4.6 -> 0.4.8
 ^^^^^^^^^^^^^^
 
 * Nichts tun :-)
