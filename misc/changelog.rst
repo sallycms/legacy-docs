@@ -6,8 +6,8 @@ Changelog
 0.4.8 (10. August 2011)
 -----------------------
 
-* BabelCache wurde auf Version 1.2.5 aktualisiert. Damit wurde der Dateisystem
-  weiter stabilisiert.
+* BabelCache wurde auf Version 1.2.5 aktualisiert. Damit wurde der
+  Dateisystem-Cache weiter stabilisiert.
 * Bugfix: Geschützte Assets funktionierten nicht auf Servern ohne mod_headers.
 
 0.4.7 (3. August 2011)
