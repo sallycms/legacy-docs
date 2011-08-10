@@ -10,7 +10,7 @@ Außerdem wird das erzeugte CSS direkt validiert und minimiert.
 
 Scaffold ist auch im Frontend aktiviert. Alle CSS-Dateien, die in
 :file:`assets/css/` liegen, werden beim Aufruf über den Webbrowser mit Scaffold
-verarbeitet und automatisch in :file:`data/dyn/internal/sally/css-cache/`
+verarbeitet und automatisch in :file:`sally/data/dyn/internal/sally/css-cache/`
 gespeichert.
 
 .. note::

@@ -26,6 +26,7 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    developing/develop/layouts
    developing/develop/modules
    developing/assets
+   developing/listeners
    developing/scaffold
    developing/tips
 
@@ -40,6 +41,8 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    sallycms/mailing
    sallycms/logging
    sallycms/assetcache
+   sallycms/errorhandler
+   sallycms/bootcache
 
    contributing/index
    contributing/core
@@ -79,12 +82,17 @@ Projektentwicklung
     * :doc:`developing/develop/modules`
 
   * :doc:`Projekt-Konfiguration <sallycms/configuration>`
+  * :doc:`Frontend-Listener <developing/listeners>` ("Actions")
   * :doc:`developing/assets`
   * :doc:`developing/scaffold`
   * :doc:`developing/tips`
 
 SallyCMS-API
 ------------
+
+.. note::
+
+  Siehe auch die aus dem PHP-Code generierte `API-Dokumentation <coco/index.html>`_.
 
 * :doc:`Autoloader <sallycms/autoloading>`
 * :doc:`Kern-API <sallycms/slycore>`
@@ -101,6 +109,8 @@ SallyCMS-API
   * :doc:`AddOns und Plugins <sallycms/services/addon>`
 
 * :doc:`Utilities <sallycms/utilities/index>`
+* :doc:`Error Handling <sallycms/errorhandler>`
+* :doc:`BootCache <sallycms/bootcache>`
 
 AddOns entwickeln
 -----------------
