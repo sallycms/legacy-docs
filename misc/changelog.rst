@@ -3,6 +3,26 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.1 (11. August 2011)
+-----------------------
+
+* BabelCache wurde auf Version 1.2.5 aktualisiert. Damit wurde der
+  Dateisystem-Cache weiter stabilisiert.
+* sfYaml wurde auf die aktuellste Version (8a266aadcec87) von GitHub
+  aktualisiert.
+* Weitere Verbesserungen am Styling von Formular-Elementen in Modulen;
+  ``.rex-form-notice`` wurde in ``.sly-form-helptext`` umbenannt.
+* Bugfix: Zeige Slotmenü nicht, wenn nur ein Slot existiert.
+* Bugfix: Fehlermeldung beim Installieren von inkompatiblen Plugins korrigiert.
+* Bugfix: Log-Rotation war immer aktiviert, unabhängig vom
+  ``enableRotation``-Flag.
+* Bugfix: Warnungen, die während des Bootens von Sally auftreten, führten u.U.
+  zu fehlerhaft kodierten (gzip) Seiten.
+* Bugfix: Zugriff auf Sprachen für Non-Admins funktionierte nicht (Zugriff auf
+  die Strukturseite war nicht möglich).
+* Bugfix: Das Setup sollte wenigstens bis zum Punkt, wo ``short_open_tags``
+  geprüft wird, sauber arbeiten.
+
 0.4.8 (10. August 2011)
 -----------------------
 

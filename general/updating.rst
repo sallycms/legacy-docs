@@ -622,7 +622,17 @@ rex_vars
 * ``SLY_LINK`` gibt jetzt die Artikel-ID zurück. ``SLY_LINK_URL`` kann zum
   Zugriff auf die URL verwendet werden.
 
-0.5.0 -> 0.5.x
+0.5.0 -> 0.5.1
+^^^^^^^^^^^^^^
+
+* Das Styling von Modulen wurde leicht angepasst, insbes. wurde
+  ``.rex-form-notice`` in ``.sly-form-helptext`` umbenannt.
+* ``rex_send_article()`` kann mit ``$content = null`` aufgerufen werden und wird
+  dann alle offenen Output Buffer selber schließen.
+* ``sly_Util_String::shortenFilename()`` prüft nicht mehr explizit die Typen der
+  übergebenen Parameter (kein ``is_string()`` und dergleichen mehr).
+
+0.5.1 -> 0.5.x
 ^^^^^^^^^^^^^^
 
 * Das wird die Zeit zeigen...
