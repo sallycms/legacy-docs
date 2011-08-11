@@ -4,7 +4,7 @@ Installationshinweise
 Systemvoraussetzungen
 ---------------------
 
-* PHP 5.1 (SallyCMS ist vollständig mit PHP 5.3 kompatibel)
+* PHP 5.1 (SallyCMS ist vollständig mit PHP 5.1 bis 5.4 kompatibel)
 
   * :envvar:`short_open_tags` muss aktiviert sein (wird im Setup automatisch
     geprüft).
