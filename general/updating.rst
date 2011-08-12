@@ -632,7 +632,13 @@ rex_vars
 * ``sly_Util_String::shortenFilename()`` prüft nicht mehr explizit die Typen der
   übergebenen Parameter (kein ``is_string()`` und dergleichen mehr).
 
-0.5.1 -> 0.5.x
+0.5.1 -> 0.5.2
+^^^^^^^^^^^^^^
+
+* ``sly_Service_ArticleType::get()`` ist nun public, damit AddOns auf beliebige
+  Eigenschaften von Artikeltypen zugreifen können.
+
+0.5.2 -> 0.5.x
 ^^^^^^^^^^^^^^
 
 * Das wird die Zeit zeigen...
