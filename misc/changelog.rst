@@ -3,6 +3,12 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.4.9 (19. August 2011)
+-----------------------
+
+* AddOns, die aktive Plugins haben, können nicht mehr deaktiviert werden.
+* Bugfix: Der Asset-Cache wurde für den Einsatz im IE wieder einmal korrigiert.
+
 0.4.8 (10. August 2011)
 -----------------------
 
