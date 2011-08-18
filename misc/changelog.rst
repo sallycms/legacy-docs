@@ -18,6 +18,8 @@ Changelog
 * ``sly_Core::DEFAULT_FILEPERM`` und ``sly_Core::DEFAULT_DIRPERM`` wurden
   hinzugefügt (sind aber primär für Sally intern während der Installation
   gedacht und sollten nicht von Userland-Code verwendet werden).
+* Bugfix: An einigen Stellen wurden CSS-Probleme behoben (fehlende und falsche
+  Styles)
 * Bugfix: Wenn Memcached als Cache ausgewählt wurde, war die vom BootCache
   erzeugte Cachedatei fehlerhaft.
 * Bugfix: Der Medienpool vergaß den JavaScript-Callback beim Wechseln der
