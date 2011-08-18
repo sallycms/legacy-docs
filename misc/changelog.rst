@@ -3,6 +3,40 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.2 (19. August 2011)
+-----------------------
+
+* Auf der Credits-Seite (erreichbar über den Link im Footer) befindet sich nun
+  eine neue Unterseite, die einige Informationen über die Sally-Installation
+  enthält. Die dort gegebenen Hinweise sollten beim Erstellen von Bugreports
+  unbedingt beachtet werden. Die Unterseite sieht nur der Administrator.
+* Der Parser, der aus Templates und Modulen die ``@sly``-Angaben extrahiert,
+  kann nun mit mehrzeiligen Angaben arbeiten.
+* Die Backend-Navigation wurde um Methoden zum Entfernen von Gruppen, Seiten und
+  Unterseiten erweitert.
+* ``sly_Service_ArticleType->get()`` ist nun öffentlich zugänglich.
+* ``sly_Core::DEFAULT_FILEPERM`` und ``sly_Core::DEFAULT_DIRPERM`` wurden
+  hinzugefügt (sind aber primär für Sally intern während der Installation
+  gedacht und sollten nicht von Userland-Code verwendet werden).
+* Bugfix: Wenn Memcached als Cache ausgewählt wurde, war die vom BootCache
+  erzeugte Cachedatei fehlerhaft.
+* Bugfix: Der Medienpool vergaß den JavaScript-Callback beim Wechseln der
+  Medienpoolkategorie (führte zu Problemen im Medienpool-Popup).
+* Bugfix: Der vom Medienpool an JavaScript-Callbacks übergebene Dateipfad war
+  fehlerhaft.
+* Bugfix: ``sly_Util_Navigation->getNavigationHash()`` gab keinen Hash zurück.
+* Bugfix: Wenn der Input- oder Output-Teil eines Moduls fehlte, wurde eine
+  Warnung von PHP generiert.
+* Bugfix: ``OOArticleSlice::get[Value|Link|LinkList|...]()`` verwendeten noch
+  das alte ``REX_``-Präfix und verlangten außerdem, dass das Modul auf den
+  Rückgabewert noch einmal ``->getValue()`` aufrief.
+
+0.4.9 (19. August 2011)
+-----------------------
+
+* AddOns, die aktive Plugins haben, können nicht mehr deaktiviert werden.
+* Bugfix: Der Asset-Cache wurde für den Einsatz im IE wieder einmal korrigiert.
+
 0.5.1 (11. August 2011)
 -----------------------
 

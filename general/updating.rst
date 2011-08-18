@@ -637,6 +637,16 @@ rex_vars
 
 * ``sly_Service_ArticleType::get()`` ist nun public, damit AddOns auf beliebige
   Eigenschaften von Artikeltypen zugreifen können.
+* Die Hilfsmethoden zum Zugriff auf Slicewerte (``OOArticleSlice::getValue()``,
+  ``::getLink()`` etc.) geben nun die Werte direkt zurück. Vorher war es
+  fälschlicherweise nötig, auf dem Rückgabewert selbst (im Modul) noch einmal
+  ``->getValue()`` aufzurufen. Siehe Ticket `#3870
+  <https://projects.webvariants.de/issues/3870>`_.
+* Die Konstanten ``sly_Core::DEFAULT_FILEPERM`` und
+  ``sly_Core::DEFAULT_DIRPERM`` entsprechen nun den Konfigurationsdaten (ihre
+  Werte wurden vertauscht, sodass ``DIRPERM`` nun ``0777`` und ``FILEPERM`` den
+  Wert ``0664`` annehmen). Siehe Ticket `#3867
+  <https://projects.webvariants.de/issues/3867>`_.
 
 0.5.2 -> 0.5.x
 ^^^^^^^^^^^^^^
