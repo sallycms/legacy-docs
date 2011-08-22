@@ -3,6 +3,17 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.4.10 (23. August 2011)
+------------------------
+
+* Bugfix: Der Asset-Cache wurde abermals korrigiert und sollte nun auch den
+  nervigsten Clients standhalten, indem auch beim ersten Request auf eine Datei
+  keine Weiterleitungen mehr verwendet werden.
+
+Die o.g. Änderung macht es erforderlich, bei bestehenden Projekten mehr als nur
+die Sally-Dateien zu überschreiben. Siehe dazu die
+:doc:`Upgrade-Hinweise </general/updating>`.
+
 0.5.2 (19. August 2011)
 -----------------------
 
