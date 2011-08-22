@@ -49,12 +49,12 @@ Website.::
 
   /
   +- assets/
-  +- data/
   +- develop/
   |  +- config/
   |  +- modules/
   |  +- templates/
   +- sally/
+     +- data/
 
 Wie auf dem Schema zu erkennen ist, werden Templates und Module noch einmal in
 gesonderten Verzeichnissen angelegt.

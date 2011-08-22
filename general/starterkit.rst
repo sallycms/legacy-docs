@@ -21,10 +21,6 @@ Demonstration dienen, wie AddOns für Sally entwickelt werden können.
   * `Global Settings <https://projects.webvariants.de/projects/globalsettings>`_
     dient zur Verwaltung von Einstellungen, wie zum Beispiel speziellen
     Artikeln, bestimmten Texten, eMail-Adressen, etc.
-  * Der `Error Handler <https://projects.webvariants.de/projects/errorhandler>`_
-    dient zur Verwaltung von Fehlern und dient insbesondere im Produktivbetrieb
-    dazu, beim Auftreten von Fehlern/Exceptions automatisch Fehlermails an eine
-    vorher definierte Adresse zu senden.
   * Der `Deployer <https://projects.webvariants.de/projects/deployer-ng>`_ dient
     dazu, über ``sly_Layout`` eingebundene CSS/JS-Dateien automatisch
     zusammenzufassen und zu minimieren. Dies geschieht für den Entwickler
@@ -35,3 +31,9 @@ Demonstration dienen, wie AddOns für Sally entwickelt werden können.
     stellt einen WYSIWYM-Editor zur Verfügung.
 
 Hinweise zur Nutzung der AddOns finden sich in den entsprechenden Projektwikis.
+
+.. note::
+
+  Der `Error Handler <https://projects.webvariants.de/projects/errorhandler>`_
+  ist ab Version 0.5 nicht mehr im Starterkit enthalten, da Sally nun seinen
+  eigenen, rudimentären :doc:`Error Handler </sallycms/errorhandler>` mitbringt.
