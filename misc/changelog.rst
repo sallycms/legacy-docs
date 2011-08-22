@@ -6,12 +6,18 @@ Changelog
 0.4.10 (23. August 2011)
 ------------------------
 
+* Der Zugriff auf die beiden Scripts im Projektroot (:file:`rebuild_lang.php`
+  und :file:`release.php`) wurde auf die Kommandozeile eingeschränkt, um nicht
+  zu Problemen zu führen, wenn sie aus Versehen mit deployed werden.
+* Bugfix: Prüfe, ob die Cache-Datei weiterhin existiert (im Asset-Cache), bevor
+  sie verarbeitet werden soll. Löst Probleme auf Servern mit seltsamen
+  I/O-Settings.
 * Bugfix: Der Asset-Cache wurde abermals korrigiert und sollte nun auch den
   nervigsten Clients standhalten, indem auch beim ersten Request auf eine Datei
   keine Weiterleitungen mehr verwendet werden.
 
-Die o.g. Änderung macht es erforderlich, bei bestehenden Projekten mehr als nur
-die Sally-Dateien zu überschreiben. Siehe dazu die
+Die letzte Änderung macht es erforderlich, bei bestehenden Projekten mehr als
+nur die Sally-Dateien zu überschreiben. Siehe dazu die
 :doc:`Upgrade-Hinweise </general/updating>`.
 
 0.5.2 (19. August 2011)
