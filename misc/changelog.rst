@@ -12,7 +12,7 @@ Changelog
 
 Die o.g. Änderung macht es erforderlich, bei bestehenden Projekten mehr als nur
 die Sally-Dateien zu überschreiben. Siehe dazu die
-:doc:`Upgrade-Hinweis </general/updating>`.
+:doc:`Upgrade-Hinweise </general/updating>`.
 
 0.4.9 (19. August 2011)
 -----------------------
