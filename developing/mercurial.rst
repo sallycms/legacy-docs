@@ -91,22 +91,23 @@ Installation
 ------------
 
 Im Anschluss kann Sally :doc:`installiert </general/install>` werden. Dabei
-werden nur Datei in :file:`data` erstellt, die über die bereits vorhandene
-:file:`.hgignore`-Datei bei Commits nicht beachtet werden. Damit landen
-Konfiguration und dynamisch erzeugte Inhalte (Caches, ...) nie im Repository.
+werden nur Dateien in :file:`sally/data` erstellt, die über die bereits
+vorhandene :file:`.hgignore`-Datei bei Commits nicht beachtet werden. Damit
+landen Konfiguration und dynamisch erzeugte Inhalte (Caches, ...) nie im
+Repository.
 
 Medienpool
 ----------
 
-Per Konvention sollten Inhalte des Medienpools (:file:`data/mediapool`) nicht
-committed werden. Sie blähen in den meisten Fällen das Repository unnötig auf
-und enthalten nur Dateien, die bereits in anderen Speichern (Festplatte,
+Per Konvention sollten Inhalte des Medienpools (:file:`sally/data/mediapool`)
+nicht committed werden. Sie blähen in den meisten Fällen das Repository unnötig
+auf und enthalten nur Dateien, die bereits in anderen Speichern (Festplatte,
 Netzlaufwerk, Cloud) liegen. Sie werden jedoch nicht über den ignore-Filter
 ignoriert, da ab und an durchaus mal eine Datei mit versioniert werden soll.
 
 Import/Export
 -------------
 
-Erstellte Exports (:file:`data/import_export`) sollten im Gegensatz zum
+Erstellte Exports (:file:`sally/data/import_export`) sollten im Gegensatz zum
 Medienpool versioniert werden, da sie Projektdaten enthalten und zwischen
 verschiedenen Entwicklern (wenn vorhanden) ausgetauscht werden sollen.

@@ -42,7 +42,7 @@ finden sind.
 .. sourcecode:: php
 
   <?
-  $mypath = SLY_INCLUDE_PATH.'/addons/myaddon';
+  $mypath = SLY_ADDONFOLDER.'/myaddon';
   sly_Loader::addLoadPath($mypath.'/lib');
 
 Caching
