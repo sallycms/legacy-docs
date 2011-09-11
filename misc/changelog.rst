@@ -3,6 +3,23 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.4.12 (5. September 2011)
+--------------------------
+
+* Security-Fix: Asset-Cache konnte beliebige Dateien ausliefern
+
+0.4.11 (27. August 2011)
+------------------------
+
+* BabelCache wurde auf v1.2.6 aktualisiert.
+* ``sly_Util_Mime`` wurde zum Zugriff auf Mimetypes ergänzt. Über diese Klasse
+  ermittelt der Asset-Cache (anhand einer Liste von Dateiendungen) nun den
+  Mimetype der auszuliefernden Assets.
+* Bugfix: Strict-Warnung in ``sly_Util_HTTP::isSecure()`` korrigiert.
+* Bugfix: Sende immer den Content-Length-Header beim Asset-Cache.
+* Bugfix: Virtuelle Dateien (ImageResize-Aufrufe) führten zu fehlerhaften
+  Content-Type-Angaben.
+
 0.4.10 (23. August 2011)
 ------------------------
 
