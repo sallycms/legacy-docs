@@ -3,6 +3,61 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.next (???)
+--------------
+
+* Das Styling & Handling von Sortierungen in ``sly_Table`` wurde überarbeitet.
+  Dabei kam es zu einer :doc:`API-Änderung </general/updating>`.
+* ``sly_Log`` kann nun benutzerdefinierte Platzhalter verwenden, die bei dem
+  eigentlichen Log-Aufruf als Kontext mit übergeben werden können. Damit können
+  auch die Werte von vordefinierten Platzhaltern überschrieben werden.
+* hinzugefügt: ``sly_Util_String::getFileExtension()``
+* hinzugefügt: ``sly_Util_String::stringify()`` zum Ermitteln einer gut lesbaren
+  String-Repräsentation eines Wertes
+
+0.5.3 (8. September 2011)
+-------------------------
+
+* (alle Änderungen im 0.4-Branch seit Sally 0.4.9)
+* In der Strukturansicht wird nun nicht mehr das Datum angezeigt, an dem ein
+  Artikel angelegt wurde, sondern der jeweilige Artikeltyp.
+* Das Event ``SLY_SLICE_MOVED`` wurde hinzugefügt.
+* Das Styling der Formulare wurde weiter aufpoliert.
+* Im Menü eines AddOns kann nun bei den Subpages als weiteres Argument jeweils
+  eine CSS-Klasse für das generierte ``<li>`` (in ``rex-navi-page``) angegeben
+  werden.
+* Es wurde ein Script ergänzt, dass die :file:`mimetypes.yml` aus Apache-Sourcen
+  neu aufbaut.
+* Bugfix: Der Header von XHTML5-Layouts wurde nicht ausgegeben.
+* Bugfix: Benutzer ohne Admin-Rechte hatten Probleme in der Strukturansicht,
+  wenn sie nicht auf alle Sprachen Zugriff hatten. Das
+  Benutzer-Bearbeiten-Formular wurde dahingehend angepasst, dass die Struktur
+  nicht mehr als Startseite ausgewählt werden kann, wenn jemand keine
+  Sprachrechte besitzt.
+* Bugfix: Der Specials-Controller ist nun wie angedacht nur noch für Admins
+  zugänglich.
+* Bugfix: Medienkategorien konnten nicht bearbeitet werden.
+* Bugfix: Das Kopieren von Inhalten zwischen Sprachen funktionierte nicht.
+* Bugfix: Die Einrückung des XHTML-Headers wurde aufgehübscht.
+* Bugfix: Fatal Error bei Tabellen mit Pagern
+
+0.4.12 (5. September 2011)
+--------------------------
+
+* Security-Fix: Asset-Cache konnte beliebige Dateien ausliefern
+
+0.4.11 (27. August 2011)
+------------------------
+
+* BabelCache wurde auf v1.2.6 aktualisiert.
+* ``sly_Util_Mime`` wurde zum Zugriff auf Mimetypes ergänzt. Über diese Klasse
+  ermittelt der Asset-Cache (anhand einer Liste von Dateiendungen) nun den
+  Mimetype der auszuliefernden Assets.
+* Bugfix: Strict-Warnung in ``sly_Util_HTTP::isSecure()`` korrigiert.
+* Bugfix: Sende immer den Content-Length-Header beim Asset-Cache.
+* Bugfix: Virtuelle Dateien (ImageResize-Aufrufe) führten zu fehlerhaften
+  Content-Type-Angaben.
+
 0.4.10 (23. August 2011)
 ------------------------
 
