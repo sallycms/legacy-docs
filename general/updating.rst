@@ -665,7 +665,38 @@ rex_vars
   Wert ``0664`` annehmen). Siehe Ticket `#3867
   <https://projects.webvariants.de/issues/3867>`_.
 
-0.5.2 -> 0.5.x
+0.5.2 -> 0.5.3
 ^^^^^^^^^^^^^^
+
+* Die :file:`cache.php` wurde aus dem Asset-Cache entfernt und durch eine
+  direkte Umleitung auf die :file:`index.php` ersetzt. Diese Datei kann also
+  gefahrlos gelöscht werden (wird sie auch beim Leeren des Caches).
+
+Da der Asset-Cache geänderte :file:`.htaccess`-Dateien bewusst nicht
+überschreibt, wird er die neue Version der Datei nie selber an den richtigen
+Platz legen. Man muss daher die Datei :file:`sally/core/install/static-cache/.htaccess`
+selber nach :file:`sally/data/dyn/public/sally/static-cache/.htaccess` kopieren.
+
+0.5.3 -> 0.5.4
+^^^^^^^^^^^^^^
+
+* ``sly_Table::getSortingParameters()`` hat einen weiteren Parameter erhalten.
+  Der neue Parameter ``$tableName`` verhält sich analog zu den getPaging und
+  getSearching-Aufrufen und muss als erstes beim Aufruf notiert werden. Das alte
+  Interface mit zwei Parametern wird weiterhin unterstützt, ist allerdings ab
+  0.6 deprecated. Sie sollte also ab sofort immer wie in
+  ``sly_Table::getSortingParameters($tableName, $default, $allowed)`` aufgerufen
+  werden.
+* ``sly_Log`` kann nun benutzerdefinierte Platzhalter verwenden, die bei dem
+  eigentlichen Log-Aufruf als Kontext mit übergeben werden können. Damit können
+  auch die Werte von vordefinierten Platzhaltern überschrieben werden. Die
+  betroffenen Methoden haben einen zusätzlichen Parameter ``array $context =
+  array()`` erhalten.
+* hinzugefügt: ``sly_Util_String::getFileExtension($filename)``
+* hinzugefügt: ``sly_Util_String::stringify($value)`` zum Ermitteln einer gut
+  lesbaren String-Repräsentation eines Wertes
+
+0.5.4 -> 0.5.next
+^^^^^^^^^^^^^^^^^
 
 * Das wird die Zeit zeigen...
