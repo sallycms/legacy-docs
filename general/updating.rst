@@ -700,3 +700,15 @@ selber nach :file:`sally/data/dyn/public/sally/static-cache/.htaccess` kopieren.
 ^^^^^^^^^^^^^^^^^
 
 * Das wird die Zeit zeigen...
+
+0.6-Branch
+----------
+
+Globale Funktionen
+""""""""""""""""""
+
+Die folgenden Funktionen wurden **entfernt** (soweit möglich wurde die
+Alternativ-API angegeben):
+
+* ``rex_copyDir()`` (``sly_Util_Directory::copyTo()``)
+* ``sly_Util_Article::merge()``
