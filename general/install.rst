@@ -21,14 +21,14 @@ Upload
 ------
 
 #. Entpacke das heruntergladene Archiv auf deinen Rechner.
-#. Lade alle Dateien bis auf das :file:`sally/tests`- und das
-   :file:`sally/docs`-Verzeichnis aus dem Download-Archiv auf deinen Webspace.
+#. Lade alle Dateien bis auf das :file:`sally/contrib`-Verzeichnis aus dem
+   Download-Archiv auf deinen Webspace.
 #. Stelle sicher, dass Sally beim ersten Aufruf das Verzeichnis
    :file:`sally/data` erstellen kann, falls es nicht vorhanden ist.
    :file:`sally/data` und alle darin enthaltenen Verzeichnisse sollten
    ``chmod 0777`` haben.
 #. Rufe das von dir erstellte Verzeichnis im Browser auf, z. B. via
-   http://example.com/sally/. Du solltest dann automatisch zum Setup
+   http://example.com/backend/. Du solltest dann automatisch zum Setup
    weitergeleitet werden.
 
 Installation
