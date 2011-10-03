@@ -3,17 +3,26 @@ Changelog
 
 *(notorisch unvollständig)*
 
-0.5.next (???)
---------------
+0.5.4 (3. Oktober 2011)
+-----------------------
 
 * Das Styling & Handling von Sortierungen in ``sly_Table`` wurde überarbeitet.
   Dabei kam es zu einer :doc:`API-Änderung </general/updating>`.
 * ``sly_Log`` kann nun benutzerdefinierte Platzhalter verwenden, die bei dem
   eigentlichen Log-Aufruf als Kontext mit übergeben werden können. Damit können
   auch die Werte von vordefinierten Platzhaltern überschrieben werden.
+* Das XHTML5-Layout ermittelt die aktuelle Sprache (das Locale) nicht mehr
+  automatisch.
 * hinzugefügt: ``sly_Util_String::getFileExtension()``
 * hinzugefügt: ``sly_Util_String::stringify()`` zum Ermitteln einer gut lesbaren
   String-Repräsentation eines Wertes
+* hinzugefügt: Helper-Methoden zum Zugriff auf die Klassen des ``<body>``-Tags.
+* hinzugefügt: Event ``SLY_SPECIALS_MENU`` zum Erweitern der Systemseite um
+  eigene Unterseiten.
+* hinzugefügt: Die Konstante ``SLY_TESTING_USE_CACHE`` schaltet das Caching im
+  Testmodus explizit ein (standardmäßig ist Caching dort abgeschaltet).
+* Bugfix: Fehlende CSS-Styles für einige Inputs ergänzt.
+* Bugfix: Im Asset-Cache wird öfter ``clearstatcache()`` aufgerufen.
 
 0.4.13 (3. Oktober 2011)
 ------------------------
