@@ -1,8 +1,8 @@
 Events
 ======
 
-Dies ist eine Auflistung aller vom Core gesendet Events. Für eine Erklärung dazu
-siehe die Seite zum :doc:`Eventsystem <index>`.
+Dies ist eine Auflistung aller vom Core und der Backend-Anwendung gesendet
+Events. Für eine Erklärung dazu siehe die Seite zum :doc:`Eventsystem <index>`.
 
 .. note::
 
@@ -169,10 +169,230 @@ auslösen?
   :type:    notify
   :in:      string
   :subject: der Name der aktuellen Backendseite
-  :params:
-    id       (int)
-    clang    (int)
-    article  (sly_Model_Article)
 
   benachrichtigt über die endgültig festgelegte Backend-Seite, die nun
   ausgeführt wird
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_PRESAVE_ADD
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die Daten des betroffenen Slices (``SLY_VALUE``\s, ...)
+  :params:
+    module      (string)
+    article_id  (int)
+    clang       (int)
+
+  wird **vor** dem Speichern eines neuen Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_PRESAVE_EDIT
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die Daten des betroffenen Slices (``SLY_VALUE``\s, ...)
+  :params:
+    module      (string)
+    article_id  (int)
+    clang       (int)
+
+  wird **vor** dem Aktualisieren eines Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_PRESAVE_DELETE
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die Daten des betroffenen Slices (``SLY_VALUE``\s, ...)
+  :params:
+    module      (string)
+    article_id  (int)
+    clang       (int)
+
+  wird **vor** dem Löschen eines Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_POSTSAVE_ADD
+  :type:    filter
+  :in:      mixed
+  :out:     array
+  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
+            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
+            sie erweitern können)
+  :params:  article_slice_id (int)
+
+  wird **nach** dem Speichern eines neuen Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_POSTSAVE_EDIT
+  :type:    filter
+  :in:      mixed
+  :out:     array
+  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
+            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
+            sie erweitern können)
+  :params:  article_slice_id (int)
+
+  wird **nach** dem Aktualisieren eines Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_POSTSAVE_DELETE
+  :type:    filter
+  :in:      mixed
+  :out:     array
+  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
+            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
+            sie erweitern können)
+  :params:  article_slice_id (int)
+
+  wird **nach** dem Löschen eines Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_MOVED
+  :type:    notify
+  :in:      OOArticleSlice
+  :subject: das verschobene Slice
+  :params:
+    clang     (int)
+    direction (string)  'up' oder 'down'
+    oldprior  (int)
+    newprior  (int)
+
+  wird nach dem Verschieben eines Slices ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_ART_TO_STARTPAGE
+  :type:    notify
+  :in:      int
+  :subject: die ID des Artikels, der zum Startartikel wurde
+  :params:  old_cat (int) die ID des vorherigen Startartikels
+
+  wird ausgeführt, nachdem ein Artikel zum Startartikel einer Kategorie wurde
+
+.. =============================================================================
+
+.. slyevent:: SLY_ART_CONTENT_COPIED
+  :type:    notify
+  :in:      null
+  :subject: N/A
+  :params:
+    from_id      (int)  die ID des Quellartikels
+    from_clang   (int)  die Sprach-ID des Quellartikels
+    to_id        (int)  die ID des Zielartikels
+    to_clang     (int)  die Sprach-ID des Zielartikels
+    start_slice  (int)  die ID des Slices, bei dem mit dem Kopieren begonnen wurde (ungenutzt seit Sally die Slices nicht mehr als verkettete Liste speichert)
+
+  wird ausgeführt, nachdem der **Inhalt** eines Artikels kopiert wurde
+
+.. =============================================================================
+
+.. slyevent:: SLY_ART_COPIED
+  :type:    notify
+  :in:      int
+  :subject: die ID des Quellartikels
+  :params:
+    id      (int)     ID des Quellartikels
+    clang   (int)     ID der Sprache (siehe Beschreibung!)
+    status  (int)     immer 0 (offline)
+    name    (string)  Name des Quellartikels
+    re_id   (int)     ID der Zielkategorie
+    prior   (int)     Position des neuen Artikels
+    path    (string)  Kategorie-Pfad (``|id|id|...|``)
+    type    (string)  Artikeltyp
+
+  wird ausgeführt, nachdem ein Artikel kopiert wurde (*wird einmal pro Sprache
+  ausgeführt!*)
+
+.. =============================================================================
+
+.. slyevent:: SLY_ART_MOVED
+  :type:    notify
+  :in:      int
+  :subject: die ID des Quellartikels
+  :params:
+    clang   (int)  ID der Sprache (siehe Beschreibung!)
+    target  (int)  ID der Zielkategorie
+
+  wird ausgeführt, nachdem ein Artikel verschoben wurde (*wird einmal pro
+  Sprache ausgeführt!*)
+
+.. =============================================================================
+
+.. slyevent:: SLY_CAT_MOVED
+  :type:    notify
+  :in:      int
+  :subject: die ID der Quellkategorie
+  :params:
+    clang   (int)  ID der Sprache (siehe Beschreibung!)
+    target  (int)  ID der Zielkategorie
+
+  wird ausgeführt, nachdem eine Kategorie verschoben wurde (*wird einmal pro
+  Sprache ausgeführt!*)
+
+.. =============================================================================
+
+.. slyevent:: ALL_GENERATED
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: die Erfolgsnachricht
+
+  Wird ausgeführt, nachdem der Core-Cache (Artikel, Templates, ...) geleert
+  wurde. Alle Bestandteile des Systems, die Daten in irgendeiner Art cachen,
+  sollten auf dieses Event reagieren und ihren Cache **vollständig** leeren.
+
+.. note::
+
+  Im laufenden Betrieb sollte es nie nötig sein, dieses Event auszulösen, um
+  Caches zu invalidieren.
+
+Frontend
+--------
+
+Die folgenden Events werden nur im Frontend ausgelöst.
+
+.. slyevent:: SLY_PRE_PROCESS_ARTICLE
+  :type:    filter
+  :in:      sly_Model_Article
+  :out:     sly_Model_Article
+  :subject: der ermittelte Artikel (die meisten realurl-Implementierungen
+            haben bereits den Request abgearbeitet, sodass hier beispielsweise
+            bei RealURL2 bereits der richtige Artikel bereitsteht)
+
+  gibt Listenern und AddOns eine letzte Chance, den anzuzeigenden Artikel zu
+  verändern, bevor dessen Template schlussendlich eingebunden und ausgeführt
+  wird
+
+Frontend & Backend
+------------------
+
+.. slyevent:: OUTPUT_FILTER
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: der vollständige, generierte HTML-Code
+  :params:  environment (string) 'frontend' oder 'backend'
+
+  ermöglicht eine letzte Korrktur/Erweiterung der Ausgabe, bevor sie an den
+  Client gesendet wird
+
+.. =============================================================================
+
+.. slyevent:: OUTPUT_FILTER_CACHE
+  :type:    notify
+  :in:      string
+  :subject: der finale HTML-Code
+
+  Nachdem Listener in ``OUTPUT_FILTER`` ihre letzten Änderungen vorgenommen
+  haben, ist das Subject in diesem Event readonly und eignet sich daher ideal
+  zum Cachen der Seite. Zwischen diesem Event und dem Senden des Inhalts an den
+  Client besteht keine Möglichkeit mehr, den Inhalt zu verändern.
