@@ -3,6 +3,13 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.4.13 (3. Oktober 2011)
+------------------------
+
+* Artikel und Kategorien, für die keine Rechte vorhanden sind, werden nicht mehr
+  angezeigt.
+* Bugfix: Permission-Probleme in der Strukturansicht
+
 0.4.12 (5. September 2011)
 --------------------------
 
