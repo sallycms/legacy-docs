@@ -15,7 +15,7 @@ kennzeichnen, welche Ein- und Ausgaben die Events jeweils haben. Dabei wird so
 getan, als wären Events Methoden und ihre "Signaturen" aufgelistet.
 
 ``string MY_EVENT(string)``
-  Stellt ein Event dar, dass einen ``string`` als Eingabe ("Subject") erhält und
+  Stellt ein Event dar, das einen ``string`` als Eingabe ("Subject") erhält und
   einen String zurückgeben muss (ein **Filter-Event**). In den meisten Fällen
   müssen Listener den gleichen Typ zurückgeben, den sie auch im Subject
   reingegeben bekommen (damit der nachfolgende Listener happy ist).
@@ -26,7 +26,7 @@ getan, als wären Events Methoden und ihre "Signaturen" aufgelistet.
 ``string FILTER_UNTIL_EVENT(int) BREAKS``
   Ein Event, das ebenfalls ein ``int`` als Eingabe erhält. Der erste Listener,
   der etwas anderes als ``null`` zurückgibt, "gewinnt" (ein
-  **Filter-Until-Event**). Wird beispielsweise bei ``URL_REWRITE`` verwendet,
+  **Notify-Until-Event**). Wird beispielsweise bei ``URL_REWRITE`` verwendet,
   bei dem die erste von einem Listener erzeugte URL gewinnt und alle weiteren
   Listener nicht ausgeführt werden.
 
