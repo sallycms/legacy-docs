@@ -15,6 +15,13 @@ Changelog
 * hinzugefügt: ``sly_Util_String::stringify()`` zum Ermitteln einer gut lesbaren
   String-Repräsentation eines Wertes
 
+0.4.13 (3. Oktober 2011)
+------------------------
+
+* Artikel und Kategorien, für die keine Rechte vorhanden sind, werden nicht mehr
+  angezeigt.
+* Bugfix: Permission-Probleme in der Strukturansicht
+
 0.5.3 (8. September 2011)
 -------------------------
 

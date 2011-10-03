@@ -79,7 +79,7 @@ Da der Asset-Cache geänderte :file:`.htaccess`-Dateien bewusst nicht
 Platz legen. Man muss daher die Datei :file:`sally/include/install/static-cache/.htaccess`
 selber nach :file:`data/dyn/public/sally/static-cache/.htaccess` kopieren.
 
-0.4.10 -> 0.4.12
+0.4.10 -> 0.4.13
 ^^^^^^^^^^^^^^^^
 
 * Nichts tun :-)
