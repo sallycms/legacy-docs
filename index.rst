@@ -43,6 +43,7 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    sallycms/assetcache
    sallycms/errorhandler
    sallycms/bootcache
+   sallycms/cronjobs
 
    contributing/index
    contributing/core
@@ -111,6 +112,7 @@ SallyCMS-API
 * :doc:`Utilities <sallycms/utilities/index>`
 * :doc:`Error Handling <sallycms/errorhandler>`
 * :doc:`BootCache <sallycms/bootcache>`
+* :doc:`Sally in Cronjobs verwenden <sallycms/cronjobs>`
 
 AddOns entwickeln
 -----------------
