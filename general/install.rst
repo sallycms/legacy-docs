@@ -4,18 +4,28 @@ Installationshinweise
 Systemvoraussetzungen
 ---------------------
 
-* PHP 5.1 (SallyCMS ist vollständig mit PHP 5.3 kompatibel)
+* PHP 5.2 (SallyCMS ist vollständig mit PHP 5.2 bis 5.4 kompatibel)
 
   * :envvar:`short_open_tags` muss aktiviert sein (wird im Setup automatisch
     geprüft).
   * :envvar:`register_globals` und :envvar:`magic_quotes_gpc` sollten
     deaktiviert sein.
+  * Die Standard-Module von PHP werden benötigt: ``mbstring``, ``PCRE``,
+  ``zlib``, ``gd``, ``PDO``, ...
 
 * MySQL 5.0
-* Apache
+* Apache 2.2
 
-  * `mod_rewrite <http://httpd.apache.org/docs/2.0/mod/mod_rewrite.html>`_ wird
-    zwingend vorausgesetzt.
+  * `mod_rewrite <http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html>`_,
+    `mod_headers <http://httpd.apache.org/docs/2.2/mod/mod_headers.html>`_ und
+    `mod_setenvif <http://httpd.apache.org/docs/2.2/mod/mod_setenvif.html>`_
+    werden zwingend vorausgesetzt.
+
+Optional kann SallyCMS die folgenden Komponenten verwenden, um die Performance
+zu steigern:
+
+  * XCache, APC, Memcache, Memcached, Zend Data Server, eAccelerator (wir
+    empfehlen XCache unter Windows und APC + Memcached auf Produktivsystemen)
 
 Upload
 ------
