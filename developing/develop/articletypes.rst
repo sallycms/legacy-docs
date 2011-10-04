@@ -1,0 +1,76 @@
+Artikeltypen
+============
+
+SallyCMS verwendet ab Version **0.4** eine neue Abstraktion zur Unterscheidung
+von Artikeln. Artikel werden nun nicht mehr einem bestimmten Template
+zugewiesen, sondern einem Artikeltypen. Damit muss ein Redakteur nicht mehr
+entscheiden, wie Inhalte angezeigt werden sollen, sondern kann Artikel nach
+"Stellenangebot", "Newsbeitrag" etc. unterscheiden.
+
+Dies macht es möglich, abhängige Metainformationen zu verwenden. So kann ein
+Artikel vom Typ "Stellenangebot" andere Metainfos haben als ein Artikel vom Typ
+"Newsbeitrag". Gleichzeitig können, müssen aber nicht, verschiedene Templates
+zur Darstellung zum Einsatz kommen. Darüber hat ein Redakteur keine Kontrolle.
+
+.. note::
+
+  Damit ändert sich auch die Datenbankstruktur: Die Spalte ``template`` in
+  ``sly_article`` wurde durch ``type`` ersetzt.
+
+Definition
+----------
+
+Artikeltypen werden in der :doc:`Konfiguration </sallycms/configuration>`
+definiert. Wir empfehlen, dafür eine Datei namens :file:`types.yml` in
+:file:`develop/config/` abzulegen:
+
+.. sourcecode:: yaml
+
+  ARTICLE_TYPES:
+    default:
+      title: Standardseite
+      template: default
+    job:
+      title: Stellenangebot
+      template: default
+    news:
+      title: Newsbeitrag
+      template: twocolumn
+
+Der Inhalt jeder Datei, die in dem o.g. Verzeichnis gefunden wird, wird in die
+globale Konfiguration gemerged. So ist es auch möglich, die Definition auf
+mehrere Dateien aufzuteilen. Ein AddOn kann somit neue Typen mitbringen und
+muss dafür nichts weiter tun, als die Konfiguration an ``ARTICLE_TYPES`` um neue
+Einträge zu erweitern.
+
+Artikeltyp-API
+--------------
+
+Die definierten Artikeltypen stehen über die reguläre ``sly_Configuration``
+bereit:
+
+.. sourcecode:: php
+
+  <?php
+  $config = sly_Core::config();
+  $types  = $config->get('ARTICLE_TYPES');
+
+Um die Artikeltypen abzurufen und mit ihnen zu interagieren sollte jedoch besser
+der dafür zuständige :doc:`Service </sallycms/services/index>` verwendet werden:
+
+.. sourcecode:: php
+
+  <?php
+  $service = sly_Service_Factoy::getArticleTypeService();
+  $types   = $service->getTypes();
+
+Jeder Artikel (``sly_Model_Article``) gibt gern preis, zu welchem Typ er gehört:
+
+.. sourcecode:: php
+
+  <?php
+  $article = sly_Util_Article::findById(1);
+  $type    = $article->getType();
+
+Es ist zu beachten, dass Artikel initial auch keinem Typen angehören können. In
+diesem Fall wird ein leerer String zurückgegeben.
