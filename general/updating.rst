@@ -1,6 +1,11 @@
 Sally aktualisieren
 ===================
 
+.. toctree::
+  :hidden:
+
+  updating/0.4_0.5
+
 .. note::
 
   Während der 0.x-Phase sind Updates nicht immer ohne manuelles Eingreifen
@@ -79,7 +84,7 @@ Da der Asset-Cache geänderte :file:`.htaccess`-Dateien bewusst nicht
 Platz legen. Man muss daher die Datei :file:`sally/include/install/static-cache/.htaccess`
 selber nach :file:`data/dyn/public/sally/static-cache/.htaccess` kopieren.
 
-0.4.10 -> 0.4.12
+0.4.10 -> 0.4.13
 ^^^^^^^^^^^^^^^^
 
 * Nichts tun :-)
@@ -100,21 +105,8 @@ im Sally-Wiki <https://projects.webvariants.de/news/48>`_.
   versuchen, die Strukturänderungen nachzuahmen. Dies betrifft natürlich nicht
   die Inhalte des Projekts.
 
-Lege als erstes einen Datenbank-Export (ohne Konfiguration!) an, der später in
-dem neuen Projekt importiert werden kann.
-
-#. Die webvariants-AddOns müssen auf die jeweils aktuellsten Versionen
-   aktualisiert werden. Projekte, die den Error Handler verwenden, sollten auch
-   im neuen Projekt das AddOn verwenden, da der :doc:`integrierte Error Handler
-   </sallycms/errorhandler>` nicht alle Funktionen des AddOns enthält.
-#. Übernimm deine develop-Dateien und deine Assets.
-#. Passe deine AddOns an die neue API (siehe unten) an.
-#. Gehe deine develop-Dateien durch und passe sie ebenfalls an die neue API an.
-#. Installiere das neue Projekt, installiere dann alle AddOns und spiele deinen
-   Datenbank-Dump ein.
-#. Führe das unten gegebene MySQL-Script aus, um die Indexe deiner Datenbank
-   und die Slice-Werte zu aktualisieren.
-#. Testen & Feinschliff.
+Der grobe :doc:`Ablauf eines Updates auf 0.5 <updating/0.4_0.5>` wird auf einer
+extra Seite beschrieben.
 
 API-Änderungen
 ^^^^^^^^^^^^^^
@@ -125,74 +117,74 @@ Im Folgenden werden soweit möglich alle API-Änderungen zwischen dem 0.4- und d
 Konfiguration
 """""""""""""
 
-  * ``TIMEZONE`` wurde hinzugefügt.
-  * ``LANG`` wurde in ``DEFAULT_LOCALE`` umbenannt.
-  * ``START_CLANG_ID`` wurde in ``DEFAULT_CLANG_ID`` umbenannt.
-  * ``VERSION`` wurde in ``VERSION/MAJOR`` umbenannt.
-  * ``SUBVERSION`` wurde in ``VERSION/MINOR`` umbenannt.
-  * ``MINORVERSION`` wurde in ``VERSION/BUGFIX`` umbenannt.
-  * ``SERVERNAME`` wurde in ``PROJECTNAME`` umbenannt.
-  * ``SERVER``, ``ERROR_EMAIL``, ``SESSION_DURATION`` und ``USE_GZIP`` wurden
-    entfernt.
-  * Die ``INSTNAME`` wird nicht mehr aus einem Timestamp, sondern einem SHA-1
-    Hash eines Zufallswerts ermittelt.
-  * Der Zugriff auf die wichtigsten Konfigurationen sollte nun über die neuen
-    API-Methoden in ``sly_Core`` stattfinden.
+* ``TIMEZONE`` wurde hinzugefügt.
+* ``LANG`` wurde in ``DEFAULT_LOCALE`` umbenannt.
+* ``START_CLANG_ID`` wurde in ``DEFAULT_CLANG_ID`` umbenannt.
+* ``VERSION`` wurde in ``VERSION/MAJOR`` umbenannt.
+* ``SUBVERSION`` wurde in ``VERSION/MINOR`` umbenannt.
+* ``MINORVERSION`` wurde in ``VERSION/BUGFIX`` umbenannt.
+* ``SERVERNAME`` wurde in ``PROJECTNAME`` umbenannt.
+* ``SERVER``, ``ERROR_EMAIL``, ``SESSION_DURATION`` und ``USE_GZIP`` wurden
+  entfernt.
+* Die ``INSTNAME`` wird nicht mehr aus einem Timestamp, sondern einem SHA-1
+  Hash eines Zufallswerts ermittelt.
+* Der Zugriff auf die wichtigsten Konfigurationen sollte nun über die neuen
+  API-Methoden in ``sly_Core`` stattfinden.
 
-    * ``::getProjectName()``
-    * ``::getSiteStartArticleId()``
-    * ``::getNotFoundArticleId()``
-    * ``::getDefaultLocale()``
-    * ``::getDefaultClangId()``
-    * ``::getVersion()`` (erlaubt die Angabe des Formats, z.B. ``X.Y``)
-    * ``::getDefaultArticleType()``
-    * ``::getCachingStrategy()``
-    * ``::getTimezone()``
-    * ``::getFilePerm()``
-    * ``::getDirPerm()``
+  * ``::getProjectName()``
+  * ``::getSiteStartArticleId()``
+  * ``::getNotFoundArticleId()``
+  * ``::getDefaultLocale()``
+  * ``::getDefaultClangId()``
+  * ``::getVersion()`` (erlaubt die Angabe des Formats, z.B. ``X.Y``)
+  * ``::getDefaultArticleType()``
+  * ``::getCachingStrategy()``
+  * ``::getTimezone()``
+  * ``::getFilePerm()``
+  * ``::getDirPerm()``
 
 Globale Variablen
 """""""""""""""""
 
-  * ``$REX`` wurde entfernt. Einige der in 0.4 noch genutzten Elemente sind nun
-    über die folgenden API-Methoden erreichbar:
+* ``$REX`` wurde entfernt. Einige der in 0.4 noch genutzten Elemente sind nun
+  über die folgenden API-Methoden erreichbar:
 
-    * ``LANG`` für die aktuelle Backend-Sprache in
-      ``sly_Core::getI18N()->getLocale()``
-    * ``PAGE`` über ``sly_Core::getCurrentPage()`` (gibt ``null`` im Frontend
-      zurück)
-    * ``PAGEPATH`` wurde entfernt.
-    * ``CLANG`` ist über ``sly_Util_Language::findAll()`` zu erreichen. Dabei
-      werden ``sly_Model_Language``-Instanzen zurückgegeben, deren Namen erst
-      über ``->getName()`` abgerufen werden muss.
-    * ``CUR_CLANG`` ist über ``sly_Core::getCurrentClang()`` zu erreichen.
-    * ``ARTICLE_ID`` steht in ``sly_Core::getCurrentArticleId()`` zur Verfügung.
-    * ``USER`` steht über ``sly_Util_User::getCurrentUser()`` zur Verfügung.
-    * ``LOCALES`` steht über ``sly_I18N::getLocales()`` zur Verfügung.
-    * ``PERM`` steht über ``sly_Authorisation::getRights()`` zur Verfügung.
-    * ``EXTPERM`` steht über ``sly_Authorisation::getExtendedRights()`` zur
-      Verfügung.
-    * ``EXTRAPERM`` steht über ``sly_Authorisation::getExtraRights()`` zur
-      Verfügung.
+  * ``LANG`` für die aktuelle Backend-Sprache in
+    ``sly_Core::getI18N()->getLocale()``
+  * ``PAGE`` über ``sly_Core::getCurrentPage()`` (gibt ``null`` im Frontend
+    zurück)
+  * ``PAGEPATH`` wurde entfernt.
+  * ``CLANG`` ist über ``sly_Util_Language::findAll()`` zu erreichen. Dabei
+    werden ``sly_Model_Language``-Instanzen zurückgegeben, deren Namen erst
+    über ``->getName()`` abgerufen werden muss.
+  * ``CUR_CLANG`` ist über ``sly_Core::getCurrentClang()`` zu erreichen.
+  * ``ARTICLE_ID`` steht in ``sly_Core::getCurrentArticleId()`` zur Verfügung.
+  * ``USER`` steht über ``sly_Util_User::getCurrentUser()`` zur Verfügung.
+  * ``LOCALES`` steht über ``sly_I18N::getLocales()`` zur Verfügung.
+  * ``PERM`` steht über ``sly_Authorisation::getRights()`` zur Verfügung.
+  * ``EXTPERM`` steht über ``sly_Authorisation::getExtendedRights()`` zur
+    Verfügung.
+  * ``EXTRAPERM`` steht über ``sly_Authorisation::getExtraRights()`` zur
+    Verfügung.
 
-  * ``$I18N`` wurde entfernt. Die Instanz kann über ``sly_Core::getI18N()``
-    abgerufen und über ``::setI18N()`` gesetzt werden.
+* ``$I18N`` wurde entfernt. Die Instanz kann über ``sly_Core::getI18N()``
+  abgerufen und über ``::setI18N()`` gesetzt werden.
 
 Konstanten
 """"""""""
 
-  * ``SLY_INCLUDE_PATH`` wurde entfernt, da es keinen Include-Pfad mehr gibt.
-  * ``SLY_SALLYFOLDER`` gibt den absoluten Pfad zum :file:`sally`-Verzeichnis
-    an (z. B. :file:`/var/www/myproject/sally/`).
-  * ``SLY_COREFOLDER`` gibt den absoluten Pfad zum :file:`core`-Verzeichnis an.
-  * AddOns sollten ihren eigenen Pfad entweder über ``dirname(__FILE__)`` in
-    ihrer :file:`config.inc.php` oder über ``SLY_ADDONFOLDER.'/myaddon'``
-    ermitteln.
-  * Die Konstanten ``E_RECOVERABLE_ERROR``, ``E_DEPRECATED`` und
-    ``E_USER_DEPRECATED`` werden gesetzt, falls sie noch nicht vorhanden sind
-    (PHP < 5.3).
-  * ``SLY_HTDOCS_PATH`` wurde hinzugefügt und gibt den relativen Pfad zum Root
-    des Projekts an.
+* ``SLY_INCLUDE_PATH`` wurde entfernt, da es keinen Include-Pfad mehr gibt.
+* ``SLY_SALLYFOLDER`` gibt den absoluten Pfad zum :file:`sally`-Verzeichnis
+  an (z. B. :file:`/var/www/myproject/sally/`).
+* ``SLY_COREFOLDER`` gibt den absoluten Pfad zum :file:`core`-Verzeichnis an.
+* AddOns sollten ihren eigenen Pfad entweder über ``dirname(__FILE__)`` in
+  ihrer :file:`config.inc.php` oder über ``SLY_ADDONFOLDER.'/myaddon'``
+  ermitteln.
+* Die Konstanten ``E_RECOVERABLE_ERROR``, ``E_DEPRECATED`` und
+  ``E_USER_DEPRECATED`` werden gesetzt, falls sie noch nicht vorhanden sind
+  (PHP < 5.3).
+* ``SLY_HTDOCS_PATH`` wurde hinzugefügt und gibt den relativen Pfad zum Root
+  des Projekts an.
 
 Datei(system)
 """""""""""""
@@ -695,6 +687,16 @@ selber nach :file:`sally/data/dyn/public/sally/static-cache/.htaccess` kopieren.
 * hinzugefügt: ``sly_Util_String::getFileExtension($filename)``
 * hinzugefügt: ``sly_Util_String::stringify($value)`` zum Ermitteln einer gut
   lesbaren String-Repräsentation eines Wertes
+* hinzugefügt: ``sly_Layout::getBodyAttr($name)`` und
+  ``sly_Layout::appendBodyClass($class)``
+* hinzugefügt: Event ``SLY_SPECIALS_MENU`` zum Erweitern der Systemseite um
+  eigene Unterseiten.
+* hinzugefügt: Die Konstante ``SLY_TESTING_USE_CACHE`` schaltet das Caching im
+  Testmodus explizit ein (standardmäßig ist Caching dort abgeschaltet).
+* Das XHTML5-Layout ermittelt die aktuelle Sprache (das Locale) nicht mehr
+  automatisch. Stattdessen muss ``setLanguage($locale)`` selber aufgerufen
+  werden (damit ist das XHTML5-Layout nicht mehr von der ``I18NUtils``-Klasse
+  abhängig).
 
 0.5.4 -> 0.5.next
 ^^^^^^^^^^^^^^^^^
