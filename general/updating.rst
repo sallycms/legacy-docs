@@ -84,7 +84,7 @@ Da der Asset-Cache geänderte :file:`.htaccess`-Dateien bewusst nicht
 Platz legen. Man muss daher die Datei :file:`sally/include/install/static-cache/.htaccess`
 selber nach :file:`data/dyn/public/sally/static-cache/.htaccess` kopieren.
 
-0.4.10 -> 0.4.12
+0.4.10 -> 0.4.13
 ^^^^^^^^^^^^^^^^
 
 * Nichts tun :-)
@@ -687,6 +687,16 @@ selber nach :file:`sally/data/dyn/public/sally/static-cache/.htaccess` kopieren.
 * hinzugefügt: ``sly_Util_String::getFileExtension($filename)``
 * hinzugefügt: ``sly_Util_String::stringify($value)`` zum Ermitteln einer gut
   lesbaren String-Repräsentation eines Wertes
+* hinzugefügt: ``sly_Layout::getBodyAttr($name)`` und
+  ``sly_Layout::appendBodyClass($class)``
+* hinzugefügt: Event ``SLY_SPECIALS_MENU`` zum Erweitern der Systemseite um
+  eigene Unterseiten.
+* hinzugefügt: Die Konstante ``SLY_TESTING_USE_CACHE`` schaltet das Caching im
+  Testmodus explizit ein (standardmäßig ist Caching dort abgeschaltet).
+* Das XHTML5-Layout ermittelt die aktuelle Sprache (das Locale) nicht mehr
+  automatisch. Stattdessen muss ``setLanguage($locale)`` selber aufgerufen
+  werden (damit ist das XHTML5-Layout nicht mehr von der ``I18NUtils``-Klasse
+  abhängig).
 
 0.5.4 -> 0.5.next
 ^^^^^^^^^^^^^^^^^

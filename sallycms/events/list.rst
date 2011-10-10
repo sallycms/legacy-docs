@@ -375,6 +375,29 @@ Die folgenden Events werden nur im Frontend ausgelöst.
 Frontend & Backend
 ------------------
 
+.. slyevent:: ADDONS_INCLUDED
+  :type:    notify
+  :in:      null
+  :subject: N/A
+
+  Dieses Event wird ausgelöst, nachdem der Systemkern alle aktivierten AddOns
+  und Plugins geladen hat. In den meisten Fällen es ist ratsam,
+  Initialisierungen von AddOns mindestens bis zu diesem Event aufzuschieben.
+  Das ermöglicht es, dass alle Event-Listener bereits registriert sind.
+
+.. =============================================================================
+
+.. slyevent:: SLY_LISTENERS_REGISTERED
+  :type:    notify
+  :in:      null
+  :subject: N/A
+
+  Dieses Event wird ausgelöst, nachdem der Systemkern alle
+  :doc:`Event-Listener </developing/listeners>` aus den Konfigurationsdateien
+  (``LISTENERS``) registriert hat.
+
+.. =============================================================================
+
 .. slyevent:: OUTPUT_FILTER
   :type:    filter
   :in:      string
@@ -396,3 +419,13 @@ Frontend & Backend
   haben, ist das Subject in diesem Event readonly und eignet sich daher ideal
   zum Cachen der Seite. Zwischen diesem Event und dem Senden des Inhalts an den
   Client besteht keine Möglichkeit mehr, den Inhalt zu verändern.
+
+.. =============================================================================
+
+.. slyevent:: CLANG_ARTICLE_GENERATED
+  :type:    notify
+  :in:      string
+  :subject: ein leerer String
+
+  Wird ausgeführt, nachdem in ``OOArticleSlice::getSliceIdsForSlot()`` die IDs
+  der Slices ermittelt wurden.
