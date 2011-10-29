@@ -698,7 +698,94 @@ selber nach :file:`sally/data/dyn/public/sally/static-cache/.htaccess` kopieren.
   werden (damit ist das XHTML5-Layout nicht mehr von der ``I18NUtils``-Klasse
   abhängig).
 
-0.5.4 -> 0.5.next
+0.5.4 -> 0.5.5
+^^^^^^^^^^^^^^
+
+Diese Version bringt deutliche Veränderungen am Rechtesystem und der
+Benutzerverwaltung mit. Dies führt zu einigen API-Änderungen, die mit der
+Kompatibilität brechen, aber nur in Projekten, die FrontendUser einsetzen,
+problematisch sein dürften.
+
+* Rechtesystem
+
+  * Das Interface von ``sly_Authorisation_Provider`` hat sich geändert und
+    verlangt nun eine ``hasPermission($userId, $token, $value = true)``-Methode.
+  * Die lokale Konfiguration wurde um sog. "Objektrechte" (``OBJECTPERM``)
+    erweitert. Die Objektrechte umfassen u.a. Sprach- und Kategoriezugriff.
+  * AddOns sollten unbedingt ``->isAdmin()`` anstatt ``->hasRight('admin[]')``
+    nutzen, damit das neue Rechtesystem korrekt arbeiten kann. Selbst ohne das
+    neue Rechtesystem ist ``isAdmin()`` schneller, kürzer zu schreiben und damit
+    immer die bessere Wahl.
+  * ``sly_Model_User->hasRight()`` verwendet nun den Auth-Provider, falls einer
+    vorhanden ist.
+  * ``sly_Model_User->hasCategoryRight()`` wurde entfernt.
+  * ``sly_Util_Category::hasPermissionOnCategory()`` wurde entfernt.
+  * ``sly_Util_Article``
+
+    * ``->canReadArticle(sly_Model_User $user, $articleId)`` wurde hinzugefügt.
+    * ``->canEditArticle(sly_Model_User $user, $articleId)`` wurde hinzugefügt.
+    * ``->canEditContent(sly_Model_User $user, $articleId)`` wurde hinzugefügt.
+
+* Events
+
+  * ``SLY_SLICE_POSTVIEW_ADD``: Subject sind die Slicewerte und als weitere
+    Parameter werden ``module``, ``article_id``, ``clang`` und ``slot``
+    übergeben.
+  * ``SLY_SLICE_POSTVIEW_EDIT``: Subject sind die Slicewerte und als weitere
+    Parameter werden ``module``, ``article_id``, ``clang``, ``slot`` und
+    ``slice`` übergeben.
+  * ``SLY_MEDIA_LIST_TOOLBAR`` wird immer ausgeführt, wenn der Medienpool
+    geöffnet wird (und nicht mehr nur, wenn es bereits Medienkategorien
+    gibt).
+  * ``SLY_META_FORM_ADDITIONAL`` wird direkt vor dem Rendern des Metaformulars
+    von Artikeln ausgeführt. Subject ist das Formular-Objekt, die weiteren
+    Parameter sind wie bei den anderen ``SLY_META_FORM``-Events.
+  * ``SLY_USER_FORM`` wird direkt vor dem Rendern des Benutzerformulars
+    ausgeführt. Subject ist das Formular-Objekt, als weiterer Parameter wird
+    das User-Objekt mit übergeben (ist beim Hinzufügen eines Benutzers
+    ``null``).
+  * ``SLY_USER_ADDED``, ``SLY_USER_UPDATED`` und ``SLY_USER_DELETED``
+    wurden ergänzt. In ``ADDED`` und ``UPDATED`` können Exceptions geworfen
+    werden, um Fehlermeldungen im Backend anzeigen zu lassen.
+  * ``SLY_PAGE_USER_SUBPAGES`` ermöglicht es, das Submenü der Benutzerseite zu
+    erweitern. Subject sind die Subpages; es werden keine weiteren Parameter
+    übergeben.
+
+* Sonstiges
+
+  * ``sly_Service_AddOn`` und ``sly_Service_Plugin`` kennen nun die Methode
+    ``exists($component)``.
+  * ``sly_Helper_Modernizr`` wurde hinzugefügt.
+  * ``sly_Service_Model_Base->count($where, $group)`` wurde hinzugefügt.
+  * ``sly_Layout->setBase($base)`` wurde hinzugefügt.
+  * ``setLanguage($language)`` wurde von ``sly_Layout_XHTML5`` nach
+    ``sly_Layout_XHTML`` verschoben (da XHTML5 sich von XHTML ableitet, steht
+    die Methode dort weiterhin zur Verfügung).
+  * Emulierte Datepicker (jQuery UI) verwenden kein ``<input type="date">``
+    mehr, sondern verwenden ``<input type="text">``. Die date-Version hat einige
+    Browser verwirrt und führte zu Problemen, wenn Modernizr den
+    Datepicker-Support nicht korrekt erkannte.
+  * ``sly_Util_Language->findById()`` wurde hinzugefügt.
+
+Beim Aktualisieren einer bestehenden Installation sollten die neuen Objektrechte
+von Hand in die lokale Konfiguration (:file:`sally/data/config/sly_local.yml`)
+übertragen werden, falls Sally das nicht bereits automatisch erledigt.
+
+.. sourcecode:: yaml
+
+  EXTRAPERM:
+    - 'editContentOnly[]'
+  OBJECTPERM:
+    - clang
+    - csw
+    - media
+    - module
+
+Da das Rechtesystem-AddOn noch nicht öffentlich ist, muss das nicht zwingend
+erledigt werden, da der Sally-Core die Objektrechte selbst nicht beachten wird.
+Aber schaden kann es auch nicht.
+
+0.5.5 -> 0.5.next
 ^^^^^^^^^^^^^^^^^
 
 * Das wird die Zeit zeigen...

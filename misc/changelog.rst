@@ -23,8 +23,8 @@ Changelog
 * Auf der Loginseite wird ein Cookie gesetzt, das alle Fähigkeiten des Browsers
   (also die Properties von ``Modernizr``) enthält. Sally prüft nun serverseitig,
   ob der Client beispielsweise Datepicker nativ unterstützt und erspart dem
-  Client dann das Laden der jQuery UI Dateien. Über ``sly_Util_Modernizr`` kann
-  auf die Eigenschaften zugegriffen werden.
+  Client dann das Laden der jQuery UI Dateien. Über ``sly_Helper_Modernizr``
+  kann auf die Eigenschaften zugegriffen werden.
 * Das Interface ``sly_Authorisation_Provider`` hat sich leicht geändert.
 * Die Benutzerliste enthält nun einen Pager sowie ein Filter-Eingabefeld.
 * Der Statcache von PHP wird beim Leeren des Caches ebenfalls geleert
