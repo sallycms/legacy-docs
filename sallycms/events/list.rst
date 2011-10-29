@@ -50,6 +50,7 @@ auslösen?
   :type:    filter
   :in:      string
   :out:     string
+  :since:   0.1.0
   :subject: das Menü (der erste Listener erhält einen leeren String)
   :params:
     article_id        (int)
@@ -70,6 +71,7 @@ auslösen?
 .. slyevent:: SLY_CONTENT_UPDATED
   :type:    notify
   :in:      string
+  :since:   0.3.2
   :subject: ein leerer String
   :params:
     article_id  (int)
@@ -82,6 +84,7 @@ auslösen?
 .. slyevent:: ART_META_UPDATED
   :type:    notify
   :in:      string
+  :since:   0.1.0
   :subject: die Erfolgsnachricht des Cores (kann um eigene Meldungen erweitert
             werden)
   :params:
@@ -96,6 +99,7 @@ auslösen?
   :type:    filter
   :in:      array
   :out:     array
+  :since:   0.3.0
   :subject: Array von Links auf die Slotseiten
   :params:
     article_id  (int)
@@ -112,6 +116,7 @@ auslösen?
   :type:    filter
   :in:      array
   :out:     array
+  :since:   0.1.0
   :subject: Array von Links auf die Slotseiten
   :params:
     article_id  (int)
@@ -127,6 +132,7 @@ auslösen?
 .. slyevent:: SLY_ART_MESSAGES
   :type:    notify
   :in:      sly_Model_Article
+  :since:   0.4.0
   :subject: der aktuell im Backend bearbeitete Artikel
 
   ermöglicht das Anzeigen von Erfolgs/Fehlernachrichten auf der Sliceseite

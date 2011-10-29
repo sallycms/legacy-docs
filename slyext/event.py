@@ -1,3 +1,5 @@
+# -*- coding: utf-8
+
 import re
 
 from docutils import nodes, statemachine
@@ -13,6 +15,7 @@ class Event(rst.Directive):
 		'in':      rst.directives.unchanged_required,
 		'subject': rst.directives.unchanged_required,
 		'out':     rst.directives.unchanged,
+		'since':   rst.directives.unchanged,
 		'params':  rst.directives.unchanged
 	}
 
@@ -47,6 +50,7 @@ class Event(rst.Directive):
 		outType = self.options.get('out') or 'void'
 		subject = self.options.get('subject')
 		params  = self.options.get('params') or ''
+		since   = self.options.get('since') or ''
 		desc    = u'\n'.join(self.content)
 
 		# create section
@@ -95,6 +99,14 @@ class Event(rst.Directive):
 			dl.append(nodes.definition_list_item('',
 				nodes.term('', '', nodes.strong('', 'Weitere Parameter:')),
 				nodes.definition('', paramlist)
+			))
+
+		if len(since) > 0:
+			since = 'v%s' % since
+
+			dl.append(nodes.definition_list_item('',
+				nodes.term('', '', nodes.strong('', u'Hinzugefügt in:')),
+				nodes.definition('', self._parseInline(since))
 			))
 
 		sec.append(dl)
