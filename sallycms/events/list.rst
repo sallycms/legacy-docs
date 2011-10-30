@@ -1,3 +1,5 @@
+:tocdepth: 2
+
 Events
 ======
 
@@ -81,17 +83,17 @@ auslösen?
 
 .. =============================================================================
 
-.. slyevent:: ART_META_UPDATED
+.. slyevent:: SLY_ART_META_UPDATED
   :type:    notify
-  :in:      string
-  :since:   0.1.0
-  :subject: die Erfolgsnachricht des Cores (kann um eigene Meldungen erweitert
-            werden)
+  :in:      null
+  :since:   0.5.0
+  :subject: N/A
   :params:
     id     (int)
     clang  (int)
 
-  wird ausgeführt, nachdem die **Metadaten** eines Artikels aktualisiert wurden
+  Wird ausgeführt, nachdem die **Metadaten** eines Artikels aktualisiert wurden.
+  Vor Version 0.5 hieß dieses Event noch ``ART_META_UPDATED``.
 
 .. =============================================================================
 
@@ -136,7 +138,7 @@ auslösen?
   :subject: der aktuell im Backend bearbeitete Artikel
 
   ermöglicht das Anzeigen von Erfolgs/Fehlernachrichten auf der Sliceseite
-  (insbesondere nützlich, nachdem auf ``ART_META_UPDATED`` reagiert wurde)
+  (insbesondere nützlich, nachdem auf ``SLY_ART_META_UPDATED`` reagiert wurde)
 
 .. =============================================================================
 
@@ -149,7 +151,7 @@ auslösen?
   :params:
     id       (int)
     clang    (int)
-    article  (sly_Model_Article)
+    article  (``sly_Model_Article``)
 
   ermöglicht das Erweitern des Meta-Formulars
 
@@ -163,11 +165,27 @@ auslösen?
   :params:
     id       (int)
     clang    (int)
-    article  (sly_Model_Article)
+    article  (``sly_Model_Article``)
 
   Erlaubt es, sich direkt in das oberste Fieldset (das auch "Metadaten" betitelt
   ist) reinzuhängen und dort weitere Elemente hinzuzufügen. Praktisch, wenn man
   kein eigenes Fieldset verwenden möchte.
+
+.. =============================================================================
+
+.. slyevent:: SLY_ART_META_FORM_ADDITIONAL
+  :type:    filter
+  :in:      sly_Form
+  :out:     sly_Form
+  :since:   0.5.5
+  :subject: wie bei ``SLY_ART_META_FORM``
+  :params:
+    id       (int)
+    clang    (int)
+    article  (``sly_Model_Article``)
+
+  Erlaubt es, das komplette Meta-Formular noch einmal zu verändern, bevor es
+  ausgegeben wird.
 
 .. =============================================================================
 
@@ -360,6 +378,297 @@ auslösen?
 
   Im laufenden Betrieb sollte es nie nötig sein, dieses Event auszulösen, um
   Caches zu invalidieren.
+
+.. =============================================================================
+
+.. slyevent:: PAGE_MEDIAPOOL_MENU
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core vorgegebenen Menüpunkte
+
+  wird ausgeführt, bevor das Submenü des Medienpool-Popups ausgegeben wird
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_LIST_QUERY
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: das vom Core vorgegebene WHERE-Statement (``f.category_id = X``)
+  :params:
+    category_id (int)  ID der aktuellen Medienkategorie
+
+  Über dieses Event können Listener das WHERE-Statement erweitern, über das die
+  anzuzeigenden Medien gefiltert werden. Das Filtern nach Medienkategorie wird
+  bereits vom Core erledigt (allerdings kann ein Listener diese Vorgabe auch
+  überschreiben). Im Statement kann über den Alias ``f`` die
+  ``sly_file``-Tabelle referenziert werden.
+
+.. =============================================================================
+
+.. slyevent:: SLY_OOMEDIA_IS_IN_USE
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core ermittelten Nutzungen des Mediums
+  :params:
+    filename (string)                der Dateiname
+    media    (``sly_Model_Medium``)  das Medium-Objekt
+
+  Über dieses Event kann ein Listener die Liste derjenigen Objekte, die das
+  Medium referenzieren, erweitert werden. So können auch gänzlich fremde Inhalte
+  (beispielsweise Produkte aus varisale) dafür sorgen, dass der Medienpool das
+  Löschen einer Datei verhindert, da sie noch benötigt wird.
+
+  Jedes Element im (Subject sowie Rückgabewert) ist wiederum ein Array, das aus
+  den Elementen ``title`` (Anzeigetitel), ``type`` (beliebiger String, der zur
+  Unterscheidung zwischen Elementen mit gleicher ID dient, beispielsweise
+  ``'myobject'``), ``id`` (die ID des referenzierenden Elements), ``clang``
+  (die Sprach-ID), ``link`` (ein relativer Link zur Backendseite, auf der die
+  Referenz zum Bild bearbeitet/entfernt werden kann, beispielsweise
+  ``index.php?page=...&id=...``) besteht.
+
+.. =============================================================================
+
+.. slyevent:: SLY_SPECIALS_MENU
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core vorgegebenen Menüpunkte
+  :params:
+    page (``sly_Layout_Navigation_Page``)  das Navigationsobjekt für die Systemseite
+
+  wird ausgeführt, bevor das Submenü der Systemseite ausgegeben wird
+
+.. =============================================================================
+
+.. slyevent:: SLY_SETTINGS_UPDATED
+  :type:    notify
+  :in:      null
+  :subject: N/A
+
+  Wird ausgeführt, nachdem die auf der Systemseite angegebenen Einstellungen
+  (Startartikel, Caching-Strategie, ...) gespeichert wurden.
+
+.. =============================================================================
+
+.. slyevent:: PAGE_STRUCTURE_HEADER
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: leerer String
+  :params:
+    category_id (int)  die ID der aktuellen Kategorie
+    clang       (int)  die aktuelle Sprache
+
+  In diesem Event können Listener den Kopfbereich der Strukturseite um eigene
+  Elemente erweitern. Der Rückgabewert des Events wird direkt ausgegeben.
+  BeSearch nutzt diesen Mechanismus, um die Filterleiste zu erzeugen.
+
+.. =============================================================================
+
+.. slyevent:: SLY_PAGE_USER_SUBPAGES
+  :type:    filter
+  :in:      array
+  :out:     array
+  :since:   0.5.5
+  :subject: die vom Core vorgegebenen Menüpunkte
+
+  wird ausgeführt, bevor das Submenü der Benutzerseite ausgegeben wird
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_POSTVIEW_ADD
+  :type:    notify
+  :in:      array
+  :subject: die Slice-Werte
+  :params:
+    module     (string)
+    article_id (int)
+    clang      (int)
+    slot       (string)
+
+  wird nach dem Anzeigen des Slice-hinzufügen-Formulars ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_POSTVIEW_EDIT
+  :type:    notify
+  :in:      array
+  :subject: die Slice-Werte
+  :params:
+    module     (string)
+    article_id (int)
+    clang      (int)
+    slot       (string)
+    slice      (``OOArticleSlice``)
+
+  wird nach dem Anzeigen des Slice-bearbeiten-Formulars ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: PAGE_TITLE
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: der Seitentitel
+  :params:
+    page (string)  der Name der aktuellen Seite
+
+  Über dieses Event können Listener den Seitentitel noch einmal verändern.
+
+.. =============================================================================
+
+.. slyevent:: PAGE_TITLE_SHOWN
+  :type:    notify
+  :in:      string
+  :subject: die gerenderten Untermenülinks als HTML-String
+  :params:
+    page (string)  der Name der aktuellen Seite
+
+  wird direkt nach ``PAGE_TITLE`` ausgeführt
+
+.. =============================================================================
+
+.. slyevent:: ART_SLICE_MENU
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core vorgegebenene Menüpunkte für ein Slice
+  :params:
+    article_id (int)
+    clang      (int)
+    slot       (string)
+    module     (string)
+    slice_id   (int)
+
+  Über dieses Event können Listener das Slice-Menü erweitern. Dieses Menü wird
+  bei jedem Slice angezeigt und erlaubt es, diese zu löschen, bearbeiten oder zu
+  verschieben.
+
+.. =============================================================================
+
+.. slyevent:: SLY_PAGE_CONTENT_SLOT_MENU
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core vorgegebenene Links für die Slots
+  :params:
+    article_id (int)
+    clang      (int)
+
+  Über dieses Event können Listener die Liste der Slots für einen Artikel
+  erweitern. Das Slot-Menü wird überhalb der Artikelslices auf der linken Seite
+  angezeigt (während auf der rechten Seite das Actions-Menü ist).
+
+.. =============================================================================
+
+.. slyevent:: SLY_PAGE_CONTENT_ACTIONS_MENU
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core vorgegebenene Links
+  :params:
+    article_id (int)
+    clang      (int)
+
+  Über dieses Event können Listener die Liste der Aktionslinks für einen Artikel
+  erweitern. Diese Links werden auf der rechten Seite über dem Artikelinhalt
+  angezeigt und erlauben by default den Zugriff auf Slices, die Metadaten und
+  die Vorschau im Frontend.
+
+.. =============================================================================
+
+.. slyevent:: SLY_LAYOUT_NAVI
+  :type:    filter
+  :in:      sly_Layout_Navigation_Backend
+  :out:     sly_Layout_Navigation_Backend
+  :subject: die Backend-Navigation
+
+  Über dieses Event können AddOns das Menü von Sally noch einmal verändern,
+  bevor es gerendert wird.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_FORM_EDIT
+  :type:    filter
+  :in:      sly_Form
+  :out:     sly_Form
+  :subject: das Formular zum Bearbeiten von Medien im Medienpool
+  :params:
+    file_id (int)
+    medium  (sly_Model_Medium)
+
+  Über dieses Event können Listener das Medienformular noch einmal bearbeiten,
+  bevor es ausgegeben wird. Das Event wird ausgeführt bevor die Buttons
+  gesetzt werden.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_LIST_FUNCTIONS
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: der String zum Auswählen einer Datei (oder ein leerer String)
+  :params:
+    medium  (sly_Model_Medium)
+
+  Über dieses Event können Listener den Link, über den im Medienpool-Popup eine
+  Datei ausgewählt werden kann, erweitern. So könnten weitere Links hinzugefügt
+  oder der Sally-eigene überschrieben werden. Der Rückgabewert wird direkt
+  ausgegeben.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_FORM_SYNC
+  :type:    filter
+  :in:      sly_Form
+  :out:     sly_Form
+  :subject: das Synchronisieren-Formular aus dem Medienpool
+
+  Über dieses Event können Listener das Medien-synchronisieren-Formular
+  nachträglich noch verändern. Das Form wird im Anschluss direkt gerendert.
+
+.. =============================================================================
+
+.. slyevent:: PAGE_MEDIAPOOL_HEADER
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: ein leerer String
+  :params:
+    category_id (int)
+
+  Über dieses Event können im Medienpool noch weitere Inhalte im Kopfbereich
+  ausgegeben werden. In der Strukturansicht des Medienpools kann auch einfach
+  das Formular in ``SLY_MEDIA_LIST_TOOLBAR`` verändert werden (anstatt ein
+  eigenes zu erstellen und zu rendern). Der Rückgabewert wird direkt ausgegeben.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_LIST_TOOLBAR
+  :type:    filter
+  :in:      sly_Form
+  :out:     sly_Form
+  :subject: das Header-Formular im Medienpool-Index
+  :params:
+    category_id (int)
+
+  Über dieses Event können Listener das Formular im Kopf der Medienpool-
+  Strukturansicht erweitern (dort, wo auch die Medienpoolkategorie ausgewählt
+  werden kann). Das Formular wird im Anschluss direkt ausgegeben.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_FORM_ADD
+  :type:    filter
+  :in:      sly_Form
+  :out:     sly_Form
+  :subject: das Datei-hinzufügen-Formular aus dem Medienpool
+
+  Über dieses Event können Listener das Medien-hinzufügen-Formular
+  nachträglich noch verändern. Das Form wird im Anschluss direkt gerendert.
 
 Frontend
 --------
