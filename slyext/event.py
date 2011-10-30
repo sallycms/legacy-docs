@@ -31,12 +31,18 @@ class Event(rst.Directive):
 		for paramline in params.split("\n"):
 			match = re.match('^([^ ]+) +\((.*?)\)(?:\s*(.*?))$', paramline)
 			item  = nodes.list_item()
-
-			item.append(nodes.literal('', match.group(1)))
-			item.append(nodes.Text(' ('+match.group(2)+')'))
+			text  = '``%s`` (%s)' % (match.group(1), match.group(2))
 
 			if len(match.groups()) == 3 and len(match.group(3)) > 0:
-				item.append(self._parseInline('(' + match.group(3) + ')'))
+				text = text + ' (' + match.group(3) + ')'
+
+			children = self._parseInline(text).children
+
+			for child in children:
+				if isinstance(child, nodes.paragraph):
+					[item.append(t) for t in child.children]
+				else:
+					item.append(child)
 
 			ul.append(item)
 
