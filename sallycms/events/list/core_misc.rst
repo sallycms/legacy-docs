@@ -6,6 +6,28 @@ Sonstige Core-Events
 
    * :ref:`page-content-header`
 
+.. slyevent:: __AUTOLOAD
+  :type:    until
+  :in:      string
+  :out:     void
+  :since:   0.1.0
+  :subject: der volle Name der zu ladenden Klasse
+
+  Dieses Event wird ausgelöst, wenn eine zu ladende Klasse von ``sly_Loader``
+  nicht gefunden werden konnte. Listener können hierüber Klassen laden, die
+  nicht dem Standard-Layout für Klassennamen folgen.
+
+  Der Rückgabewert des Events wird nicht weiter ausgewertet, es ist also
+  irrelevant, was ein Listener zurückgibt, wenn er eine Klasse geladen hat.
+
+.. warning::
+
+  Die Verwendung dieses Events ist *deprecated*, da es sich hierbei mehr um ein
+  Relikt aus REDAXO 4.2-Zeiten handelt. Alle Komponenten des Systems sollten
+  ihre Klassen in einer autoloadbaren Struktur mitbringen.
+
+.. =============================================================================
+
 .. slyevent:: ADDONS_INCLUDED
   :type:    notify
   :in:      null
@@ -42,6 +64,49 @@ Sonstige Core-Events
 
 .. =============================================================================
 
+.. slyevent:: SLY_DB_IMPORTER_AFTER
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: die Erfolgsnachricht vom Core
+  :params:
+    dump     (sly_DB_Dump)  der eingespielte Dump
+    filename (string)       der Dateiname des eingespielten Dumps
+    filesize (int)          die Dateigröße des Dumps in Byte
+
+  Dieses Event wird ausgelöst, nachdem ein Datenbank-Dump importiert wurde. Es
+  wird auch während der Sally-Setups ausgeführt, allerdings kann zu diesem
+  Zeitpunkt noch niemand lauschen.
+
+  AddOns mit komplexen Daten (insbesondere solche, deren Daten auf
+  Konfigurationsdateien basieren) sollten auf dieses Event lauschen und dann
+  ihre Daten überprüfen / neu aufbauen. So kann es passieren, dass bspws.
+  Metadaten von Artikeln fehlen, weil die Konfiguration zwischenzeitlich
+  erweitert wurde. In diesem Fall müsste das dafür zuständige AddOn (Metainfo)
+  bei diesem Event die überschüssigen Daten entfernen und fehlende ergänzen.
+
+  Im Anschluss an dieses Event wird der Cache geleert (es wird ``ALL_GENERATED``
+  ausgeführt).
+
+.. =============================================================================
+
+.. slyevent:: SLY_DB_IMPORTER_BEFORE
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: Hinweisnachricht (initial ein leerer String)
+  :params:
+    dump     (sly_DB_Dump)  der eingespielte Dump
+    filename (string)       der Dateiname des eingespielten Dumps
+    filesize (int)          die Dateigröße des Dumps in Byte
+
+  Dieses Event wird ausgelöst, bevor ein Datenbank-Dump importiert wurde.
+  Listener können nur die später auszugebende Erfolgsnachricht um eigene Infos
+  erweitern. In den meisten Fällen wird man sich eher in
+  ``SLY_DB_IMPORTER_AFTER`` hängen wollen.
+
+.. =============================================================================
+
 .. slyevent:: SLY_LISTENERS_REGISTERED
   :type:    notify
   :in:      null
@@ -50,6 +115,19 @@ Sonstige Core-Events
   Dieses Event wird ausgelöst, nachdem der Systemkern alle
   :doc:`Event-Listener </developing/listeners>` aus den Konfigurationsdateien
   (``LISTENERS``) registriert hat.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MAIL_CLASS
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: der Klassenname, initial ``'sly_Mail'``
+
+  Über dieses Event kann der Name der Klasse, über die eine eMail verschickt
+  wird, angepasst werden. So können PHPMailer oder Swiftmailer in Sally
+  integriert werden, ohne dass die Mail verschickenden Komponenten davon etwas
+  bemerken.
 
 .. =============================================================================
 

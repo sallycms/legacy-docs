@@ -97,3 +97,22 @@ Article-Models
 
   Wird ausgeführt, nachdem in ``OOArticleSlice::getSliceIdsForSlot()`` die IDs
   der Slices ermittelt wurden.
+
+.. =============================================================================
+
+.. slyevent:: URL_REWRITE
+  :type:    until
+  :in:      string
+  :out:     string
+  :subject: ein leerer String
+  :params:
+    id            (int)     Artikel-ID
+    clang         (int)     Sprach-ID
+    params        (string)  die schon URL-kodierten GET-Parameter als String
+    divider       (string)  der Trenner für die URL-Parameter
+    disable_cache (bool)    wenn true, sollte die URL nicht aus einem Cache ermittelt werden
+
+  Über dieses Event können realurl-Implementierungen die **relative** URL eines
+  Artikels im Frontend ermitteln. Der erste Listener, der eine URL zurückgibt,
+  gewinnt. Gibt es keinen Listener, wird eine einfache ``index.php``-URL
+  vom Core erzeugt.

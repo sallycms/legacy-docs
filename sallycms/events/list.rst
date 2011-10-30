@@ -7,8 +7,10 @@
    list/core_categories
    list/core_media
    list/core_users
+   list/core_models
    list/core_assetcache
    list/core_addons
+   list/core_layout
    list/core_misc
 
    list/be_structure
@@ -78,6 +80,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_ART_TO_STARTPAGE
      * SLY_CONTENT_UPDATED
      * SLY_SLICE_MOVED
+     * URL_REWRITE
 
    * :doc:`list/core_categories`
 
@@ -88,14 +91,28 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_OOMEDIA_IS_IN_USE
 
    * :doc:`list/core_users`
+   * :doc:`list/core_models`
+
+     * SLY_MODEL\_*\_*
+
    * :doc:`list/core_assetcache`
    * :doc:`list/core_addons`
+   * :doc:`list/core_layout`
+
+     * HEADER_CSS
+     * HEADER_CSS_FILES
+     * HEADER_JAVASCRIPT
+     * HEADER_JAVASCRIPT_FILES
+
    * :doc:`list/core_misc`
 
+     * __AUTOLOAD
      * ADDONS_INCLUDED
      * OUTPUT_FILTER
      * OUTPUT_FILTER_CACHE
+     * SLY_DB_IMPORTER_BEFORE
      * SLY_LISTENERS_REGISTERED
+     * SLY_MAIL_CLASS
      * SLY_PRE_PROCESS_ARTICLE
 
 Backend
