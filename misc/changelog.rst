@@ -33,6 +33,8 @@ Changelog
   SQLite-basierten Cache sowie einen einfacheren Dateisystem-Cache mit.
 * ``sly_Layout_XHTML5->setLanguage()`` wurde in das XHTML-Layout zurückportiert
   (= verschoben) und kann nun auch dort verwendet werden.
+* Das Event ``SLY_SETUP_INIT_FUNCTIONS_FORM`` wurde entfernt, da es keine
+  Listener dafür geben konnte (im Setup-Prozess).
 * hinzugefügt: ``SLY_SLICE_POSTVIEW_ADD`` und ``SLY_SLICE_POSTVIEW_EDIT`` als
   neue Events, die nach dem Hinzufügen/Bearbeiten eines Slices ausgeführt
   werden.

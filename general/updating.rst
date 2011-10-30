@@ -766,6 +766,7 @@ problematisch sein dürften.
     Browser verwirrt und führte zu Problemen, wenn Modernizr den
     Datepicker-Support nicht korrekt erkannte.
   * ``sly_Util_Language->findById()`` wurde hinzugefügt.
+  * Das Event ``SLY_SETUP_INIT_FUNCTIONS_FORM`` wurde entfernt.
 
 Beim Aktualisieren einer bestehenden Installation sollten die neuen Objektrechte
 von Hand in die lokale Konfiguration (:file:`sally/data/config/sly_local.yml`)
