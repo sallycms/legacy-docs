@@ -74,10 +74,16 @@ Sally-Standardbackend) als auch im Frontend auftreten.
    * :doc:`list/core_articles`
 
      * CLANG_ARTICLE_GENERATED
+     * SLY_ART_ADDED
      * SLY_ART_CONTENT_COPIED
      * SLY_ART_COPIED
      * SLY_ART_MOVED
+     * SLY_ART_UPDATED
+     * SLY_ART_DELETED
+     * SLY_ART_STATUS
+     * SLY_ART_STATUS_TYPES
      * SLY_ART_TO_STARTPAGE
+     * SLY_ART_TYPE
      * SLY_CONTENT_UPDATED
      * SLY_SLICE_MOVED
      * URL_REWRITE
@@ -96,7 +102,17 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_MODEL\_*\_*
 
    * :doc:`list/core_assetcache`
+
+     * SLY_CACHE_PROCESS_ASSET
+     * SLY_CACHE_REVALIDATE_ASSETS
+     * SLY_CACHE_GET_PROTECTED_ASSETS
+     * SLY_CACHE_IS_PROTECTED_ASSET
+
    * :doc:`list/core_addons`
+
+     * SLY_ADDON\_*\_*
+     * SLY_PLUGIN\_*\_*
+
    * :doc:`list/core_layout`
 
      * HEADER_CSS
@@ -170,7 +186,6 @@ nicht ``SLY_CONTENT_UPDATED`` enthalten).
 
      * SLY_PAGE_USER_SUBPAGES
 
-   * :doc:`AddOn-Verwaltung <list/be_addons>`
    * :doc:`Systemseite (Einstellungen & Sprachen) <list/be_specials>`
 
      * ALL_GENERATED
