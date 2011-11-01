@@ -1,10 +1,9 @@
 Medienpool
 ==========
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
+Diese Seite listet alle Events auf, die im Medienpool ausgelöst werden. Nicht
+enthalten sind die Events, die vom :doc:`Medium-Model <core_media>` und vom
+:doc:`MediaCategory-Model <core_mediacat>` ausgelöst werden.
 
 .. slyevent:: PAGE_MEDIAPOOL_MENU
   :type:    filter

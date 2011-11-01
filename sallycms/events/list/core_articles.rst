@@ -1,11 +1,6 @@
 Article-Models
 ==============
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: SLY_CONTENT_UPDATED
   :type:    notify
   :in:      string

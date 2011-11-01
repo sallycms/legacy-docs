@@ -1,11 +1,6 @@
 Sonstige Backend-Events
 =======================
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: PAGE_CHECKED
   :type:    notify
   :in:      string

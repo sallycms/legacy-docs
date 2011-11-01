@@ -1,11 +1,6 @@
 Sonstige Core-Events
 ====================
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: __AUTOLOAD
   :type:    until
   :in:      string

@@ -1,11 +1,6 @@
 Category-Models
 ===============
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: SLY_CAT_MOVED
   :type:    notify
   :in:      int

@@ -1,11 +1,6 @@
 Strukturansicht
 ===============
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: PAGE_STRUCTURE_HEADER
   :type:    filter
   :in:      string

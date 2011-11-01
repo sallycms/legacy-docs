@@ -5,11 +5,6 @@ Benutzerverwaltung
 
   Nicht zu verwechseln mit dem Backend von FrontendUser!
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: SLY_PAGE_USER_SUBPAGES
   :type:    filter
   :in:      array

@@ -1,13 +1,11 @@
 Inhaltsverwaltung
 =================
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
-Inhaltsverwaltung
------------------
+Die auf dieser Seite aufgelisteten Events werden von der Inhaltsverwaltung des
+Backends ausgelöst. Nicht enthalten sind diejenigen Events, die von
+:doc:`core_articles` und :doc:`core_categories` ausgelöst werden. Ebenfalls
+nicht enthalten sind die :doc:`generischen PRE- und POST-Events <be_slices>`
+für Slices.
 
 .. slyevent:: PAGE_CONTENT_HEADER
   :type:    filter

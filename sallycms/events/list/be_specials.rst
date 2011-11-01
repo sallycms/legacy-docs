@@ -1,11 +1,6 @@
 Systemseite
 ===========
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: SLY_SPECIALS_MENU
   :type:    filter
   :in:      array

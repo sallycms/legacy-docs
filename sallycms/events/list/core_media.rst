@@ -1,11 +1,6 @@
 Medium-Models
 =============
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: SLY_OOMEDIA_IS_IN_USE
   :type:    filter
   :in:      array

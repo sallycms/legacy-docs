@@ -5,11 +5,6 @@ Layout-Events
 verändern, bevor sie schlussendlich ausgegeben werden. Neben den Dateien können
 auch Inline-Codes und andere Inhalte noch einmal gefiltert werden.
 
-.. hlist::
-   :columns: 3
-
-   * :ref:`page-content-header`
-
 .. slyevent:: HEADER_CSS
   :type:    filter
   :in:      string
