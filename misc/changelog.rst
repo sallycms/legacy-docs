@@ -3,6 +3,67 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.5 (3. November 2011)
+------------------------
+
+.. note::
+
+  Dieses Release enthält deutliche Änderungen am Rechtesystem und der
+  Benutzerverwaltung. Vor einem Update sollten unbedingt die
+  :doc:`Upgrade-Hinweise </general/updating>` studiert werden.
+
+* Das Backend ist nun auch über ``/backend`` (ohne Slash am Ende) zu erreichen.
+* Das Handling von Benutzerrechten wurde massiv überarbeitet und unterstützt nun
+  externe Autorisierungssysteme.
+* ``SLY_MEDIA_LIST_TOOLBAR`` wird auch ausgeführt, wenn es keine Kategorien
+  gibt (AddOns können also die Toolbar immer anpassen).
+* Benutzer können auf ihrer Profilseite das Locale auf den Projektstandard
+  (anstatt eines konkreten Wertes) zurücksetzen. Außerdem kann im Formular für
+  einen Benutzer nun dessen Zeitzone einstellen.
+* Auf der Loginseite wird ein Cookie gesetzt, das alle Fähigkeiten des Browsers
+  (also die Properties von ``Modernizr``) enthält. Sally prüft nun serverseitig,
+  ob der Client beispielsweise Datepicker nativ unterstützt und erspart dem
+  Client dann das Laden der jQuery UI Dateien. Über ``sly_Helper_Modernizr``
+  kann auf die Eigenschaften zugegriffen werden.
+* Das Interface ``sly_Authorisation_Provider`` hat sich leicht geändert.
+* Die Benutzerliste enthält nun einen Pager sowie ein Filter-Eingabefeld.
+* Der Statcache von PHP wird beim Leeren des Caches ebenfalls geleert
+  (``clearstatcache()`` wird noch vor ``ALL_GENERATED`` ausgeführt).
+* BabelCache wurde auf Version 1.2.7-beta aktualisiert und bringt nun einen
+  SQLite-basierten Cache sowie einen einfacheren Dateisystem-Cache mit. Der neue
+  Dateisystem-Cache ist ebenfalls der Standard für neue Projekte.
+* ``sly_Layout_XHTML5->setLanguage()`` wurde in das XHTML-Layout zurückportiert
+  (= verschoben) und kann nun auch dort verwendet werden.
+* Das Event ``SLY_SETUP_INIT_FUNCTIONS_FORM`` wurde entfernt, da es keine
+  Listener dafür geben konnte (im Setup-Prozess).
+* hinzugefügt: ``SLY_SLICE_POSTVIEW_ADD`` und ``SLY_SLICE_POSTVIEW_EDIT`` als
+  neue Events, die nach dem Hinzufügen/Bearbeiten eines Slices ausgeführt
+  werden.
+* hinzugefügt: Das Event ``SLY_ART_META_FORM_ADDITIONAL`` erlaubt es, das
+  Meta-Formular von Artikeln nachträglich noch einmal zu verändern.
+* hinzugefügt: ``sly_Form->getFieldsets()`` und
+  ``sly_Form->findElementByName()``
+* hinzugefügt: ``SLY_USER_FORM`` erlaubt es, das Benutzerformular nachträglich
+  zu erweitern.
+* hinzugefügt: ``SLY_USER_ADDED`` und ``SLY_USER_UPDATED`` werden ausgeführt,
+  nachdem ein Benutzer angelegt oder bearbeitet wurde. ``SLY_USER_DELETED`` wird
+  ausgeführt, nachdem ein Benutzer gelöscht wurde.
+* hinzugefügt: Über ``SLY_PAGE_USER_SUBPAGES`` kann das Menü der Benutzerseite
+  um eigene Unterseiten erweitert werden.
+* hinzugefügt: ``sly_Layout->setBase()`` zum Setzen der Base-URI.
+* Bugfix: Mehrere Datepicker auf seiner Seite führten zu JavaScript-Konflikten.
+* Bugfix: Die Konfiguration wurde nicht neu gespeichert, wenn Elemente entfernt
+  wurden.
+* Bugfix: Wenn AddOns oder Plugins nicht (mehr) verfügbar sind, wird nun nur
+  noch eine einmalige Warnung ausgegeben und dann die Komponente aus der
+  Konfiguration entfernt.
+* Bugfix: Warnung beim Re-Installieren von Plugins entfernt.
+* Bugfix: Das Escaping des Slotnamens in OOArticleSlice war fehlerhaft.
+* Bugfix: Der Sally-ErrorHandler kannte ``E_COMPILE_ERROR`` nicht.
+* Bugfix: Fehler in den ``PRESAVE``-Events von Slices wurden behoben.
+* Bugfix: Beim Umbenennen von Artikeln wurde der Cache nicht richtig geleert
+  (Ticket #4519).
+
 0.5.4 (3. Oktober 2011)
 -----------------------
 

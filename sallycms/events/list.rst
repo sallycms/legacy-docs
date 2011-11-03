@@ -1,3 +1,27 @@
+:tocdepth: 2
+
+.. toctree::
+   :hidden:
+
+   list/core_articles
+   list/core_categories
+   list/core_media
+   list/core_users
+   list/core_models
+   list/core_assetcache
+   list/core_addons
+   list/core_layout
+   list/core_misc
+
+   list/be_structure
+   list/be_content
+   list/be_slices
+   list/be_mediapool
+   list/be_users
+   list/be_addons
+   list/be_specials
+   list/be_misc
+
 Events
 ======
 
@@ -37,395 +61,140 @@ getan, als wären Events Methoden und ihre "Signaturen" aufgelistet.
   allgemeinen Struktur oder Reihenfolge folgen, werden sie in der Signatur nicht
   erwähnt.
 
+Core
+----
+
+Die folgenden Events werden von der Kern-API ausgelöst und können (teilweise)
+sowohl im Backend (in jedem Backend, nicht zwangsweise dem
+Sally-Standardbackend) als auch im Frontend auftreten.
+
+.. hlist::
+   :columns: 3
+
+   * :doc:`list/core_articles`
+
+     * CLANG_ARTICLE_GENERATED
+     * SLY_ART_ADDED
+     * SLY_ART_CONTENT_COPIED
+     * SLY_ART_COPIED
+     * SLY_ART_MOVED
+     * SLY_ART_UPDATED
+     * SLY_ART_DELETED
+     * SLY_ART_STATUS
+     * SLY_ART_STATUS_TYPES
+     * SLY_ART_TO_STARTPAGE
+     * SLY_ART_TYPE
+     * SLY_CONTENT_UPDATED
+     * SLY_SLICE_MOVED
+     * URL_REWRITE
+
+   * :doc:`list/core_categories`
+
+     * SLY_CAT_MOVED
+
+   * :doc:`list/core_media`
+
+     * SLY_OOMEDIA_IS_IN_USE
+
+   * :doc:`list/core_users`
+   * :doc:`list/core_models`
+
+     * SLY_MODEL\_*\_*
+
+   * :doc:`list/core_assetcache`
+
+     * SLY_CACHE_PROCESS_ASSET
+     * SLY_CACHE_REVALIDATE_ASSETS
+     * SLY_CACHE_GET_PROTECTED_ASSETS
+     * SLY_CACHE_IS_PROTECTED_ASSET
+
+   * :doc:`list/core_addons`
+
+     * SLY_ADDON\_*\_*
+     * SLY_PLUGIN\_*\_*
+
+   * :doc:`list/core_layout`
+
+     * HEADER_CSS
+     * HEADER_CSS_FILES
+     * HEADER_JAVASCRIPT
+     * HEADER_JAVASCRIPT_FILES
+
+   * :doc:`list/core_misc`
+
+     * __AUTOLOAD
+     * ADDONS_INCLUDED
+     * OUTPUT_FILTER
+     * OUTPUT_FILTER_CACHE
+     * SLY_DB_IMPORTER_BEFORE
+     * SLY_LISTENERS_REGISTERED
+     * SLY_MAIL_CLASS
+     * SLY_PRE_PROCESS_ARTICLE
+
 Backend
 -------
 
-Die folgenden Events werden (was Sally angeht) nur im Backend ausgelöst.
-Natürlich ist es möglich, dass Frontend-Code beliebige Events auslöst (und
-darunter auch die Core-Events sind), aber dabei würde es sich um ein Problem mit
-der Frontend-Logik handeln: Warum sollte man im Frontend ``PAGE_CHECKED``
-auslösen?
-
-.. slyevent:: PAGE_CONTENT_HEADER
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: das Menü (der erste Listener erhält einen leeren String)
-  :params:
-    article_id        (int)
-    clang             (int)
-    function          (string)
-    mode              (string)
-    slice_id          (int)
-    page              (string)
-    slot              (string)
-    category_id       (int)
-    article_revision  (int)
-    slice_revision    (int)
-
-  erzeugt eine Titelzeile über der Sliceseite (wird z.B. von BeSearch genutzt)
-
-.. =============================================================================
-
-.. slyevent:: SLY_CONTENT_UPDATED
-  :type:    notify
-  :in:      string
-  :subject: ein leerer String
-  :params:
-    article_id  (int)
-    clang       (int)
-
-  wird ausgeführt, nachdem der Inhalt eines Artikels aktualisiert wurde
-
-.. =============================================================================
-
-.. slyevent:: ART_META_UPDATED
-  :type:    notify
-  :in:      string
-  :subject: die Erfolgsnachricht des Cores (kann um eigene Meldungen erweitert
-            werden)
-  :params:
-    id     (int)
-    clang  (int)
-
-  wird ausgeführt, nachdem die **Metadaten** eines Artikels aktualisiert wurden
-
-.. =============================================================================
-
-.. slyevent:: PAGE_CONTENT_SLOT_MENU
-  :type:    filter
-  :in:      array
-  :out:     array
-  :subject: Array von Links auf die Slotseiten
-  :params:
-    article_id  (int)
-    clang       (int)
-    function    (string)
-    mode        (string)
-    slice_id    (int)
-
-  ermöglicht die Erweiterung der Slotliste auf der Sliceseite
-
-.. =============================================================================
-
-.. slyevent:: PAGE_CONTENT_MENU
-  :type:    filter
-  :in:      array
-  :out:     array
-  :subject: Array von Links auf die Slotseiten
-  :params:
-    article_id  (int)
-    clang       (int)
-    function    (string)
-    mode        (string)
-    slice_id    (int)
-
-  ermöglicht die Erweiterung des Slice/Meta/Anzeigen-Menüs auf der Sliceseite
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_MESSAGES
-  :type:    notify
-  :in:      sly_Model_Article
-  :subject: der aktuell im Backend bearbeitete Artikel
-
-  ermöglicht das Anzeigen von Erfolgs/Fehlernachrichten auf der Sliceseite
-  (insbesondere nützlich, nachdem auf ``ART_META_UPDATED`` reagiert wurde)
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_META_FORM
-  :type:    filter
-  :in:      sly_Form
-  :out:     sly_Form
-  :subject: das Formular, in dem die Metadaten, Artikelname und Zusatzfunktionen
-            (wie die Buttons zum Kopieren des Artikels) enthalten sind
-  :params:
-    id       (int)
-    clang    (int)
-    article  (sly_Model_Article)
-
-  ermöglicht das Erweitern des Meta-Formulars
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_META_FORM_FIELDSET
-  :type:    filter
-  :in:      sly_Form
-  :out:     sly_Form
-  :subject: wie bei ``SLY_ART_META_FORM``
-  :params:
-    id       (int)
-    clang    (int)
-    article  (sly_Model_Article)
-
-  Erlaubt es, sich direkt in das oberste Fieldset (das auch "Metadaten" betitelt
-  ist) reinzuhängen und dort weitere Elemente hinzuzufügen. Praktisch, wenn man
-  kein eigenes Fieldset verwenden möchte.
-
-.. =============================================================================
-
-.. slyevent:: PAGE_CHECKED
-  :type:    notify
-  :in:      string
-  :subject: der Name der aktuellen Backendseite
-
-  benachrichtigt über die endgültig festgelegte Backend-Seite, die nun
-  ausgeführt wird
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_PRESAVE_ADD
-  :type:    filter
-  :in:      array
-  :out:     array
-  :subject: die Daten des betroffenen Slices (``SLY_VALUE``\s, ...)
-  :params:
-    module      (string)
-    article_id  (int)
-    clang       (int)
-
-  wird **vor** dem Speichern eines neuen Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_PRESAVE_EDIT
-  :type:    filter
-  :in:      array
-  :out:     array
-  :subject: die Daten des betroffenen Slices (``SLY_VALUE``\s, ...)
-  :params:
-    module      (string)
-    article_id  (int)
-    clang       (int)
-
-  wird **vor** dem Aktualisieren eines Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_PRESAVE_DELETE
-  :type:    filter
-  :in:      array
-  :out:     array
-  :subject: die Daten des betroffenen Slices (``SLY_VALUE``\s, ...)
-  :params:
-    module      (string)
-    article_id  (int)
-    clang       (int)
-
-  wird **vor** dem Löschen eines Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_POSTSAVE_ADD
-  :type:    filter
-  :in:      mixed
-  :out:     array
-  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
-            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
-            sie erweitern können)
-  :params:  article_slice_id (int)
-
-  wird **nach** dem Speichern eines neuen Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_POSTSAVE_EDIT
-  :type:    filter
-  :in:      mixed
-  :out:     array
-  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
-            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
-            sie erweitern können)
-  :params:  article_slice_id (int)
-
-  wird **nach** dem Aktualisieren eines Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_POSTSAVE_DELETE
-  :type:    filter
-  :in:      mixed
-  :out:     array
-  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
-            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
-            sie erweitern können)
-  :params:  article_slice_id (int)
-
-  wird **nach** dem Löschen eines Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_SLICE_MOVED
-  :type:    notify
-  :in:      OOArticleSlice
-  :subject: das verschobene Slice
-  :params:
-    clang     (int)
-    direction (string)  'up' oder 'down'
-    oldprior  (int)
-    newprior  (int)
-
-  wird nach dem Verschieben eines Slices ausgeführt
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_TO_STARTPAGE
-  :type:    notify
-  :in:      int
-  :subject: die ID des Artikels, der zum Startartikel wurde
-  :params:  old_cat (int) die ID des vorherigen Startartikels
-
-  wird ausgeführt, nachdem ein Artikel zum Startartikel einer Kategorie wurde
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_CONTENT_COPIED
-  :type:    notify
-  :in:      null
-  :subject: N/A
-  :params:
-    from_id      (int)  die ID des Quellartikels
-    from_clang   (int)  die Sprach-ID des Quellartikels
-    to_id        (int)  die ID des Zielartikels
-    to_clang     (int)  die Sprach-ID des Zielartikels
-    start_slice  (int)  die ID des Slices, bei dem mit dem Kopieren begonnen wurde (ungenutzt seit Sally die Slices nicht mehr als verkettete Liste speichert)
-
-  wird ausgeführt, nachdem der **Inhalt** eines Artikels kopiert wurde
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_COPIED
-  :type:    notify
-  :in:      int
-  :subject: die ID des Quellartikels
-  :params:
-    id      (int)     ID des Quellartikels
-    clang   (int)     ID der Sprache (siehe Beschreibung!)
-    status  (int)     immer 0 (offline)
-    name    (string)  Name des Quellartikels
-    re_id   (int)     ID der Zielkategorie
-    prior   (int)     Position des neuen Artikels
-    path    (string)  Kategorie-Pfad (``|id|id|...|``)
-    type    (string)  Artikeltyp
-
-  wird ausgeführt, nachdem ein Artikel kopiert wurde (*wird einmal pro Sprache
-  ausgeführt!*)
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_MOVED
-  :type:    notify
-  :in:      int
-  :subject: die ID des Quellartikels
-  :params:
-    clang   (int)  ID der Sprache (siehe Beschreibung!)
-    target  (int)  ID der Zielkategorie
-
-  wird ausgeführt, nachdem ein Artikel verschoben wurde (*wird einmal pro
-  Sprache ausgeführt!*)
-
-.. =============================================================================
-
-.. slyevent:: SLY_CAT_MOVED
-  :type:    notify
-  :in:      int
-  :subject: die ID der Quellkategorie
-  :params:
-    clang   (int)  ID der Sprache (siehe Beschreibung!)
-    target  (int)  ID der Zielkategorie
-
-  wird ausgeführt, nachdem eine Kategorie verschoben wurde (*wird einmal pro
-  Sprache ausgeführt!*)
-
-.. =============================================================================
-
-.. slyevent:: ALL_GENERATED
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: die Erfolgsnachricht
-
-  Wird ausgeführt, nachdem der Core-Cache (Artikel, Templates, ...) geleert
-  wurde. Alle Bestandteile des Systems, die Daten in irgendeiner Art cachen,
-  sollten auf dieses Event reagieren und ihren Cache **vollständig** leeren.
-
-.. note::
-
-  Im laufenden Betrieb sollte es nie nötig sein, dieses Event auszulösen, um
-  Caches zu invalidieren.
-
-Frontend
---------
-
-Die folgenden Events werden nur im Frontend ausgelöst.
-
-.. slyevent:: SLY_PRE_PROCESS_ARTICLE
-  :type:    filter
-  :in:      sly_Model_Article
-  :out:     sly_Model_Article
-  :subject: der ermittelte Artikel (die meisten realurl-Implementierungen
-            haben bereits den Request abgearbeitet, sodass hier beispielsweise
-            bei RealURL2 bereits der richtige Artikel bereitsteht)
-
-  gibt Listenern und AddOns eine letzte Chance, den anzuzeigenden Artikel zu
-  verändern, bevor dessen Template schlussendlich eingebunden und ausgeführt
-  wird
-
-Frontend & Backend
-------------------
-
-.. slyevent:: ADDONS_INCLUDED
-  :type:    notify
-  :in:      null
-  :subject: N/A
-
-  Dieses Event wird ausgelöst, nachdem der Systemkern alle aktivierten AddOns
-  und Plugins geladen hat. In den meisten Fällen es ist ratsam,
-  Initialisierungen von AddOns mindestens bis zu diesem Event aufzuschieben.
-  Das ermöglicht es, dass alle Event-Listener bereits registriert sind.
-
-.. =============================================================================
-
-.. slyevent:: SLY_LISTENERS_REGISTERED
-  :type:    notify
-  :in:      null
-  :subject: N/A
-
-  Dieses Event wird ausgelöst, nachdem der Systemkern alle
-  :doc:`Event-Listener </developing/listeners>` aus den Konfigurationsdateien
-  (``LISTENERS``) registriert hat.
-
-.. =============================================================================
-
-.. slyevent:: OUTPUT_FILTER
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: der vollständige, generierte HTML-Code
-  :params:  environment (string) 'frontend' oder 'backend'
-
-  ermöglicht eine letzte Korrktur/Erweiterung der Ausgabe, bevor sie an den
-  Client gesendet wird
-
-.. =============================================================================
-
-.. slyevent:: OUTPUT_FILTER_CACHE
-  :type:    notify
-  :in:      string
-  :subject: der finale HTML-Code
-
-  Nachdem Listener in ``OUTPUT_FILTER`` ihre letzten Änderungen vorgenommen
-  haben, ist das Subject in diesem Event readonly und eignet sich daher ideal
-  zum Cachen der Seite. Zwischen diesem Event und dem Senden des Inhalts an den
-  Client besteht keine Möglichkeit mehr, den Inhalt zu verändern.
-
-.. =============================================================================
-
-.. slyevent:: CLANG_ARTICLE_GENERATED
-  :type:    notify
-  :in:      string
-  :subject: ein leerer String
-
-  Wird ausgeführt, nachdem in ``OOArticleSlice::getSliceIdsForSlot()`` die IDs
-  der Slices ermittelt wurden.
+Diese Liste umfasst alle Events, die vom Sally-Backend ausgelöst werden. Sie
+umfasst nicht diejenigen Events, die von Models oder dem Core ausgelöst werden,
+selbst wenn deren API vom Backend aufgerufen wird (so ist hier beispielsweise
+nicht ``SLY_CONTENT_UPDATED`` enthalten).
+
+.. hlist::
+   :columns: 3
+
+   * :doc:`list/be_structure`
+
+     * PAGE_STRUCTURE_HEADER
+
+   * :doc:`list/be_content`
+
+     * ART_SLICE_MENU
+     * PAGE_CONTENT_HEADER
+     * PAGE_CONTENT_SLOT_MENU
+     * PAGE_CONTENT_MENU
+     * SLY_ART_META_UPDATED
+     * SLY_ART_MESSAGES
+     * SLY_ART_META_FORM
+     * SLY_ART_META_FORM_FIELDSET
+     * SLY_ART_META_FORM_ADDITIONAL
+     * SLY_PAGE_CONTENT_ACTIONS_MENU
+     * SLY_PAGE_CONTENT_SLOT_MENU
+
+   * :doc:`list/be_slices`
+
+     * SLY_SLICE_PRESAVE_ADD
+     * SLY_SLICE_PRESAVE_EDIT
+     * SLY_SLICE_PRESAVE_DELETE
+     * SLY_SLICE_POSTSAVE_ADD
+     * SLY_SLICE_POSTSAVE_EDIT
+     * SLY_SLICE_POSTSAVE_DELETE
+     * SLY_SLICE_POSTVIEW_ADD
+     * SLY_SLICE_POSTVIEW_EDIT
+
+   * :doc:`list/be_mediapool`
+
+     * PAGE_MEDIAPOOL_HEADER
+     * PAGE_MEDIAPOOL_MENU
+     * SLY_MEDIA_FORM_ADD
+     * SLY_MEDIA_FORM_EDIT
+     * SLY_MEDIA_FORM_SYNC
+     * SLY_MEDIA_LIST_FUNCTIONS
+     * SLY_MEDIA_LIST_QUERY
+     * SLY_MEDIA_LIST_TOOLBAR
+
+   * :doc:`list/be_users`
+
+     * SLY_PAGE_USER_SUBPAGES
+
+   * :doc:`Systemseite (Einstellungen & Sprachen) <list/be_specials>`
+
+     * ALL_GENERATED
+     * SLY_SETTINGS_UPDATED
+     * SLY_SPECIALS_MENU
+
+   * :doc:`Sonstige <list/be_misc>`
+
+     * PAGE_CHECKED
+     * PAGE_TITLE
+     * PAGE_TITLE_SHOWN
+     * SLY_LAYOUT_NAVI
