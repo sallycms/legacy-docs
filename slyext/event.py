@@ -1,3 +1,5 @@
+# -*- coding: utf-8
+
 import re
 
 from docutils import nodes, statemachine
@@ -13,6 +15,7 @@ class Event(rst.Directive):
 		'in':      rst.directives.unchanged_required,
 		'subject': rst.directives.unchanged_required,
 		'out':     rst.directives.unchanged,
+		'since':   rst.directives.unchanged,
 		'params':  rst.directives.unchanged
 	}
 
@@ -28,12 +31,18 @@ class Event(rst.Directive):
 		for paramline in params.split("\n"):
 			match = re.match('^([^ ]+) +\((.*?)\)(?:\s*(.*?))$', paramline)
 			item  = nodes.list_item()
-
-			item.append(nodes.literal('', match.group(1)))
-			item.append(nodes.Text(' ('+match.group(2)+')'))
+			text  = '``%s`` (%s)' % (match.group(1), match.group(2))
 
 			if len(match.groups()) == 3 and len(match.group(3)) > 0:
-				item.append(self._parseInline('(' + match.group(3) + ')'))
+				text = text + ' (' + match.group(3) + ')'
+
+			children = self._parseInline(text).children
+
+			for child in children:
+				if isinstance(child, nodes.paragraph):
+					[item.append(t) for t in child.children]
+				else:
+					item.append(child)
 
 			ul.append(item)
 
@@ -47,6 +56,7 @@ class Event(rst.Directive):
 		outType = self.options.get('out') or 'void'
 		subject = self.options.get('subject')
 		params  = self.options.get('params') or ''
+		since   = self.options.get('since') or ''
 		desc    = u'\n'.join(self.content)
 
 		# create section
@@ -95,6 +105,14 @@ class Event(rst.Directive):
 			dl.append(nodes.definition_list_item('',
 				nodes.term('', '', nodes.strong('', 'Weitere Parameter:')),
 				nodes.definition('', paramlist)
+			))
+
+		if len(since) > 0:
+			since = 'v%s' % since
+
+			dl.append(nodes.definition_list_item('',
+				nodes.term('', '', nodes.strong('', u'Hinzugefügt in:')),
+				nodes.definition('', self._parseInline(since))
 			))
 
 		sec.append(dl)

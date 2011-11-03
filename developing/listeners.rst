@@ -39,7 +39,7 @@ Listeners, die aus Klassenname und Methode bestehen, **nicht als Array angegeben
 werden**. Ein Callback wie ``array('MyClass', 'myMethod')`` darf in YAML also
 **nicht** als ``[MyClass, myMethod]`` notiert werden. Stattdessen muss die in
 `PHP 5.2.3 <http://www.php.net/manual/en/language.pseudo-types.php>`_
-eingeführte Syntax``MyClass::myMethod`` verwendet werden.
+eingeführte Syntax ``MyClass::myMethod`` verwendet werden.
 
 .. sourcecode:: yaml
 
