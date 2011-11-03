@@ -3,7 +3,7 @@ Changelog
 
 *(notorisch unvollständig)*
 
-0.5.5 (30. Oktober 2011)
+0.5.5 (3. November 2011)
 ------------------------
 
 .. note::
@@ -30,7 +30,8 @@ Changelog
 * Der Statcache von PHP wird beim Leeren des Caches ebenfalls geleert
   (``clearstatcache()`` wird noch vor ``ALL_GENERATED`` ausgeführt).
 * BabelCache wurde auf Version 1.2.7-beta aktualisiert und bringt nun einen
-  SQLite-basierten Cache sowie einen einfacheren Dateisystem-Cache mit.
+  SQLite-basierten Cache sowie einen einfacheren Dateisystem-Cache mit. Der neue
+  Dateisystem-Cache ist ebenfalls der Standard für neue Projekte.
 * ``sly_Layout_XHTML5->setLanguage()`` wurde in das XHTML-Layout zurückportiert
   (= verschoben) und kann nun auch dort verwendet werden.
 * Das Event ``SLY_SETUP_INIT_FUNCTIONS_FORM`` wurde entfernt, da es keine
