@@ -786,7 +786,21 @@ Da das Rechtesystem-AddOn noch nicht öffentlich ist, muss das nicht zwingend
 erledigt werden, da der Sally-Core die Objektrechte selbst nicht beachten wird.
 Aber schaden kann es auch nicht.
 
-0.5.5 -> 0.5.next
+0.5.5 -> 0.5.6
+^^^^^^^^^^^^^^
+
+* ``sly_Util_Directory::create()`` erhielt ``$throwException`` als dritten
+  Parameter, um bei Problemen eine ``sly_Util_DirectoryException`` zu werfen
+  (die im Gegensazu zu einer Warnung von PHP das betroffene Verzeichnis
+  enthält).
+* ``sly_Service_Article::findByType($type, $ignore_offlines = false, $clangId = null)``
+  wurde hinzugefügt.
+* ``sly_Util_Article::findByType($type, $ignore_offlines = false, $clangId = null)``
+  wurde hinzugefügt.
+* ``sly_Layout_XHTML::putJavaScriptAtBottom($switch = true)`` wurde hinzugefügt.
+* ``sly_Layout_XHTML5::setCharset($charset)`` wurde hinzugefügt.
+
+0.5.6 -> 0.5.next
 ^^^^^^^^^^^^^^^^^
 
 * Das wird die Zeit zeigen...

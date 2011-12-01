@@ -3,6 +3,33 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.6 (1. Dezember 2011)
+------------------------
+
+* Der Code, der die Verzeichnisse für dynamische Inhalte erstellt, wurde
+  grundlegend überarbeitet und sollte nun schneller und wesentlich zuverlässiger
+  arbeiten. Auf Servern mit problematischen Dateirechten werden klare
+  Fehlermeldungen erzeugt, anstatt mit Stacktraces auszusteigen.
+* BabelCache wurde auf Version 1.2.9 aktualisiert. Das Update behebt Probleme
+  mit dem SQLite-Cache sowie dem Locking in allen Cache-Strategien.
+* Popups können mehrfach geöffnet werden. Das bedeutet, dass mehrere Linkmaps
+  offen sein können oder das vom Medienpool aus ein weiterer Medienpool geöffnet
+  werden kann.
+* ``sly_Util_Article::findByType()`` wurde hinzugefügt und erlaubt das einfache
+  Auflisten von Artikeln bestimmter Typen (News, Jobs, ...).
+* JavaScript (Dateien und Code) kann nun im XHTML-Layout vor dem schließenden
+  ``</body>``-Tag platziert werden (dazu wurde
+  ``sly_Layout_XHTML::putJavaScriptAtBottom()`` ergänzt).
+* Das XHTML5-Layout unterstützt nun ``<meta charset="..." />`` und hat einen
+  (was Newlines angeht) aufgeräumteren ``<head>``.
+* Bugfix: Beim Anlegen von neuen Artikeln mit einer Position innerhalb der
+  bereits bestehenden Artikel wurden nicht alle betroffenen Artikel aus dem
+  Cache entfernt.
+* Der Code, der für das Matching von ``sally://ID``-URLs zuständig ist, wurde
+  überarbeitet und erkennt URLs nun robuster. Gleichzeitig wurde damit wieder
+  ein Stück REDAXO-Code entfernt.
+* weitere kleinere Bugfixes
+
 0.5.5 (3. November 2011)
 ------------------------
 
