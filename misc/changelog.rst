@@ -3,6 +3,28 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.8 (14. Dezember 2011)
+-------------------------
+
+* jQuery wurde auf 1.6.4 aktualisiert (bewusst die letzte 1.6.x Version). Das
+  mitgelieferte Frontend-jQuery wurde hingegen (da nur für neue Projekte
+  relevant) auf 1.7.1 aktualisiert.
+* Das ``xmlns``-Attribut wurde von XHTML5-Heads entfernt.
+* BabelCache wurde auf 1.2.10 aktualisiert. Dies behebt einige Probleme mit
+  nicht-rekursiven Flushes (z.B. beim Löschen von Slices).
+* Bugfix: Sprachen wurden nicht korrekt gelöscht.
+* Bugfix: Kopieren von Inhalten zwischen Sprachen funktionierte nicht.
+* Bugfix: Medienpool- & Linkmap-Popups funktionierten im IE8 nicht mehr.
+* Bugfix: Beim Verschieben von Artikeln auf die Position des Startartikels einer
+  Kategorie wurden nicht alle betroffenen Artikel aus dem Cache entfernt, sodass
+  "doppelt vergebene" Positionen auftraten.
+
+0.5.7 (6. Dezember 2011)
+------------------------
+
+* Bugfix: Bei vielen parallelen Requests auf den Asset-Cache wurde unter
+  Umständen falsches CSS erzeugt.
+
 0.5.6 (1. Dezember 2011)
 ------------------------
 
