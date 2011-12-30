@@ -68,49 +68,10 @@ Backend nicht angezeigt.
 ``modules`` (optional)
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Hierüber können die zulässigen Module für dieses Template definiert werden.
-Dabei ist es möglich die Module auch auf einzelne Slots eines Templates
-festzulegen. Folgende Bepiele sollen die Nutzung verdeutlichen.
+.. note::
 
-Beispiel 1 - Einfache Modulliste
-""""""""""""""""""""""""""""""""
-
-In Diesem Beispiel ist eine einfache Liste mit Modulen definiert.
-
-::
-
-  * @sly modules [wymeditor, gallery]
-
-Beispiel 2 - Komplexe Modulliste
-""""""""""""""""""""""""""""""""
-
-In diesem Beispiel stehen die Module ``wymeditor`` und ``image`` für alle Slots
-zur Verfügung. Für den Slot ``main`` steht außerdem das Modul ``gallery`` zur
-Verfügung und für den Slot ``sidebar`` die Module ``teaserbox`` und
-``quickcontact``.
-
-::
-
-  * @sly modules { _ALL_: [wymeditor, image], main: gallery, sidebar: [teaserbox, quickcontact] }
-
-.. warning::
-
-  Sollte ein Slot des Templates zufällig ``_ALL_`` heißen, müssen Module, die
-  für alle Slots zur Verfügung stehen sollen auch für alle Slots eingetragen
-  werden. ``_ALL_`` wird dann wie ein normaler Slot behandelt.
-
-.. warning::
-
-  Es kann bei der Definition der Modulliste zu einem Konflikt kommen, wenn die
-  komplexe Modulliste (z.B. auf Grund der Slotdefinitionen) in der Form
-  ``@sly modules {0: wymeditor, 1: gallery, 2: teaserbox}`` definiert wird. Sie
-  wird dann wie die einfache Modulliste interpretiert:
-  ``[wymeditor, gallery, teaserbox]``
-
-.. hint::
-
-  Spätestens bei dieser Benutzung ist es ausgesprochen hilfreich, benannte Slots
-  zu benutzen, da man sonst leicht durcheinander kommt.
+  Seit Version 0.6 werden die erlaubten Module nicht mehr im Template, sondern
+  direkt am Artikeltyp definiert.
 
 ``class`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
