@@ -3,6 +3,16 @@ Changelog
 
 *(notorisch unvollständig)*
 
+0.5.9 (6. Januar 2012)
+----------------------
+
+* Bugfix: Beim Löschen einer Medienkategorie wurde der Cache nicht korrekt
+  geleert.
+* Bugfix: Beim Löschen einer Sprache wurden die dazugehörigen Artikelinhalte
+  nicht gelöscht.
+* Bugfix: Bei Artikel-Operationen in der Strukturansicht wurden nicht alle
+  Positionsangaben und Cacheinhalte korrekt erneuert.
+
 0.5.8 (14. Dezember 2011)
 -------------------------
 
