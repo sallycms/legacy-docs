@@ -9,7 +9,7 @@ Systemvoraussetzungen
   * :envvar:`register_globals` und :envvar:`magic_quotes_gpc` sollten
     deaktiviert sein.
   * Die Standard-Module von PHP werden benötigt: ``mbstring``, ``PCRE``,
-    ``zlib``, ``gd``, ``PDO``, ...
+    ``zlib``, ``gd``, ``PDO``, ``json``, ``DateTime``, ...
 
 * MySQL 5.0
 * Apache 2.2
