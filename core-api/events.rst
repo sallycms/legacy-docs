@@ -1,29 +1,101 @@
+Eventsystem
+===========
+
+Im Eventsystem von Sally werden Benachrichtigungen über den globalen Dispatcher
+gesendet. Dieser bietet drei Verfahren, wie die Ergebnisse mehrerer Listener
+(Code, der auf Event reagiert) miteinander verknüpft werden:
+
+* **notify**: Die Listener werden nur benachrichtigt. Ihr Rückgabewert wird
+  verworfen, jeder erhält das gleiche Subject.
+* **notifyUntil**: Wie notify, nur dass hierbei abgebrochen wird, wenn ein
+  Listener ``true`` zurückgibt.
+* **filter**: Die Listener haben die Aufgabe, das Subject zu verändern. Der
+  Rückgabewert eines Listeners wird an den nächsten als Subject weitergeleitet.
+  Der Rückgabewert des Aufrufs ist das Ergebnis des letzten Listeners.
+
+Dispatcher
+----------
+
+Der Dispatcher kann wie folgt abgerufen werden:
+
+.. sourcecode:: php
+
+  <?
+  $dispatcher = sly_Core::dispatcher();
+
+Events auslösen
+---------------
+
+Bei jedem Aufruf müssen zwei und können drei Argumente angegeben werden:
+
+* ``event``: Der Name des Events. Per Konvention in Großschreibung (wie bei
+  Konstanten, z.B. ``MY_ADDON_EVENT``)
+* ``subject``: Der Wert, der an die Listener übergeben werden soll. Siehe die
+  Verknüpfungsstrategien für die Weitergabe des Subjects zwischen den Listenern.
+* ``params`` (optional): Weitere Parameter als assoziatives Array.
+
+*Beispiel*
+
+.. sourcecode:: php
+
+  <?
+  $dispatcher = sly_Core::dispatcher();
+  $nav        = sly_Core::getNavigation();
+
+  $dispatcher->notify('SLY_PAGE_CHECKED', 'thePage');
+  $nav = $dispatcher->filter('SLY_LAYOUT_NAVI', $nav, array('myparam' => 'myvalue'));
+
+Für Events registrieren
+-----------------------
+
+Ein Listener kann wie folgt registriert werden:
+
+.. sourcecode:: php
+
+  <?
+  $dispatcher = sly_Core::dispatcher();
+
+  function myFunc($params) {
+      $subject = $params['subject'];
+  }
+
+  $dispatcher->register('SLY_PAGE_CHECKED', 'myFunc');
+
+Dabei ist zu beachten, dass der Listener korrekt auf die Verknüpfungsstragie
+reagiert: Wenn es sich um ein filter-Event handelt und ein Listener nichts
+zurückgibt, erhält der nächste Listener nur ``null`` als Subject.
+
+.. note::
+
+  Listeners können beliebige PHP Callables sein (in PHP 5.3 natürlich auch
+  Closures oder anonyme Funktionen).
+
 :tocdepth: 2
 
 .. toctree::
    :hidden:
 
-   list/core_articles
-   list/core_categories
-   list/core_media
-   list/core_users
-   list/core_models
-   list/core_assetcache
-   list/core_addons
-   list/core_layout
-   list/core_misc
+   events/core_articles
+   events/core_categories
+   events/core_media
+   events/core_users
+   events/core_models
+   events/core_assetcache
+   events/core_addons
+   events/core_layout
+   events/core_misc
 
-   list/be_structure
-   list/be_content
-   list/be_slices
-   list/be_mediapool
-   list/be_users
-   list/be_addons
-   list/be_specials
-   list/be_misc
+   events/be_structure
+   events/be_content
+   events/be_slices
+   events/be_mediapool
+   events/be_users
+   events/be_addons
+   events/be_specials
+   events/be_misc
 
 Events
-======
+------
 
 Dies ist eine Auflistung aller vom Core und der Backend-Anwendung gesendet
 Events. Für eine Erklärung dazu siehe die Seite zum :doc:`Eventsystem <index>`.
@@ -62,7 +134,7 @@ getan, als wären Events Methoden und ihre "Signaturen" aufgelistet.
   erwähnt.
 
 Core
-----
+^^^^
 
 Die folgenden Events werden von der Kern-API ausgelöst und können (teilweise)
 sowohl im Backend (in jedem Backend, nicht zwangsweise dem
@@ -71,7 +143,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
 .. hlist::
    :columns: 3
 
-   * :doc:`list/core_articles`
+   * :doc:`events/core_articles`
 
      * CLANG_ARTICLE_GENERATED
      * SLY_ART_ADDED
@@ -88,39 +160,39 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_SLICE_MOVED
      * URL_REWRITE
 
-   * :doc:`list/core_categories`
+   * :doc:`events/core_categories`
 
      * SLY_CAT_MOVED
 
-   * :doc:`list/core_media`
+   * :doc:`events/core_media`
 
      * SLY_OOMEDIA_IS_IN_USE
 
-   * :doc:`list/core_users`
-   * :doc:`list/core_models`
+   * :doc:`events/core_users`
+   * :doc:`events/core_models`
 
      * SLY_MODEL\_*\_*
 
-   * :doc:`list/core_assetcache`
+   * :doc:`events/core_assetcache`
 
      * SLY_CACHE_PROCESS_ASSET
      * SLY_CACHE_REVALIDATE_ASSETS
      * SLY_CACHE_GET_PROTECTED_ASSETS
      * SLY_CACHE_IS_PROTECTED_ASSET
 
-   * :doc:`list/core_addons`
+   * :doc:`events/core_addons`
 
      * SLY_ADDON\_*\_*
      * SLY_PLUGIN\_*\_*
 
-   * :doc:`list/core_layout`
+   * :doc:`events/core_layout`
 
      * HEADER_CSS
      * HEADER_CSS_FILES
      * HEADER_JAVASCRIPT
      * HEADER_JAVASCRIPT_FILES
 
-   * :doc:`list/core_misc`
+   * :doc:`events/core_misc`
 
      * __AUTOLOAD
      * ADDONS_INCLUDED
@@ -132,7 +204,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_PRE_PROCESS_ARTICLE
 
 Backend
--------
+^^^^^^^
 
 Diese Liste umfasst alle Events, die vom Sally-Backend ausgelöst werden. Sie
 umfasst nicht diejenigen Events, die von Models oder dem Core ausgelöst werden,
@@ -142,11 +214,11 @@ nicht ``SLY_CONTENT_UPDATED`` enthalten).
 .. hlist::
    :columns: 3
 
-   * :doc:`list/be_structure`
+   * :doc:`events/be_structure`
 
      * PAGE_STRUCTURE_HEADER
 
-   * :doc:`list/be_content`
+   * :doc:`events/be_content`
 
      * ART_SLICE_MENU
      * PAGE_CONTENT_HEADER
@@ -160,7 +232,7 @@ nicht ``SLY_CONTENT_UPDATED`` enthalten).
      * SLY_PAGE_CONTENT_ACTIONS_MENU
      * SLY_PAGE_CONTENT_SLOT_MENU
 
-   * :doc:`list/be_slices`
+   * :doc:`events/be_slices`
 
      * SLY_SLICE_PRESAVE_ADD
      * SLY_SLICE_PRESAVE_EDIT
@@ -171,7 +243,7 @@ nicht ``SLY_CONTENT_UPDATED`` enthalten).
      * SLY_SLICE_POSTVIEW_ADD
      * SLY_SLICE_POSTVIEW_EDIT
 
-   * :doc:`list/be_mediapool`
+   * :doc:`events/be_mediapool`
 
      * PAGE_MEDIAPOOL_HEADER
      * PAGE_MEDIAPOOL_MENU
@@ -182,17 +254,17 @@ nicht ``SLY_CONTENT_UPDATED`` enthalten).
      * SLY_MEDIA_LIST_QUERY
      * SLY_MEDIA_LIST_TOOLBAR
 
-   * :doc:`list/be_users`
+   * :doc:`events/be_users`
 
      * SLY_PAGE_USER_SUBPAGES
 
-   * :doc:`Systemseite (Einstellungen & Sprachen) <list/be_specials>`
+   * :doc:`Systemseite (Einstellungen & Sprachen) <events/be_specials>`
 
      * ALL_GENERATED
      * SLY_SETTINGS_UPDATED
      * SLY_SPECIALS_MENU
 
-   * :doc:`Sonstige <list/be_misc>`
+   * :doc:`Sonstige <events/be_misc>`
 
      * PAGE_CHECKED
      * PAGE_TITLE

@@ -37,9 +37,3 @@ Branch auf.
 
 Das sollte dazu führen, dass ein Release von 0.2 automatisch auch durch das
 Zurückmergen korrigierte Versionen von 0.3, 0.4 usw. nach sich zieht.
-
-Weitere Informationen
----------------------
-
-  * :doc:`Code für das Kernsystem beisteuern <core>`
-  * :doc:`An der Dokumentation mitarbeiten <docs>`

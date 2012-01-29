@@ -24,8 +24,11 @@ zwischen Datenbankfeldern und Formularfeldern existiert).
 Unterseiten
 -----------
 
-* :doc:`Formulare <forms>` (``sly_Form``, ``sly_Fieldset``, ...)
-* :doc:`Formularelemente <elements>`
+.. toctree::
+   :maxdepth: 1
+
+   forms/forms
+   forms/elements
 
 Beispiele
 ---------
