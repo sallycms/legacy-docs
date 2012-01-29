@@ -11,7 +11,7 @@ im Sally-Wiki <https://projects.webvariants.de/news/48>`_.
   versuchen, die Strukturänderungen nachzuahmen. Dies betrifft natürlich nicht
   die Inhalte des Projekts.
 
-Der grobe :doc:`Ablauf eines Updates auf 0.5 <updating>` wird auf einer extra
+Der grobe :doc:`Ablauf eines Updates auf 0.5 <migrate>` wird auf einer extra
 Seite beschrieben.
 
 API-Änderungen
