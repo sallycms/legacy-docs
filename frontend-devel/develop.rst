@@ -8,18 +8,18 @@ regulären PHP-Dateien ausgelesen.
 .. toctree::
    :hidden:
 
-   articletypes
-   templates
-   layouts
-   modules
-   slicehelper
+   develop/articletypes
+   develop/templates
+   develop/layouts
+   develop/modules
+   develop/slicehelper
 
 Unterseiten
 -----------
 
-* :doc:`Artikeltypen <articletypes>`
-* :doc:`Templates <templates>` & :doc:`Layouts <layouts>`
-* :doc:`Module <modules>` & :doc:`Slice-Helper <slicehelper>`
+* :doc:`Artikeltypen <develop/articletypes>`
+* :doc:`Templates <develop/templates>` & :doc:`Layouts <develop/layouts>`
+* :doc:`Module <develop/modules>` & :doc:`Slice-Helper <develop/slicehelper>`
 
 Einführung
 ----------

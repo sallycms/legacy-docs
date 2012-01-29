@@ -1,5 +1,5 @@
-Sally aktualisieren: 0.4 zu 0.5
-===============================
+Migrationsleitfaden
+===================
 
 Die folgende Anleitung beschreibt, wie man ein bestehendes 0.4-Projekt auf 0.5
 aktualisieren kann.
