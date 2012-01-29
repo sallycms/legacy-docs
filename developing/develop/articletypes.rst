@@ -25,9 +25,11 @@ definiert. Wir empfehlen, dafür eine Datei namens :file:`types.yml` in
     default:
       title: Standardseite
       template: default
+      modules: {leftcol: [editor], rightcol: [teaser]}
     job:
       title: Stellenangebot
       template: default
+      modules: [editor, download, pdf]
     news:
       title: Newsbeitrag
       template: twocolumn
@@ -49,7 +51,7 @@ bereit:
 
   <?php
   $config = sly_Core::config();
-  $types  = $config->get('ARTICLE_TYPES');
+  $types  = $config->get('ARTICLE_TYPES'); // böse!
 
 Um die Artikeltypen abzurufen und mit ihnen zu interagieren sollte jedoch besser
 der dafür zuständige :doc:`Service </sallycms/services/index>` verwendet werden:

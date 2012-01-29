@@ -10,11 +10,11 @@ master.inc.php?
 
 Die lokale Konfiguration (das sind die Daten, die bei jeder Installation anders
 sind, wie zum Beispiel die Datenbank-Zugangsdaten) wird in der Datei
-:file:`sally/data/config/sly_local.yml` als gespeichert.
+:file:`data/config/sly_local.yml` als gespeichert.
 
 Die projektspezifische Konfiguration (die, die sich nicht pro Host, wohl aber
 pro Projekt unterscheidet) liegt in der Datei
-:file:`sally/data/config/sly_project.yml`. Um sie mitzusichern, muss im
+:file:`data/config/sly_project.yml`. Um sie mitzusichern, muss im
 Import/Export-AddOn das Häkchen bei "Konfiguration" gesetzt werden.
 
 Magic Quotes
@@ -63,5 +63,5 @@ Backend einloggen, da das eigene Admin-Passwort nicht mehr passt und der
 richtige Hash auch nicht ohne Weiteres ermittelt werden kann.)
 
 Im einfachsten Fall gleicht man, wenn die Accounts übertragen werden müssen, den
-Wert der ``INSTNAME`` in :file:`sally/data/config/sly_local.yml` an den aus der
+Wert der ``INSTNAME`` in :file:`data/config/sly_local.yml` an den aus der
 Quell-Installation an.

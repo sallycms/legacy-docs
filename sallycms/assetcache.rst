@@ -40,10 +40,10 @@ angelegten Verzeichnis abgelegt. Von dort aus werden die Dateien bei jedem
 weiteren Zugriff direkt durch den Apache ausgeliefert, ohne dass PHP zum Einsatz
 kommt.
 
-Die Cache-Dateien werden in :file:`sally/data/dyn/public/sally/static-cache`
+Die Cache-Dateien werden in :file:`data/dyn/public/sally/static-cache`
 abgelegt. Sally wird die ursprüngliche Verzeichnisstruktur der Dateien dort
 widerspiegeln, sodass eine Datei :file:`assets/css/main.css` zum Beispiel in
-:file:`sally/data/dyn/public/sally/static-cache/[encoding]/assets/css/main.css`
+:file:`data/dyn/public/sally/static-cache/[encoding]/assets/css/main.css`
 abgelegt wird. ``encoding`` ist hierbei ``gzip``, ``deflate`` oder ``plain``,
 jenachdem, was der Client anfordert (d.h. die jeweiligen Varianten werden erst
 bei Bedarf erzeugt).
@@ -89,7 +89,7 @@ Rewrite-Rule, mit der die Assets an den Cache weitergeleitet werden.
   # Assets Cache
   RewriteCond %{REQUEST_FILENAME}  \.(css|js|gif|jpg|jpeg|png|swf|ico|pdf)$
   RewriteCond %{REQUEST_URI}       !wym_styles.css$
-  RewriteRule ^(.*)$               sally/data/dyn/public/sally/static-cache/$1 [L]
+  RewriteRule ^(.*)$               data/dyn/public/sally/static-cache/$1 [L]
 
   ...
 

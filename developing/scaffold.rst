@@ -9,9 +9,8 @@ In Scaffold-Code sind Konstanten, Verschachtelung und "Funktionen" möglich.
 Außerdem wird das erzeugte CSS direkt validiert und minimiert.
 
 Scaffold ist auch im Frontend aktiviert. Alle CSS-Dateien, die in
-:file:`assets/css/` liegen, werden beim Aufruf über den Webbrowser mit Scaffold
-verarbeitet und automatisch in :file:`sally/data/dyn/internal/sally/css-cache/`
-gespeichert.
+:file:`assets/css/` liegen, werden beim Aufruf durch den Asset-Cache automatisch
+auch mit Scaffold verarbeitet.
 
 .. note::
 
@@ -54,16 +53,4 @@ ergeben:
 AddOns
 ------
 
-Auch bei AddOns werden die CSS-Dateien durch Scaffold verarbeitet. Dies
-geschieht einmalig bei der Installation (und auf Wunsch manuell durch die
-"Re-Initialisieren"-Funktion auf der AddOn-Seite im Backend). AddOns können die
-Verarbeitung abschalten, indem sie in ihrer :file:`static.yml` den Key
-``noscaffold`` definieren:
-
-.. sourcecode:: yaml
-
-  noscaffold: ['css/my.css', 'css/special/*'] # glob-Ausdrücke sind möglich
-
-Die Pfade, die in ``noscaffold`` angegeben werden, sind relativ zum
-:file:`assets`-Verzeichnis des AddOns (es heißt also :file:`css/foo.css` anstatt
-:file:`assets/css/foo.css`).
+AddOn-Assets werden ebenfalls durch den Asset-Cache verarbeitet.

@@ -12,7 +12,7 @@ class sly_Layout_Frontend extends sly_Layout_XHTML {
 		$this->addCSSFile('assets/css/main.css');
 
 		// JavaScript
-		$this->addJavaScriptFile('http://code.jquery.com/jquery-1.6.1.min.js');
+		$this->addJavaScriptFile('http://code.jquery.com/jquery-1.7.1.min.js');
 		$this->addJavaScriptFile('assets/js/main.js');
 
 		// sonstige Tags

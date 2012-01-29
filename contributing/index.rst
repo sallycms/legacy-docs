@@ -16,6 +16,8 @@ Struktur des Projekts
   vom Trunk verwalten, versioniert.
 * Die einzelnen Branches werden ebenfalls bei Bitbucket gehosted:
 
+  * `0.6-Branch <http://www.bitbucket.org/SallyCMS/0.6/>`_
+  * `0.5-Branch <http://www.bitbucket.org/SallyCMS/0.5/>`_
   * `0.4-Branch <http://www.bitbucket.org/SallyCMS/0.4/>`_
   * `0.3-Branch <http://www.bitbucket.org/SallyCMS/0.3/>`_
   * `0.2-Branch <http://www.bitbucket.org/SallyCMS/0.2/>`_

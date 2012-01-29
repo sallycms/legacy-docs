@@ -29,11 +29,12 @@ Im Standard-Layout eines Sally-Projekts werden diese Dateien im Verzeichnis
   |  |  +- main.js
   |  |  +- ...
   |  +- (ggf. weitere Verzeichnisse, je nach Bedarf)
+  +- data
   +- develop
   +- sally
      +- backend
      +- core
-     +- data
+     +- frontend
 
 Assets verlinken
 ----------------
@@ -54,7 +55,7 @@ Die API dazu ist denkbar einfach:
 .. sourcecode:: php
 
   <?
-  $layout = sly_Core::getLayout('XHTML'); // oder XHTML5
+  $layout = sly_Core::getLayout(); // das zuvor irgendwo gesetzte Layout abrufen
 
   // CSS-Dateien
   $layout->addCSSFile('assets/css/main.css');
@@ -70,7 +71,7 @@ Natürlich ist auch Inline-Code möglich:
 .. sourcecode:: php
 
   <?
-  $layout = sly_Core::getLayout('XHTML');
+  $layout = sly_Core::getLayout(); // das zuvor irgendwo gesetzte Layout abrufen
 
   // CSS
   $layout->addCSS('body { display: none }');

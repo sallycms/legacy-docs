@@ -6,8 +6,6 @@ Systemvoraussetzungen
 
 * PHP 5.2 (SallyCMS ist vollständig mit PHP 5.2 bis 5.4 kompatibel)
 
-  * :envvar:`short_open_tags` muss aktiviert sein (wird im Setup automatisch
-    geprüft).
   * :envvar:`register_globals` und :envvar:`magic_quotes_gpc` sollten
     deaktiviert sein.
   * Die Standard-Module von PHP werden benötigt: ``mbstring``, ``PCRE``,
@@ -31,12 +29,15 @@ Upload
 ------
 
 #. Entpacke das heruntergladene Archiv auf deinen Rechner.
-#. Lade alle Dateien bis auf das :file:`sally/contrib`-Verzeichnis aus dem
-   Download-Archiv auf deinen Webspace.
-#. Stelle sicher, dass Sally beim ersten Aufruf das Verzeichnis
-   :file:`sally/data` erstellen kann, falls es nicht vorhanden ist.
-   :file:`sally/data` und alle darin enthaltenen Verzeichnisse sollten
-   ``chmod 0777`` haben.
+#. Lade alle Dateien bis auf die folgenden aus dem Download-Archiv auf deinen
+   Webspace.
+
+   * :file:`sally/contrib/`
+   * :file:`version`
+
+#. Stelle sicher, dass Sally beim ersten Aufruf das Verzeichnis :file:`data`
+   erstellen kann, falls es nicht vorhanden ist. :file:`data` und alle darin
+   enthaltenen Verzeichnisse sollten ``chmod 0777`` haben.
 #. Rufe das von dir erstellte Verzeichnis im Browser auf, z. B. via
    http://example.com/backend/. Du solltest dann automatisch zum Setup
    weitergeleitet werden.
@@ -126,7 +127,7 @@ Setup neustarten
 
 Sollte es einmal notwendig sein, das Setup neu zu durchlaufen, kann dies
 entweder im Backend (auf der Systemseite) ausgelöst werden, oder in der
-:file:`sally/data/config/sly_local.yml` angestoßen werden. Dort muss der Key
+:file:`data/config/sly_local.yml` angestoßen werden. Dort muss der Key
 ``SETUP`` auf ``true`` gesetzt werden.
 
 .. sourcecode:: yaml

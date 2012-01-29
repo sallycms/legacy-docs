@@ -21,10 +21,6 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
 
    developing/mercurial
    developing/develop/index
-   developing/develop/articletypes
-   developing/develop/templates
-   developing/develop/layouts
-   developing/develop/modules
    developing/assets
    developing/listeners
    developing/scaffold
@@ -54,6 +50,7 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    addondevel/basics
    addondevel/updates
    addondevel/be-navigation
+   addondevel/testing
 
    misc/from-redaxo
    misc/changelog
@@ -80,7 +77,7 @@ Projektentwicklung
 
     * :doc:`developing/develop/articletypes`
     * :doc:`developing/develop/templates` & :doc:`Layouts <developing/develop/layouts>`
-    * :doc:`developing/develop/modules`
+    * :doc:`developing/develop/modules` & :doc:`Slice-Helper <developing/develop/slicehelper>`
 
   * :doc:`Projekt-Konfiguration <sallycms/configuration>`
   * :doc:`Frontend-Listener <developing/listeners>` ("Actions")
@@ -122,6 +119,7 @@ AddOns entwickeln
 * :doc:`developing/scaffold`
 * :doc:`Formulare erstellen <sallycms/forms/index>`
 * :doc:`Backend-Navigation <addondevel/be-navigation>`
+* :doc:`Unit-Tests <addondevel/testing>`
 
 Sonstiges
 ---------

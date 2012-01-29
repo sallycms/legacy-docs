@@ -32,6 +32,54 @@ Es ist ausreichend, Parameter (außer ``name``) nur in einer der Module-Files
 zu definieren. Allerdings ist es oft übersichtlicher, wenn man sie in beiden
 Files definiert.
 
+Modul-Eingabe
+-------------
+
+Der Eingabe-Teil eines Moduls ist dafür zuständig, ein Formular zum Eingeben des
+jeweiligen Inhalts (was auch immer das Modul verwalten soll) anzuzeigen. Dieses
+Formular kann über ``sly_Form`` zusammengesetzt oder auch in reinem HTML
+geschrieben werden (ebenso wie die Modul-Ausgabe reines HTML sein kann). Die
+Eingabe wird immer im Backend dargestellt, eine Unterscheidung auf Frontend /
+Backend ist daher nicht nötig.
+
+Zu beachten ist, dass nur diejenigen Formularfelder, die ``slicevalue[XXX]``
+heißen, in dem Slice abgespeichert werden. Wird das vorgegebene ``$form``-Objekt
+verwendet, werden Formularelemente automatisch umbenannt.
+
+Die gespeicherten Werte können über den ``$values``-Helper abgerufen werden.
+
+HTML-only
+^^^^^^^^^
+
+.. literalinclude:: module.html.input.php
+   :language: php
+
+sly_Form
+^^^^^^^^
+
+.. literalinclude:: module.form.input.php
+   :language: php
+
+Modul-Ausgabe
+-------------
+
+Die Modul-Ausgabe zeigt die eingegebenen Werte in dem gewünschten Markup an. Die
+Anzeige findet sowohl im Backend als auch im Frontend statt, sodass die meisten
+Module zwischen den beiden Umgebungen unterscheiden und beispielsweise im
+Backend statt des vollständigen Inhalts nur einen Auszug an.
+
+Die Modul-Ausgabe kann frei implementiert werden. Es gibt keine Vorgaben, wie
+das Markup erzeugt werden sollte. Der ``$values``-Helper steht hier ebenfalls
+zur Verfügung.
+
+.. warning::
+
+  Module sollten so fehlertolerant wie möglich sein, um bei Eingabefehlern
+  keinesfalls Exceptions zu werfen oder andere Fehler zu produzieren.
+  Es ist allgemein besser, im Frontend gar nichts (oder falls jemand eingeloggt
+  ist, eine Hinweismeldung) anzuzeigen, anstatt blind auf unfehlbare Benutzer zu
+  vertrauen.
+
 Mögliche Parameter
 ------------------
 
@@ -49,11 +97,6 @@ im System über diesen Namen referenziert wird.
 ^^^^^^^^^^^^^^^^^^^^
 
 Titel des Moduls zur Anzeige im Backend. (Default ist der Modulname)
-
-``actions`` (optional)
-^^^^^^^^^^^^^^^^^^^^^^
-
-Liste mit Actions, die im Rahmen dieses Templates ausgeführt werden sollen.
 
 ``templates`` (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^

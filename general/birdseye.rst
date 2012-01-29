@@ -13,10 +13,16 @@ Dateisystem
   überarbeitet. AddOns müssen daher mit an Sicherheit grenzender
   Wahrscheinlichkeit für 0.5 angepasst werden.
 
+.. note::
+
+  Zwischen 0.5 und 0.6 hat sich das ``data``-Verzeichnis wieder zurück in den
+  Root des Projekts bewegt.
+
 ::
 
   /
   +- assets/                 CSS/JS für das Frontend
+  +- data/                   dynamisch angelegte Dateien
   +- develop/                Frontend-Entwicklung
   |  +- config/
   |  +- modules/
@@ -32,46 +38,46 @@ Dateisystem
      |  +- index.php
      +- core/
      |  +- config/           Default-Konfiguration
-     |  +- (functions/)      Funktionssammlung aus REDAXO
      |  +- install/          SQL-Dumps zur Installation
      |  +- lib/              Sammlung von Bibliotheken
      |  |  +- babelcache/    BabelCache: Cachingsystem
-     |  |  +- PEAR/          PEAR: JSON-Implementierung
-     |  |  +- (rex/)         alter REDAXO-Code (inkl. OO-Klassen)
      |  |  +- Scaffold/      Scaffold: erweitert und minimiert CSS
      |  |  +- sfYaml/        sfYaml: YAML-Parser
      |  |  +- sly/           Core-eigene Bibliothek
      |  +- views/            Templates Core-Komponenten (sly_Form / ...)
      |  +- loader.php
      |  +- master.php
-     +- data/                dynamisch angelegte Dateien
      +- docs/                API-Dokumentation
+     +- frontend/            Frontend-Anwendung
+     |  +- lib/              Controller, App
      +- tests/               Unittests
 
 Sally unterscheidet grundlegend drei Bereiche:
 
 * **Statischer Code** enthält den SallyCMS-Core sowie alle AddOns. Dies betrifft
-  alle Dateien, die im :file:`sally`-Verzeichnis abgelegt werden (abgesehen von
-  :file:`sally/data`, siehe unten). Da dort keine Dateien erzeugt oder verändert
-  werden, ist es einfach, diese bei Updates zu überschreiben, ohne Einstellungen
-  oder Anpassungen zu verlieren. Gleichzeitig wird es damit möglich, die
-  Verzeichnisse :file:`backend` und :file:`core` auf einem Server per Symlink
-  bereitzustellen und für mehrere Projekt wiederzuverwenden. Oder anders gesagt:
-  Das :file:`sally`-Verzeichnis benötigt ausschließend lesenden Zugriff von PHP.
+  alle Dateien, die im :file:`sally`-Verzeichnis abgelegt werden. Da dort keine
+  Dateien erzeugt oder verändert werden, ist es einfach, diese bei Updates zu
+  überschreiben, ohne Einstellungen oder Anpassungen zu verlieren. Gleichzeitig
+  wird es damit möglich, die Verzeichnisse :file:`backend` und :file:`core` auf
+  einem Server per Symlink bereitzustellen und für mehrere Projekt
+  wiederzuverwenden. Oder anders gesagt: Das :file:`sally`-Verzeichnis benötigt
+  ausschließend lesenden Zugriff von PHP.
 * **Dynamische Inhalte** wie die Konfiguration, der Medienpool, der
-  Dateisystem-Cache, Datenbank-Exports etc. werden in :file:`sally/data`
-  abgelegt. Es ist damit möglich, eine Installation komplett zurückzusetzen,
-  indem nur das :file:`sally/data`-Verzeichnis gelöscht wird.
+  Dateisystem-Cache, Datenbank-Exports etc. werden in :file:`data` abgelegt. Es
+  ist damit möglich, eine Installation komplett zurückzusetzen, indem nur das
+  :file:`data`-Verzeichnis gelöscht wird.
 * Die **Projektentwicklung** findet in :file:`develop` und :file:`assets` statt.
   Dort werden Templates verwaltet, Konfigurationen abgelegt etc.
 
 data-Verzeichnis
 ^^^^^^^^^^^^^^^^
 
-Das :file:`sally/data`-Verzeichnis folgt einem genau vorgegebenen Layout, das
-hier kurz angerissen werden soll.::
+Das :file:`data`-Verzeichnis folgt einem genau vorgegebenen Layout, das hier
+kurz angerissen werden soll.
 
-  /sally/
+::
+
+  /
   +- data/
      +- config/              Projektkonfiguration (nicht per HTTP zugänglich)
      |  +- sly_local.yml     nur für diesen Host gültige Konfiguation (-> Datenbankzugang)
@@ -93,8 +99,8 @@ hier kurz angerissen werden soll.::
 Um an die Pfade zu gelangen, stellen die :doc:`Services </sallycms/services/addon>`
 eine Reihe von Methoden zur Verfügung.
 
-SallyCMS kümmert sich automatisch darum, dass :file:`sally/data/config`,
-:file:`sally/data/dyn/internal` und :file:`sally/data/import_export` per
+SallyCMS kümmert sich automatisch darum, dass :file:`data/config`,
+:file:`data/dyn/internal` und :file:`data/import_export` per
 htaccess für den Zugriff via HTTP gesperrt werden.
 
 develop-Verzeichnis

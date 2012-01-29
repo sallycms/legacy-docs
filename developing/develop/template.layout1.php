@@ -6,7 +6,11 @@
  */
 
 // zuerst benötigen wir die Layout-Instanz
-$layout = sly_Core::getLayout('XHTML');
+$layout = new sly_Layout_XHTML();
+
+// wichtig: Das Layout im Systemkern anmelden, damit alle anderen Komponenten
+// dazu zugreifen können.
+sly_Core::setLayout($layout);
 
 // Nun kann der Kopf über die verfügbare API initialisiert werden.
 // Alle Werte werden automatisch HTML-kodiert!
@@ -22,7 +26,7 @@ $layout->addCSS('.selector { color: red; }');
 $layout->addCSS('.selector2 { color: blue; }');
 
 // JavaScript verläuft analog
-$layout->addJavaScriptFile('http://code.jquery.com/jquery-1.6.1.min.js');
+$layout->addJavaScriptFile('http://code.jquery.com/jquery-1.7.1.min.js');
 $layout->addJavaScriptFile('assets/js/main.js');
 
 $layout->addJavaScript('alert("foo");');
@@ -45,10 +49,10 @@ $layout->openBuffer();
 ?>
 <div id="wrapper">
 	<div class="content">
-		<?= $article->getArticle('main') ?>
+		<?php echo $article->getContent('main') ?>
 	</div>
 </div>
-<?
+<?php
 
 // Nun schließen wir den Buffer und printen alles raus.
 $layout->closeBuffer();

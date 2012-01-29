@@ -126,7 +126,7 @@ Obiger Code ergibt ein Formular wie es der folgende Screenshot zeigt:
 .. image:: /_static/slyform-example-complex.png
 
 Man kann an diesem Beispiel gut sehen, dass Fieldsets mehrere Spalten haben
-können (wobei nur 1 oder 2 Spalten per CSS korrekt gestyled sind, die API
+können (wobei nur 1 oder 2 Spalten per CSS korrekt gestylt sind, die API
 unterstützt jedoch bis zu 26 Spalten), die Buttons beliebig angepasst werden
 können und einzelne Elemente auch automatisch mehrsprachig gerendert werden
 können.
@@ -146,13 +146,13 @@ Struktur entspricht in großen Teilen der, die auch REDAXO verwendet.
         <fieldset>
           <legend>Fieldset-Titel</legend>
 
-          <div class="rex-form-wrapper">
+          <div class="sly-form-wrapper">
 
-            <div class="rex-form-row">         <!-- eine Zeile im Formular -->
-              <p class="rex-form-col-a">       <!-- Spalte 1 -->
+            <div class="sly-form-row">         <!-- eine Zeile im Formular -->
+              <p class="sly-form-col-a">       <!-- Spalte 1 -->
                 <!-- Das eigentliche Element, z.B. <select> -->
               </p>
-              <p class="rex-form-col-b">       <!-- Spalte 2 -->
+              <p class="sly-form-col-b">       <!-- Spalte 2 -->
                 <!-- Das eigentliche Element, z.B. <select> -->
               </p>
             </div>

@@ -126,13 +126,20 @@ CSS/JS-Dateien zum ``<head>`` hinzufügen.
   $layout = sly_Core::getLayout();
 
   // Beispiele
-  $layout->addCSSFile('../sally/data/dyn/public/myaddon/css/backend.css');
+  $layout->addCSSFile('../data/dyn/public/myaddon/css/backend.css');
   $layout->addJavaScript('alert("foo!");');
 
 .. note::
 
   Wie in :doc:`Frontend-Layouts </developing/develop/layouts>` beschrieben, ist
   es von Vorteil, auch im Frontend ``sly_Layout`` zu verwenden.
+
+.. warning::
+
+  Das Layout muss erst gesetzt werden, bevor es abgerufen werden kann. Im
+  Backend wird dies von der Backend-App erledigt, im Frontend ist dies
+  allerdings allein Aufgabe des Templates und kann daher nicht garantiert
+  werden. AddOns sollten also im Frontend kein Layout annehmen.
 
 Systemzustand
 -------------
@@ -209,12 +216,12 @@ Die aktuelle Backend-Seite kann wie folgt ermittelt werden.
 .. sourcecode:: php
 
   <?
-  sly_Core::getCurrentPage(); // z.B. 'structure'
+  sly_Core::getCurrentControllerName(); // z.B. 'structure'
 
 .. note::
 
-  Die Methode hat im Frontend keine Bedeutung und gibt deswegen dort immer
-  ``null`` zurück.
+  Die Methode gibt seit Sally 0.6 auch im Frontend den Namen des Controllers
+  zurück (wird in den meisten Fällen ``article`` sein).
 
 Error Handler
 -------------

@@ -4,5 +4,4 @@
  * @sly  title  Textfeld
  */
 
-?>
-REX_VALUE[1]
+print $values->get('mytext');

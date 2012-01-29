@@ -39,21 +39,20 @@ wie folgt aussehen (wir nehmen an, es liegt im Wurzelverzeichnis von Sally).
   define('IS_SALLY', true);
   define('IS_SALLY_BACKEND', false);
   define('SLY_HTDOCS_PATH', './');
-  define('SLY_IS_TESTING', true);            // the magic constant
-  define('SLY_START_TIME', microtime(true)); // would only be set in backend
+  define('SLY_IS_TESTING', true);
+  define('SLY_TESTING_USER_ID', 1);
+  define('SLY_START_TIME', microtime(true));
 
-  // let Sally boot and catch all output
+  // let Sally boot
+  require SLY_SALLYFOLDER.'/core/master.php';
 
-  ob_start();
-  ob_implicit_flush(0);
-  require_once 'sally/core/master.php';
-  while (ob_get_level()) ob_end_clean();
+  // add the backend app
+  sly_Loader::addLoadPath(SLY_SALLYFOLDER.'/backend/lib/', 'sly_');
 
-  // set I18N, load addOns (optional!) and register frontend listeners (optional as well)
-
-  sly_Core::setI18N(new sly_I18N(sly_Core::getDefaultLocale(), SLY_SALLYFOLDER.'/backend/lang'));
-  sly_Core::loadAddons();
-  sly_Core::registerListeners();
+  // init the app
+  $app = new sly_App_Backend();
+  sly_Core::setCurrentApp($app);
+  $app->initialize();
 
   // And we're done. Now comes our own code.
 

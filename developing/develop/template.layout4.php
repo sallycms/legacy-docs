@@ -5,17 +5,19 @@
  * @sly slots {main: Hauptbereich}
  */
 
-$layout = sly_Core::getLayout('Frontend');
+$layout = new sly_Layout_Frontend();
+sly_Core::setLayout($layout);
+
 $layout->openBuffer();
 
 // Jetzt kann der Content ausgegeben werden.
 ?>
 <div id="wrapper">
 	<div class="content">
-		<?= $article->getArticle('main') ?>
+		<?php echo $article->getContent('main') ?>
 	</div>
 </div>
-<?
+<?php
 
 $layout->closeBuffer();
 print $layout->render();

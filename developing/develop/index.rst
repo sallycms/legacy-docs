@@ -5,12 +5,21 @@ In SallyCMS Version 0.3 haben wir eine Kernfunktion von REDAXO geändert:
 Templates und Module liegen nicht mehr in der Datenbank, sondern werden aus
 regulären PHP-Dateien ausgelesen.
 
+.. toctree::
+   :hidden:
+
+   articletypes
+   templates
+   layouts
+   modules
+   slicehelper
+
 Unterseiten
 -----------
 
 * :doc:`Artikeltypen <articletypes>`
 * :doc:`Templates <templates>` & :doc:`Layouts <layouts>`
-* :doc:`Module <modules>`
+* :doc:`Module <modules>` & :doc:`Slice-Helper <slicehelper>`
 
 Einführung
 ----------
@@ -49,12 +58,11 @@ Website.::
 
   /
   +- assets/
+  +- data/
   +- develop/
-  |  +- config/
-  |  +- modules/
-  |  +- templates/
-  +- sally/
-     +- data/
+     +- config/
+     +- modules/
+     +- templates/
 
 Wie auf dem Schema zu erkennen ist, werden Templates und Module noch einmal in
 gesonderten Verzeichnissen angelegt.
@@ -211,8 +219,3 @@ In einem späteren Release könnte eine Cleanup-Funktion implementiert werden, d
 in der Luft hängende Slices findet und entweder eine existierenden Spalte
 zuordnen oder löschen kann. Vorerst sollte nur auf diesen Umstand hingewiesen
 sein.
-
-REX_VAR-Variablen
------------------
-
-**Noch zu schreiben...**

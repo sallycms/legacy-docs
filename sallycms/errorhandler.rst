@@ -27,7 +27,7 @@ Produktivumgebung
 
 In dieser Umgebung werden Fehler nicht mehr angezeigt, sondern nur noch über
 :doc:`sly_Log <logging>` geloggt. Die Logdatei befindet sich damit in
-:file:`sally/data/dyn/internal/sally/logs/errors.log`. Die Logdatei wird beim
+:file:`data/dyn/internal/sally/logs/errors.log`. Die Logdatei wird beim
 Erreichen von 1 MB rotiert, wobei maximal 10 Dateien aufgehoben werden (siehe
 sly_Log-Doku).
 
