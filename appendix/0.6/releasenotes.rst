@@ -433,8 +433,84 @@ Services
   * ``->add($login, $password, $active, $rights)`` wurde hinzugefügt.
   * ``->findById($id)`` wurde hinzugefügt.
 
-Backend
-"""""""
+Formular-Framework
+""""""""""""""""""
+
+* **sly_Form**
+
+  * ``->setFocus()`` kann nun auch mit einem ``sly_Form_ElementBase``-Objekt
+    aufgerufen werden.
+  * ``->findElementByID()`` wurde hinzugefügt, um ein Element anhand seiner ID
+    auszulesen.
+
+* **sly_Form_Fieldset**
+
+  * Fieldsets können nun eine Liste von zusätzlichen Attributen für das
+    ``<fieldset>``-Tag verwalten.
+  * ``->setAttribute()`` und ``->getAttribute()`` wurden hinzugefügt.
+
+* ``sly_Form_Helper::getLanguageSelect($name, $user, $id)`` wurde hinzugefügt.
+* **sly_Form_ElementBase**
+
+  * ``->removeClass()``, ``->removeOuterClass()`` und ``->removeFormRowClass()``
+    wurden hinzugefügt.
+  * ``->setRequired()`` wurde hinzugefügt.
+
+* ``sly_Form_Select_Base->setSelected()`` wurde hinzugefügt.
+* **Widgets**
+
+  * Es wurden Basisklassen für die Widgets in ``sly_Form_Widget_LinkBase`` und
+    ``sly_Form_Widget_MediaBase`` hinzugefügt.
+  * Link-Widgets (einzel & Liste)
+
+    * ``->filterByCategory($cat, $recursive)`` wurde hinzugefügt. Darüber
+      können die erlaubten Kategorien in der Linkmap eingeschränkt werden.
+    * ``->filterByCategories($cats, $recursive)`` wurde als Helper für den
+      wiederholten Aufruf von ``filterByCategory()`` hinzugefügt.
+    * ``->filterByArticleTypes($types)`` wurde hinzugefügt. Darüber
+      können die erlaubten Artikeltypen in der Linkmap eingeschränkt werden.
+    * Für beide Filter gibt es Clearer: ``->clearCategoryFilter()`` und
+      ``->clearArticleTypeFilter()``
+
+  * Media-Widgets (einzel & Liste)
+
+    * ``->filterByCategory($cat, $recursive)`` wurde hinzugefügt. Darüber
+      können die erlaubten Kategorien im Medienpool eingeschränkt werden.
+    * ``->filterByCategories($cats, $recursive)`` wurde hinzugefügt.
+    * ``->filterByFiletypes($types)`` wurde hinzugefügt. Darüber
+      können die erlaubten Dateitypen (angegeben als Liste von Dateiendungen) im
+      Medienpool eingeschränkt werden.
+    * Für beide Filter gibt es Clearer: ``->clearCategoryFilter()`` und
+      ``->clearFiletypeFilter()``
+
+* **Views**
+
+  * Das fokussierte Element wird per Default über das ``autofucus``-Attribut
+    gekennzeichnet. Es existiert ein JavaScript-Fallback, der bei alten Browsern
+    ``.focus()`` aufruft.
+  * Elemente liegen jetzt nicht mehr in einem ``<p>``, sondern einem ``<div>``.
+  * Checkbox- oder Radiobox-Gruppen zeigen die "alle/keine"-Links nicht mehr an,
+    wenn es nur ein Element gibt.
+  * Die speziellen Widget-CSS-Relationen (``rel``-Attribute an den Icons) wurden
+    in Klassen umgeformt (``rel="up"`` wurde zu ``class="fct-up"``).
+
+Frontend-App
+""""""""""""
+
+* Das Frontend wurde als App re-implementiert. Dabei entstanden die folgenden
+  Klassen:
+
+  * ``sly_App_Frontend``
+  * ``sly_Controller_Frontend_Article``
+  * ``sly_Controller_Frontend_Base``
+  * ``sly_Controller_Frontend_Asset``
+
+* Es wurden Sprachdateien für die im Frontend von der App möglichen
+  Fehlermeldungen -- es wird das Standard-Backendlocale verwendet, bevor z.B.
+  der Artikel-Controller das Locale bestimmt hat.
+
+Backend-App
+"""""""""""
 
 * jQuery wurde auf 1.7.1 aktualisiert, jQuery UI auf 1.8.17.
 * Alle CSS-Klassen, die noch ``rex-`` im Namen hatten, wurde in ``sly-``
@@ -502,89 +578,67 @@ Backend
 * Die IDs von Artikeln/Dateien werden nicht mehr für Admins extra angezeigt, da
   es auch kein Benutzerrecht für den "erweiterten Modus" mehr gibt.
 
-Formular-Framework
-""""""""""""""""""
-
-* **sly_Form**
-
-  * ``->setFocus()`` kann nun auch mit einem ``sly_Form_ElementBase``-Objekt
-    aufgerufen werden.
-  * ``->findElementByID()`` wurde hinzugefügt, um ein Element anhand seiner ID
-    auszulesen.
-
-* **sly_Form_Fieldset**
-
-  * Fieldsets können nun eine Liste von zusätzlichen Attributen für das
-    ``<fieldset>``-Tag verwalten.
-  * ``->setAttribute()`` und ``->getAttribute()`` wurden hinzugefügt.
-
-* ``sly_Form_Helper::getLanguageSelect($name, $user, $id)`` wurde hinzugefügt.
-* **sly_Form_ElementBase**
-
-  * ``->removeClass()``, ``->removeOuterClass()`` und ``->removeFormRowClass()``
-    wurden hinzugefügt.
-  * ``->setRequired()`` wurde hinzugefügt.
-
-* ``sly_Form_Select_Base->setSelected()`` wurde hinzugefügt.
-* **Widgets**
-
-  * Es wurden Basisklassen für die Widgets in ``sly_Form_Widget_LinkBase`` und
-    ``sly_Form_Widget_MediaBase`` hinzugefügt.
-  * Link-Widgets (einzel & Liste)
-
-    * ``->filterByCategory($cat, $recursive)`` wurde hinzugefügt. Darüber
-      können die erlaubten Kategorien in der Linkmap eingeschränkt werden.
-    * ``->filterByCategories($cats, $recursive)`` wurde als Helper für den
-      wiederholten Aufruf von ``filterByCategory()`` hinzugefügt.
-    * ``->filterByArticleTypes($types)`` wurde hinzugefügt. Darüber
-      können die erlaubten Artikeltypen in der Linkmap eingeschränkt werden.
-    * Für beide Filter gibt es Clearer: ``->clearCategoryFilter()`` und
-      ``->clearArticleTypeFilter()``
-
-  * Media-Widgets (einzel & Liste)
-
-    * ``->filterByCategory($cat, $recursive)`` wurde hinzugefügt. Darüber
-      können die erlaubten Kategorien im Medienpool eingeschränkt werden.
-    * ``->filterByCategories($cats, $recursive)`` wurde hinzugefügt.
-    * ``->filterByFiletypes($types)`` wurde hinzugefügt. Darüber
-      können die erlaubten Dateitypen (angegeben als Liste von Dateiendungen) im
-      Medienpool eingeschränkt werden.
-    * Für beide Filter gibt es Clearer: ``->clearCategoryFilter()`` und
-      ``->clearFiletypeFilter()``
-
-* **Views**
-
-  * Das fokussierte Element wird per Default über das ``autofucus``-Attribut
-    gekennzeichnet. Es existiert ein JavaScript-Fallback, der bei alten Browsern
-    ``.focus()`` aufruft.
-  * Elemente liegen jetzt nicht mehr in einem ``<p>``, sondern einem ``<div>``.
-  * Checkbox- oder Radiobox-Gruppen zeigen die "alle/keine"-Links nicht mehr an,
-    wenn es nur ein Element gibt.
-  * Die speziellen Widget-CSS-Relationen (``rel``-Attribute an den Icons) wurden
-    in Klassen umgeformt (``rel="up"`` wurde zu ``class="fct-up"``).
-
 Events
 """"""
 
+* ``ALL_GENERATED`` wurde in ``SLY_CACHE_CLEARED`` umbenannt.
+* ``PAGE_CHECKED`` wird vom Core ausgeführt und wurde als deprecated markiert.
+  Neuer Code sollte eher ``SLY_CONTROLLER_FOUND`` nutzen:
+* ``SLY_CONTROLLER_FOUND`` wird ausgeführt, wenn der Controller ermittelt wurde.
+  Dem Event wird die Controller-Instanz als Subject übergeben, sowie der Name
+  (``name``), die App-Instanz (``app``) und die auszuführende Action
+  (``action``) als weitere Parameter.
+* Über das Filter-Event ``SLY_FRONTEND_ROUTER`` können Listener den Router im
+  Frontend mit eigenen Routen erweitern oder sogar die Instanz ganz austauschen.
+  Ein vorbereiteter ``sly_Router_Base`` wird als Subject, die App als ``app``
+  übergeben.
+* Das Event ``OUTPUT_FILTER_CACHE`` wurde entfernt. Stattdessen können AddOns
+  jetzt die finale Ausgabe an den Client in ``SLY_RESPONSE_SEND`` (erhält das
+  Response-Objekt als Subject) abgreifen.
 * Das Subject von ``SLY_MEDIAPOOL_MENU`` ist nun das Backend-Seiten-Objekt
   (``sly_Layout_Navigation_Page``) anstatt des Submenüs als Array. Listeners
   müssen die API des Objekts nutzen, um das Menü zu erweitern.
 * ``SLY_OOMEDIA_IS_IN_USE`` wurde in ``SLY_MEDIA_USAGES`` umbenannt.
 * ``SLY_PAGE_USER_SUBPAGES`` wurde entfernt (AddOns sollten einfach die
-  Backend-Navigation entsprechend erweitern).
+  Backend-Navigation entsprechend erweitern). Dito für ``SLY_SPECIALS_MENU``.
 * ``SLY_SLICE_POSTVIEW_ADD`` wird immer ein leeres Array als Subject übergeben.
-* ``PAGE_CHECKED`` wird vom Core ausgeführt und wurde als deprecated markiert.
-  Neuer Code sollte eher ``SLY_CONTROLLER_FOUND`` nutzen:
-* ``SLY_CONTROLLER_FOUND`` wird ausgeführt, wenn der Controller ermittelt wurde.
-  Dem Event wird die Controller-Instanz als Subject übergeben, sowie der Name,
-  die App-Instanz und die auszuführende Action als weitere Parameter.
+* Das Event ``PAGE_MEDIAPOOL_MENU`` wurde in ``SLY_MEDIAPOOL_MENU`` umbenannt.
+  Statt dem Submenü wird dem Event als Subject das Navigation-Page-Objekt des
+  Medienpools übergeben.
+* Im Event ``SLY_ART_CONTENT_COPIED`` wird kein ``start_slice`` mehr übergeben,
+  da beim Kopieren des Inhalts nun immer **alle** Slices kopiert werden.
+* ``SLY_ART_COPIED`` erhält nun den kopierten Artikel als Subject und nur noch
+  den Quellartikel als ``source``. Alle weiteren Parameter wurden entfernt.
+* ``CLANG_ARTICLE_GENERATED`` wurde entfernt.
+* ``SLY_PRE_PROCESS_ARTICLE`` wurde entfernt und durch das Notify-Event
+  ``SLY_CURRENT_ARTICLE`` ersetzt, in dem Listener den anzuzeigenden Artikel
+  nicht mehr verändern dürfen.
+* Der Artikel-Controller feuert das Filter-Event ``SLY_ARTICLE_OUTPUT``, über
+  das Listener direkt auf die Ausgabe im Frontend zugreifen können. In vielen
+  Fällen wollen AddOns nur die Frontend-Ausgabe von Templates verändern, anstatt
+  auch Ausgaben wie RSS-Feeds oder Bilder zu verarbeiten. Hier macht es dann
+  Sinn, einfach auf ``SLY_ARTICLE_OUTPUT`` zu lauschen.
+* Das Filter-Event ``SLY_RESOLVE_ARTICLE`` wird vom Artikel-Controller gefeuert,
+  um den aktuellen Artikel zu ermitteln. Das Subject ist anfangs null, ein
+  erfolgreicher Listener sollte ein ``sly_Model_Article``-Objekt zurückgeben.
+  Listener, die bereits ein Objekt als Eingabe erhalten sollten dieses
+  ungeändert weiterreichen. Wird kein Artikel gefunden, wird der
+  NotFound-Artikel angezeigt.
 
 rex_vars
 """"""""
 
 * wurden vollständig und ersatzlos entfernt
 * ``sly_Slice_Values`` und ``sly_Slice_Helper`` stellen nun die Hilfs-API zur
-  Verfügung (siehe Feature-Beschreibung am Anfang der Seite).
+  Verfügung (siehe Feature-Beschreibung am Anfang der Seite oder die
+  :doc:`Dokumentation </frontend-devel/develop/slicehelper>`).
+
+Unit-Tests
+""""""""""
+
+* Die Zahl der Testcases wurde 280 mit insgesamt 633 Assertions erhöht.
+* Für AddOns steht ein Bootstraping von Sally sowie eine Basis-Klasse für
+  Testcases bereit. Siehe auch die :doc:`Unit-Test Dokumentation </addon-devel/extended/testing>`.
 
 Sonstiges
 """""""""
