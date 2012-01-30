@@ -17,8 +17,153 @@ Veröffentlichung von Version 0.5 im August sind knapp **500 Commits** von
 Der grobe :doc:`Ablauf eines Updates auf 0.6 <migrate>` wird auf einer extra
 Seite beschrieben.
 
-Features
---------
+Änderungen
+----------
+
+Im Folgenden sollen kurz die Neuerungen in diesem Release beschrieben werden.
+
+Rechtesystem
+""""""""""""
+
+Das von REDAXO übernommene Rechtesystem wurde in dieser Version vollständig
+durch ein abstraktes System ersetzt. Dabei wird vom Core nur die Schnittstelle
+definiert, über die sich externe "Authorisation-Provider" im System anmelden
+können.
+
+Diese Änderung bedeutet, dass Sally selbst keine Rechte mehr verwaltet (sondern
+diese nur noch von externen Quellen, sprich AddOns, abruft). Benutzer haben nur
+noch das Admin-Flag und somit kann ihnen nur noch Zugriff auf *alles* oder
+*nichts* gewährt werden.
+
+Um trotzdem zwischen Administratoren und Redakteuren zu unterscheiden, haben wir
+ein rollenbasiertes Rechtesystem in Form des `rbac-AddOns`_ implementiert. Das
+AddOn ermöglicht es, einzelne Rechte an Rollen (die einander enthalten können)
+zu knüpfen. Benutzer werden dann einer oder mehreren Rollen zugewiesen.
+
+.. _`rbac-AddOns`: https://projects.webvariants.de/
+
+Die Konfiguration der Rechte hat sich dadurch grundlegend geändert. Die
+altbekannten Keys ``perm``, ``extperm`` und ``extraperm`` sind nicht mehr
+verfügbar, stattdessen müssen Rechte in Form von Tokens und Contexts definiert
+werden. Für ein AddOn "mysuperaddon" könnte dies wie folgt in der
+:file:`globals.yml` geschehen:
+
+.. sourcecode:: yaml
+
+  authorisation:                        # an diesen Key muss alles gebunden werden
+    mysuperaddon:                       # Kontext-Name
+      title: 'Mein super AddOn'         # Wird in der Rechteverwaltung angezeigt
+      tokens:                           # enthält Liste aller Rechte
+        manage: 'Daten verwalten'       # 1. Recht
+        export: 'Daten exportieren'     # ...
+        config: 'Konfiguration ändern'
+
+    # Es können beliebig viele Kontexte definiert werden.
+    # Hier kommt Kontext 'anothergroup'
+    anothergroup:
+      title: 'Mein super AddOn (erweitert)'
+      tokens:
+        refund: 'Geld auszahlen'
+        dominate: 'Weltherrschaft'
+
+Abgefragt werden die Rechte dann wie folgt:
+
+.. sourcecode:: php
+
+  <?
+  $user = getUserFromAnywhereYouLike();
+  $user->hasRight('mysuperaddon', 'manage');   // true oder false
+  $user->hasRight('anothergroup', 'dominate'); // true oder false
+
+Rechte können noch komplexer definiert werden, um beispielsweise Rechte pro
+Datenelement (wie einem Termin oder einem Produkt im Shop) festzulegen. Dies
+wird aber an geeigneter Stelle dokumentiert und geht über dieses Dokument
+hinaus.
+
+AddOn-Verwaltung
+""""""""""""""""
+
+Die klassische AddOn-Verwaltung über die Tabelle im Backend wurde abgeschafft
+und durch eine auf die tatsächlich möglichen Interaktionen abgestimmte UI
+ersetzt.
+
+Die einzelnen Aktionen werden in Ajax-Requests ausgeführt, damit beim
+Installieren vieler AddOns nicht ständig die Einträge in der Tabelle neu
+fokussiert werden müssen, weil die Seite neu lud. Dabei werden alle Einträge in
+der Liste entsprechend aktualisiert (d.h. AddOns mit Abhängigkeiten werden
+sofort installierbar und die deaktivieten Buttons verschwinden).
+
+Außerdem werden AddOns nun, wenn sie installiert werden sofort aktiviert. Der
+Use-Case, ein AddOn zwischen Installation und Aktivierung erst noch zu
+konfigurieren kam extrem selten vor und wurde vom Core auch nicht erzwungen,
+womit AddOns eh darauf hin implementiert sein müssen, dass sie mit fehlender
+Konfiguration aktiviert werden.
+
+Sally liest nun auch die statischen Informationen von AddOns aus, die nicht
+geladen wurden. Damit ist es möglich, in der AddOn-Verwaltung exakte
+Informationen anzuzeigen. So werden fehlende Abhängigkeiten nicht erst beim
+Installationsversuch geblockt, sondern wirken sich direktauf die UI aus. Die
+Information dient ebenfalls dazu, die **inkl. Abhängigkeiten installieren**-Funktion
+bereitzustellen -- über diese werden mit einem Klick ein AddOn und alle
+rekursiven Abhängigkeiten installiert.
+
+Das neue Backend ist ein erster Versuch, die AddOn-Verwaltung zu vereinfachen.
+Wir freuen uns über jedes Feedback dazu :-)
+
+Mehrsprachigkeit
+""""""""""""""""
+
+Die Sprachdateien von Sally wurden stark überarbeitet. Bisher bestanden sie aus
+einer Mischung aus natürlichsprachlichen Keys
+(``your_operation_has_been_stopped``) und generischen, teils gruppierten Keys
+(``content_meta_function_29``). Dies verhinderte Wiederverwendung von schon
+bestehenden Übersetzungen und machte teilweise sogar den Formular-Code schwer
+zu verstehen, ohne die Übersetzungen zu kennen. Außerdem stellte sich bei der
+Überarbeitung heraus, dass tatsächlich viele Angaben mehrfach übersetzt wurden.
+Auch gab es gänzlich unsinnige Übersetzungen wie ``copy_article``, das mit
+"in Kategorie" übersetzt wurde...
+
+Um hier eine klare Richtung vorzugeben und gleichzeitig mal gründlich
+aufzuräumen haben wir Unmengen an Übersetzungs-Keys geändert. Keys werden nun
+**immer natürlichsprachlich** gewählt. Außerdem folgen die Keys Mustern wie
+``[object]_was_[verb]`` oder ``cannot_[verb]_[object]``.
+
+Als Resultat dieser Aktion wurden 10 KB Sprachinhalte entfernt (obwohl auch
+auch viele neue Einträge neu hinzu kamen). Im Backend haben sich an vielen
+Stellen die Beschriftungen und Meldungen leicht geändert. Keine Angst, die
+Umgewöhnung ist einfach :-)
+
+Visual Cleanup
+""""""""""""""
+
+Viel Mühe wurde ebenfalls in das allgemeine Markup und Styling des Backends
+gesteckt. So wurden unzählige kleine Glitches und Fehlerchen behoben (so sind
+jetzt beispielsweise die unteren Ecken der Artikeltabelle in der Strukturansicht
+auch dann abgerundet, wenn man im Root den ersten Artikel hinzufügt). Viele
+Stellen sehen deswegen "irgendwie anders" aus, was durch die Reduktion der
+CSS-Stile hervorgerufen wird.
+
+Viele CSS-Regeln wurden vereinfacht (so kann ``.sly-form-text`` überall benutzt
+werden, auch außerhalb von ``.sly-form``-Elementen) und weniger spezifisch
+gemacht. AddOns können nun einfacher das Styling von Sally für einzelne Elemente
+übernehmen: einem Button muss nur die Klasse ``.sly-button`` gegeben werden,
+damit er wie ein Sally-Button aussieht.
+
+Entfernt wurden außerdem viele unnötige Hilfsklassen, wie ``.rex-tx1`` oder
+``.rex-hl2``. Nie wieder soll es Markup wie ``<h3 class="rex-hl2">`` in Sally
+geben.
+
+Abgesehen davon wurde die Linkmap visuell überarbeitet und zeigt nun endlich
+einen zumindest sauber gerenderten Kategoriebaum an (auch wenn er noch nicht
+ajaxifiziert ist). Der Footer wurde kleiner gestaltet, die Kontrast beim Datum
+und der Scriptlaufzeit (die jetzt im Format ``1sek 240ms`` angezeigt wird) wurde
+etwas erhöht.
+
+In der Strukturansicht wird nun die Position der Artikel und Kategorien nicht
+mehr standardmäßig angezeigt (da sie durch die Reihenfolge der Elemente bereits
+redundant ist). Erst beim Bearbeiten von Einträgen wird sie angezeigt. Für die
+Eingabe der neuen Position kommt ein ``<input type="number">`` zum Einsatz, was
+Fehleingaben praktisch ausschließen sollte.
 
 Systemvoraussetzungen
 ---------------------
