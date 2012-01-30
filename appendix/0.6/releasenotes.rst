@@ -67,18 +67,29 @@ Datei(system)
 Datenbank
 """""""""
 
-* Alle Felder, die ``prior`` im Namen hatten, wurden in ``pos`` umbenannt.
 * Es werden getrennte Installationsscripts pro DBMS mitgeliefert. Die
   :file:`user.sql` wurde entfernt.
+* Alle Felder, die ``prior`` im Namen hatten, wurden in ``pos`` umbenannt.
+* Alle weiteren Anpassungen lassen sich aus dem untenstehenden SQL ableiten.
 
 Die Datenbank kann über die folgenden SQL-Statements aktualisiert werden.
 Bestehende Daten gehen dabei nicht verloren.
 
 .. sourcecode:: mysql
 
-  ALTER TABLE `sly_article` CHANGE COLUMN `catprior` `catpos` INT(11) NOT NULL AFTER `catname`;
-  ALTER TABLE `sly_article` CHANGE COLUMN `prior` `pos` INT(11) NOT NULL AFTER `startpage`;
-  ALTER TABLE `sly_article_slice` CHANGE COLUMN `prior` `pos` INT(11) NOT NULL AFTER `startpage`;
+  ALTER TABLE `sly_article` CHANGE COLUMN `catprior` `catpos` INT UNSIGNED NOT NULL;
+  ALTER TABLE `sly_article` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULL;
+  ALTER TABLE `sly_article_slice` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULLL;
+  ALTER TABLE `sly_file` CHANGE COLUMN `filesize` `filesize` INT UNSIGNED NOT NULL;
+  ALTER TABLE `sly_file_category` CHANGE COLUMN `attributes` `attributes` TEXT NULL;
+  ALTER TABLE `sly_slice_value` DROP COLUMN `type`;
+  ALTER TABLE `sly_user` CHANGE COLUMN `name` `name` VARCHAR(255) NULL;
+  ALTER TABLE `sly_user` CHANGE COLUMN `description` `description` VARCHAR(255) NULL;
+
+.. note::
+
+  Abgesehen von diesen Änderungen kann eine bestehende 0.5-Datenbank problemlos
+  mit Sally 0.6 verwendet werden.
 
 JavaScript
 """"""""""
