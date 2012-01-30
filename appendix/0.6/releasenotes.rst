@@ -258,9 +258,9 @@ aufzuräumen haben wir Unmengen an Übersetzungs-Keys geändert. Keys werden nun
 ``[object]_was_[verb]`` oder ``cannot_[verb]_[object]``.
 
 Als Resultat dieser Aktion wurden 10 KB Sprachinhalte entfernt (obwohl auch
-auch viele neue Einträge neu hinzu kamen). Im Backend haben sich an vielen
-Stellen die Beschriftungen und Meldungen leicht geändert. Keine Angst, die
-Umgewöhnung ist einfach :-)
+viele neue Einträge neu hinzu kamen). Im Backend haben sich an vielen Stellen
+die Beschriftungen und Meldungen leicht geändert. Keine Angst, die Umgewöhnung
+ist einfach :-)
 
 Visual Cleanup
 """"""""""""""
