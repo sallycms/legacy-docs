@@ -22,6 +22,27 @@ Seite beschrieben.
 
 Im Folgenden sollen kurz die Neuerungen in diesem Release beschrieben werden.
 
+data hier und data da
+"""""""""""""""""""""
+
+In Sally 0.5 haben wir das :file:`data`-Verzeichnis in das
+:file:`sally`-Verzeichnis verschoben. Wir wollten den gesamten "Sally-Stuff" in
+einem einzelnen Verzeichnis bündeln (um die Trennung zwischen Sally und Projekt
+hervorzuheben). Wie sich herausstellte, machte dies bei Deployments immer wieder
+Probleme. Außerdem waren damit die URLs zum Medienpool unnötig lang
+(``sally/data/mediapool/...``). Gleichzeitig liegen in :file:`data` zwar *auch*
+Sally-Dateien, primär ist :file:`data` aber definitiv wahrscheinlich zwischen
+den beiden Welten.
+
+Aus diesen (und anderen) Gründen verschieben wir in 0.6 das
+:file:`data`-Verzeichnis wieder in den Projektroot. Damit kann das gesamte
+:file:`sally`-Verzeichnis über einen einzelnen Symlink bereitgestellt werden.
+Außerdem verläuft das Deployment von Sally-Projekten etwas stressfreier.
+
+Die für 0.5 gemachten Änderungen an AddOns, Modulen und Templates "dürfen" also
+wieder rückgängig gemacht werden. Dafür handelt es sich dabei diesmal auch um
+die einzige Änderung an der :doc:`Verzeichnisstruktur </general/birdseye>`.
+
 Rechtesystem
 """"""""""""
 
@@ -79,6 +100,114 @@ Rechte können noch komplexer definiert werden, um beispielsweise Rechte pro
 Datenelement (wie einem Termin oder einem Produkt im Shop) festzulegen. Dies
 wird aber an geeigneter Stelle dokumentiert und geht über dieses Dokument
 hinaus.
+
+App-Infrastruktur
+"""""""""""""""""
+
+Die bisher in großen Teilen in den beiden :file:`index.php`-Scripts
+implementierten "Anwendungen" des Sally-Kernsystems (Backend und Frontend) sind
+nun in Form von Klassen implement: ``sly_App_Backend`` und ``sly_App_Frontend``.
+Diese Klassen kümmern sich um das "Hochfahren" des Kernsystems, ermitteln des
+auszuführenden Controllers und dann die Ausführung des Controllers.
+
+Mit diesem Umbau gehen eine Reihe einschneidender Änderungen einher:
+
+**Dispatching in den Apps**
+  Bisher war das Dispatching (das Ermitteln des Controllers und Ausführen der
+  angefragten Action) Teil der Controller selbst (in ``sly_Controller_Base``
+  implementiert). Diese Zuständigkeit wurde nun in die Apps verlagert und dort
+  von ``sly_App_Base`` vorimplementiert. Controller sind damit ausschließlich
+  für ihre eigene Aktionen verantwortlich.
+
+**Frontend-Controller**
+  Da die Apps nun dispatchen, kommt dieser Mechanismus auch im Frontend zum
+  Einsatz. In den meisten Fällen wird der Artikel-Controller verwendet, der
+  dann den aktuellen Artikel ermittelt (und im ``sly_Core`` registriert) und
+  anzeigt. Es sind aber auch weitere Controller (wie für RSS-Feeds,
+  XML-Sitemaps etc.) möglich (die von AddOns oder im
+  :file:`develop/lib`-Verzeichnis mitgebracht werden können). Auch der
+  Asset-Cache läuft nun zum Teil als Controller statt.
+
+**Routing**
+  Zum Ermitteln des aktuellen Controllers kommt im Backend weiterhin der
+  URL-Parameter ``page`` zum Einsatz, hier ändert sich also nichts. Im Frontend
+  wird standardmäßig nach den Mustern ``/sally/:controller/:action/`` und
+  ``/sally/:controller`` gesucht. So würde die URL ``example.com/sally/feed``
+  zum Controller ``sly_Controller_Frontend_Feed`` führen (und die
+  ``indexAction()`` ausführen) und ``example.com/sally/feed/subscribe`` dann die
+  ``subscribeAction()`` ausführen.
+
+  Das Routing kann von AddOns erweitert werden, entweder um eigene Routen oder
+  durch eine ganz eigene Router-Instanz, die erweitertes URL-Matching vornehmen
+  kann.
+
+**Controller**
+  Controller müssen das Interface ``sly_Controller_Interface`` implementieren.
+  Backend-Controller müssen weiterhin ``sly_Controller_[Page]`` heißen,
+  Frontend-Controller müssen ``sly_Controller_Frontend_[Page]`` heißen.
+
+**Action-Methoden**
+  Da das Dispatchen nun in den Apps stattfindet, müssen die Action-Methoden
+  **public** sein. Um sie von ggf. anderen öffentlichen Methoden zu
+  unterscheiden (ein Controller könnte öffentliche Methoden auch für
+  Event-Handler verwenden), müssen sie nach dem Schema ``[action]Action``
+  benannt sein (zum Beispiel ``indexAction``, ``addAction`` etc.).
+
+``checkPermission($action)``
+  Die ``checkPermission()``-Methode muss nun auch **public** sein und den
+  Parameter ``$action`` zumindest formell entgegennehmen.
+
+**init und teardown**
+  Die beiden früher verfügbaren Helper-Methoden, die beim Dispatching direkt
+  vor (``init()``) bzw. nach (``teardown()``) ausgeführt wurden, existieren
+  nicht mehr. Es wird direkt die jeweilige Action-Methode ausgeführt. Wer eine
+  Initialisierung vornehmen möchte, sollte dazu seine eigene ``init()``-Methode
+  selbst in den Actions aufrufen.
+
+**Responses und Ausgabe**
+  Action-Methoden können entweder wie bisher den Content direkt ausgeben. Sie
+  können allerdings auch ihre Antwort in Form einer ``sly_Response``-Instanz
+  zurückgeben. In diesem Fall wird ihre Ausgabe ignoriert (der Output-Buffer
+  wird verworfen). Auf diese Weise können Actions auch komplexere Inhalte mit
+  Headern und Status-Code zurückliefern, den Listener später noch verarbeiten
+  können.
+
+  Es ist damit jetzt empfohlen, jede nicht-HTML-Ausgabe in ein
+  ``sly_Response``-Objekt zu verpacken und zurückzugeben. **Controller-Methoden
+  sollten niemals Header direkt setzen und einfach mit die() wegsterben.**
+  Generierte Inhalte wie RSS-Feeds oder auch Bilder sollten in Responses
+  verpackt zurückgegeben werden, damit jeder Sally-Aufruf sauber bis zum Ende
+  durchlaufen kann.
+
+Es ist möglich, eigene Apps zu entwickeln, die beispielsweise weniger oder gar
+keine AddOns laden. So könnte es eine Cronjob-App geben, die beim Einsatz von
+Sally in browserlosen Umgebungen optimiert ist.
+
+Das App-System steht noch ganz am Anfang seiner Entwicklung und wir freuen uns
+über Feedback und Vorschläge zur Verbesserung :-)
+
+.. warning::
+
+  Um es noch einmal deutlicher zu schreiben: Der anzuzeigende Artikel wird im
+  Frontend erst vom Artikel-Controller ermittelt. Bevor dieser nicht das Event
+  ``SLY_CURRENT_ARTICLE`` feuert, weiß *niemand*, welcher Artikel angezeigt
+  werden soll. Calls zu Methoden wie ``sly_Core::getCurrentArticle()`` enden
+  damit in ``null``-Werten.
+
+.. warning::
+
+  Das Gleiche gilt für das Layout, das im Backend erst von der App gesetzt
+  werden muss (ist bei ``ADDONS_INCLUDED`` bereits verfügbar). Im Frontend ist
+  es die **alleinige Aufgabe** des Frontend-Codes (Templates & Module), ein
+  Layout zu setzen oder überhaupt zu verwenden. Bei ``sly_Core::getLayout()``
+  kann es also kein Layout geben!
+
+.. note::
+
+  Der aktuelle Artikel steht wie bisher bei ``ADDONS_INCLUDED`` noch nicht
+  bereit und AddOns sollten auf ``SLY_CONTROLLER_FOUND`` warten (wird im
+  Frontend und Backend ausgeführt). ``PAGE_CHECKED`` ist deprecated und wird in
+  einem zukünftigen Release entfernt.
 
 AddOn-Verwaltung
 """"""""""""""""
@@ -164,6 +293,23 @@ mehr standardmäßig angezeigt (da sie durch die Reihenfolge der Elemente bereit
 redundant ist). Erst beim Bearbeiten von Einträgen wird sie angezeigt. Für die
 Eingabe der neuen Position kommt ein ``<input type="number">`` zum Einsatz, was
 Fehleingaben praktisch ausschließen sollte.
+
+Unit-Tests
+""""""""""
+
+Wir haben die Entwicklung der Tests für die Sally-API (ein ganz besonders von
+allen Entwicklern geliebter Bereich der Projektentwicklung!) stark
+vorangetrieben und jetzt eine sehr gute Basis für noch viele weitere Tests. Die
+Tests haben bereits einige Bugs in Sally aufgedeckt (vor allem in den
+Artikel-bezogenen Funktionen) und wir sind sicher, dass wir noch mehr mit ihnen
+finden werden.
+
+Wir sind jetzt bei stolzen 280 Testcases mit insgesamt 633 Assertions. Ein guter
+Anfang. :-)
+
+Die gleichen Mechanismus, die wir im Core nutzen, stellen wir auch AddOns zur
+Verfügung. Mit ersten Tests zu starten ist damit so einfach wie es die
+:doc:`Dokumentation </addon-devel/extended/testing>` beschreibt.
 
 Systemvoraussetzungen
 ---------------------
