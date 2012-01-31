@@ -479,6 +479,7 @@ Konfiguration
 * Die Permissions werden jetzt nicht mehr über ``PERM``, ``EXTPERM`` und
   ``EXTRAPERM`` gesteuert, sondern über das neue Authorisation-System (siehe
   Abschnitt weiter oben).
+* Artikeltypen und Module können jetzt über ``translate:...`` übersetzt werden.
 
 Globale Variablen
 """""""""""""""""
