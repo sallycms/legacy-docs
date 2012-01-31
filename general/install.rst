@@ -22,8 +22,8 @@ Systemvoraussetzungen
 Optional kann SallyCMS die folgenden Komponenten verwenden, um die Performance
 zu steigern:
 
-  * XCache, APC, Memcache, Memcached, Zend Data Server, eAccelerator (wir
-    empfehlen XCache unter Windows und APC + Memcached auf Produktivsystemen)
+* XCache, APC, Memcache, Memcached, Zend Data Server, eAccelerator (wir
+  empfehlen XCache unter Windows und APC + Memcached auf Produktivsystemen)
 
 Upload
 ------
@@ -37,7 +37,9 @@ Upload
 
 #. Stelle sicher, dass Sally beim ersten Aufruf das Verzeichnis :file:`data`
    erstellen kann, falls es nicht vorhanden ist. :file:`data` und alle darin
-   enthaltenen Verzeichnisse sollten ``chmod 0777`` haben.
+   enthaltenen Verzeichnisse sollten auf *guten* Servern ``chmod 664`` haben.
+   Server, bei denen Webserver und FTP als verschiedene User laufen, benötigen
+   ``chmod 0777``.
 #. Rufe das von dir erstellte Verzeichnis im Browser auf, z. B. via
    http://example.com/backend/. Du solltest dann automatisch zum Setup
    weitergeleitet werden.
