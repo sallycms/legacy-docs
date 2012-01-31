@@ -1,10 +1,37 @@
-Release-Notes
-=============
+Release-Notes (BETA)
+====================
 
 .. note::
 
   Dieses Dokument ist noch nicht vollständig. Angaben können sich ohne
   Ankündigung bis zum Release noch ändern.
+
+Beta-Release
+------------
+
+Bei dem aktuellen Release handelt es sich um eine Vorschau auf die kommende
+0.6-Version. Auch wenn die API bereits recht festgeklopft ist, sind Änderungen
+bis zur Finalversion durchaus wahrscheinlich.
+
+Wir freuen uns über *jedes* Feedback. Probiert die neue Version aus und sagt
+uns, was noch nicht stimmt, keinen Sinn ergibt, wo Dokumentation dringend fehlt
+oder auch was euch gefallen hat. Vor allem die **Slice-Helper** sind bisher
+recht dürftig und freuen sich über Vorschläge zur Erweiterung -- welche
+Operationen führt ihr häufig mit Slicewerten durch? Wofür würden sich Helper gut
+machen?
+
+Läuft Sally auf eurem Webspace? Gibt es Probleme bei der Installation? Stimmen
+Beschriftungen nicht oder werden Formulare nicht mit korrektem Fokus
+initialisiert? Funktioniert das JavaScript auch im IE8? Machen die neuen Apps
+Probleme? -- *Alle kleinen und großen Fehler sind von Interesse.*
+
+Kommentare können via Ticket, eMail, Tweet, Google+-Kommentar oder Brieftaube
+eingeschickt werden. Wir freuen uns auch über eine lebenslange Versorgung mit
+`Sally-Energydrinks <https://plus.google.com/u/0/b/114660281857431220675/114660281857431220675/posts/2StWXjoZwNJ>`_
+;-)
+
+Release Notes
+-------------
 
 .. centered:: -- zwischen Featurewahn und Produktpflege ;) --
 
@@ -16,6 +43,16 @@ Veröffentlichung von Version 0.5 im August sind knapp **500 Commits** von
 
 Der grobe :doc:`Ablauf eines Updates auf 0.6 <migrate>` wird auf einer extra
 Seite beschrieben.
+
+**Sally im Web**
+
+* `Downloads <https://projects.webvariants.de/projects/sallycms/files>`_
+* `Google+ <https://plus.google.com/b/114660281857431220675/>`_ und
+  `Twitter <https://twitter.com/#!/webvariants>`_
+* `Repository <https://bitbucket.org/SallyCMS/0.6/>`_ und
+  `Code-Statistik bei Ohloh <http://www.ohloh.net/p/sallycms>`_
+* `Bugtracker <https://projects.webvariants.de/projects/sallycms/issues/>`_ und
+  `Forum <https://projects.webvariants.de/projects/sallycms/boards/>`_
 
 Änderungen
 ----------
@@ -238,6 +275,42 @@ rekursiven Abhängigkeiten installiert.
 
 Das neue Backend ist ein erster Versuch, die AddOn-Verwaltung zu vereinfachen.
 Wir freuen uns über jedes Feedback dazu :-)
+
+Modul-Konfiguration
+"""""""""""""""""""
+
+In Sally 0.4 und 0.5 wurden die erlaubten Module innerhalb von Templates
+definiert (``@sly modules ...``). Das hat zwar gut funktioniert, war nicht so
+flexibel, wie wir es gern hätten. So mussten in manchen Fällen Templates
+kopiert werden, nur um für einen anderen Artikeltypen andere Module zu erlauben.
+
+Aus diesem Grund haben wir diese Definition nun an den *Artikeltypen* geknüpft.
+Da bereits in den Templates YAML zum Einsatz kam, können bestehende
+``@sly modules``-Angaben quasi 1:1 übernommen werden.
+
+Die Konfiguration der Artikeltypen könnte damit wie folgt aussehen:
+
+.. sourcecode:: yaml
+
+  ARTICLE_TYPES:
+    default:
+      title: Standardseite
+      template: default
+      modules: {leftcol: [editor], rightcol: [teaser]}
+    job:
+      title: Stellenangebot
+      template: default
+      modules: [editor, download, pdf]
+    news:
+      title: Newsbeitrag
+      template: twocolumn
+      custom: Eigene Key-Value-Pairs sind beliebig ergänzbar
+
+.. note::
+
+  Die Definition der Slots bleibt weiterhin in den Templates. Der Entwickler ist
+  selber dafür verantwortlich, die Angaben in Templates und der
+  Artikeltyp-Konfiguration synchron zu halten.
 
 Mehrsprachigkeit
 """"""""""""""""
