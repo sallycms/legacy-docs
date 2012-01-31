@@ -246,6 +246,74 @@ Das App-System steht noch ganz am Anfang seiner Entwicklung und wir freuen uns
   Frontend und Backend ausgeführt). ``PAGE_CHECKED`` ist deprecated und wird in
   einem zukünftigen Release entfernt.
 
+Slice-Handling
+""""""""""""""
+
+Die Verarbeitung von Slices wurde völlig umgebaut und verwendet nun keine
+Platzhalter mehr, die von Sally durch PHP-Code ersetzt werden müssen.
+Stattdessen sind Module reiner PHP/HTML-Code, sodass Module ab sofort direkt
+über ``include`` eingebunden werden.
+
+Statt der altbekannten Platzhalter (wie ``SLY_SLICE_VALUE[myvalue]``) gibt es
+nun ein ``sly_Slice_Values``-Objekt in jedem Slice, über das auf die Werte des
+Slices zugegriffen werden kann. Dabei ist zu beachten, dass Werte nun
+*unabhängig* von ihren Formularelementen gespeichert werden. Das heißt, dass man
+Formular-Eingabe und die Auswertung der Werte komplett trennen kann (ein über
+ein Link-Widget eingegebener Artikel muss nicht als Artikel im Slice verwendet
+werden).
+
+Außerdem wurde das Rendering der Eingaben von Modulen umgebaut. Wo früher noch
+``SLY_LINK_WIDGET[x]`` ein Link-Widget gerendert hat, muss jetzt ``sly_Form``
+oder plain HTML zum Einsatz kommen. Das erlaubt es, jedes beliebige
+Formularelement auch in Slices zu verwenden und trotzdem im Notfall noch direkt
+HTML schreiben zu können. Es bedeutet auch, dass Module nun einheitlicher im
+Backend dargestellt werden, da bei Verwendung von ``sly_Form`` ein Großteil des
+eigentlichen Renderns von Sally übernommen wird.
+
+Ein Beispiel-Modul verdeutlicht die Änderung. Hier das **test.input.php**-Modul:
+
+.. sourcecode:: php
+
+  <?
+  /**
+   * @sly  name   textfield
+   * @sly  title  Textfeld
+   */
+
+  // $values wird von Sally vordefiniert und erlaubt via ->get(), einen
+  // Slicewert abzurufen (egal, wie dessen Eingabe aussehen mag).
+
+  $text = $values->get('mytext'); // beim ersten Anzeigen des Moduls ist dieser Wert null
+
+  // Jetzt kann das Formular zusammengesetzt werden. Hier beispielsweise
+  // eine einfache Textarea.
+
+  $textarea = new sly_Form_Textarea('mytext', 'Text', $text);
+
+  // Formularelemente werden dann in das ebenfalls von Sally vordefinierte
+  // $form-Objekt gepackt. Sally kümmert sich im Anschluss selber darum, das
+  // Formular zu rendern, sodass...
+
+  $form->add($textarea);
+
+  // ... hier das Modul bereits beendet ist.
+
+Die **Ausgabe** ist denkbar einfach:
+
+.. sourcecode:: php
+
+  <?
+  /**
+   * @sly  name   textfield
+   * @sly  title  Textfeld
+   */
+
+  print $values->get('mytext');
+
+``$values`` definiert noch ein paar weitere Helper, die den Modulen nervigen
+Code ersparen sollen (wie ``->getArticle($valueKey)``, das für einen Slicewert
+einen Artikel zurückgibt).
+
 AddOn-Verwaltung
 """"""""""""""""
 
