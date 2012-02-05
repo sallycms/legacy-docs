@@ -461,6 +461,30 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
 * JSON- und DateTime-Support müssen in PHP verfügbar sein.
 * ``short_open_tags`` wird nicht mehr benötigt.
 
+Änderungen seit 0.6 beta
+------------------------
+
+* alle Modul- und Artikeltypstrings, die im Backend angezeigt werden, können via
+  ``translate:...`` übersetzt werden.
+* ``sly_Controller_Base->render()`` hat einen dritten Parameter
+  ``$returnOutput`` erhalten, über den der Output Buffer abgeschaltet werden
+  kann (nützlich, wenn der Inhalt des Views eh ausgegeben werden soll).
+* Sende einen ``Connection: close``-Header, wenn der Client nicht explizit einen
+  ``Keep-Alive``-Header sendet.
+* Der checked-Status kann jetzt im Konstruktor von Checkboxen und Radioboxen
+  über einen weiteren Parameter direkt gesetzt werden.
+* Die Standard-Sortierreihenfolge kann nun beim Aufruf von
+  ``sly_Table::getSortingParameters()`` mit angegeben werden.
+* Bugfix: fehlende Permissions für AddOns ohne eigene Auth-Config
+* Bugfix: doppelter Header im AddOn-Backend wenn kein JavaScript verfügbar ist.
+* Bugfix: ``sly_Router_Interface`` fehlte im Bootcache.
+* Bugfix: 403-Header sollte nur bei fehlgeschlagenen Logins gesendet werden,
+  bei Requests auf ``example.com/backend``.
+* Bugfix: Plugins wurden im Produktivmodus nicht geladen.
+* Bugfix: ``ht()`` beachtete die weiteren Parameter neben dem i18n-Key nicht.
+* Bugfix: In einigen Sonderfällen war die Linkmap nicht korrekt gestylt.
+* weitere kleinere Verbesserungen
+
 API-Änderungen
 --------------
 
