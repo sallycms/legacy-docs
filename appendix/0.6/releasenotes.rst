@@ -527,6 +527,7 @@ Datenbank
 * Es werden getrennte Installationsscripts pro DBMS mitgeliefert. Die
   :file:`user.sql` wurde entfernt.
 * Alle Felder, die ``prior`` im Namen hatten, wurden in ``pos`` umbenannt.
+* Slice-Werte werden nun immer als JSON-Strings abgespeichert.
 * Alle weiteren Anpassungen lassen sich aus dem untenstehenden SQL ableiten.
 
 Die Datenbank kann über die folgenden SQL-Statements aktualisiert werden.
@@ -542,6 +543,11 @@ Bestehende Daten gehen dabei nicht verloren.
   ALTER TABLE `sly_slice_value` DROP COLUMN `type`;
   ALTER TABLE `sly_user` CHANGE COLUMN `name` `name` VARCHAR(255) NULL;
   ALTER TABLE `sly_user` CHANGE COLUMN `description` `description` VARCHAR(255) NULL;
+
+.. note::
+
+  Ein PHP-Script, das die JSON-Konvertierung der Slicewerte vornimmt, ist im
+  :doc:`Migrationsleitfaden <migrate>` gegeben.
 
 .. note::
 
