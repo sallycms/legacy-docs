@@ -536,7 +536,7 @@ Bestehende Daten gehen dabei nicht verloren.
 
   ALTER TABLE `sly_article` CHANGE COLUMN `catprior` `catpos` INT UNSIGNED NOT NULL;
   ALTER TABLE `sly_article` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULL;
-  ALTER TABLE `sly_article_slice` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULLL;
+  ALTER TABLE `sly_article_slice` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULL;
   ALTER TABLE `sly_file` CHANGE COLUMN `filesize` `filesize` INT UNSIGNED NOT NULL;
   ALTER TABLE `sly_file_category` CHANGE COLUMN `attributes` `attributes` TEXT NULL;
   ALTER TABLE `sly_slice_value` DROP COLUMN `type`;
