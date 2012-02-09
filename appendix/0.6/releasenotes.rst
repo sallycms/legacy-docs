@@ -475,6 +475,18 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
   über einen weiteren Parameter direkt gesetzt werden.
 * Die Standard-Sortierreihenfolge kann nun beim Aufruf von
   ``sly_Table::getSortingParameters()`` mit angegeben werden.
+* Aufrufe von nicht existenten oder abstrakten Frontend-Controller werden mit
+  einem HTTP404 mit leerem Body beantwortet.
+* Die Frontend-App erlaubt nun via ``getRouter()`` Zugriff auf den verwendeten
+  Router (und damit auch auf dessen Match und weitere Daten, siehe folgender
+  Punk).
+* Der Base-Router nimmt nun ein assoziatives Array von Route => Values entgegen.
+  In den Values (ebenfalls ein ass. Array) können weitere Werte abgelegt werden,
+  die über ``->get()`` abgefragt werden können.
+* Klassennamen können nun mit einem Unterstrich versehen werden, ohne dass dafür
+  eine extra Präfix-Regel notwendig ist. ``_Foo_Bar`` löst nun nicht mehr nach
+  ``load/path//Foo/Bar``, sondern ``load/path/_Foo/Bar`` auf.
+* Die empfohlene MySQL-Version wurde auf 5.1 erhöht.
 * Bugfix: fehlende Permissions für AddOns ohne eigene Auth-Config
 * Bugfix: doppelter Header im AddOn-Backend wenn kein JavaScript verfügbar ist.
 * Bugfix: ``sly_Router_Interface`` fehlte im Bootcache.
@@ -483,6 +495,9 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
 * Bugfix: Plugins wurden im Produktivmodus nicht geladen.
 * Bugfix: ``ht()`` beachtete die weiteren Parameter neben dem i18n-Key nicht.
 * Bugfix: In einigen Sonderfällen war die Linkmap nicht korrekt gestylt.
+* Bugfix: ``sly_Router_Base->getAction()`` gab den falschen Wert zurück.
+* Bugfix: Der Systemvoraussetzungscheck im Setup war nicht mehr korrekt
+  gestylt.
 * weitere kleinere Verbesserungen
 
 API-Änderungen
