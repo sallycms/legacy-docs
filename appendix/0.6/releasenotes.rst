@@ -475,8 +475,10 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
   über einen weiteren Parameter direkt gesetzt werden.
 * Die Standard-Sortierreihenfolge kann nun beim Aufruf von
   ``sly_Table::getSortingParameters()`` mit angegeben werden.
-* Aufrufe von nicht existenten oder abstrakten Frontend-Controller werden mit
-  einem HTTP404 mit leerem Body beantwortet.
+* Die beiden Standard-Routen (``/sally/:controller/:action`` und
+  ``/sally/:controller``) wurden wieder entfernt. AddOns, die Controller im
+  Frontend erreichbar machen wollen, müssen diese nun immer selbstständig im
+  Router anmelden.
 * Die Frontend-App erlaubt nun via ``getRouter()`` Zugriff auf den verwendeten
   Router (und damit auch auf dessen Match und weitere Daten, siehe folgender
   Punk).
@@ -486,7 +488,11 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
 * Klassennamen können nun mit einem Unterstrich versehen werden, ohne dass dafür
   eine extra Präfix-Regel notwendig ist. ``_Foo_Bar`` löst nun nicht mehr nach
   ``load/path//Foo/Bar``, sondern ``load/path/_Foo/Bar`` auf.
+* Der Hilfetext von Formularelementen kann nun auch optional HTML enthalten (das
+  muss allerdings erst pro Formularelement gesetzt werden).
+* Das gesamte Formularframework hat nun ein "Fluid Interface".
 * Die empfohlene MySQL-Version wurde auf 5.1 erhöht.
+* Output-Modulen wird das aktuelle Slice als ``$slice`` übergeben.
 * Bugfix: fehlende Permissions für AddOns ohne eigene Auth-Config
 * Bugfix: doppelter Header im AddOn-Backend wenn kein JavaScript verfügbar ist.
 * Bugfix: ``sly_Router_Interface`` fehlte im Bootcache.
@@ -498,6 +504,10 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
 * Bugfix: ``sly_Router_Base->getAction()`` gab den falschen Wert zurück.
 * Bugfix: Der Systemvoraussetzungscheck im Setup war nicht mehr korrekt
   gestylt.
+* Bugfix: Auf der Content-Seite im Backend fehlte der aktuelle Artikelkontext
+  (``sly_Core::getCurrentArticle()`` war immer ``null``).
+* Bugfix: Templates können wieder über Conditions gefiltert werden.
+* Bugfix: Dateien im Medienpool konnten nicht gelöscht werden.
 * weitere kleinere Verbesserungen
 
 API-Änderungen
