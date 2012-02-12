@@ -159,16 +159,6 @@ Article-Models
 
 .. =============================================================================
 
-.. slyevent:: CLANG_ARTICLE_GENERATED
-  :type:    notify
-  :in:      string
-  :subject: ein leerer String
-
-  Wird ausgeführt, nachdem in ``OOArticleSlice::getSliceIdsForSlot()`` die IDs
-  der Slices ermittelt wurden.
-
-.. =============================================================================
-
 .. slyevent:: URL_REWRITE
   :type:    until
   :in:      string
