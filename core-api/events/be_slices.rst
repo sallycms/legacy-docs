@@ -16,13 +16,13 @@ Slice-Handling
 
 .. slyevent:: SLY_SLICE_MOVED
   :type:    notify
-  :in:      OOArticleSlice
+  :in:      sly_Model_ArticleSlice
   :subject: das verschobene Slice
   :params:
     clang     (int)
     direction (string)  'up' oder 'down'
-    oldprior  (int)
-    newprior  (int)
+    old_pos   (int)
+    new_pos   (int)
 
   wird nach dem Verschieben eines Slices ausgeführt
 

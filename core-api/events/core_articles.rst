@@ -1,20 +1,6 @@
 Article-Models
 ==============
 
-.. slyevent:: SLY_SLICE_MOVED
-  :type:    notify
-  :in:      sly_Model_ArticleSlice
-  :subject: das verschobene Slice
-  :params:
-    clang     (int)
-    direction (string)  'up' oder 'down'
-    old_pos   (int)
-    new_pos   (int)
-
-  wird nach dem Verschieben eines Slices ausgeführt
-
-.. =============================================================================
-
 .. slyevent:: SLY_ART_TO_STARTPAGE
   :type:    notify
   :in:      int
@@ -49,7 +35,7 @@ Article-Models
     name      (string)  Name des Artikels
     position  (int)     Position des neuen Artikels
     path      (string)  Kategorie-Pfad (``|id|id|...|``)
-    status    (int)     Atikelstatus
+    status    (int)     Artikelstatus
     type      (string)  Artikeltyp
 
   wird ausgeführt, nachdem ein Artikel angelegt wurde (*wird einmal pro Sprache

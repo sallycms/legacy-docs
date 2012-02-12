@@ -114,20 +114,6 @@ Sonstige Core-Events
 
 .. =============================================================================
 
-.. slyevent:: SLY_PRE_PROCESS_ARTICLE
-  :type:    filter
-  :in:      sly_Model_Article
-  :out:     sly_Model_Article
-  :subject: der ermittelte Artikel (die meisten realurl-Implementierungen
-            haben bereits den Request abgearbeitet, sodass hier beispielsweise
-            bei RealURL2 bereits der richtige Artikel bereitsteht)
-
-  gibt Listenern und AddOns eine letzte Chance, den anzuzeigenden Artikel zu
-  verändern, bevor dessen Template schlussendlich eingebunden und ausgeführt
-  wird
-
-.. =============================================================================
-
 .. slyevent:: SLY_CACHE_CLEARED
   :type:    filter
   :since:   0.6

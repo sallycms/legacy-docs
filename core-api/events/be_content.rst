@@ -53,23 +53,6 @@ für Slices.
 
 .. =============================================================================
 
-.. slyevent:: PAGE_CONTENT_MENU
-  :type:    filter
-  :in:      array
-  :out:     array
-  :since:   0.1.0
-  :subject: Array von Links auf die Slotseiten
-  :params:
-    article_id  (int)
-    clang       (int)
-    function    (string)
-    mode        (string)
-    slice_id    (int)
-
-  ermöglicht die Erweiterung des Slice/Meta/Anzeigen-Menüs auf der Sliceseite
-
-.. =============================================================================
-
 .. slyevent:: SLY_ART_MESSAGES
   :type:    notify
   :in:      sly_Model_Article
