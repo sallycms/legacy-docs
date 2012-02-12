@@ -1,6 +1,6 @@
 <?php
 
-class sly_Layout_Frontend extends sly_Layout_XHTML {
+class sly_Layout_Frontend extends sly_Layout_XHTML5 {
 	public function __construct() {
 		// Den aktuellen Artikel wird man hier vermutlich benötigen.
 		$article = sly_Core::getCurrentArticle();

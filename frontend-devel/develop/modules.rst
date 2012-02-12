@@ -96,7 +96,8 @@ im System über diesen Namen referenziert wird.
 ``title`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
 
-Titel des Moduls zur Anzeige im Backend. (Default ist der Modulname)
+Titel des Moduls zur Anzeige im Backend. Titel sollten **immer** angegeben
+werden und können mittels ``translate:...`` übersetzt werden.
 
 ``templates`` (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -118,12 +119,7 @@ zur Verfügung.
 Conditions
 ----------
 
-.. literalinclude:: condition.module.php
-   :language: php
-   :lines: 1-8
-
-Die Condition *mobile* kann wie folgt ausgewertet werden:
-
-.. literalinclude:: condition.module.php
-   :language: php
-   :lines: 10-
+Module können ebenso wie Templates zur Anzeigezeit dynamisch ausgewählt werden.
+Der Vorgang gestaltet sich identisch wie bei
+:doc:`Template-Conditions <templates>` (nur dass der Evaluator natürlich beim
+Modul-Service registriert werden muss).

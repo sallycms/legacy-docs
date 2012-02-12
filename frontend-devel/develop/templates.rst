@@ -26,19 +26,15 @@ das Template im System über diesen Namen referenziert wird.
 ``title`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
 
-Titel des Templates zur Anzeige im Backend. (Nur nötig bei Templates, die im
-Backend gelistet werden.) (Default ist der Templatename)
+Titel des Templates zur Anzeige im Backend. Seit Sally 0.4 ist dieser Wert nicht
+mehr von direkter Bedeutung, da der Systemkern und die Backend-App an keiner
+Stelle den Namen von Templates anzeigen. Die API unterstützt diesen Parameter
+allerdings weiterhin direkt (über eine ``->getTitle()``-Methode), da Templates
+von Modulen oder AddOns im Backend angezeigt werden könnten.
 
-``active`` (optional)
-^^^^^^^^^^^^^^^^^^^^^
+.. note::
 
-``true`` oder ``false``. ``true``, wenn das Template im Backend zur Auswahl
-stehen soll. ``false``, wenn es nur intern über die API genutzt wird. Default
-ist ``false``.
-
-*Hinweis:* Ab Sally 0.4 ist dieser Wert bedeutungslos, da im Backend keine
-Templates mehr zur Auswahl stehen. Er kann jedoch weiterhin über die API
-abgerufen werden.
+  ``getTitle()`` könnte in einem späteren Release entfernt werden.
 
 ``slots`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
@@ -71,7 +67,7 @@ Backend nicht angezeigt.
 .. note::
 
   Seit Version 0.6 werden die erlaubten Module nicht mehr im Template, sondern
-  direkt am Artikeltyp definiert.
+  direkt am :doc:`Artikeltyp <articletypes>` definiert.
 
 ``class`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
@@ -83,12 +79,47 @@ API gefiltert abzurufen. Zum Filtern dient
 Conditions
 ----------
 
+Das Template, das beim Anzeigen eines Artikels zum Einsatz kommt, kann dynamisch
+festgelegt werden. So kann beispielsweise zur Anzeige auf Mobilgeräten
+automatisch ein anderes Template als für die Desktopversion verwendet werden.
+
+Um diese Technik anzuwenden, müssen sog. **Conditions** in Template verwendet
+werden. Eine Condition ist per se erstmal nichts weiter als ein normaler
+Parameter im Dateikopf, ebenso wie ``slots`` oder ``name``. Der Parameter wird
+nur dadurch zu einer Condition, dass jemand für ihn einen Evaluator registriert
+hat.
+
+Die Templates, zwischen denen anhand einer Condition unterschieden werden soll,
+müssen den gleichen internen Namen verwenden (ohne Conditions wäre dies nicht
+erlaubt).
+
+Beispiel
+^^^^^^^^
+
+Zu Demo-Zwecken wollen wir ein anderes Template für Mobilseiten verwenden. Dazu
+legen wir zwei Templates an, :file:`desktop.php` und :file:`mobile.php`. Beide
+Templates verwenden den internen Namen ``default`` (dieser Wert wird dann auch
+beim Artikeltyp als Template angegeben).
+
 .. literalinclude:: condition.template.php
    :language: php
    :lines: 1-9
 
-Die Condition *mobile* kann wie folgt ausgewertet werden:
+.. literalinclude:: condition.template.php
+   :language: php
+   :lines: 10-17
+
+Die Condition **mobile** kann wie folgt ausgewertet werden:
 
 .. literalinclude:: condition.template.php
    :language: php
-   :lines: 11-
+   :lines: 19-39
+
+Dieser Evaluator muss nun noch beim Sally-Core registriert werden, damit er
+aufgerufen wird, wenn Sally das Template eines Artikels im Frontend benötigt.
+Dazu genügt ein einzelner Aufruf zum Template-Service, dem der Name der
+Condition und der Callback übergeben wird.
+
+.. literalinclude:: condition.template.php
+   :language: php
+   :lines: 41-

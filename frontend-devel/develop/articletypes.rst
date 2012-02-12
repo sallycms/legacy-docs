@@ -27,13 +27,13 @@ definiert. Wir empfehlen, dafür eine Datei namens :file:`types.yml` in
       template: default
       modules: {leftcol: [editor], rightcol: [teaser]}
     job:
-      title: Stellenangebot
+      title: translate:job_offer     # wird automatisch aufgelöst
       template: default
       modules: [editor, download, pdf]
     news:
       title: Newsbeitrag
       template: twocolumn
-      custom: Eigene Key-Value-Pairs sind beliebig ergänzbar
+      custom: foo                    # eigene Key-Value-Pairs sind beliebig ergänzbar
 
 Der Inhalt jeder Datei, die in dem o.g. Verzeichnis gefunden wird, wird in die
 globale Konfiguration gemerged. So ist es auch möglich, die Definition auf
@@ -83,8 +83,8 @@ definiert.
 definiert werden. Dabei ist es möglich die Module auch auf einzelne Slots eines
 Templates festzulegen. Folgende Bepiele sollen die Nutzung verdeutlichen.
 
-Beispiel 1 - Einfache Modulliste
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Einfache Modulliste
+^^^^^^^^^^^^^^^^^^^
 
 In diesem Beispiel ist eine einfache Liste mit Modulen definiert.
 
@@ -92,16 +92,16 @@ In diesem Beispiel ist eine einfache Liste mit Modulen definiert.
 
   ARTICLE_TYPES:
     default:
-      title: Standard
-      template: foo
-      modules: [wymeditor, gallery]
+      title: 'Standard'
+      template: 'foo'
+      modules: ['wymeditor', 'gallery']
 
 Diese Definition erlaubt die beiden Module in jedem Slot, die im Template foo
 vorhanden sind. Alle andereren ggf. vorhandenen Module sind über das Backend
 nicht hinzufügbar.
 
-Beispiel 2 - Komplexe Modulliste
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Komplexe Modulliste
+^^^^^^^^^^^^^^^^^^^
 
 In diesem Beispiel stehen die Module ``wymeditor`` und ``image`` für alle Slots
 zur Verfügung. Für den Slot ``main`` steht außerdem das Modul ``gallery`` zur
@@ -112,12 +112,12 @@ Verfügung und für den Slot ``sidebar`` die Module ``teaserbox`` und
 
   ARTICLE_TYPES:
     default:
-      title: Standard
-      template: foo
+      title: 'Standard'
+      template: 'foo'
       modules:
-        _ALL_: [wymeditor, image]
-        main: gallery
-        sidebar: [teaserbox, quickcontact]
+        _ALL_: ['wymeditor', 'image']
+        main: 'gallery'
+        sidebar: ['teaserbox', 'quickcontact']
 
 .. warning::
 

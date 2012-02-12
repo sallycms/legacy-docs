@@ -145,27 +145,24 @@ Struktur entspricht in großen Teilen der, die auch REDAXO verwendet.
 
   <div class="sly-form">
     <form>
-      <div>                                    <!-- für die versteckten Formularfelder -->
-        <fieldset>
-          <legend>Fieldset-Titel</legend>
+      <div></div>   <!-- für die versteckten Formularfelder -->
 
-          <div class="sly-form-wrapper">
+      <fieldset>
+        <legend>Fieldset-Titel</legend>
 
-            <div class="sly-form-row">         <!-- eine Zeile im Formular -->
-              <p class="sly-form-col-a">       <!-- Spalte 1 -->
-                <!-- Das eigentliche Element, z.B. <select> -->
-              </p>
-              <p class="sly-form-col-b">       <!-- Spalte 2 -->
-                <!-- Das eigentliche Element, z.B. <select> -->
-              </p>
+        <div class="sly-form-wrapper">
+          <div class="sly-form-row">         <!-- eine Zeile im Formular -->
+            <div class="sly-form-col-a">     <!-- Spalte 1 -->
+              <!-- Das eigentliche Element, z.B. <select> -->
             </div>
-
-            <!-- weitere Zeilen -->
-
+            <div class="sly-form-col-b">     <!-- Spalte 2 -->
+              <!-- Das eigentliche Element, z.B. <select> -->
+            </div>
           </div>
-        </fieldset>
+          <!-- weitere Zeilen -->
+        </div>
+      </fieldset>
 
-        <!-- weitere Fieldsets -->
-      </div>
+      <!-- weitere Fieldsets -->
     </form>
   </div>

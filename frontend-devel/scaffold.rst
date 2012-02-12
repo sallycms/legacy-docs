@@ -9,8 +9,9 @@ In Scaffold-Code sind Konstanten, Verschachtelung und "Funktionen" möglich.
 Außerdem wird das erzeugte CSS direkt validiert und minimiert.
 
 Scaffold ist auch im Frontend aktiviert. Alle CSS-Dateien, die in
-:file:`assets/css/` liegen, werden beim Aufruf durch den Asset-Cache automatisch
-auch mit Scaffold verarbeitet.
+:file:`assets/css/` liegen, werden beim Aufruf durch den
+:doc:`Asset-Cache </core-api/assetcache>` automatisch auch mit Scaffold
+verarbeitet.
 
 .. note::
 
@@ -53,4 +54,5 @@ ergeben:
 AddOns
 ------
 
-AddOn-Assets werden ebenfalls durch den Asset-Cache verarbeitet.
+AddOn-Assets werden ebenfalls durch den :doc:`Asset-Cache </core-api/assetcache>`
+verarbeitet.

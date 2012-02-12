@@ -5,13 +5,18 @@ Im Eventsystem von Sally werden Benachrichtigungen über den globalen Dispatcher
 gesendet. Dieser bietet drei Verfahren, wie die Ergebnisse mehrerer Listener
 (Code, der auf Event reagiert) miteinander verknüpft werden:
 
-* **notify**: Die Listener werden nur benachrichtigt. Ihr Rückgabewert wird
-  verworfen, jeder erhält das gleiche Subject.
-* **notifyUntil**: Wie notify, nur dass hierbei abgebrochen wird, wenn ein
-  Listener ``true`` zurückgibt.
-* **filter**: Die Listener haben die Aufgabe, das Subject zu verändern. Der
-  Rückgabewert eines Listeners wird an den nächsten als Subject weitergeleitet.
-  Der Rückgabewert des Aufrufs ist das Ergebnis des letzten Listeners.
+**notify**
+  Die Listener werden nur benachrichtigt. Ihr Rückgabewert wird verworfen, jeder
+  erhält das gleiche Subject.
+
+**notifyUntil**
+  Wie notify, nur dass hierbei abgebrochen wird, wenn ein Listener ``true``
+  zurückgibt.
+
+**filter**
+  Die Listener haben die Aufgabe, das Subject zu verändern. Der Rückgabewert
+  eines Listeners wird an den nächsten als Subject weitergeleitet. Der
+  Rückgabewert des Aufrufs ist das Ergebnis des letzten Listeners.
 
 Dispatcher
 ----------
@@ -28,11 +33,16 @@ Events auslösen
 
 Bei jedem Aufruf müssen zwei und können drei Argumente angegeben werden:
 
-* ``event``: Der Name des Events. Per Konvention in Großschreibung (wie bei
-  Konstanten, z.B. ``MY_ADDON_EVENT``)
-* ``subject``: Der Wert, der an die Listener übergeben werden soll. Siehe die
+``event``
+  Der Name des Events. Per Konvention in Großschreibung (wie bei Konstanten,
+  z.B. ``MY_ADDON_EVENT``)
+
+``subject``
+  Der Wert, der an die Listener übergeben werden soll. Siehe die
   Verknüpfungsstrategien für die Weitergabe des Subjects zwischen den Listenern.
-* ``params`` (optional): Weitere Parameter als assoziatives Array.
+
+``params`` (optional)
+  Weitere Parameter als assoziatives Array.
 
 *Beispiel*
 
@@ -42,7 +52,19 @@ Bei jedem Aufruf müssen zwei und können drei Argumente angegeben werden:
   $dispatcher = sly_Core::dispatcher();
   $nav        = sly_Core::getNavigation();
 
-  $dispatcher->notify('SLY_PAGE_CHECKED', 'thePage');
+  // ein notify-Event mit einem String als Subject und ohne weitere Parameter
+  // auslösen
+  $dispatcher->notify('SLY_CONTROLLER_FOUND', 'theCurrentController');
+
+  // weitere Parameter mitgeben
+  $dispatcher->notify('SLY_CONTROLLER_FOUND', 'theCurrentController', array(
+    'myparam' => 'foo',
+    'object'  => $this
+  ));
+
+  // filter-Events geben den Rückgabewert des letzten Listeners zurück
+  // (in 99% der Fälle entspricht dies vom Typ dem, was als Subject reingegeben
+  // wurde)
   $nav = $dispatcher->filter('SLY_LAYOUT_NAVI', $nav, array('myparam' => 'myvalue'));
 
 Für Events registrieren
@@ -53,13 +75,13 @@ Ein Listener kann wie folgt registriert werden:
 .. sourcecode:: php
 
   <?
-  $dispatcher = sly_Core::dispatcher();
 
-  function myFunc($params) {
+  function myFunc(array $params) {
       $subject = $params['subject'];
   }
 
-  $dispatcher->register('SLY_PAGE_CHECKED', 'myFunc');
+  $dispatcher = sly_Core::dispatcher();
+  $dispatcher->register('SLY_CONTROLLER_FOUND', 'myFunc');
 
 Dabei ist zu beachten, dass der Listener korrekt auf die Verknüpfungsstragie
 reagiert: Wenn es sich um ein filter-Event handelt und ein Listener nichts
@@ -69,8 +91,6 @@ zurückgibt, erhält der nächste Listener nur ``null`` als Subject.
 
   Listeners können beliebige PHP Callables sein (in PHP 5.3 natürlich auch
   Closures oder anonyme Funktionen).
-
-:tocdepth: 2
 
 .. toctree::
    :hidden:
@@ -98,7 +118,7 @@ Events
 ------
 
 Dies ist eine Auflistung aller vom Core und der Backend-Anwendung gesendet
-Events. Für eine Erklärung dazu siehe die Seite zum :doc:`Eventsystem <index>`.
+Events.
 
 .. note::
 

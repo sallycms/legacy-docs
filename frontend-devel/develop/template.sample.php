@@ -1,7 +1,6 @@
 <?php
 /**
- * @sly name  default
- * @sly title Standard
+ * @sly name default
  */
 
 ?>
