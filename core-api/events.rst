@@ -99,10 +99,12 @@ zurückgibt, erhält der nächste Listener nur ``null`` als Subject.
    events/core_articles
    events/core_categories
    events/core_media
+   events/core_mediacats
    events/core_users
    events/core_models
    events/core_assetcache
    events/core_addons
+   events/core_languages
    events/core_layout
    events/core_misc
 
@@ -111,9 +113,11 @@ zurückgibt, erhält der nächste Listener nur ``null`` als Subject.
    events/be_slices
    events/be_mediapool
    events/be_users
-   events/be_addons
    events/be_specials
    events/be_misc
+
+   events/fe_misc
+   events/fe_article
 
 Events
 ------
@@ -166,33 +170,52 @@ Sally-Standardbackend) als auch im Frontend auftreten.
 
    * :doc:`events/core_articles`
 
-     * CLANG_ARTICLE_GENERATED
      * SLY_ART_ADDED
-     * SLY_ART_CONTENT_COPIED
      * SLY_ART_COPIED
-     * SLY_ART_MOVED
-     * SLY_ART_UPDATED
+     * SLY_ART_CONTENT_COPIED
      * SLY_ART_DELETED
+     * SLY_ART_MOVED
      * SLY_ART_STATUS
      * SLY_ART_STATUS_TYPES
      * SLY_ART_TO_STARTPAGE
      * SLY_ART_TYPE
-     * SLY_CONTENT_UPDATED
-     * SLY_SLICE_MOVED
+     * SLY_ART_UPDATED
      * URL_REWRITE
 
    * :doc:`events/core_categories`
 
+     * SLY_CAT_ADDED
+     * SLY_CAT_DELETED
      * SLY_CAT_MOVED
+     * SLY_CAT_STATUS
+     * SLY_CAT_STATUS_TYPES
+     * SLY_CAT_UPDATED
 
    * :doc:`events/core_media`
 
-     * SLY_OOMEDIA_IS_IN_USE
+     * SLY_MEDIA_ADDED
+     * SLY_MEDIA_DELETED
+     * SLY_MEDIA_UPDATED
+
+   * :doc:`events/core_mediacats`
+
+     * SLY_MEDIACAT_ADDED
+     * SLY_MEDIACAT_DELETED
+     * SLY_MEDIACAT_UPDATED
 
    * :doc:`events/core_users`
-   * :doc:`events/core_models`
 
-     * SLY_MODEL\_*\_*
+     * SLY_USER_ADDED
+     * SLY_USER_DELETED
+     * SLY_USER_UPDATED
+
+   * :doc:`events/core_layout`
+
+     * HEADER_CSS
+     * HEADER_CSS_FILES
+     * HEADER_JAVASCRIPT
+     * HEADER_JAVASCRIPT_FILES
+     * PAGE_HEADER
 
    * :doc:`events/core_assetcache`
 
@@ -206,23 +229,27 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_ADDON\_*\_*
      * SLY_PLUGIN\_*\_*
 
-   * :doc:`events/core_layout`
+   * :doc:`events/core_apps`
 
-     * HEADER_CSS
-     * HEADER_CSS_FILES
-     * HEADER_JAVASCRIPT
-     * HEADER_JAVASCRIPT_FILES
+     * SLY_CONTROLLER_FOUND
+
+   * :doc:`events/core_models`
+
+     * SLY_MODEL\_*\_*
 
    * :doc:`events/core_misc`
 
      * __AUTOLOAD
      * ADDONS_INCLUDED
      * OUTPUT_FILTER
-     * OUTPUT_FILTER_CACHE
+     * SLY_DB_IMPORTER_AFTER
      * SLY_DB_IMPORTER_BEFORE
      * SLY_LISTENERS_REGISTERED
      * SLY_MAIL_CLASS
-     * SLY_PRE_PROCESS_ARTICLE
+     * SLY_CACHE_CLEARED
+     * SLY_SEND_RESPONSE
+     * SLY_DEVELOP_REFRESHED
+     * SLY_BOOTCACHE_CLASSES\_*
 
 Backend
 ^^^^^^^
@@ -232,18 +259,17 @@ umfasst nicht diejenigen Events, die von Models oder dem Core ausgelöst werden,
 selbst wenn deren API vom Backend aufgerufen wird.
 
 .. hlist::
-   :columns: 3
+   :columns: 2
 
    * :doc:`events/be_structure`
 
+     * CAT_FORM_EDIT
      * PAGE_STRUCTURE_HEADER
 
    * :doc:`events/be_content`
 
      * ART_SLICE_MENU
      * PAGE_CONTENT_HEADER
-     * PAGE_CONTENT_SLOT_MENU
-     * PAGE_CONTENT_MENU
      * SLY_ART_META_UPDATED
      * SLY_ART_MESSAGES
      * SLY_ART_META_FORM
@@ -252,8 +278,30 @@ selbst wenn deren API vom Backend aufgerufen wird.
      * SLY_PAGE_CONTENT_ACTIONS_MENU
      * SLY_PAGE_CONTENT_SLOT_MENU
 
+   * :doc:`events/be_mediapool`
+
+     * PAGE_MEDIAPOOL_HEADER
+     * SLY_MEDIAPOOL_MENU
+     * SLY_MEDIA_FORM_ADD
+     * SLY_MEDIA_FORM_EDIT
+     * SLY_MEDIA_FORM_SYNC
+     * SLY_MEDIA_LIST_FUNCTIONS
+     * SLY_MEDIA_LIST_QUERY
+     * SLY_MEDIA_LIST_TOOLBAR
+     * SLY_MEDIA_USAGES
+
+   * :doc:`events/be_users`
+
+     * SLY_USER_FORM
+
+   * :doc:`Systemseite (Einstellungen & Sprachen) <events/be_specials>`
+
+     * SLY_SETTINGS_UPDATED
+
    * :doc:`events/be_slices`
 
+     * SLY_CONTENT_UPDATED
+     * SLY_SLIVE_MOVED
      * SLY_SLICE_PRESAVE_ADD
      * SLY_SLICE_PRESAVE_EDIT
      * SLY_SLICE_PRESAVE_DELETE
@@ -263,30 +311,28 @@ selbst wenn deren API vom Backend aufgerufen wird.
      * SLY_SLICE_POSTVIEW_ADD
      * SLY_SLICE_POSTVIEW_EDIT
 
-   * :doc:`events/be_mediapool`
-
-     * PAGE_MEDIAPOOL_HEADER
-     * PAGE_MEDIAPOOL_MENU
-     * SLY_MEDIA_FORM_ADD
-     * SLY_MEDIA_FORM_EDIT
-     * SLY_MEDIA_FORM_SYNC
-     * SLY_MEDIA_LIST_FUNCTIONS
-     * SLY_MEDIA_LIST_QUERY
-     * SLY_MEDIA_LIST_TOOLBAR
-
-   * :doc:`events/be_users`
-
-     * SLY_PAGE_USER_SUBPAGES
-
-   * :doc:`Systemseite (Einstellungen & Sprachen) <events/be_specials>`
-
-     * ALL_GENERATED
-     * SLY_SETTINGS_UPDATED
-     * SLY_SPECIALS_MENU
-
    * :doc:`Sonstige <events/be_misc>`
 
      * PAGE_CHECKED
      * PAGE_TITLE
      * PAGE_TITLE_SHOWN
      * SLY_LAYOUT_NAVI
+
+
+Frontend
+^^^^^^^^
+
+Diese Liste umfasst alle Events, die vom Sally-Frontend ausgelöst werden.
+
+.. hlist::
+   :columns: 1
+
+   * :doc:`events/fe_misc`
+
+     * SLY_FRONTEND_ROUTER
+
+   * :doc:`events/fe_article`
+
+     * SLY_ARTICLE_OUTPUT
+     * SLY_CURRENT_ARTICLE
+     * SLY_RESOLVE_ARTICLE

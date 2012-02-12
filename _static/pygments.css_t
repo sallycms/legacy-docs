@@ -1,3 +1,8 @@
+table.hlist td {
+	vertical-align: top
+}
+
+
 .highlight .hll { background-color: #ffffcc }
 div.highlight  { background: #f8f8f8; }
 .highlight pre { line-height: 1.4em; }
