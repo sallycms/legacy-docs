@@ -1,6 +1,19 @@
 Slice-Handling
 ==============
 
+.. slyevent:: SLY_CONTENT_UPDATED
+  :type:    notify
+  :in:      string
+  :since:   0.3.2
+  :subject: ein leerer String
+  :params:
+    article_id  (int)
+    clang       (int)
+
+  wird ausgeführt, nachdem der Inhalt eines Artikels aktualisiert wurde
+
+.. =============================================================================
+
 .. slyevent:: SLY_SLICE_MOVED
   :type:    notify
   :in:      OOArticleSlice

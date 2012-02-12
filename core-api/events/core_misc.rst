@@ -47,18 +47,6 @@ Sonstige Core-Events
 
 .. =============================================================================
 
-.. slyevent:: OUTPUT_FILTER_CACHE
-  :type:    notify
-  :in:      string
-  :subject: der finale HTML-Code
-
-  Nachdem Listener in ``OUTPUT_FILTER`` ihre letzten Änderungen vorgenommen
-  haben, ist das Subject in diesem Event readonly und eignet sich daher ideal
-  zum Cachen der Seite. Zwischen diesem Event und dem Senden des Inhalts an den
-  Client besteht keine Möglichkeit mehr, den Inhalt zu verändern.
-
-.. =============================================================================
-
 .. slyevent:: SLY_DB_IMPORTER_AFTER
   :type:    filter
   :in:      string
@@ -137,3 +125,62 @@ Sonstige Core-Events
   gibt Listenern und AddOns eine letzte Chance, den anzuzeigenden Artikel zu
   verändern, bevor dessen Template schlussendlich eingebunden und ausgeführt
   wird
+
+.. =============================================================================
+
+.. slyevent:: SLY_CACHE_CLEARED
+  :type:    filter
+  :since:   0.6
+  :in:      string
+  :out:     string
+  :subject: die Erfolgsnachricht
+
+  Wird ausgeführt, nachdem der Core-Cache (Artikel, Templates, ...) geleert
+  wurde. Alle Bestandteile des Systems, die Daten in irgendeiner Art cachen,
+  sollten auf dieses Event reagieren und ihren Cache **vollständig** leeren.
+  Früher war dieses Event als ``ALL_GENERATED`` bekannt.
+
+.. note::
+
+  Im laufenden Betrieb sollte es nie nötig sein, dieses Event auszulösen, um
+  Caches zu invalidieren.
+
+.. =============================================================================
+
+.. slyevent:: SLY_SEND_RESPONSE
+  :type:    notify
+  :since:   0.6
+  :in:      sly_Response
+  :subject: die zu sendende Response
+
+  Wird ausgeführt kurz bevor die Response schlussendlich an den Client
+  geschickt wird. Listeners sollten in diesem Event keine Änderungen mehr am
+  Inhalt vornehmen, sondern nur lesend auf die Response zugreifen.
+
+.. =============================================================================
+
+.. slyevent:: SLY_DEVELOP_REFRESHED
+  :type:    notify
+  :in:      null
+  :subject: N/A
+
+  Wird ausgeführt nachdem die Develop-Inhalte (Templates und Module)
+  synchronisiert wurden (nur, wenn sich tatsächlich etwas geändert hat, nicht
+  bei jedem Request).
+
+.. =============================================================================
+
+.. slyevent:: SLY_BOOTCACHE_CLASSES_*
+  :type:    notify
+  :in:      null
+  :subject: N/A
+
+  Dieses Event wird ausgeführt, um die Klassen zu sammeln, die schlussendlich im
+  :doc:`BootCache </extended/bootcache>` abgelegt werden sollen. Anstelle des
+  Sterns (``*``) wird der Name der App eingefügt, sodass es im Moment zwei
+  konkrete Events gibt: ``SLY_BOOTCACHE_CLASSES_FRONTEND`` und
+  ``SLY_BOOTCACHE_CLASSES_BACKEND``.
+
+  Listener sollten in diesem Event über die BootCache-API ihre Klassen
+  hinzufügen. Dem Event werden daher weder Subject noch weitere Parameter
+  mitgegeben.

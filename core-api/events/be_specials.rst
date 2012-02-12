@@ -20,20 +20,3 @@ Systemseite
 
   Wird ausgeführt, nachdem die auf der Systemseite angegebenen Einstellungen
   (Startartikel, Caching-Strategie, ...) gespeichert wurden.
-
-.. =============================================================================
-
-.. slyevent:: ALL_GENERATED
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: die Erfolgsnachricht
-
-  Wird ausgeführt, nachdem der Core-Cache (Artikel, Templates, ...) geleert
-  wurde. Alle Bestandteile des Systems, die Daten in irgendeiner Art cachen,
-  sollten auf dieses Event reagieren und ihren Cache **vollständig** leeren.
-
-.. note::
-
-  Im laufenden Betrieb sollte es nie nötig sein, dieses Event auszulösen, um
-  Caches zu invalidieren.

@@ -95,6 +95,7 @@ zurückgibt, erhält der nächste Listener nur ``null`` als Subject.
 .. toctree::
    :hidden:
 
+   events/core_apps
    events/core_articles
    events/core_categories
    events/core_media
@@ -228,8 +229,7 @@ Backend
 
 Diese Liste umfasst alle Events, die vom Sally-Backend ausgelöst werden. Sie
 umfasst nicht diejenigen Events, die von Models oder dem Core ausgelöst werden,
-selbst wenn deren API vom Backend aufgerufen wird (so ist hier beispielsweise
-nicht ``SLY_CONTENT_UPDATED`` enthalten).
+selbst wenn deren API vom Backend aufgerufen wird.
 
 .. hlist::
    :columns: 3

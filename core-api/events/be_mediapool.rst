@@ -5,11 +5,11 @@ Diese Seite listet alle Events auf, die im Medienpool ausgelöst werden. Nicht
 enthalten sind die Events, die vom :doc:`Medium-Model <core_media>` und vom
 :doc:`MediaCategory-Model <core_mediacat>` ausgelöst werden.
 
-.. slyevent:: PAGE_MEDIAPOOL_MENU
+.. slyevent:: SLY_MEDIAPOOL_MENU
   :type:    filter
   :in:      array
   :out:     array
-  :subject: die vom Core vorgegebenen Menüpunkte
+  :subject: das ``sly_Layout_Navigation_Page``-Objekt des Medienpools
 
   wird ausgeführt, bevor das Submenü des Medienpool-Popups ausgegeben wird
 
@@ -109,3 +109,27 @@ enthalten sind die Events, die vom :doc:`Medium-Model <core_media>` und vom
 
   Über dieses Event können Listener das Medien-hinzufügen-Formular
   nachträglich noch verändern. Das Form wird im Anschluss direkt gerendert.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_USAGES
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: die vom Core ermittelten Nutzungen des Mediums
+  :params:
+    filename (string)                der Dateiname
+    media    (``sly_Model_Medium``)  das Medium-Objekt
+
+  Über dieses Event kann ein Listener die Liste derjenigen Objekte, die das
+  Medium referenzieren, erweitert werden. So können auch gänzlich fremde Inhalte
+  (beispielsweise Produkte aus varisale) dafür sorgen, dass der Medienpool das
+  Löschen einer Datei verhindert, da sie noch benötigt wird.
+
+  Jedes Element im Subject ist ein Array, das aus den Elementen ``title``
+  (Anzeigetitel), ``type`` (beliebiger String, der zur Unterscheidung zwischen
+  Elementen mit gleicher ID dient, beispielsweise ``'myobject'``), ``id`` (die
+  ID des referenzierenden Elements), ``clang`` (die Sprach-ID), ``link`` (ein
+  relativer Link zur Backendseite, auf der die Referenz zum Bild
+  bearbeitet/entfernt werden kann, beispielsweise ``index.php?page=...&id=...``)
+  besteht.

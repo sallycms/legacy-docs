@@ -1,28 +1,15 @@
 Article-Models
 ==============
 
-.. slyevent:: SLY_CONTENT_UPDATED
-  :type:    notify
-  :in:      string
-  :since:   0.3.2
-  :subject: ein leerer String
-  :params:
-    article_id  (int)
-    clang       (int)
-
-  wird ausgeführt, nachdem der Inhalt eines Artikels aktualisiert wurde
-
-.. =============================================================================
-
 .. slyevent:: SLY_SLICE_MOVED
   :type:    notify
-  :in:      OOArticleSlice
+  :in:      sly_Model_ArticleSlice
   :subject: das verschobene Slice
   :params:
     clang     (int)
     direction (string)  'up' oder 'down'
-    oldprior  (int)
-    newprior  (int)
+    old_pos   (int)
+    new_pos   (int)
 
   wird nach dem Verschieben eines Slices ausgeführt
 
@@ -43,11 +30,10 @@ Article-Models
   :in:      null
   :subject: N/A
   :params:
-    from_id      (int)  die ID des Quellartikels
-    from_clang   (int)  die Sprach-ID des Quellartikels
-    to_id        (int)  die ID des Zielartikels
-    to_clang     (int)  die Sprach-ID des Zielartikels
-    start_slice  (int)  die ID des Slices, bei dem mit dem Kopieren begonnen wurde (ungenutzt seit Sally die Slices nicht mehr als verkettete Liste speichert)
+    from_id     (int)  die ID des Quellartikels
+    from_clang  (int)  die Sprach-ID des Quellartikels
+    to_id       (int)  die ID des Zielartikels
+    to_clang    (int)  die Sprach-ID des Zielartikels
 
   wird ausgeführt, nachdem der **Inhalt** eines Artikels kopiert wurde
 
@@ -73,17 +59,10 @@ Article-Models
 
 .. slyevent:: SLY_ART_COPIED
   :type:    notify
-  :in:      int
-  :subject: die ID des Quellartikels
+  :in:      sly_Model_Article
+  :subject: der duplizierte Artikel
   :params:
-    id      (int)     ID des Quellartikels
-    clang   (int)     ID der Sprache (siehe Beschreibung!)
-    status  (int)     immer 0 (offline)
-    name    (string)  Name des Quellartikels
-    re_id   (int)     ID der Zielkategorie
-    prior   (int)     Position des neuen Artikels
-    path    (string)  Kategorie-Pfad (``|id|id|...|``)
-    type    (string)  Artikeltyp
+    source  (sly_Model_Article)  der Quellartikel
 
   wird ausgeführt, nachdem ein Artikel kopiert wurde (*wird einmal pro Sprache
   ausgeführt!*)
@@ -105,7 +84,7 @@ Article-Models
 
 .. slyevent:: SLY_ART_UPDATED
   :type:    notify
-  :in:      sly_Util_Article
+  :in:      sly_Model_Article
   :subject: der aktualisierte Artikel
 
   Dieses Event wird ausgeführt, nachdem ein Artikel umbenannt oder verschoben
@@ -120,7 +99,7 @@ Article-Models
 
 .. slyevent:: SLY_ART_DELETED
   :type:    notify
-  :in:      sly_Util_Article
+  :in:      sly_Model_Article
   :subject: der gelöschte Artikel
 
   Dieses Event wird ausgeführt, nachdem ein Artikel gelöscht wurde.
@@ -134,7 +113,7 @@ Article-Models
 
 .. slyevent:: SLY_ART_STATUS
   :type:    notify
-  :in:      sly_Util_Article
+  :in:      sly_Model_Article
   :subject: der aktualisierte Artikel
 
   Dieses Event wird ausgeführt, nachdem der Status eines Artikels geändert
@@ -166,7 +145,7 @@ Article-Models
 
 .. slyevent:: SLY_ART_TYPE
   :type:    notify
-  :in:      sly_Util_Article
+  :in:      sly_Model_Article
   :subject: der aktualisierte Artikel
   :params:
     old_type (string)  der vorherige Artikeltyp

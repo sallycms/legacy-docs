@@ -9,6 +9,11 @@ Sonstige Backend-Events
   benachrichtigt über die endgültig festgelegte Backend-Seite, die nun
   ausgeführt wird
 
+.. warning::
+
+   *deprecated*, stattdessen besser :doc:`SLY_CONTROLLER_FOUND <core_apps>`
+   verwenden
+
 .. =============================================================================
 
 .. slyevent:: PAGE_TITLE

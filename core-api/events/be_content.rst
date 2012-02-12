@@ -14,16 +14,9 @@ für Slices.
   :since:   0.1.0
   :subject: das Menü (der erste Listener erhält einen leeren String)
   :params:
-    article_id        (int)
-    clang             (int)
-    function          (string)
-    mode              (string)
-    slice_id          (int)
-    page              (string)
-    slot              (string)
-    category_id       (int)
-    article_revision  (int)
-    slice_revision    (int)
+    article_id   (int)
+    clang        (int)
+    category_id  (int)
 
   erzeugt eine Titelzeile über der Sliceseite (wird z.B. von BeSearch genutzt)
 

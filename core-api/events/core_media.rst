@@ -1,24 +1,29 @@
 Medium-Models
 =============
 
-.. slyevent:: SLY_OOMEDIA_IS_IN_USE
-  :type:    filter
-  :in:      array
-  :out:     array
-  :subject: die vom Core ermittelten Nutzungen des Mediums
-  :params:
-    filename (string)                der Dateiname
-    media    (``sly_Model_Medium``)  das Medium-Objekt
+.. slyevent:: SLY_MEDIA_ADDED
+  :type:    notify
+  :in:      sly_Model_Medium
+  :subject: das hinzugefügte Medium
 
-  Über dieses Event kann ein Listener die Liste derjenigen Objekte, die das
-  Medium referenzieren, erweitert werden. So können auch gänzlich fremde Inhalte
-  (beispielsweise Produkte aus varisale) dafür sorgen, dass der Medienpool das
-  Löschen einer Datei verhindert, da sie noch benötigt wird.
+  Dieses Event wird ausgelöst nachdem ein neues Medium angelegt wurde. Dies kann
+  nach einem Upload oder nach dem Synchronisieren von Dateien geschehen.
 
-  Jedes Element im (Subject sowie Rückgabewert) ist wiederum ein Array, das aus
-  den Elementen ``title`` (Anzeigetitel), ``type`` (beliebiger String, der zur
-  Unterscheidung zwischen Elementen mit gleicher ID dient, beispielsweise
-  ``'myobject'``), ``id`` (die ID des referenzierenden Elements), ``clang``
-  (die Sprach-ID), ``link`` (ein relativer Link zur Backendseite, auf der die
-  Referenz zum Bild bearbeitet/entfernt werden kann, beispielsweise
-  ``index.php?page=...&id=...``) besteht.
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_UPDATED
+  :type:    notify
+  :in:      sly_Model_Medium
+  :subject: das aktualisierte Medium
+
+  Dieses Event wird ausgelöst nachdem eine Medienkategorie umbenannt wurde.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIA_DELETED
+  :type:    notify
+  :in:      sly_Model_Medium
+  :subject: das gelöschte Medium
+
+  Dieses Event wird ausgelöst nachdem ein Medium gelöscht wurde.
+

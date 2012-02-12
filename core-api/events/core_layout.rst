@@ -46,3 +46,18 @@ auch Inline-Codes und andere Inhalte noch einmal gefiltert werden.
 
   Über dieses Event können die verlinkten JavaScript-Dateien noch einmal
   verändert werden.
+
+.. =============================================================================
+
+.. slyevent:: PAGE_HEADER
+  :type:    notify
+  :in:      string
+  :subject: ein leerer String
+
+  Dieses Event wird ausgelöst bevor die Kopfangaben eines Layouts ausgegeben
+  werden. Es wird sowohl vom XHTML- als auch vom XHTML5-Layout ausgeführt.
+
+.. note::
+
+  Dieses Event ist *deprecated* und wird in einer zukünftigen Version durch ein
+  etwas allgemeineres Event ersetzt werden (à la ``LAYOUT_HEAD``).
