@@ -1,9 +1,9 @@
 Develop-System
 ==============
 
-In SallyCMS Version 0.3 haben wir eine Kernfunktion von REDAXO geändert:
-Templates und Module liegen nicht mehr in der Datenbank, sondern werden aus
-regulären PHP-Dateien ausgelesen.
+Das Develop-System umfasst alle Teile eines Projekts, die spezifisch für das
+Projekt entwickelt werden (ausgenommen AddOns und :doc:`Assets <assets>`). Dazu
+zählen **Templates**, **Module** und die **Projekt-Konfiguration**.
 
 .. toctree::
    :hidden:
@@ -21,38 +21,10 @@ Unterseiten
 * :doc:`Templates <develop/templates>` & :doc:`Layouts <develop/layouts>`
 * :doc:`Module <develop/modules>` & :doc:`Slice-Helper <develop/slicehelper>`
 
-Einführung
-----------
-
-Templates und Module enthielten schon immer nicht mehr als normale PHP-Dateien:
-HTML-Code gemischt mit PHP-Tags. Der Umweg über die Datenbank bringt außer der
-Möglichkeit, das "Frontend" einer Website in einem SQL-Export zu sichern, keine
-ersichtlichen Vorteile. Im Gegenteil: Er verleitet dazu, unnötig viele Daten aus
-der Datenbank abzurufen, diese auch noch mit ``eval()`` auszuführen und umgeht
-so zielsicher einen möglichen `Opcode-Cache
-<http://de.wikipedia.org/wiki/Alternative_PHP_Cache>`_.
-
-Die Gründe für eine Speicherung in normalen Dateien sind eindeutig:
-
-* Der Opcode-Cache kann verwendet werden.
-* Weniger Daten müssen zu jedem Slice / Artikel in der Datenbank gehalten
-  werden.
-* Templates und Module können einfacher in `Versionskontrollsystemen
-  <http://de.wikipedia.org/wiki/Mercurial>`_ verwaltet werden.
-* Das Deployment von Projekten ist einfacher; nachträgliche Updates erfordern
-  keinen Datenbank-Import.
-
-Aufbau
-------
-
-Schauen wir uns einmal an, wie Templates und Module organisiert werden müssen,
-um von SallyCMS als solche erkannt zu werden.
-
 Verzeichnisstruktur
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
-Alle Dateien, die serverseitig für das Frontend relevant sind (das schließt
-:doc:`Assets </developing/assets>` wie CSS/JS/Images aus), werden in
+Alle Dateien, die serverseitig für das Frontend relevant sind, werden in
 :file:`develop/` gespeichert. Das Verzeichnis liegt direkt im Root einer
 Website.::
 
@@ -60,23 +32,22 @@ Website.::
   +- assets/
   +- data/
   +- develop/
-     +- config/
-     +- modules/
-     +- templates/
+     +- config/        Konfiguration
+     +- lib/           projektspez. Bibliotheken, Controller und Helfer-Klassen
+     +- modules/       Module
+     +- templates/     Templates
+  +- sally/
+  +- index.php
 
 Wie auf dem Schema zu erkennen ist, werden Templates und Module noch einmal in
 gesonderten Verzeichnissen angelegt.
 
 Tipp
-""""
+^^^^
 
 Natürlich muss man sich bei der Entwicklung komplexer Projekte nicht auf diese
-beiden Verzeichnisse beschränken. So kann es durchaus ratsam sein, auch noch ein
-:file:`develop/lib`-Verzeichnis anzulegen, wenn im Frontend projektspezifische
-Klassen benötigt werden. Tatsächlich ist es so, dass das Verzeichnis
-:file:`develop/lib` standardmäßig dem :doc:`Autoloader </sallycms/autoloading>`
-von Sally bekannt ist, also keine weitere Konfiguration nötig ist, um es zu
-nutzen.
+beiden Verzeichnisse beschränken. Je nach Bedarf können weitere Verzeichnisse
+auf Wunsch ergänzt werden.
 
 Es ist auch problemlos möglich, Klassen mit in Templates/Modulen zu notieren
 oder Dateien, die keine Templates/Module sein sollen, in den entsprechenden
@@ -86,9 +57,8 @@ Dateinamen: Templates
 ^^^^^^^^^^^^^^^^^^^^^
 
 Jede Datei, die als Template erkannt und im Backend verfügbar sein soll, muss
-auf ``.php`` enden (zum Beispiel :file:`startseite.php`). In den Dateien können
-die Templates wie sie auch in REDAXO im Backend gepflegt wurden, eingetragen
-werden. Sie sollten sich regulär über einen PHP ``include`` einbinden lassen.
+auf ``.php`` enden (zum Beispiel :file:`startseite.php`). Sie sollten sich
+regulär über einen PHP ``include`` einbinden lassen.
 
 Dateinamen: Module
 ^^^^^^^^^^^^^^^^^^
