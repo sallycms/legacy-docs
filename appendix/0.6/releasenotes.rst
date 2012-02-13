@@ -168,15 +168,9 @@ Mit diesem Umbau gehen eine Reihe einschneidender Änderungen einher:
 **Routing**
   Zum Ermitteln des aktuellen Controllers kommt im Backend weiterhin der
   URL-Parameter ``page`` zum Einsatz, hier ändert sich also nichts. Im Frontend
-  wird standardmäßig nach den Mustern ``/sally/:controller/:action/`` und
-  ``/sally/:controller`` gesucht. So würde die URL ``example.com/sally/feed``
-  zum Controller ``sly_Controller_Frontend_Feed`` führen (und die
-  ``indexAction()`` ausführen) und ``example.com/sally/feed/subscribe`` dann die
-  ``subscribeAction()`` ausführen.
-
-  Das Routing kann von AddOns erweitert werden, entweder um eigene Routen oder
-  durch eine ganz eigene Router-Instanz, die erweitertes URL-Matching vornehmen
-  kann.
+  können AddOns nun ihre eigenen Routen (wie beispielsweise ``/feed/:name``)
+  definieren, die Sally automatisch auflöst und dann den passenden Controller
+  aufruft.
 
 **Controller**
   Controller müssen das Interface ``sly_Controller_Interface`` implementieren.
@@ -497,7 +491,7 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
 * Bugfix: doppelter Header im AddOn-Backend wenn kein JavaScript verfügbar ist.
 * Bugfix: ``sly_Router_Interface`` fehlte im Bootcache.
 * Bugfix: 403-Header sollte nur bei fehlgeschlagenen Logins gesendet werden,
-  bei Requests auf ``example.com/backend``.
+  nicht jedoch bei Requests auf ``example.com/backend``.
 * Bugfix: Plugins wurden im Produktivmodus nicht geladen.
 * Bugfix: ``ht()`` beachtete die weiteren Parameter neben dem i18n-Key nicht.
 * Bugfix: In einigen Sonderfällen war die Linkmap nicht korrekt gestylt.
