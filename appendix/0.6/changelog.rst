@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.6.0 (? ? 2012)
-----------------
+0.6.0 (14. Februar 2012)
+------------------------
 
-* Major Feature Release
+* :doc:`Major Feature Release <releasenotes>`

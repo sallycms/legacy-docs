@@ -8,8 +8,8 @@ Systemvoraussetzungen
 
   * :envvar:`register_globals` und :envvar:`magic_quotes_gpc` sollten
     deaktiviert sein.
-  * Die Standard-Module von PHP werden benötigt: ``mbstring``, ``PCRE``,
-    ``zlib``, ``gd``, ``PDO``, ``json``, ``DateTime``, ...
+  * Die Standard-Module von PHP werden benötigt: mbstring, PCRE,
+    zlib, gd, PDO, json, DateTime, ...
 
 * MySQL 5.0
 * Apache 2.2
@@ -22,8 +22,11 @@ Systemvoraussetzungen
 Optional kann SallyCMS die folgenden Komponenten verwenden, um die Performance
 zu steigern:
 
-* XCache, APC, Memcache, Memcached, Zend Data Server, eAccelerator (wir
-  empfehlen XCache unter Windows und APC + Memcached auf Produktivsystemen)
+* XCache, APC, Zend Data Server, eAccelerator
+* Memcache (php_memcache), Memcached (php_memcached)
+
+Wir empfehlen XCache oder APC unter Windows und APC mit Memcached auf
+Produktivsystemen.
 
 Upload
 ------
@@ -32,7 +35,8 @@ Upload
 #. Lade alle Dateien bis auf die folgenden aus dem Download-Archiv auf deinen
    Webspace.
 
-   * :file:`sally/contrib/`
+   * :file:`contrib/`
+   * :file:`sally/tests/`
    * :file:`version`
 
 #. Stelle sicher, dass Sally beim ersten Aufruf das Verzeichnis :file:`data`
@@ -43,6 +47,29 @@ Upload
 #. Rufe das von dir erstellte Verzeichnis im Browser auf, z. B. via
    http://example.com/backend/. Du solltest dann automatisch zum Setup
    weitergeleitet werden.
+
+Häufige Startprobleme
+---------------------
+
+**Das Verzeichnis data kann nicht erzeugt werden.**
+  Auf Servern, bei denen (S)FTP und Apache/PHP nicht in der gleichen Gruppe
+  liegen, kann es passieren, dass Sally (PHP) keine Erlaubnis hat, im
+  Projektverzeichnis das :file:`data`-Verzeichnis anzulegen. In diesem Fall
+  hilft es, das Verzeichnis manuell anzulegen und ihm testweise die Rechte
+  ``664`` zu geben. Wenn dann die Installation funktioniert: super! Andernfalls
+  müssen die Rechte notgedrungen auf ``777`` gesetzt werden.
+
+**CSS oder JavaScript werden nicht geladen.**
+  Auf manchen Servern ist es nötig, eine ``RewriteBase``-Direktive in die
+  :file:`.htaccess`-Datei einzutragen. Der genaue Wert hängt von der
+  Konfiguration des Hosters ab und kann dort erfragt werden.
+
+  Wenn eine ``RewriteBase`` gesetzt wurde, muss diese auch im Asset-Cache von
+  Sally eingetragen werden. Dazu hat Sally nach dem ersten Aufruf des Systems
+  bereits die Datei :file:`data/dyn/internal/sally/static-cache/.htaccess`
+  angelegt. Wenn in der Frontend-:file:`.htaccess` die Basis ``/myproject/``
+  eingetragen wurde, muss im Asset-Cache die Basis
+  ``/myproject/data/dyn/internal/sally/static-cache/`` notiert werden.
 
 Installation
 ------------

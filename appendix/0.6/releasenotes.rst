@@ -1,44 +1,12 @@
-Release-Notes (BETA)
-====================
-
-.. note::
-
-  Dieses Dokument ist noch nicht vollständig. Angaben können sich ohne
-  Ankündigung bis zum Release noch ändern.
-
-Beta-Release
-------------
-
-Bei dem aktuellen Release handelt es sich um eine Vorschau auf die kommende
-0.6-Version. Auch wenn die API bereits recht festgeklopft ist, sind Änderungen
-bis zur Finalversion durchaus wahrscheinlich.
-
-Wir freuen uns über *jedes* Feedback. Probiert die neue Version aus und sagt
-uns, was noch nicht stimmt, keinen Sinn ergibt, wo Dokumentation dringend fehlt
-oder auch was euch gefallen hat. Vor allem die **Slice-Helper** sind bisher
-recht dürftig und freuen sich über Vorschläge zur Erweiterung -- welche
-Operationen führt ihr häufig mit Slicewerten durch? Wofür würden sich Helper gut
-machen?
-
-Läuft Sally auf eurem Webspace? Gibt es Probleme bei der Installation? Stimmen
-Beschriftungen nicht oder werden Formulare nicht mit korrektem Fokus
-initialisiert? Funktioniert das JavaScript auch im IE8? Machen die neuen Apps
-Probleme? -- *Alle kleinen und großen Fehler sind von Interesse.*
-
-Kommentare können via Ticket, eMail, Tweet, Google+-Kommentar oder Brieftaube
-eingeschickt werden. Wir freuen uns auch über eine lebenslange Versorgung mit
-`Sally-Energydrinks <https://plus.google.com/u/0/b/114660281857431220675/114660281857431220675/posts/2StWXjoZwNJ>`_
-;-)
-
-Release Notes
--------------
+Release-Notes
+=============
 
 .. centered:: -- zwischen Featurewahn und Produktpflege ;) --
 
 Das Sally-Team freut sich, die Verfügbarkeit von **SallyCMS 0.6** bekannt zu
 geben. Dieses Release stellt einen großen Schritt in Richtung GPL-Freiheit,
 Vereinheitlichung bestehender Features und neues Backend dar. Seit der
-Veröffentlichung von Version 0.5 im August sind knapp **500 Commits** von
+Veröffentlichung von Version 0.5 im August 2011 sind **über 550 Commits** von
 **4 Committern** in die Entwicklung geflossen.
 
 Der grobe :doc:`Ablauf eines Updates auf 0.6 <migrate>` wird auf einer extra
@@ -53,6 +21,12 @@ Seite beschrieben.
   `Code-Statistik bei Ohloh <http://www.ohloh.net/p/sallycms>`_
 * `Bugtracker <https://projects.webvariants.de/projects/sallycms/issues/>`_ und
   `Forum <https://projects.webvariants.de/projects/sallycms/boards/>`_
+
+Wir freuen uns über *jedes* Feedback. Kommentare können via Ticket, eMail,
+Tweet, Google+-Kommentar oder Brieftaube eingeschickt werden. Wir freuen uns
+auch über eine lebenslange Versorgung mit
+`Sally-Energydrinks <https://plus.google.com/u/0/b/114660281857431220675/114660281857431220675/posts/2StWXjoZwNJ>`_
+;-)
 
 Änderungen
 ----------
@@ -97,6 +71,8 @@ Um trotzdem zwischen Administratoren und Redakteuren zu unterscheiden, haben wir
 ein rollenbasiertes Rechtesystem in Form des `rbac-AddOns`_ implementiert. Das
 AddOn ermöglicht es, einzelne Rechte an Rollen (die einander enthalten können)
 zu knüpfen. Benutzer werden dann einer oder mehreren Rollen zugewiesen.
+
+.. image:: /_static/usermngt.png
 
 .. _`rbac-AddOns`: https://projects.webvariants.de/
 
@@ -315,6 +291,8 @@ Die klassische AddOn-Verwaltung über die Tabelle im Backend wurde abgeschafft
 und durch eine auf die tatsächlich möglichen Interaktionen abgestimmte UI
 ersetzt.
 
+.. image:: /_static/addonmngt.png
+
 Die einzelnen Aktionen werden in Ajax-Requests ausgeführt, damit beim
 Installieren vieler AddOns nicht ständig die Einträge in der Tabelle neu
 fokussiert werden müssen, weil die Seite neu lud. Dabei werden alle Einträge in
@@ -356,17 +334,17 @@ Die Konfiguration der Artikeltypen könnte damit wie folgt aussehen:
 
   ARTICLE_TYPES:
     default:
-      title: Standardseite
-      template: default
-      modules: {leftcol: [editor], rightcol: [teaser]}
+      title: 'Standardseite'
+      template: 'default'
+      modules: {leftcol: ['editor'], rightcol: ['teaser']}
     job:
-      title: Stellenangebot
-      template: default
-      modules: [editor, download, pdf]
+      title: 'Stellenangebot'
+      template: 'default'
+      modules: ['editor', 'download', 'pdf']
     news:
-      title: Newsbeitrag
-      template: twocolumn
-      custom: Eigene Key-Value-Pairs sind beliebig ergänzbar
+      title: 'Newsbeitrag'
+      template: 'twocolumn'
+      custom: 'Eigene Key-Value-Pairs sind beliebig ergänzbar'
 
 .. note::
 
@@ -423,11 +401,15 @@ ajaxifiziert ist). Der Footer wurde kleiner gestaltet, die Kontrast beim Datum
 und der Scriptlaufzeit (die jetzt im Format ``1sek 240ms`` angezeigt wird) wurde
 etwas erhöht.
 
+.. image:: /_static/linkmap.png
+
 In der Strukturansicht wird nun die Position der Artikel und Kategorien nicht
 mehr standardmäßig angezeigt (da sie durch die Reihenfolge der Elemente bereits
 redundant ist). Erst beim Bearbeiten von Einträgen wird sie angezeigt. Für die
 Eingabe der neuen Position kommt ein ``<input type="number">`` zum Einsatz, was
 Fehleingaben praktisch ausschließen sollte.
+
+.. image:: /_static/structure.png
 
 Unit-Tests
 """"""""""
@@ -487,6 +469,10 @@ Beginnend mit Version 0.6 gestalten sich die Voraussetzungen wie folgt:
 * Das gesamte Formularframework hat nun ein "Fluid Interface".
 * Die empfohlene MySQL-Version wurde auf 5.1 erhöht.
 * Output-Modulen wird das aktuelle Slice als ``$slice`` übergeben.
+* ``sly_Model_Article->getSlices($slot)`` wurde ergänzt.
+* ``SLY_FORM_MEDIA_EDIT`` erhält nun das aktuelle Medium als
+  ``medium``-Parameter übergeben. Die alte Variante mit ``media`` ist aus
+  Kompatibilitätsgründen noch vorhanden.
 * Bugfix: fehlende Permissions für AddOns ohne eigene Auth-Config
 * Bugfix: doppelter Header im AddOn-Backend wenn kein JavaScript verfügbar ist.
 * Bugfix: ``sly_Router_Interface`` fehlte im Bootcache.
@@ -753,6 +739,7 @@ Core-API
     * ``->getPosition()`` wurde hinzugefügt, ``->getPrior()`` ist deprecated.
       Dito für die dazugehörigen Setter.
 
+  * ``sly_Model_Article->getSlices($slot)`` wurde ergänzt.
   * ``sly_Model_Article->printContent()`` wurde entfernt.
   * ``sly_Model_Article->getArticle()`` wurde entfernt (``->getContent()``
     nutzen)
@@ -1117,6 +1104,9 @@ Events
   Listener, die bereits ein Objekt als Eingabe erhalten sollten dieses
   ungeändert weiterreichen. Wird kein Artikel gefunden, wird der
   NotFound-Artikel angezeigt.
+* ``SLY_FORM_MEDIA_EDIT`` erhält nun das aktuelle Medium als
+  ``medium``-Parameter übergeben. Die alte Variante mit ``media`` ist aus
+  Kompatibilitätsgründen noch vorhanden.
 
 rex_vars
 """"""""

@@ -123,3 +123,9 @@ Condition und der Callback übergeben wird.
 .. literalinclude:: condition.template.php
    :language: php
    :lines: 41-
+
+Das Registrieren des Evaluators muss erfolgen, **bevor** Artikel angezeigt
+werden sollen. Im Template oder in Modulen ist es also bereits zu spät. AddOns
+können Evaluatoren direkt in ihrer :file:`config.inc.php` registrieren,
+Frontends können einen Listener auf ``ADDONS_INCLUDED`` registrieren und im
+Callback die Registrierung durchführen.

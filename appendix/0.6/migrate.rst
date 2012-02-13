@@ -83,6 +83,14 @@ ein inhaltliches. Das formelle Update kann direkt in SQL erfolgen:
   ALTER TABLE `sly_user` CHANGE COLUMN `name` `name` VARCHAR(255) NULL;
   ALTER TABLE `sly_user` CHANGE COLUMN `description` `description` VARCHAR(255) NULL;
 
+.. warning::
+
+  Durch diese Änderung liegen nun alle Slice-Werte im gleichen Namensraum. Wenn
+  es im Projekt innerhalb eines Slices sowohl eine Medialiste ``foo`` und ein
+  Input-Feld namens ``foo`` gab, so tritt nun ein Konflikt auf. Um diesen zu
+  bereinigen müssen alle Duplikate einfach vorher umbenannt (z.B. die Werte
+  der Medialiste in ``foo_media``) werden.
+
 Die bestehenden Daten müssen nun noch angepasst werden: Slice-Werte werden seit
 0.6 als JSON-Strings gespeichert. Da das Kodieren von Strings in reinem SQL
 nicht (einfach) möglich ist, kann man dazu auch ein kleines PHP-Script wie das
