@@ -38,7 +38,7 @@ Die folgenden Events werden vom Artikel-Controller im **Frontend** ausgeführt.
 .. slyevent:: SLY_ARTICLE_OUTPUT
   :type:    filter
   :in:      string
-  :in:      string
+  :out:     string
   :since:   0.6
   :subject: die generierte Ausgabe (die gesamte HTML-Seite)
   :params:
