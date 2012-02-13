@@ -25,6 +25,8 @@ Demonstration dienen, wie AddOns für Sally entwickelt werden können.
     dazu, über ``sly_Layout`` eingebundene CSS/JS-Dateien automatisch
     zusammenzufassen und zu minimieren. Dies geschieht für den Entwickler
     transparent.
+  * Das `rbac-AddOn <https://projects.webvariants.de/projects/rbac>`_ stellt
+    einen Auth-Provider auf Basis von Benutzerollen zur Verfügung.
   * `realURL2 <https://projects.webvariants.de/projects/realurl2>`_ kümmert sich
     um die kanonischen URLs.
   * Der `WYMeditor <https://projects.webvariants.de/projects/wymeditor-addon>`_
@@ -36,4 +38,4 @@ Hinweise zur Nutzung der AddOns finden sich in den entsprechenden Projektwikis.
 
   Der `Error Handler <https://projects.webvariants.de/projects/errorhandler>`_
   ist ab Version 0.5 nicht mehr im Starterkit enthalten, da Sally nun seinen
-  eigenen, rudimentären :doc:`Error Handler </sallycms/errorhandler>` mitbringt.
+  eigenen, rudimentären :doc:`Error Handler </extended/errorhandler>` mitbringt.
