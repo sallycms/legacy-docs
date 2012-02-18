@@ -1,6 +1,18 @@
 Changelog
 =========
 
+0.5.10 (18. Februar 2012)
+-------------------------
+
+* Bugfix: Die vielen Korrekturen für das Setzen der Artikel-Prioritäten (wenn
+  Artikel verschoben oder neu angelegt werden) wurden aus dem 0.6-Branch
+  zurückgemergt.
+* Bugfix: ``<input type="email">`` war nicht korrekt gestylt.
+* Bugfix: Benutzer mit ``advancedMode[]``-Permission sahen bei Dateien in
+  Media-Widgets nicht die Datei-ID.
+* Bugfix: Beim Überschreiben einer Datei im Medienpool wurden die
+  Bilddimensionen nicht erneuert.
+
 0.5.9 (6. Januar 2012)
 ----------------------
 
