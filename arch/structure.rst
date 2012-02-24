@@ -1,0 +1,2 @@
+Strukturverwaltung (Artikel und Kategorien)
+===========================================

@@ -14,6 +14,7 @@ zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
    :maxdepth: 2
 
    general
+   arch
    frontend-devel
    core-api
    extended
