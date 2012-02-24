@@ -101,7 +101,7 @@ zurückgibt, erhält der nächste Listener nur ``null`` als Subject.
    events/core_media
    events/core_mediacats
    events/core_users
-   events/core_models
+   events/core_catchall
    events/core_assetcache
    events/core_addons
    events/core_languages
@@ -233,9 +233,11 @@ Sally-Standardbackend) als auch im Frontend auftreten.
 
      * SLY_CONTROLLER_FOUND
 
-   * :doc:`events/core_models`
+   * :doc:`events/core_catchall`
 
      * SLY_MODEL\_*\_*
+     * SLY_SLICEVALUES\_*\_*
+     * SLY_SLICEFORM\_*\_*
 
    * :doc:`events/core_misc`
 
