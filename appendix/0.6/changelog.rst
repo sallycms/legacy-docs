@@ -13,7 +13,7 @@ Changelog
 * Templates und Module können nun beliebig innerhalb ihrer Verzeichnisse
   verschachtelt werden; die internen Namen müssen jeweils vollständig angegeben
   werden und eindeutig sein.
-* AddOns können wir re-installiert werden.
+* AddOns können wieder re-installiert werden.
 * Beim Kopieren von Inhalten werden nur noch diejenigen Sprachen zur Auswahl
   angeboten, auf die Zugriff besteht.
 * Schlägt das Auffinden einer URL (``sally://ID``) fehl, so wid der Platzhalter
