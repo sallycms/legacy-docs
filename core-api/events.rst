@@ -196,6 +196,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_MEDIA_ADDED
      * SLY_MEDIA_DELETED
      * SLY_MEDIA_UPDATED
+     * SLY_MEDIUM_FILENAME
 
    * :doc:`events/core_mediacats`
 
