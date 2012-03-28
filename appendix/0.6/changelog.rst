@@ -1,15 +1,18 @@
 Changelog
 =========
 
-0.6.2 (??. März 2012)
+0.6.2 (28. März 2012)
 ---------------------
 
 .. note::
 
   Dieses Release enthält kleinere :doc:`BC-Breaks <bc-breaks>`.
 
-* jQuery wurde auf 1.7.2 aktualisiert.
-* BabelCache wurde auf 1.2.11 aktualisiert.
+* Komponenten
+
+  * jQuery wurde auf 1.7.2 aktualisiert.
+  * BabelCache wurde auf 1.2.12 aktualisiert.
+
 * Templates und Module können nun beliebig innerhalb ihrer Verzeichnisse
   verschachtelt werden; die internen Namen müssen jeweils vollständig angegeben
   werden und eindeutig sein.
@@ -26,27 +29,44 @@ Changelog
   Einsatz kommt).
 * Linklist- und Medialist-Widgets können eine minimale/maximale Anzahl an
   Elementen erhalten.
-* Bugfix: Encoding-Probleme unter Windows (Dateisystem-API ist ANSI) wenn
-  im Medienpool Dateien synchronisiert werden. Dies stellt ebenfalls die
-  Ersetzung der Umlaute wieder her (#5602).
-* Bugfix: Schlug eine AddOn-Installation fehl, so wurde nicht der aufgetretene
-  Fehler angezeigt.
-* Bugfix: Rechte-Abfrage für Medienkategorien war defekt.
-* Bugfix: Fehlerhafte Slices konnten nicht gelöscht werden.
-* Bugfix: HTML-Fehler im Backend (Slotliste).
-* Bugfix: Rechte-Abfrage auf Metadaten-Seite von Artikeln war defekt (#5605).
-* Bugfix: Startartikel konnten nicht kopiert werden (#5604).
-* Bugfix: Unklare Fehlermeldung wenn ein Upload fehlschlägt (#5798).
-* Bugfix: Fehler beim Speichern von Slices behoben.
-* Bugfix: Abhängigkeiten der Form ``addon/plugin`` wurden nicht korrekt
-  ausgewertet (#5783).
-* Bugfix: Falls beim Deployment das data-Verzeichnis bereits existiert, aber
-  ``data/config`` nicht angelegt werden konnte, wurde keine brauchbare
-  Fehlermeldung generiert (#5624).
-* Bugfix: Fehlerhaft konfigurierte Zeitzonen führten zu ausgelassenen / defekten
-  Assets.
-* Bugfix: Dateien, die keine Breite/Höhe haben, konnten nicht in den Medienpool
-  gelegt werden.
+* Neues ``text-shadow(x,y,blur,color)``-Mixin für Scaffold wurde hinzugefügt.
+* Testing
+
+  * AddOns können in Unit-Tests über ``SLY_TESTING_LOCAL_CONF`` und
+    ``SLY_TESTING_PROJECT_CONF`` eigene Konfigurationsdateien angeben und laden
+    lassen.
+  * Unit-Tests können ``->getDataSetName()`` überschreiben und null zurückgeben,
+    um kein Core-Dataset laden zu lassen.
+  * Neue Basisklasse ``sly_StatelessTest`` für statische Tests, die den Overhead
+    von DBUnit vermeiden möchten.
+
+* Bugfixes
+
+  * Encoding-Probleme unter Windows (Dateisystem-API ist ANSI) wenn im
+    Medienpool Dateien synchronisiert werden. Dies stellt ebenfalls die
+    Ersetzung der Umlaute wieder her (#5602).
+  * Schlug eine AddOn-Installation fehl, so wurde nicht der aufgetretene Fehler
+    angezeigt.
+  * Rechte-Abfrage für Medienkategorien war defekt.
+  * Fehlerhafte Slices konnten nicht gelöscht werden.
+  * HTML-Fehler im Backend (Slotliste).
+  * Rechte-Abfrage auf Metadaten-Seite von Artikeln war defekt (#5605).
+  * Startartikel konnten nicht kopiert werden (#5604).
+  * Unklare Fehlermeldung wenn ein Upload fehlschlägt (#5798).
+  * Fehler beim Speichern von Slices behoben.
+  * Abhängigkeiten der Form ``addon/plugin`` wurden nicht korrekt ausgewertet
+    (#5783).
+  * Falls beim Deployment das data-Verzeichnis bereits existiert, aber
+    ``data/config`` nicht angelegt werden konnte, wurde keine brauchbare
+    Fehlermeldung generiert (#5624).
+  * Fehlerhaft konfigurierte Zeitzonen führten zu ausgelassenen / defekten
+    Assets.
+  * Dateien, die keine Breite/Höhe haben, konnten nicht in den Medienpool gelegt
+    werden.
+  * Nicht alle Klassennamen in ``sly_Slice_Form->addInput()`` und
+    ``->addSelect()`` wurden korrekt zusammengesetzt.
+  * Inhalte konnten nicht zwischen Sprachen kopiert.
+
 * Neues Event: ``SLY_MEDIUM_FILENAME`` dient zum Filtern des Dateinames beim
   Upload in den Medienpool.
 * weitere kleine Verbesserungen

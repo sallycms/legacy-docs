@@ -61,6 +61,11 @@ Sally-Releases dokumentiert.
 
 * ``sly_Controller_Frontend_Article->isNotFound()`` wurde ergänzt.
 * ``sly_DB_PDO_Persistence->replace()`` wurde ergänzt.
+* ``sly_Util_Article::exists()`` und ``sly_Util_Category::exists()`` haben einen
+  weiteren Parameter ``$clang`` erhalten (nur nützlich, wenn man innerhalb von
+  Events wie ``SLY_ART_ADDED`` die Existenz eines Artikels in einer bestimmten
+  Sprache testen möchte).
+* ``sly_I18N->addMessage()`` und ``->getMessages()`` wurden ergänzt.
 * Neues Event: ``SLY_MEDIUM_FILENAME`` dient zum Filtern des Dateinames beim
   Upload in den Medienpool.
 
