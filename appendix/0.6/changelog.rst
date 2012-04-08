@@ -1,6 +1,50 @@
 Changelog
 =========
 
+0.6.3 (8. April 2012)
+---------------------
+
+.. note::
+
+  Dieses Release enthält kleinere :doc:`BC-Breaks <bc-breaks>`.
+
+* Die Positionierung des Medienpool-Popups wurde in Chrome 18 deaktiviert, da
+  unter Windows das Popup andernfalls gar nicht zu sehen ist (siehe
+  Chromium-Tickets 114762_ und 115585_).
+* Es können jetzt Rechte auf "alle" Module vergeben werden (ebenso wie bei
+  Artikeln).
+* Die Kompatibilität von AddOns wird nun bei jedem Request geprüft. Inkompatible
+  AddOns werden inklusive aller abhängigen AddOns vor dem Laden deaktiviert, um
+  Fehler zu vermeiden. Nachdem die Kompatibilität wiederhergestellt wurde,
+  können die AddOns wieder aktiviert werden.
+* Listener auf ``SLY_SETTINGS_UPDATED`` erhalten nun die ursprünglichen Werte
+  als Parameter und können so leichter auf Veränderungen reagieren.
+* Wird keine Homepage/404-Seite im Backend ausgewählt, wird nun keine
+  irreführende Fehlermeldung mehr angezeigt. Die Fehlermeldung erscheint nur
+  noch, wenn jemand tatsächlich einen fehlerhaften Artikel auswählt.
+* ``sly_Service_AddOn->getInstalledAddOns()`` wurde hinzugefügt, da es eine
+  entsprechende Methode auch im Plugin-Service gibt.
+* Das Scaffold-Mixin ``box-shadow`` wurde um einen weiteren Parameter ``spread``
+  erweitert (als 4. Parameter, siehe :doc:`BC-Breaks <bc-breaks>`).
+* Bugfix: Unnötige Pfadangaben in URLs (``foo.com/dir/./subdir``) werden jetzt
+  entfernt (``foo.com/dir/subdir``).
+* Bugfix: Die Portnummer wird nun immer in ``sly_Util_HTTP::getHost()`` entfernt
+  (Port ist per Definition nicht Teil des Hostnamens).
+* Bugfix: Fehler in ``install.sql``/``uninstall.sql`` werden beim Installieren
+  von AddOns/Plugins nun korrekt abgefangen.
+* Bugfix: Templates und Module konnten im Produktivmodus nicht mehr
+  synchronisiert werden. Nun werden sie auch in diesem Modus synchronisiert,
+  wenn ein Administrator im Backend eingeloggt ist oder der Cache geleert wird
+  (:redmine:`6010`).
+* Bugfix: Redakteure konnten keine bestehenden Slices mehr bearbeiten
+  (:redmine:`5988`).
+* Bugfix: Die Option "Struktur" wird nun beim Bearbeiten von Benutzern nicht
+  mehr fälschlicherweise immer deaktiviert.
+* weitere kleinere Verbesserungen
+
+.. _114762: http://code.google.com/p/chromium/issues/detail?id=114762
+.. _115585: http://code.google.com/p/chromium/issues/detail?id=115585
+
 0.6.2 (28. März 2012)
 ---------------------
 
@@ -44,21 +88,21 @@ Changelog
 
   * Encoding-Probleme unter Windows (Dateisystem-API ist ANSI) wenn im
     Medienpool Dateien synchronisiert werden. Dies stellt ebenfalls die
-    Ersetzung der Umlaute wieder her (#5602).
+    Ersetzung der Umlaute wieder her (:redmine:`5602`).
   * Schlug eine AddOn-Installation fehl, so wurde nicht der aufgetretene Fehler
     angezeigt.
   * Rechte-Abfrage für Medienkategorien war defekt.
   * Fehlerhafte Slices konnten nicht gelöscht werden.
   * HTML-Fehler im Backend (Slotliste).
-  * Rechte-Abfrage auf Metadaten-Seite von Artikeln war defekt (#5605).
-  * Startartikel konnten nicht kopiert werden (#5604).
-  * Unklare Fehlermeldung wenn ein Upload fehlschlägt (#5798).
+  * Rechte-Abfrage auf Metadaten-Seite von Artikeln war defekt (:redmine:`5605`).
+  * Startartikel konnten nicht kopiert werden (:redmine:`5604`).
+  * Unklare Fehlermeldung wenn ein Upload fehlschlägt (:redmine:`5798`).
   * Fehler beim Speichern von Slices behoben.
   * Abhängigkeiten der Form ``addon/plugin`` wurden nicht korrekt ausgewertet
-    (#5783).
+    (:redmine:`5783`).
   * Falls beim Deployment das data-Verzeichnis bereits existiert, aber
     ``data/config`` nicht angelegt werden konnte, wurde keine brauchbare
-    Fehlermeldung generiert (#5624).
+    Fehlermeldung generiert (:redmine:`5624`).
   * Fehlerhaft konfigurierte Zeitzonen führten zu ausgelassenen / defekten
     Assets.
   * Dateien, die keine Breite/Höhe haben, konnten nicht in den Medienpool gelegt
@@ -106,7 +150,7 @@ Changelog
   umgesetzt: Im Setup werden keine AddOns geladen (egal, wie die Konfiguration
   aussieht).
 * Bugfix: Erfolgs- und Fehlermeldungen wurden im Medienpool nicht angezeigt
-  (#5451).
+  (:redmine:`5451`).
 * Bugfix: Notice entfernt, wenn keine Permissions definiert sind.
 * Bugfix: ``sly_Model_Slice->getValue()`` rief eine nicht mehr vorhandene
   Methode auf und führte zu einem Fatal Error.

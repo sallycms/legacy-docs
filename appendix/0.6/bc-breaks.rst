@@ -69,7 +69,31 @@ Sally-Releases dokumentiert.
 * Neues Event: ``SLY_MEDIUM_FILENAME`` dient zum Filtern des Dateinames beim
   Upload in den Medienpool.
 
-0.6.2 -> 0.6.next
+0.6.2 -> 0.6.3
+--------------
+
+* ``sly_Util_HTTP::getBaseUrl(true)`` gibt nun im CLI-Modus immer
+  ``http://cli/sally`` zurück, um stabile UnitTests zu ermöglichen.
+* ``SLY_SETTINGS_UPDATED`` wurde um einige Parameter erweitert.
+* Die Portnummer ist nun nicht mehr Teil von ``sly_Util_HTTP::getHost()``
+  (betrifft nur Server, deren ``SERVER_NAME`` durch Proxies tatsächlich eine
+  Portnummer enthielt).
+* ``sly_Service_AddOn->getInstalledAddOns()`` wurde hinzugefügt.
+* ``sly_Service_AddOn_Base``
+
+  * ``deactivateIncompatibleComponents()`` und ``getRecursiveDependencies()``
+    wurden hinzugefügt.
+  * ``dependencyHelper()`` kann nun optional über einen weiteren Parameter
+    ``$inclDeactivated`` auch deaktivierte Komponenten zurückgeben.
+  * ``getRequiredSallyVersions()`` kann nun optional über einen
+    weiteren Parameter ``$forceRefresh`` die Kompatibilität explizit neu
+    ermitteln anstatt den gecachten Wert zurückzugeben. Dito bei
+    ``isCompatible()``.
+
+* Die Signatur des Scaffold-Mixins ``box-shadow()`` hat sich von
+  ``($x, $y, $blur, $color)`` zu ``($x, $y, $blur, $spread, $color)`` geändert.
+
+0.6.3 -> 0.6.next
 -----------------
 
 * Das wird die Zeit zeigen...
