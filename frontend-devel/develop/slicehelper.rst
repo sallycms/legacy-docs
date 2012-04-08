@@ -26,6 +26,33 @@ Abgesehen von dieser Änderung verhält sich das Slice-Formular exakt so wie jed
 andere Formular in Sally, das mit ``sly_Form`` umgesetzt wird. Das heißt, dass
 auch alle Formularelemente problemlos verwendet werden können.
 
+Shortcut-API
+^^^^^^^^^^^^
+
+Um Module kürzer zu gestalten, bietet die Klasse ``sly_Slice_Form`` eine ganze
+Reihe von Komfort-Methoden an. Diese befreien den Modulautor davon, immer wieder
+die vollen Klassennamen der Formularelemente schreiben zu müssen. So kann man
+statt einer ``sly_Form_Widget_LinkList``-Instanz über ``$form->add()``
+hinzuzufügen auch direkt die Methode ``$form->addLinkList()`` aufrufen.
+
+.. literalinclude:: module.slicehelper.php
+   :language: php
+
+Hierbei ist zu beachten, dass die Shortcut-API von der regulären Formular-API
+in Hinblick auf die Rückgabewerte abweicht: Die Formular-API gibt standardmäßig
+immer das Formular-Objekt selbst zurück (sodass man ``$form->add()->add()->...``
+schreiben kann). Die Shortcut-API gibt hingegen immer das erzeugte **Element**
+zurück. Dies ist dem Umstand geschuldet, dass man sonst nicht ohne größeren
+Aufwand an die Elemente herankommt und die Shortcut-API unmöglich *alle*
+möglichen Optionen der Elemente abdecken kann.
+
+So gibt im obigen Beispiel die ``addLinkList()`` das Linklist-Formularelement
+zurück, auf dem dann ``setMin()`` aufgerufen wird. Komplexere Formulare können
+dann wie folgt aufgebaut werden:
+
+.. literalinclude:: module.slicehelper.complex.php
+   :language: php
+
 Slice-Werte (``$values``)
 -------------------------
 

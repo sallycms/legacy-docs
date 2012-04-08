@@ -4,7 +4,7 @@
  * @sly slots {main: Hauptbereich}
  */
 
-$layout = new sly_Layout_Frontend();
+$layout = new FrontendLayout();
 sly_Core::setLayout($layout);
 
 $layout->openBuffer();

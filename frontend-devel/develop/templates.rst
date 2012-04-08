@@ -1,9 +1,10 @@
 Templates
 =========
 
-Templates werden in Sally im Verzeichnis :file:`/develop/templates` verwaltet.
-Es handelt sich dabei um einfache PHP-Dateien mit einem Header zur
-Konfiguration.
+Templates werden in Sally im Verzeichnis :file:`/develop/templates` verwaltet
+und steuern, welche Inhaltsbereiche (sog. "slots") ein Artikel zur Verfügung hat
+und wie die Inhalte angezeigt werden sollen. Es handelt sich dabei um einfache
+PHP-Dateien mit einem Header zur Konfiguration.
 
 *Beispiel:*
 
@@ -29,19 +30,6 @@ Eindeutiger Templatebezeichner zur internen Identifizierung. Der ``name`` wird
 genutzt, um ein Template bspw. über die API zu identifizieren. Sobald ein
 Template in Benutzung ist, sollte der ``name`` nicht mehr geändert werden, da
 das Template im System über diesen Namen referenziert wird.
-
-``title`` (optional)
-^^^^^^^^^^^^^^^^^^^^
-
-Titel des Templates zur Anzeige im Backend. Seit Sally 0.4 ist dieser Wert nicht
-mehr von direkter Bedeutung, da der Systemkern und die Backend-App an keiner
-Stelle den Namen von Templates anzeigen. Die API unterstützt diesen Parameter
-allerdings weiterhin direkt (über eine ``->getTitle()``-Methode), da Templates
-von Modulen oder AddOns im Backend angezeigt werden könnten.
-
-.. note::
-
-  ``getTitle()`` könnte in einem späteren Release entfernt werden.
 
 ``slots`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
@@ -100,6 +88,19 @@ sein.
 Mit diesem Parameter können Templates klassifiziert werden, um sie später per
 API gefiltert abzurufen. Zum Filtern dient
 ``sly_Service_Template::getTemplates($class)``.
+
+``title`` (optional)
+^^^^^^^^^^^^^^^^^^^^
+
+Titel des Templates zur Anzeige im Backend. Seit Sally 0.4 ist dieser Wert nicht
+mehr von direkter Bedeutung, da der Systemkern und die Backend-App an keiner
+Stelle den Namen von Templates anzeigen. Die API unterstützt diesen Parameter
+allerdings weiterhin direkt (über eine ``->getTitle()``-Methode), da Templates
+von Modulen oder AddOns im Backend angezeigt werden könnten.
+
+.. note::
+
+  ``getTitle()`` könnte in einem späteren Release entfernt werden.
 
 Conditions
 ----------
