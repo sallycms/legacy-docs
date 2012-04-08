@@ -83,9 +83,7 @@ div.highlight  { background: #f8f8f8; }
 	min-width: 300px;
 }
 
-#dokumentation #fur-anwender .toctree-l1 > a,
-#dokumentation #fur-entwickler .toctree-l1 > a,
-#dokumentation #anhang .toctree-l1 > a {
+.toctree-l1 > a {
 	font-weight: bold;
 	font-size: 120%;
 	line-height: 180%;
