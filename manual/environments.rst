@@ -1,5 +1,5 @@
-Frontend & Backend
-==================
+Architektur
+===========
 
 Eine Website, die mit SallyCMS erstellt wird, trennt grundsätzlich zwischen zwei
 verschiedenen Umgebungen: Das **Frontend** für Besucher und das **Backend** für
@@ -43,15 +43,6 @@ erreichen (beispielsweise über ``http://www.meinewebsite.de/backend``). Der
 Zugang ist nur vorher authorisierten Benutzern gestattet, die sich über
 Benutzername und Passwort anmelden müssen. Benutzerkonten werden vom
 Administrator beim Einrichten der Website angelegt.
-
-.. figure:: /_static/backend-login.png
-   :align: center
-   :scale: 75%
-   :width: 1044
-   :height: 716
-   :alt: Login-Seite des Backends
-
-   Login-Seite des Backends einer Beispiel-Website
 
 Im Gegensatz zum Frontend sieht das Backend über alle Projekte hinweg identisch
 aus. Dies erlaubt es externen Komponenten, das Backend mit eigenen Seiten und

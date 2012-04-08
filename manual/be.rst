@@ -6,4 +6,5 @@ Backend
 
    be/overview
    be/structure
+   be/content
    be/profile

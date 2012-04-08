@@ -14,11 +14,11 @@ die Übersicht der Inhalte dar und dient deren Verwaltung.
    Strukturansicht der Sally-Demoseite
 
 In der Strukturverwaltung wird die Websitenstruktur hierarchisch dargestellt. Es
-gibt **Kategorien** und **Artikel**. Jede Kategorie entspricht im Allgemeinen
-einem Menüpunkt im Frontend der Website (d.h. die Navigation basiert in den
-meisten Fällen allein auf der Kategorie-Struktur). Artikel enthalten dann den
-eigentlichen Inhalt und werden in Kategorien einsortiert, um eine übersichtliche
-Website zu gestalten.
+gibt **Kategorien** und **Artikel**, wobei Kategorien wiederum andere Kategorien
+oder Artikel enthalten können. Über die Kategorien wird im Allgemeinen die
+*Struktur* (Navigation im Frontend) gepflegt, während die Artikel die
+eigentlichen *Inhalte* enthalten. Artikel werden in Kategorien einsortiert, um
+eine übersichtliche Website zu gestalten.
 
 Kategorien und Artikel erhalten stets einen **Namen**. Mit der **Position**
 (Pos) wird die Reihenfolge angegeben (die Position entspricht auch der
@@ -35,6 +35,11 @@ ist.
   Navigation im Frontend auftauchen, aber deren URL beispielsweise in
   Newslettern oder Flyern weitergegeben werden kann.
 
+Um sich den Inhalt einer Kategorie anzuzeigen, klickt man auf den Namen der
+Kategorie (oder das kleine Icon links davon). Ein Klick auf einen Artikel führt
+hingegen zur :doc:`Inhaltsverwaltung <content>`, in der der Artikelinhalt
+(Texte, Bilder, ...) gepflegt werden können.
+
 Über die Links auf der rechten Seite der Tabelle können die bestehenden
 Elemente umbenannt, verschoben oder gelöscht werden (wobei Kategorien nur
 gelöscht werden können, wenn sie keine Artikel mehr enthalten). Über das Icon
@@ -49,11 +54,22 @@ Startartikel
 
 Wenn eine neue Kategorie angelegt wird, wird Sally automatisch einen Artikel,
 den sog. **Startartikel** erstellen. Dieser Artikel enthält denjenigen Inhalt,
-den Besucher im Frontend sehen, wenn Sie die Kategorie aufrufen.
+den Besucher im Frontend sehen, wenn Sie die Kategorie aufrufen. Durch die
+enge Verbindung des Startartikels zu seiner Kategorie haben beide den gleichen
+Status (d.h. beim Onlineschalten eines Startartikels wird auch automatisch
+seine Kategorie online geschaltet).
 
 Der Startartikel einer Kategorie kann niemals gelöscht werden. Stattdessen muss
 die Kategorie selbst gelöscht werden, wobei der Startartikel automatisch
 entfernt wird.
+
+.. figure:: /_static/backend-structure-startarticle.png
+   :align: center
+   :alt: Kategorie mit Startartikel und regulärem Artikel
+
+   In der Kategorie liegen zwei Artikel: Der Startartikel und ein weiterer,
+   regulärer Artikel. Zu sehen ist, dass weder der Status geändert noch der
+   Startartikel gelöscht werden kann.
 
 Auf der obersten Ebene der Website (der "Homepage"-Ebene) gibt es keinen
 Startartikel, da man sich dort nicht in einer Kategorie befindet.
@@ -100,3 +116,60 @@ den nebenstehenden Button legt das Element an.
 Neue Kategorien und Artikel sind am Anfang auf *offline* gestellt und damit für
 Besucher der Website unsichtbar. Dies ermöglicht es, in Ruhe die Inhalte
 vollständig einzupflegen, bevor die Seite *online* gestellt wird.
+
+Elemente bearbeiten
+-------------------
+
+Um ein Element zu bearbeiten, klickt man auf den "Ändern"-Link. Dadurch wird
+die Tabellenzeile durch ein Formular ersetzt, das ähnlich dem beim Hinzufügen
+eines Elements funktioniert.
+
+.. figure:: /_static/backend-structure-edit.png
+   :align: center
+   :alt: Formular zum Bearbeiten einer Kategorie
+
+   Formular zum Bearbeiten einer Kategorie
+
+Elemente können dann umbenannt und verschoben und über den nebenstehenden Button
+gespeichert werden.
+
+.. note::
+
+  Der Name einer Kategorie kann sich vom Namen seines Startartikels
+  unterscheiden. Der Name der Kategorie dient im Frontend in der Regel für die
+  Bezeichnung des Menüpunkts, während der Name des Startartikels in der
+  Titelzeile des Browsers angezeigt wird.
+
+Elemente löschen
+----------------
+
+Elemente werden über den roten "Löschen"-Link gelöscht. Dabei erfolgt bei
+aktiviertem JavaScript eine kurze Rückfrage, ob die Operation wirklich
+durchgeführt werden soll.
+
+.. warning::
+
+  Es gibt keine "Rückgängig"-Funktion für das Löschen. Wird ein Artikel
+  gelöscht, sind alle eingepflegten Inhalte unwiederbringlich gelöscht (es sei
+  denn, ein Administrator hat vorher ein vollständiges Backup des Projekts
+  angefertigt).
+
+Kategorien können nur gelöscht werden, wenn sie keine Artikel (abgesehen vom
+Startartikel) mehr enthalten. Der Startartikel selbst kann nicht manuell
+gelöscht werden (um ihn zu löschen, muss seine Kategorie gelöscht werden).
+
+Status ändern
+-------------
+
+Um den Status einer Kategorie oder eines Artikels zu ändern, reicht es, auf den
+Status zu klicken. Er wird von *offline* zu *online* bzw. von *online* zu
+*offline* wechseln.
+
+Weitere Funktionen
+------------------
+
+Artikel können (inklusive ihres Inhalts) kopiert oder verschoben werden; ebenso
+können Kategorien verschoben werden. Diese Funktionen sind allerdings nicht in
+der Strukturansicht, sondern in der :doc:`Inhaltsverwaltung <content/meta>` zu
+finden. Der Zugriff auf diese Funktionen kann durch Benutzerrechte eingeschränkt
+werden, sodass ggf. nicht alle Funktionen zur Verfügung stehen.
