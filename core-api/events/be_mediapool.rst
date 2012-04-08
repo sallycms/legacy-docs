@@ -3,7 +3,7 @@ Medienpool
 
 Diese Seite listet alle Events auf, die im Medienpool ausgelöst werden. Nicht
 enthalten sind die Events, die vom :doc:`Medium-Model <core_media>` und vom
-:doc:`MediaCategory-Model <core_mediacat>` ausgelöst werden.
+:doc:`MediaCategory-Model <core_mediacats>` ausgelöst werden.
 
 .. slyevent:: SLY_MEDIAPOOL_MENU
   :type:    filter

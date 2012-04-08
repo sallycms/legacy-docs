@@ -80,7 +80,7 @@ Informationen wie den angezeiten Titel im Backend oder die ctypes, weg. Diese
 Daten werden nun direkt in den entsprechenden Dateien gepflegt und müssen in
 einem regulären PHP-Kommentar auf eine spezielle Weise notiert werden.
 
-.. literalinclude:: template.demo.php
+.. literalinclude:: develop/template.demo.php
    :language: php
 
 In dem obigen Template wurden 3 (na ja, eigentlich 4) Werte notiert: **title**,
@@ -114,10 +114,11 @@ beliebig viele, eigene Daten in dieser Form in einem Template notieren kann. Je
 nach Einsatz können so bestimmte Variablen-Konstrukte einfach ersetzt werden.
 
 Genauere Informationen über diese Pflichtangaben sind in den Detail-Seiten zu
-:doc:`Templates <templates>` und :doc:`Modulen <modules>` enthalten.
+:doc:`Templates <develop/templates>` und :doc:`Modulen <develop/modules>`
+enthalten.
 
 Alle Metainformationen stehen über den entsprechenden
-:doc:`Service </sallycms/services/index>` auf PHP-Seite bereit.
+:doc:`Service </core-api/services>` auf PHP-Seite bereit.
 
 .. sourcecode:: php
 

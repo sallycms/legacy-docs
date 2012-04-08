@@ -6,10 +6,10 @@ im Sally-Wiki <https://projects.webvariants.de/news/48>`_.
 
 .. note::
 
-  Aufgrund der geänderten :doc:`Verzeichnisstruktur <birdseye>` empfehlen wir,
-  bestehende 0.4-Projekte neu anzulegen, anstatt in alten Projekten zu
-  versuchen, die Strukturänderungen nachzuahmen. Dies betrifft natürlich nicht
-  die Inhalte des Projekts.
+  Aufgrund der geänderten :doc:`Verzeichnisstruktur </general/birdseye>`
+  empfehlen wir, bestehende 0.4-Projekte neu anzulegen, anstatt in alten
+  Projekten zu versuchen, die Strukturänderungen nachzuahmen. Dies betrifft
+  natürlich nicht die Inhalte des Projekts.
 
 Der grobe :doc:`Ablauf eines Updates auf 0.5 <migrate>` wird auf einer extra
 Seite beschrieben.
@@ -176,12 +176,12 @@ Globale Funktionen
 Die folgenden Funktionen wurden **entfernt** (soweit möglich wurde die
 Alternativ-API angegeben):
 
-* ``rex_send_file()`` (durch den :doc:`Asset-Cache </sallycms/assetcache>`
+* ``rex_send_file()`` (durch den :doc:`Asset-Cache </core-api/assetcache>`
   obsolet)
 * ``rex_send_gzip()`` (es wird immer gzip verwendet, soweit möglich)
 * ``rex_module_exists()``
 * ``rex_execPreSaveAction()`` (Actions werden über :doc:`Frontend-Listener
-  </developing/listeners>` umgesetzt)
+  </frontend-devel/listeners>` umgesetzt)
 * ``rex_execPostSaveAction()``
 * ``_rex_execSaveAction()``
 * ``rex_getActionModeBit()``
@@ -280,7 +280,7 @@ Die folgenden Klassen wurden **hinzugefügt**:
 
 * ``sly_Util_ArticleSlice`` kümmert sich um Artikel-Slices.
 * ``sly_Util_BootCache`` implementiert den :doc:`BootCache
-  </sallycms/bootcache>`.
+  </extended/bootcache>`.
 * ``sly_Util_Slice``
 * ``sly_Viewable`` als Basis-Klasse für Controller, Formulare und Layouts
 
@@ -449,8 +449,8 @@ folgenden Änderungen an der API:
     um auf Systemkonfigurationen zuzugreifen. Diese sind in jedem Fall dem
     direkten Zugriff via ``sly_Core::config()->get('...')`` vorzuziehen.
   * ``registerListeners()`` dient dazu, die :doc:`Frontend-Listener
-    </developing/listeners>` zu registrieren und sollte nicht von Userland Code
-    aufgerufen werden.
+    </frontend-devel/listeners>` zu registrieren und sollte nicht von Userland
+    Code aufgerufen werden.
   * ``getCurrentPage()`` gibt die aktuelle Backend-Seite zurück.
 
 * I18N
@@ -502,7 +502,7 @@ Events
 """"""
 
 * ``SLY_BOOTCACHE_CLASSES_[FRONTEND|BACKEND]`` wird gefeuert, wenn der
-  :doc:`BootCache </sallycms/bootcache>` erzeugt wird.
+  :doc:`BootCache </extended/bootcache>` erzeugt wird.
 * "The Events that were formerly known as 'Actions'"
 
   * Beim Bearbeiten von Slices werden nun Events ausgelöst. Bei den Events

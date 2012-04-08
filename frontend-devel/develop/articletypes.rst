@@ -15,7 +15,7 @@ zur Darstellung zum Einsatz kommen. Darüber hat ein Redakteur keine Kontrolle.
 Definition
 ----------
 
-Artikeltypen werden in der :doc:`Konfiguration </sallycms/configuration>`
+Artikeltypen werden in der :doc:`Konfiguration </core-api/configuration>`
 definiert. Wir empfehlen, dafür eine Datei namens :file:`types.yml` in
 :file:`develop/config/` abzulegen:
 
@@ -54,7 +54,7 @@ bereit:
   $types  = $config->get('ARTICLE_TYPES'); // böse!
 
 Um die Artikeltypen abzurufen und mit ihnen zu interagieren sollte jedoch besser
-der dafür zuständige :doc:`Service </sallycms/services/index>` verwendet werden:
+der dafür zuständige :doc:`Service </core-api/services>` verwendet werden:
 
 .. sourcecode:: php
 

@@ -12,7 +12,7 @@ Konfiguration
 -------------
 
 Um auf Events zu reagieren, wird die reguläre :doc:`Sally-Konfiguration
-</sallycms/configuration>` verwendet. Unter dem Key ``LISTENERS`` können pro
+</core-api/configuration>` verwendet. Unter dem Key ``LISTENERS`` können pro
 Event beliebig viele Listener registriert werden:
 
 .. sourcecode:: yaml

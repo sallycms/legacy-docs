@@ -40,7 +40,7 @@ Changelog
 
 Die letzte Änderung macht es erforderlich, bei bestehenden Projekten mehr als
 nur die Sally-Dateien zu überschreiben. Siehe dazu die
-:doc:`Upgrade-Hinweise </general/updating>`.
+:doc:`Upgrade-Hinweise <bc-breaks>`.
 
 0.4.9 (19. August 2011)
 -----------------------
@@ -178,7 +178,7 @@ nur die Sally-Dateien zu überschreiben. Siehe dazu die
 0.4.2 (28. Mai 2011)
 --------------------
 
-* :doc:`Asset-Cache </sallycms/assetcache>` zur Entlastung des Servers
+* :doc:`Asset-Cache </core-api/assetcache>` zur Entlastung des Servers
 * jQuery wurde auf 1.6.1 aktualisiert (löst Probleme mit dem Linklist-Button)
 * Bugfix: Das Styling von Linklist-Buttons war fehlerhaft.
 * Bugfix: Fehlermeldungen beim Leeren des Slice-Caches wurden behoben.
@@ -186,7 +186,7 @@ nur die Sally-Dateien zu überschreiben. Siehe dazu die
   gesetzt.
 * Bugfix: Fehlender I18N-String (en_GB) bei der AddOn-Installation ergänzt.
 * Bugfix: Fehlendes ``alt``-Attribut im Medienpool hinzugefügt.
-* Bugfix: :doc:`Scaffold </developing/scaffold>` brach mit einem Error ab, wenn
+* Bugfix: :doc:`Scaffold </frontend-devel/scaffold>` brach mit einem Error ab, wenn
   in einer CSS-Property ein Entity vorkam.
 
 0.4.1 (18. Mai 2011)

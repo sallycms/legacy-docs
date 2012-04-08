@@ -33,8 +33,8 @@ Auslieferung
 
 Über eine RewriteRule werden zu cachende Assets beim ersten Zugriff durch einen
 Client durch Sally verarbeitet und gecached. Diese Verarbeitung beinhaltet für
-CSS-Dateien eine Verarbeitung mit :doc:`Scaffold </developing/scaffold>`. Alle
-weiteren Dateien werden standardmäßig nur entsprechend des
+CSS-Dateien eine Verarbeitung mit :doc:`Scaffold </frontend-devel/scaffold>`.
+Alle weiteren Dateien werden standardmäßig nur entsprechend des
 ``Accept-Encoding``-Headers des Clients komprimiert und in einem dynamisch
 angelegten Verzeichnis abgelegt. Von dort aus werden die Dateien bei jedem
 weiteren Zugriff direkt durch den Apache ausgeliefert, ohne dass PHP zum Einsatz

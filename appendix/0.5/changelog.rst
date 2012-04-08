@@ -79,7 +79,7 @@ Changelog
 
   Dieses Release enthält deutliche Änderungen am Rechtesystem und der
   Benutzerverwaltung. Vor einem Update sollten unbedingt die
-  :doc:`Upgrade-Hinweise </general/updating>` studiert werden.
+  :doc:`Upgrade-Hinweise <bc-breaks>` studiert werden.
 
 * Das Backend ist nun auch über ``/backend`` (ohne Slash am Ende) zu erreichen.
 * Das Handling von Benutzerrechten wurde massiv überarbeitet und unterstützt nun
@@ -137,7 +137,7 @@ Changelog
 -----------------------
 
 * Das Styling & Handling von Sortierungen in ``sly_Table`` wurde überarbeitet.
-  Dabei kam es zu einer :doc:`API-Änderung </general/updating>`.
+  Dabei kam es zu einer :doc:`API-Änderung <bc-breaks>`.
 * ``sly_Log`` kann nun benutzerdefinierte Platzhalter verwenden, die bei dem
   eigentlichen Log-Aufruf als Kontext mit übergeben werden können. Damit können
   auch die Werte von vordefinierten Platzhaltern überschrieben werden.
@@ -237,9 +237,9 @@ Changelog
 
   Diese Liste umfasst nur die groben Änderungen, eine Detailliste befindet sich
   im Dokument zum :doc:`Aktualisieren von SallyCMS-Projekten
-  </general/updating>`.
+  <migrate>`.
 
-* integrierter :doc:`Error Handler </sallycms/errorhandler>`
+* integrierter :doc:`Error Handler </extended/errorhandler>`
 * neue :doc:`Verzeichnisstruktur </general/birdseye>`
 * neue Content-Verwaltung
 * JavaScript-Refactoring
