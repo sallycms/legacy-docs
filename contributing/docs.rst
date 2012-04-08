@@ -15,7 +15,7 @@ Formatierungen.
 
 Hier bereits einige Regeln für Neueinsteiger:
 
-* Alle Dateien sind als **UTF-8** (ohne Byte-Order-Mark) verfasst werden.
+* Alle Dateien sind als **UTF-8** (ohne Byte-Order-Mark) zu verfassen.
 * Zeilen dürfen nicht länger als **80 Zeichen** sein. Gute Editoren bieten eine
   grafische Anzeige dieser Grenze.
 

@@ -1,5 +1,5 @@
-Bedienungsanleitung
-===================
+Handbuch
+========
 
 Das Handbuch führt in die inhaltliche Verwaltung einer Website auf Basis von
 SallyCMS ein. Die Website wird dabei durch das CMS "live" erzeugt. Das CMS
