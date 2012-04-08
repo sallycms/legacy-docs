@@ -12,15 +12,15 @@ meisten Inhalte der Website verwaltet.
 
 Das Backend teilt sich dabei in die folgenden groben Bereiche auf:
 
-* **oben** ist die Kopfzeile, in der man zum :doc:`eigenen Profil <be/profile>`,
+* **oben** ist die Kopfzeile, in der man zum :doc:`eigenen Profil <profile>`,
   der Website oder zum Logout gelangt. Über "Zur Website" kann das
-  :doc:`Frontend <environments>` erreicht werden.
+  :doc:`Frontend <../environments>` erreicht werden.
 * **links** ist das Menü zu sehen, das sich in die beiden Gruppen "Basis" und
   "AddOns" aufteilt. Einige der Menüpunkte können beim Aufruf noch Unterpunkte
   enthalten, über die weitere Funktionen zugänglich sind.
 * **rechts** ist der Inhaltsbereich, der den größten Teil des Backend einnimmt
   und je nach Unterseite anders gestaltet ist. Im obigen Bild ist die
-  :doc:`Strukturansicht <be/structure>` zu sehen, bei der die Kategorien und
+  :doc:`Strukturansicht <structure>` zu sehen, bei der die Kategorien und
   Artikel in Form von Tabellen aufgelistet werden.
 * **unten** ist die Fußzeile platziert, in der die Laufzeit (die Zeit, die Sally
   benötigte, um die Seite zu generieren) sowie das aktuelle Datum angezeigt
@@ -30,6 +30,6 @@ Das Backend teilt sich dabei in die folgenden groben Bereiche auf:
 
   Je nach Benutzerrechten und Projekt kann es sein, dass mehr oder weniger
   Menüpunkte zu sehen sind. Redakteure haben generell eingeschränkte
-  Zugriffsrechte und dürfen beispielsweise die :doc:`Systemseite <be/system>`
+  Zugriffsrechte und dürfen beispielsweise die :doc:`Systemseite <system>`
   nicht verwenden, während Administratoren auf alle Bereiche uneingeschränkten
   Zugriff haben.

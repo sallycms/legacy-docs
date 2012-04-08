@@ -74,6 +74,4 @@ nicht verfügbar sein.
 
 Weiterführende Informationen:
 
-* :doc:`Backend-Übersicht <be-overview>`
-* :doc:`Assets (CSS, JavaScript, ...) </frontend-devel/assets>`
-* :doc:`Events </frontend-devel/listeners>`
+* :doc:`Backend-Übersicht <be/overview>`
