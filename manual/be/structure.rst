@@ -31,7 +31,6 @@ ist.
   Artikel, die offline sind, können trotzdem im Frontend aufgerufen werden,
   wenn ihre URL bekannt ist. Der Offline-Status dient **nicht** dazu, den
   Zugriff auf Artikel zu beschränken, sondern nur ihre Sichtbarkeit zu steuern.
-
   So können in einer Website Artikel verwaltet werden, die zwar nicht in der
   Navigation im Frontend auftauchen, aber deren URL beispielsweise in
   Newslettern oder Flyern weitergegeben werden kann.
@@ -75,12 +74,29 @@ Artikels aufgerufen werden.
 Elemente hinzufügen
 -------------------
 
+In der Kategorie- sowie Artikelliste findet sich in der linken oberen Ecke ein
+Symbol zum Hinzufügen eines neuen Elements. Nach einem Klick erscheint eine neue
+Zeile in der Tabelle, in der der Name sowie die gewünschte Position angegeben
+werden kann.
 
 .. figure:: /_static/backend-structure-addcat.png
    :align: center
-   :width: 1013
-   :height: 709
-   :scale: 75%
-   :alt: Strukturansicht der Sally-Demoseite
+   :alt: Formular zum Hinzufügen einer Kategorie
 
-   Strukturansicht der Sally-Demoseite
+   Formular zum Hinzufügen einer Kategorie
+
+Beachten Sie, dass Sie einen Namen angeben müssen. Die Position steht
+standardmäßig auf dem höchsten Wert plus Eins, sodass die neue Kategorie bzw.
+der neue Artikel *am Ende* der bisherigen Liste einsortiert wird. Natürlich kann
+auch eine beliebige Position innerhalb der Liste angegeben werden. Ein Klick auf
+den nebenstehenden Button legt das Element an.
+
+.. figure:: /_static/backend-structure-addcat-success.png
+   :align: center
+   :alt: Kategorieliste nachdem die Kategorie hinzugefügt wurde
+
+   Kategorieliste nachdem die Kategorie hinzugefügt wurde
+
+Neue Kategorien und Artikel sind am Anfang auf *offline* gestellt und damit für
+Besucher der Website unsichtbar. Dies ermöglicht es, in Ruhe die Inhalte
+vollständig einzupflegen, bevor die Seite *online* gestellt wird.
