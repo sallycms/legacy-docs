@@ -3,7 +3,7 @@ Frontend-Listeners
 
 SallyCMS ermöglicht (beginnend mit Version *0.5*) es, ohne den Einsatz eines
 AddOns auf Ereignisse im Backend zu reagieren. In früheren Versionen konnte der
-projektspezifische Code (im @develop@-Verzeichnis) keinen Einfluss auf Events
+projektspezifische Code (im ``develop``-Verzeichnis) keinen Einfluss auf Events
 nehmen, die im Backend ausgelöst wurden, da er nicht geladen wurde. Zu diesem
 Zweck musste ein AddOn geschrieben werden, da nur diese sowohl im Frontend als
 auch im Backend geladen wurden.
@@ -63,12 +63,9 @@ reagieren.
      OUTPUT_FILTER:
         - myCallback              # auch OK
 
-REDAXO "Actions"?
+REDAXO-"Actions"?
 -----------------
 
-Das Listener-Konzept stellt eine verallgemeinerte Version der REDAXO-Actions
-dar. In REDAXO können Actions nur auf drei bestimmte Events (postsave, presave,
-preview) reagieren und müssen pro Modul konfiguriert werden.
-
-In SallyCMS kann das Nachbearbeiten der Slice-Werte von Modulen erreicht werden,
-indem sich auf auf Events ... *(noch zu implementieren)*
+In SallyCMS kann das Nachbearbeiten oder Prüfen der Slice-Werte von Modulen
+erreicht werden, indem man sich auf
+:doc:`Slice-Events </core-api/events/be_slices>` registriert.

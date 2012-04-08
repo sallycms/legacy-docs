@@ -23,4 +23,4 @@ man entweder ein normales include oder den Template-Service verwenden.
   // Um immer kompatibel zu bleiben (falls sich mal das Verzeichnis
   // ändert oder Templates speziell verarbeitet werden müssen, bevor
   // sie eingebunden werden können), sollte man das Utility verwenden:
-  sly_Util_Template::includeFile('mytemplate', array('variable' => 'wert', 'var' => 12));
+  sly_Util_Template::render('mytemplate', array('variable' => 'wert', 'var' => 12));
