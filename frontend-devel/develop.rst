@@ -17,16 +17,21 @@ zählen **Templates**, **Module** und die **Projekt-Konfiguration**.
 Unterseiten
 -----------
 
-* :doc:`Artikeltypen <develop/articletypes>`
+* :doc:`Artikeltypen <develop/articletypes>` bestimmen, welche verschiedenen
+  Typen von Artikeln (zum Beispiel "Homepage", "Stellenangebot",
+  "Pressemitteilung" etc.) dem Redakteur zur Verfügung stehen.
 * :doc:`Templates <develop/templates>` & :doc:`Layouts <develop/layouts>`
+  steuern die Ausgabe der Artikel im Frontend.
 * :doc:`Module <develop/modules>` & :doc:`Slice-Helper <develop/slicehelper>`
+  dienen dazu, die eigentliche Inhalte (Texte, Bilder etc.) zu verwalten.
 
 Verzeichnisstruktur
 -------------------
 
 Alle Dateien, die serverseitig für das Frontend relevant sind, werden in
-:file:`develop/` gespeichert. Das Verzeichnis liegt direkt im Root einer
-Website.::
+:file:`develop/` gespeichert. Das Verzeichnis liegt direkt im Root des Projekts.
+
+::
 
   /
   +- assets/
@@ -53,39 +58,23 @@ Es ist auch problemlos möglich, Klassen mit in Templates/Modulen zu notieren
 oder Dateien, die keine Templates/Module sein sollen, in den entsprechenden
 Verzeichnissen mit abzulegen. Dazu im folgenden Abschnitt mehr.
 
-Dateinamen: Templates
-^^^^^^^^^^^^^^^^^^^^^
-
-Jede Datei, die als Template erkannt und im Backend verfügbar sein soll, muss
-auf ``.php`` enden (zum Beispiel :file:`startseite.php`). Sie sollten sich
-regulär über einen PHP ``include`` einbinden lassen.
-
-Dateinamen: Module
-^^^^^^^^^^^^^^^^^^
-
-Module bestehen aus zwei Komponenten: **Eingabe** und **Ausgabe**. Beide sind
-optional. Sie müssen in separaten Dateien gepflegt werden:
-
-* Eingabe: :file:`.input.php`
-* Ausgabe: :file:`.output.php`
-
-Für Module gelten die gleichen Regeln wie für Templates, was ihren Inhalt
-betrifft.
-
 Metainformationen
 -----------------
 
-Da die Daten nicht mehr in der Datenbank liegen, fällt die Möglichkeit, weitere
-Informationen wie den angezeiten Titel im Backend oder die ctypes, weg. Diese
-Daten werden nun direkt in den entsprechenden Dateien gepflegt und müssen in
-einem regulären PHP-Kommentar auf eine spezielle Weise notiert werden.
+Sally benötigt neben den eigentlichen Code-Dateien noch weitere Informationen,
+um die Dateien korrekt verwenden zu können. So müssen die anzuzeigenden Namen
+(z.B. "Startseite" oder "Texteditor") angegeben werden, ebenso wie Slots und
+andere Informationen. Da die Dateien nicht in einer Datenbank liegen, müssen
+diese Angaben direkt in den Dateien selbst notiert werden. Zu diesem Zweck liest
+Sally den ersten DocBlock (Kommentar, der mit ``/**`` beginnt) aus und scant ihn
+nach speziellen Tags ab. Dies könnte wie im folgenden Beispiel-Template
+aussehen:
 
 .. literalinclude:: develop/template.demo.php
    :language: php
 
 In dem obigen Template wurden 3 (na ja, eigentlich 4) Werte notiert: **title**,
-**slots** (entsprechen den REDAXO ctypes), **modules** und **param**. Dabei
-gelten die folgenden Regeln:
+**slots**, **modules** und **param**. Dabei gelten die folgenden Regeln:
 
 * Es wird der erste PHP-Kommentar der Form ``/** ... */`` ausgewertet. Jeder
   weitere wird ignoriert.
@@ -96,19 +85,19 @@ gelten die folgenden Regeln:
   mindestens ein Leerzeichen stehen. Alle weiteren Leerzeichen werden ignoriert.
 
 Die Werte werden automatisch als
-`YAML-Daten <http://de.wikipedia.org/wiki/YAML>`_ angesehen und entsprechend
+`YAML <http://de.wikipedia.org/wiki/YAML>`_ angesehen und entsprechend
 geparsed. Das bedeutet, dass auf PHP-Seite der Wert für **slots** nicht der
 String ``'[links, rechts]'`` erscheint, sondern das Array
 ``array('links', 'rechts')``. Neben Arrays sind auch Hashes (assoziative
 Arrays), boolesche Werte und Zahlen möglich.
 
-Sollte ein Wert nicht als YAML geparsed werden können, wird er einfach als
+Sollte ein Wert nicht als YAML geparst werden können, wird er einfach als
 normaler String angesehen.
 
 Besondere Metainformationen
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-SallyCMS wird einige der Werte als besonders betrachten (und diese zum Teil auch
+Sally wird einige der Werte als besonders betrachten (und diese zum Teil auch
 als Pflichtangabe voraussetzen). Das bedeutet allerdings nicht, dass man nicht
 beliebig viele, eigene Daten in dieser Form in einem Template notieren kann. Je
 nach Einsatz können so bestimmte Variablen-Konstrukte einfach ersetzt werden.
@@ -148,45 +137,26 @@ Template als Datei :file:`foo.php` zu speichern, es aber dennoch über
 **startseite** anzusprechen, wenn ``@sly name startseite`` im Template notiert
 ist.
 
-Der interne Name muss jeweils eindeutig sein (d.h. es kann durchaus ein Template
-**foo** und ein Modul **foo** geben).
+.. note::
+
+  Der interne Name muss jeweils eindeutig sein (d.h. es kann durchaus ein
+  Template **foo** und ein Modul **foo** geben, niemals aber zwei Templates
+  mit dem Namen **foo**).
 
 Develop-Dateien, die diese Anforderung nicht erfüllen, führen zur Ausgabe einer
-PHP-Warning im Backend. Womit wir bei der Frage werden, wann Änderungen an den
-Dateien erkannt werden.
+PHP-Warning im Backend.
 
 Refresh
 -------
 
-SallyCMS wird bei jedem Request auf das **Backend** die Verzeichnisse in
-:file:`develop/` durchsuchen und geänderte Dateien (geändert = aktueller
-Timestamp als im Cache) neu einlesen. Der Aufwand, den Zeitpunkt der letzten
-Änderung einer Datei zu ermitteln, ist verschwindend gering und wird die
-Performance nicht stören.
+Sally wird im :doc:`Entwicklermodus </arch/environments>` bei jedem Seitenaufruf
+(sowohl Frontend als auch Backend) die Develop-Inhalte durchsuchen und
+Änderungen synchronisieren. Dazu ist es nicht nötig, das Backend aufzurufen,
+eingeloggt zu sein oder den Cache manuell zu leeren.
 
-Während der Entwicklung ist es hilfreich, auf der Systemseite den
-**Entwicklermodus** einzuschalten. Dies wird dazu führen, dass Templates und
-Module auch im Frontend erkannt und synchronisiert werden.
-
-Wenn ein Template oder Modul hinzugefügt wird, muss die Seite zumindest
-kurzzeitig in den **Entwicklermodus** geschaltet werden, damit die neuen Dateien
-erkannt und hinzugefügt werden.
-
-Mögliche Probleme
-^^^^^^^^^^^^^^^^^
-
-Ein Beispiel soll diesen Punkt erklären: Man lege ein Template mit drei Spalten
-(slots) an: links, mitte, rechts. Dieses Template wird nun im Backend Artikeln
-zugewiesen und der Redakteur (oder die QA) pflegt schon einmal Blindtexte ein.
-Wenn nun im Template die Liste der Spalten reduziert wird, sind die entfernten
-Spalten im Backend nicht mehr zugänglich.
-
-SallyCMS wird dabei allerdings bestehende Slices in "unbekannten" Spalten nicht
-aus der Datenbank entfernen. Wenn die Liste der Spalten im Template wieder
-korrigiert wird, sind die Daten wieder zugänglich und können im Backend
-bearbeitet werden.
-
-In einem späteren Release könnte eine Cleanup-Funktion implementiert werden, die
-in der Luft hängende Slices findet und entweder eine existierenden Spalte
-zuordnen oder löschen kann. Vorerst sollte nur auf diesen Umstand hingewiesen
-sein.
+Im **Produktivmodus** hingegen wird Sally annehmen, dass keine Änderungen an
+den Develop-Inhalten stattfinden und daher keine Synchronisation durchführen.
+Seit :doc:`Version 0.6.3 </appendix/0.6/changelog>` findet jedoch immerhin noch
+dann eine Synchronisation statt, wenn ein Administrator im Backend eingeloggt
+ist oder der Cache von Hand geleert wird. Alternativ kann auch kurzzeitig der
+Entwicklermodus aktiviert werden.

@@ -10,6 +10,13 @@ Konfiguration.
 .. literalinclude:: template.sample.php
    :language: php
 
+Dateinamen
+----------
+
+Jede Datei, die als Template erkannt und im Backend verfügbar sein soll, muss
+auf ``.php`` enden (zum Beispiel :file:`startseite.php`). Sie sollten sich
+regulär über einen PHP ``include`` einbinden lassen.
+
 Mögliche Parameter
 ------------------
 
@@ -39,9 +46,8 @@ von Modulen oder AddOns im Backend angezeigt werden könnten.
 ``slots`` (optional)
 ^^^^^^^^^^^^^^^^^^^^
 
-Array mit Bereichen, in die das Template Inhalte einfügen kann (Im
-REDAXO-Jargon: ctypes). Slots ist ein assoziatives Array und es gibt zwei
-Optionen es zu definieren.
+Array mit Bereichen, in die das Template Inhalte einfügen kann. Slots ist ein
+assoziatives Array und es gibt zwei Optionen es zu definieren.
 
 * Einfache Liste von Titeln: ``[Hauptbereich, Seitenleiste]`` - Die Titel werden
   im Backend angezeigt und der Zugriff auf die Slots erfolgt über ihre
@@ -60,6 +66,25 @@ Optionen es zu definieren.
 Der Parameter ist optional. Werden keine Slots angegeben, erhält das Template
 einen Slot mit dem Namen 'default'. Hat ein Template nur einen Slot, wird er im
 Backend nicht angezeigt.
+
+Mögliche Probleme
+^^^^^^^^^^^^^^^^^
+
+Ein Beispiel soll diesen Punkt erklären: Man lege ein Template mit drei Spalten
+(slots) an: links, mitte, rechts. Dieses Template wird nun im Backend Artikeln
+zugewiesen und der Redakteur (oder die QA) pflegt schon einmal Blindtexte ein.
+Wenn nun im Template die Liste der Spalten reduziert wird, sind die entfernten
+Spalten im Backend nicht mehr zugänglich.
+
+SallyCMS wird dabei allerdings bestehende Slices in "unbekannten" Spalten nicht
+aus der Datenbank entfernen. Wenn die Liste der Spalten im Template wieder
+korrigiert wird, sind die Daten wieder zugänglich und können im Backend
+bearbeitet werden.
+
+In einem späteren Release könnte eine Cleanup-Funktion implementiert werden, die
+in der Luft hängende Slices findet und entweder eine existierenden Spalte
+zuordnen oder löschen kann. Vorerst sollte nur auf diesen Umstand hingewiesen
+sein.
 
 ``modules`` (optional)
 ^^^^^^^^^^^^^^^^^^^^^^
