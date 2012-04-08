@@ -91,7 +91,8 @@ Sally-Releases dokumentiert.
     ``isCompatible()``.
 
 * Die Signatur des Scaffold-Mixins ``box-shadow()`` hat sich von
-  ``($x, $y, $blur, $color)`` zu ``($x, $y, $blur, $spread, $color)`` geändert.
+  ``($x, $y, $blur, $color)`` zu ``($x, $y, $blur, $spread, $color = '')``
+  geändert. Die alte Syntax kann weiterhin verwendet werden.
 
 0.6.3 -> 0.6.next
 -----------------
