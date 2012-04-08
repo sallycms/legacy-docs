@@ -71,3 +71,16 @@ Integrators).
 Der Artikeltyp kann innerhalb der Strukturansicht nicht geändert werden,
 stattdessen muss dazu die :doc:`Inhaltsverwaltung <content>` des jeweiligen
 Artikels aufgerufen werden.
+
+Elemente hinzufügen
+-------------------
+
+
+.. figure:: /_static/backend-structure-addcat.png
+   :align: center
+   :width: 1013
+   :height: 709
+   :scale: 75%
+   :alt: Strukturansicht der Sally-Demoseite
+
+   Strukturansicht der Sally-Demoseite

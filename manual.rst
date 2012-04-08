@@ -8,7 +8,7 @@ Website. Somit müssen Redakteure keine Programmierkenntnisse besitzen, um einen
 großen Teil der Website inhaltlich zu verwalten.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    manual/environments
-   manual/be-overview
+   manual/be

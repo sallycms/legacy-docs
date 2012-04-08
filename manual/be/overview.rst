@@ -1,5 +1,5 @@
-Backend-Übersicht
-=================
+Übersicht
+=========
 
 Nach einem erfolgreichen Login gelangt man zur Strukturansicht. Hier werden die
 meisten Inhalte der Website verwaltet.
@@ -33,14 +33,3 @@ Das Backend teilt sich dabei in die folgenden groben Bereiche auf:
   Zugriffsrechte und dürfen beispielsweise die :doc:`Systemseite <be/system>`
   nicht verwenden, während Administratoren auf alle Bereiche uneingeschränkten
   Zugriff haben.
-
-Unterseiten
------------
-
-Die verfügbaren Menüpunkte sind auf einzelnen Seiten beschrieben.
-
-.. toctree::
-   :maxdepth: 2
-
-   be/structure
-   be/profile
