@@ -1,6 +1,11 @@
 Inhaltsverwaltung
 =================
 
+.. toctree::
+   :hidden:
+
+   content/meta
+
 Klickt man in der :doc:`Strukturansicht <structure>` auf den Namen eines
 Artikels, so gelangt man zur Inhaltsverwaltung. Hier können mit Hilfe von
 Blöcken die Inhalte gepflegt und der *Artikeltyp* gesteuert werden.
@@ -59,6 +64,30 @@ rechts neben der Slot-Liste angezeigt werden.
 
     Das Anzeigen des Artikels im Frontend funktioniert auch, wenn der Artikel
     *offline* ist.
+
+Artikeltyp
+----------
+
+Bevor ein Artikel Inhalte aufnehmen kann, muss sein Artikeltyp gesetzt werden.
+Dazu wählt man den gewünschten Typ im "Allgemein"-Bereich aus und speichert den
+Artikel ab. Im Anschluss können (wenn der Artikeltyp dies gestattet) die Inhalte
+eingepflegt werden.
+
+Es ist möglich, dass Artikeltypen keine Inhalte erlauben. In diesem Fall wird
+eine entsprechende Meldung und keine Auswahl für die Module angezeigt.
+
+Der Typ eines Artikels kann jederzeit geändert werden. Dabei ist allerdings zu
+beachten, dass der neue Artikeltyp ggf. nicht die gleichen Inhaltsbereiche
+(Slots) wie der vorherige aufweist und daher eingepflegte Inhalte nach dem
+Wechsel des Typs nicht mehr erreichbar sind.
+
+Unterhalb des Auswahlfelds für den Artikeltyp können noch weitere
+Formularelemente erscheinen. Dies sind die sog. "Metainformationen" wie zum
+Beispiel bei einem Stellenangebot ein Link zum Angebot als PDF, der Standort,
+die Stellenbezeichnung oder weitere Daten. Dabei handelt es sich im Allgemeinen
+um Daten, die unabhängig vom Artikelinhalt benötigt werden. Verschiedene
+Artikeltypen können verschiedene Metainformationen besitzen (da die Angabe
+"Stellenbezeichnung" beim Typ "Pressemitteilung" keinen Sinn ergeben würde).
 
 Blöcke
 ------
