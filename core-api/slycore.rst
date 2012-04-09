@@ -102,7 +102,7 @@ Event-Dispatcher
 ----------------
 
 Der Dispatcher dient dazu, Listener (PHP-Callbacks) auf einzelne Events zu
-registrieren. Siehe dazu auch :doc:`Eventsystem <events/index>`.
+registrieren. Siehe dazu auch :doc:`Eventsystem <events>`.
 
 .. sourcecode:: php
 
@@ -131,8 +131,8 @@ CSS/JS-Dateien zum ``<head>`` hinzufügen.
 
 .. note::
 
-  Wie in :doc:`Frontend-Layouts </developing/develop/layouts>` beschrieben, ist
-  es von Vorteil, auch im Frontend ``sly_Layout`` zu verwenden.
+  Wie in :doc:`Frontend-Layouts </frontend-devel/develop/layouts>` beschrieben,
+  ist es von Vorteil, auch im Frontend ``sly_Layout`` zu verwenden.
 
 .. warning::
 
@@ -226,8 +226,8 @@ Die aktuelle Backend-Seite kann wie folgt ermittelt werden.
 Error Handler
 -------------
 
-Der systemweise :doc:`Error Handler <errorhandler>` wird in ``sly_Core``
-registriert, damit AddOns ihn abrufen und überschreiben können.
+Der systemweise :doc:`Error Handler </extended/errorhandler>` wird in
+``sly_Core`` registriert, damit AddOns ihn abrufen und überschreiben können.
 
 .. sourcecode:: php
 

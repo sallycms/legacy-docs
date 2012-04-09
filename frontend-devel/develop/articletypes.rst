@@ -7,37 +7,50 @@ zwischen verschiedenen Artikeln. Artikel werden nicht einem bestimmten Template
 nicht mehr entscheiden, wie Inhalte angezeigt werden sollen, sondern kann
 Artikel nach "Stellenangebot", "Newsbeitrag" etc. unterscheiden.
 
-Dies macht es möglich, abhängige Metainformationen zu verwenden. So kann ein
-Artikel vom Typ "Stellenangebot" andere Metainfos haben als ein Artikel vom Typ
-"Newsbeitrag". Gleichzeitig können, müssen aber nicht, verschiedene Templates
-zur Darstellung zum Einsatz kommen. Darüber hat ein Redakteur keine Kontrolle.
+Artikeltypen definieren
+
+* welches :doc:`Template <templates>` zur Anzeige des Artikels zum Einsatz
+  kommt.
+* welche :doc:`Module <modules>` im Artikel verwendet werden dürfen.
+* welche Metainformationen verfügbar/verpflichtend sind (wenn das
+  `Metainfo-AddOn`_ verwendet wird).
+
+.. _`Metainfo-AddOn`: https://projects.webvariants.de/projects/metainfoex
+
+Redakteure haben grundsätzlich keine Kontrolle darüber, welche Module erlaubt
+sind.
 
 Definition
 ----------
 
-Artikeltypen werden in der :doc:`Konfiguration </sallycms/configuration>`
-definiert. Wir empfehlen, dafür eine Datei namens :file:`types.yml` in
-:file:`develop/config/` abzulegen:
+Artikeltypen werden in der :doc:`Konfiguration </core-api/configuration>`
+definiert. Dazu wird empfohlen, eine Datei namens :file:`types.yml` in
+:file:`develop/config/` abzulegen und dort alle Typen zu notieren:
 
 .. sourcecode:: yaml
 
   ARTICLE_TYPES:
+    # 'default' hat keine besondere Bedeutung, der Artikeltyp heißt nur
+    # zufällig so. Dies ist nicht auf magische Weise der Standard-Artikeltyp
+    # in Sally.
     default:
-      title: Standardseite
-      template: default
-      modules: {leftcol: [editor], rightcol: [teaser]}
+      title: 'Standardseite'
+      template: 'default'
+      modules:
+        leftcol: ['editor']
+        rightcol: ['teaser']
     job:
-      title: translate:job_offer     # wird automatisch aufgelöst
-      template: default
-      modules: [editor, download, pdf]
+      title: 'translate:job_offer'     # wird automatisch aufgelöst
+      template: 'default'
+      modules: ['editor', 'download', 'pdf']
     news:
-      title: Newsbeitrag
-      template: twocolumn
-      custom: foo                    # eigene Key-Value-Pairs sind beliebig ergänzbar
+      title: 'Newsbeitrag'
+      template: 'twocolumn'
+      custom: 'foo'                    # eigene Key-Value-Pairs sind beliebig ergänzbar
 
-Der Inhalt jeder Datei, die in dem o.g. Verzeichnis gefunden wird, wird in die
-globale Konfiguration gemerged. So ist es auch möglich, die Definition auf
-mehrere Dateien aufzuteilen. Ein AddOn kann somit neue Typen mitbringen und
+Der Inhalt jeder Datei, die in dem o.g. Verzeichnis gefunden wird, wird mit der
+globalen Konfiguration zusammengeführt. So ist es auch möglich, die Definition
+auf mehrere Dateien aufzuteilen. Ein AddOn kann somit neue Typen mitbringen und
 muss dafür nichts weiter tun, als die Konfiguration an ``ARTICLE_TYPES`` um neue
 Einträge zu erweitern.
 
@@ -54,7 +67,7 @@ bereit:
   $types  = $config->get('ARTICLE_TYPES'); // böse!
 
 Um die Artikeltypen abzurufen und mit ihnen zu interagieren sollte jedoch besser
-der dafür zuständige :doc:`Service </sallycms/services/index>` verwendet werden:
+der dafür zuständige :doc:`Service </core-api/services>` verwendet werden:
 
 .. sourcecode:: php
 
@@ -70,8 +83,10 @@ Jeder Artikel (``sly_Model_Article``) gibt gern preis, zu welchem Typ er gehört
   $article = sly_Util_Article::findById(1);
   $type    = $article->getType();
 
-Es ist zu beachten, dass Artikel initial auch keinem Typen angehören können. In
-diesem Fall wird ein leerer String zurückgegeben.
+.. note::
+
+  Es ist zu beachten, dass Artikel initial auch keinem Typen angehören können.
+  In diesem Fall wird ein leerer String zurückgegeben.
 
 Moduldefintionen
 ----------------

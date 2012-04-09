@@ -96,8 +96,8 @@ Sonstige Core-Events
   :subject: N/A
 
   Dieses Event wird ausgelöst, nachdem der Systemkern alle
-  :doc:`Event-Listener </developing/listeners>` aus den Konfigurationsdateien
-  (``LISTENERS``) registriert hat.
+  :doc:`Event-Listener </frontend-devel/listeners>` aus den
+  Konfigurationsdateien (``LISTENERS``) registriert hat.
 
 .. =============================================================================
 

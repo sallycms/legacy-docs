@@ -38,7 +38,7 @@ Alle folgenden Schritte finden lokal statt.
    Idealfall nutzt du das gleiche Werkzeug, das auch den Dump erzeugt hat.
 #. Ersetze die bestehenden RexVar-Keys durch die neuen Versionen (``REX_VALUE``
    wird zu ``SLY_VALUE``) mit Hilfe der in den :doc:`Aktualisierungshinweisen
-   <../updating>` gegebenen SQL-Queries (siehe unten).
+   <releasenotes>` gegebenen SQL-Queries (siehe unten).
 #. Leere den Sally-Cache im Backend.
 #. Übernimm deine develop-Dateien und deine Assets aus dem alten Projekt.
 #. Passe deine Module, Templates und AddOns an die neue API von Sally an. Viel

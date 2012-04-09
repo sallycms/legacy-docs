@@ -1,5 +1,5 @@
-Changelog (Legacy)
-==================
+Changelog
+=========
 
 0.3.11 (28. Juni 2011)
 ----------------------
@@ -156,7 +156,7 @@ Changelog (Legacy)
 ----------------------
 
 * *Templates und Module* werden in Dateien verwaltet und bieten eine
-  :doc:`umfangreiche API </developing/index>`. *Actions* wurden aus diesem
+  :doc:`umfangreiche API </frontend-devel>`. *Actions* wurden aus diesem
   Release entfernt, da wir sie später von Grund auf neu implementieren wollen.
 * Das Verzeichnis *redaxo* wurde in *sally* umbenannt.
 * Die Projektkonfiguration liegt ebenfalls in einer YAML-Datei und muss so nicht

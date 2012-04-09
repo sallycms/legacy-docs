@@ -96,7 +96,7 @@ kurz angerissen werden soll.
      +- import_export/       Datenbank-Exports (nicht per HTTP zugänglich)
      +- mediapool/           Medienpool
 
-Um an die Pfade zu gelangen, stellen die :doc:`Services </sallycms/services/addon>`
+Um an die Pfade zu gelangen, stellen die :doc:`Services </core-api/services/addon>`
 eine Reihe von Methoden zur Verfügung.
 
 SallyCMS kümmert sich automatisch darum, dass :file:`data/config`,
@@ -108,14 +108,14 @@ develop-Verzeichnis
 
 In :file:`develop` findet die eigentliche Projektentwicklung statt. Das
 Verzeichnis wird ebenfalls gegen Zugriff via HTTP geschützt. Aufgrund seiner
-Wichtigkeit wurde ihm ein :doc:`eigener Artikel </developing/develop/index>`
+Wichtigkeit wurde ihm ein :doc:`eigener Artikel </frontend-devel/develop>`
 gewidmet.
 
 Die Sally-Bibliothek
 --------------------
 
 Sally bringt eine ganze Reihe von Klassen mit. Ihre grobe Struktur soll im
-Folgenden beschrieben werden. Durch den :doc:`Autoloader </sallycms/autoloading>`
+Folgenden beschrieben werden. Durch den :doc:`Autoloader </core-api/autoloading>`
 werden die Verzeichnisnamen 1:1 auf Klassennamen gemappt, sodass die Klasse
 ``sly_Model_Article`` in der Datei :file:`sly/Model/Article.php` zu finden ist.
 Das untenstehende Klassendiagramm beschreibt also gleichzeitig die
@@ -184,7 +184,7 @@ definieren. Das Model selbst wüsste davon nichts.
 Services
 ^^^^^^^^
 
-:doc:`Services </sallycms/services>` bieten einen Großteil der Kernfunktionalität
+:doc:`Services </core-api/services>` bieten einen Großteil der Kernfunktionalität
 von Sally an. Sie dienen dazu, Models zu speichern oder anzulegen, AddOns zu
 verwalten, Templates zu synchronisieren etc. Sie sind als Singletons ausgelegt
 und werden über die ``sly_Service_Factory`` (die selbst kein Service ist)

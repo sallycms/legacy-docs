@@ -62,7 +62,7 @@ wie folgt aussehen (wir nehmen an, es liegt im Wurzelverzeichnis von Sally).
   healWorldHunger();
 
 Innerhalb des Scripts kann nun auf sämtliche Sally-Funktionen zugegriffen
-werden (:doc:`Logging <logging>`, :doc:`Mailing <mailing>`, ...).
+werden (:doc:`Logging <logging>`, :doc:`Mailing </core-api/mailing>`, ...).
 
 .. warning::
 

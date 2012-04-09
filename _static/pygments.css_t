@@ -72,3 +72,28 @@ div.highlight  { background: #f8f8f8; }
 .l-Scalar-Plain { color: #000 }
 .highlight-yaml .nv { color: #000 }
 .highlight-yaml .s { color: #009 }
+
+/* a bit styling for the homepage */
+
+#dokumentation #fur-anwender,
+#dokumentation #fur-entwickler,
+#dokumentation #anhang {
+	float: left;
+	width: 32%;
+	min-width: 300px;
+}
+
+.toctree-l1 > a {
+	font-weight: bold;
+	font-size: 120%;
+	line-height: 180%;
+}
+
+#dokumentation #fur-anwender,
+#dokumentation #fur-entwickler {
+	margin-right: 2%;
+}
+
+#indexe-und-tabellen {
+	clear: left;
+}

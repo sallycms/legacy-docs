@@ -1,7 +1,7 @@
-Frontend & Backend
-==================
+Architektur
+===========
 
-Eine Website, die mit SallyCMs erstellt wird, trennt grundsätzlich zwischen zwei
+Eine Website, die mit SallyCMS erstellt wird, trennt grundsätzlich zwischen zwei
 verschiedenen Umgebungen: Das **Frontend** für Besucher und das **Backend** für
 die Redakteure und Administratoren.
 
@@ -20,6 +20,12 @@ Sally in keinster Weise vorgegeben. Entwickler sind frei darin, das Markup und
 die URL-Struktur zu wählen und ganz nach ihren Wünschen (bzw. den Anforderungen
 des Projekts) anzupassen.
 
+Weiterführende Informationen *für Entwickler*:
+
+* :doc:`Develop-System </frontend-devel/develop>`
+* :doc:`Assets (CSS, JavaScript, ...) </frontend-devel/assets>`
+* :doc:`Events </frontend-devel/listeners>`
+
 Backend
 -------
 
@@ -27,16 +33,36 @@ Im Backend werden von den Redakteuren die eigentlichen Inhalte der Website
 eingepflegt. Hier können Artikel und Kategorien angelegt sowie je nach Projekt
 weitere Einstellungen vorgenommen werden.
 
-Das Backend ist generell über ``/backend`` zu erreichen (beispielsweise über
-``http://www.meinewebsite.de/backend``). Der Zugang ist nur vorher
-authorisierten Benutzern gestattet, die sich über Benutzername und Passwort
-anmelden müssen.
+.. note::
+
+  In anderen CMS wird dieser Bereich auch "Admin Control Panel" oder
+  "Administration" genannt.
+
+Das Backend ist mit einem beliebigen Webbrowser generell über ``/backend`` zu
+erreichen (beispielsweise über ``http://www.meinewebsite.de/backend``). Der
+Zugang ist nur vorher authorisierten Benutzern gestattet, die sich über
+Benutzername und Passwort anmelden müssen. Benutzerkonten werden vom
+Administrator beim Einrichten der Website angelegt.
 
 Im Gegensatz zum Frontend sieht das Backend über alle Projekte hinweg identisch
 aus. Dies erlaubt es externen Komponenten, das Backend mit eigenen Seiten und
-Formularen zu erweitern und stellt dabei einen konsitenten Look&Feel sicher.
+Formularen zu erweitern und stellt dabei einen konsistenten "Look&Feel" sicher.
+
+.. note::
+
+  Natürlich ist es möglich, das Backend anzupassen, eigenes CSS/JS zu laden oder
+  sogar eigene Backend-Seiten anzulegen. In den meisten Fällen wird das Backend
+  jedoch nicht umgestaltet.
+
+Nach einem erfolgreichen Login gelangt man zur sogenannten **Strukturansicht**,
+die ebenfalls im Menü über **Struktur** zu erreichen ist. Die Strukturverwaltung
+ist der zentrale Ausgangspunkt der redaktionellen Arbeit.
 
 Im Backend sind eine Reihe von Unterseiten immer verfügbar, wie beispielsweise
 die Strukturverwaltung oder der Medienpool. Je nach Konfiguration, Ausbaustufe
 eines Projekts oder Benutzerrechten können weitere Seiten hinzukommen oder auch
 nicht verfügbar sein.
+
+Weiterführende Informationen:
+
+* :doc:`Backend-Übersicht <be/overview>`

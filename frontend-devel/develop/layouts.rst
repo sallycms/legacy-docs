@@ -9,7 +9,8 @@ einfaches (X)HTML geschrieben werden.
 
 Während das absolut legitim ist, macht man es sich damit nur unnötig schwer.
 Gerade, wenn :doc:`Module <modules>` CSS/JS-Dateien in den HTML-Kopf einfügen
-wollen, wird es mit diesem Ansatz kompliziert (Stichwort: ``OUTPUT_FILTER``).
+wollen, wird es mit diesem Ansatz kompliziert (Stichwort:
+``SLY_RESPONSE_SEND``-Event).
 
 Einfacher ist es, die in Sally vorimplementierten Layouts zu verwenden. Diese
 geben (wie man denken könnte) kein spezielles *Design* vor, sondern kümmern sich
@@ -49,11 +50,10 @@ jedoch XHTML-ähnlich sein, sodass man eher von ``sly_Layout_XHTML`` oder
 Layout in mehreren Templates zu verwenden, ohne den immer gleichen
 Initialisierungscode zu kopieren.
 
-Das eigene Layout sollte in :file:`develop/lib` abgelegt werden und **muss**
-``sly_Layout_....`` heißen. Für unser Beispiel nennen wir es
-``sly_Layout_Frontend`` und müssen es daher in der Datei
-:file:`develop/lib/sly/Layout/Frontend.php` ablegen, damit Sally es automatisch
-findet.
+Das eigene Layout sollte in :file:`develop/lib` abgelegt werden und kann
+beliebig benannt werden. Für unser Beispiel nennen wir es ``FrontendLayout`` und
+müssen es daher in der Datei :file:`develop/lib/FrontendLayout.php` ablegen,
+damit Sally es automatisch findet.
 
 .. literalinclude:: template.layout3.php
    :language: php
@@ -69,3 +69,16 @@ von Meta-Angaben zu SEO-Zwecken) können so einmal vorimplementiert und dann
 immer wieder verwendet werden. Außerdem kann man seine eigene Layout-Klasse auch
 mit weiteren Helper-Methoden ausstatten, wenn man bestimmte Funktionen häufiger
 benötigt.
+
+.. warning::
+
+  Auch wenn es verlockend scheint, auch den Aufruf von ``sly_Core::setLayout()``
+  einfach im Layout anstatt im Template zu erledigen, sollte man diesem Gedanken
+  niemals folgen: Es ist nicht die Aufgabe des Layouts, sich irgendwo anzumelden
+  und wenn man später die eigene API unittesten möchte, können derartige
+  API-Calls schnell problematisch werden.
+
+  Eine Möglichkeit, sich den API-Call dennoch im Template zu ersparen, wäre es,
+  eine Helper-Klasse zu verwenden, die das Layout instanziiert und registriert.
+  Das `Starterkit <https://bitbucket.org/SallyCMS/demo/src/tip/develop/lib/FrontendHelper.php>`_
+  zeigt, wie eine mögliche Lösung aussehen könnte.
