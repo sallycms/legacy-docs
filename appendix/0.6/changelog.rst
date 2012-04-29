@@ -1,6 +1,56 @@
 Changelog
 =========
 
+0.6.4 (29. April 2012)
+----------------------
+
+.. warning::
+
+  Bestehende Projekte, bei denen die Unit-Tests deployt wurden, sollten dringend
+  aktualisiert werden, da unter Umständen durch einen Aufruf der Tests via HTTP
+  die Datenbank überschrieben werden kann.
+
+* Security: Unit-Tests können nun nicht mehr via HTTP ausgeführt werden.
+* Chosen_ wurde im Backend integriert und ist für alle Selectboxen aktiviert.
+* Die enthaltene Modernizr-Distribution wurde vervollständigt und enthält jetzt
+  alle Standard-Tests. Ebenso enthält das Cookie (``sly_modernizr``) nun alle
+  Angaben und nicht mehr nur die Inputtypes. Gleichzeitig wurde
+  ``sly_Helper_Modernizr::hasCapability()`` hinzugefügt.
+* `JSON.js`_ wurde im Backend integriert, um das Modernizr-Cookie sauber zu
+  erzeugen.
+* Das Leeren des Caches kann nun selektiv erfolgen. AddOns können dazu die Liste
+  der Optionen per Event erweitern. Siehe dazu die
+  :doc:`Dokumentation </core-api/events/be_specials>` des neuen Events
+  ``SLY_SYSTEM_CACHES``.
+* Plugins können nun ebenfalls automatisch inklusive Abhängigkeiten installiert
+  werden.
+* Artikelinhalte können in mehr als eine Sprache auf einmal kopiert werden.
+* Die Behandlung von inkompatiblen AddOns, die in v0.6.3 eingeführt wurde, wurde
+  auf den Entwicklermodus beschränkt. Wenn AddOns aktualisiert werden, **muss**
+  vorher der Entwicklermodus aktiviert werden, da die Angaben nun nicht mehr
+  immer überprüft werden.
+* Bugfix: Benutzer, die keinen Zugriff auf die Standardsprache hatten, konnten
+  die Strukturansicht nur über Umwege erreichen.
+* Bugfix: Dateien im Medienpool, die keine Bilder sind, konnten nicht
+  ausgetauscht werden.
+* Bugfix: Beim Kopieren von Artikel-Inhalten wurden die Slice-Positionen falsch
+  ermittelt (:redmine:`6066`).
+* Bugfix: AddOns, deren Backendseiten über den Kompatibilitätsmechanismus
+  (``page``-Angabe in der :file:`static.yml`) eingebunden werden, führten dazu,
+  dass die Konfiguration bei jedem Seitenaufruf neu geschrieben wurde.
+* Bugfix: Die Fehlermeldungen bei mehrdeutigen Modulen waren falsch formuliert
+  und verwirrten mehr, als dass sie halfen.
+* Bugfix: ``sly_Util_HTTP::getHost()`` war seit v0.6.3 defekt.
+* Bugfix: Fehler beim Synchronisieren von Dateien im Medienpool
+  (:redmine:`6142`).
+* ``sly_Helper_Form::getTimezoneSelect()`` wurde ergänzt.
+* ``sly_Util_Medium::getMimetype()`` wurde um einen weiteren Parameter
+  ``$realName`` ergänzt, anhand dessen Dateiendung der Mimetype abgelesen wird.
+* weitere kleine Detailverbesserungen
+
+.. _Chosen: http://harvesthq.github.com/chosen/
+.. _JSON.js: https://github.com/douglascrockford/JSON-js
+
 0.6.3 (8. April 2012)
 ---------------------
 
