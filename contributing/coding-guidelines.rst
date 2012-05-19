@@ -52,11 +52,10 @@ XHTML
 CSS
 ---
 
-CSS wird automatisch via `CSScaffold <http://github.com/sunny/csscaffold>`_
-verarbeitet. Daher sind Dinge wie verschachtelte Selektoren oder andere
-Spielereien möglich, die jeden CSS-Parser aus dem Konzept bringen. Nicht
-wundern, wenn das Syntax-Highlighting im Editor der Wahl nicht mehr zu
-gebrauchen ist.
+CSS wird automatisch via `LESS <http://lesscss.org/>`_ verarbeitet, wenn es in
+Dateien liegt, die auf ``.less`` enden. Daher sind Dinge wie verschachtelte
+Selektoren oder andere Spielereien möglich, die jeden CSS-Parser aus dem Konzept
+bringen. Dateien, die ``.css`` heißen, werden nicht weiter verarbeitet.
 
 .. literalinclude:: guideline.css
    :language: css
