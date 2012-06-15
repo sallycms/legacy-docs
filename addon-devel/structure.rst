@@ -2,8 +2,9 @@ Aufbau
 ======
 
 Zur korrekten Funktionsweise eines AddOns müssen mindestens zwei Dateien
-existieren: Die :file:`static.yml`, die die Konfiguration des AddOns enthält,
-und eine :file:`config.inc.php`, die zum "Booten" des AddOns eingebunden wird.
+existieren: Die :file:`composer.json`, die die Konfiguration des Pakets (und
+ggf. weitere, Sally-spezifische Angaben) enthält, und eine :file:`boot.php`,
+die zum "Booten" des AddOns eingebunden wird.
 
 Es gibt noch einige weitere Dateien, die von besonderer Bedeutung sind. Diese
 werden im Folgenden ebenfalls beschrieben. Eine empfohlene Struktur für AddOns
@@ -18,106 +19,135 @@ sieht wie folgt aus:
 
   /sally/
   +- addons/
-     +- myaddon/
-        +- assets/              CSS/JS/Bilder (*)
-        +- develop/             Beispielinhalte und Vorlagen für die Projektentwicklung (wenn nötig)
-        +- docs/                Dokumentation
-        +- lang/                Sprachdateien
-        +- lib/                 Bibliotheken, Controller, ...
-        +- views/               Templates
-        +- config.inc.php       Bootstrap-Script (*)
-        +- defaults.yml         Standardkonfiguration (*)
-        +- globals.yml          globale Konfigurationsdaten (*)
-        +- install.inc.php      Script zur Installation (*)
-        +- install.sql          Datenbank Setup-Script (*)
-        +- static.yml           statische Infos des AddOns (*)
-        +- uninstall.inc.php    Script zur Deinstallation (*)
-        +- uninstall.sql        Datenbank Uninstall-Script (*)
-        +- LICENSE              Lizenzdatei
+     +- initech/
+       +- myaddon/
+          +- assets/              CSS/JS/Bilder (*)
+          +- develop/             Beispielinhalte und Vorlagen für die Projektentwicklung (wenn nötig)
+          +- docs/                Dokumentation
+          +- lang/                Sprachdateien
+          +- lib/                 Bibliotheken, Controller, ...
+          +- views/               Views (Templates)
+          +- boot.php             Bootstrap-Script (*)
+          +- composer.json        statische Infos des Pakets/AddOns (*)
+          +- defaults.yml         Standardkonfiguration (*)
+          +- globals.yml          globale Konfigurationsdaten (*)
+          +- install.php          Script zur Installation (*)
+          +- install.sql          Datenbank Setup-Script (*)
+          +- uninstall.php        Script zur Deinstallation (*)
+          +- uninstall.sql        Datenbank Uninstall-Script (*)
+          +- LICENSE              Lizenzdatei
 
-static.yml
-----------
+composer.json
+-------------
 
 .. note::
 
   Diese Datei muss zwingend für jedes AddOn existieren.
 
-In der :file:`static.yml` liegen die *statischen* Informationen über das AddOn,
+In der :file:`composer.json` liegen die statischen Informationen über das AddOn,
 wie beispielsweise der Autor, die Version oder der Link zur Website. Diese Daten
-können sich zur Laufzeit *nicht ändern*. In dieser Datei können neben den von
-Sally benötigten Daten auch noch weitere Daten abgelegt werden (solange diese
-niemals im Code geändert werden sollen).
+können über die Sally-API ausschließlich ausgelesen, aber nicht geändert werden.
+In dieser Datei können neben den von Composer vorgeschriebenen Inhalten auch
+noch weitere Informationen abgelegt werden (um z.B. einen Link im Backend-Menü
+zu definieren). Diese zusätzlichen Informationen werden dann in
+``extra/sallycms/...`` abgelegt.
 
-Eine :file:`static.yml` könnte wie folgt aussehen:
+Eine :file:`composer.json` könnte wie folgt aussehen:
 
-.. sourcecode:: yaml
+.. sourcecode:: javascript
 
-  name: 'Mein AddOn'
-  page: 'myaddon'
-  author: 'Tom Mustermann'
-  supportpage: 'http://www.example.com/'
-  version: '1.0'
-  sally: ['0.5.8', '0.5.9', '0.6']
-  requires: ['developer_utils', 'metainfo', 'varisale/coupon']
-  mycustomvalue: 'foo'
-  is_awesome:
-    monday: 'yes'
-    sunday: 'no'
+  {
+    "name": "sallycms/be-search",
+    "description": "AddOn for SallyCMS, providing better navigation capabilities.",
+    "authors": [{"name": "webvariants GbR"}],
+    "homepage": "http://www.sallycms.de/",
+    "version": "1.0.2",
+    "license": "MIT",
+    "type": "sallycms-addon",
+    "require": {
+      "sallycms/composer-installer": "*",
+      "sallycms/sallycms": "0.7,0.8",
+      "php": ">=5.2.0",
+      "sallycms/another-addon": "4.*",
+      "initech/stapler": "5.*"
+    },
+    "autoload": {
+      "psr-0": {"": "lib/"}
+    },
+    "extra": {
+      "sallycms": {
+        "page": "foo"
+      }
+    }
+  }
 
-Hier die Beschreibung der einzelnen Werte:
+Bis auf den ``type`` unterscheidet sich ein AddOn also nicht von jedem anderen
+Composer-Paket, insofern sollte man auch mit der `offiziellen Dokumentation`_
+vertraut sein. Folgende Angaben sind für Sally relevant:
+
+.. _offiziellen Dokumentation: http://getcomposer.org/doc/04-schema.md
 
 **name**
-  angezeigter Name des AddOns (erzeugt automatisch einen Menü-Eintrag und einen
-  Link zum Controller ``sly_Controller_Myaddon`` (abgeleitet vom
-  Verzeichnisnamen des AddOns)).
+  Name des AddOns. Der Name muss dem Schema **vendor/addon** folgen und
+  ebenfalls mit dem Verzeichnispfad übereinstimmen, in dem das AddOn liegt
+  (:file:`sally/addons/vendor/addon`).
 
-**page**
-  Gibt an, auf welchen Controller der Link im Menü zeigen soll. Praktisch, wenn
-  der Name des AddOns nicht 1:1 auf den Controllernamen gemapt werden soll.
+**authors** (benötigt)
+  Der oder die Autoren des AddOns; im Gegensatz zu Composer ist dieser Wert für
+  ein Sally-AddOn eine **Pflichtangabe**.
 
-**author** (benötigt)
-  Der oder die Autoren des AddOns
-
-**supportpage**
+**homepage**
   Eine URL zur Projektseite des AddOns (z.B. zum Repository)
 
-**version**
-  Die Version des AddOns. Das Format kann frei gewählt werden, da die Angabe
-  ebenfalls optional ist.
+**version** (benötigt)
+  Die Version des AddOns. Das Format muss dem von Composer `vorgegebenen Format`_
+  folgen.
 
-**sally** (benötigt)
-  Eine Liste von Versionen, mit denen das AddOn kompatibel ist. ``'0.6'`` passt
-  auf alle Versionen der 0.6.x-Linie. ``0.5.8`` matcht nur auf diese konkrete
-  Version.
+.. _vorgegebenen Format: http://getcomposer.org/doc/04-schema.md#version
 
-**requires**
-  Hier kann eine Liste von benötigten AddOns und Plugins notiert werden. Diese
-  werden dann **vor** dem eigentlichen AddOn geladen und müssen ebenfalls
-  aktiviert sein, damit das AddOn geladen wird. Sind nicht alle benötigten
-  AddOns vorhanden, lässt Sally keine Installation zu. AddOns werden über ihren
-  Namen angegeben (``'developer_utils'``), Plugins als Kombination aus AddOn-
-  und Pluginname (``'varisale/coupon'``).
+**type** (benötigt)
+  muss für ein AddOn zwingend ``sallycms-addon`` sein.
 
-**(weitere Infos)**
-  (nach Wunsch)
+**require** (benötigt)
+  Enthält die Abhängigkeiten des AddOns. AddOns können andere AddOns oder
+  beliebige andere Pakete erfordern. Benötigte Pakete, die keine AddOns sind,
+  werden nach :file:`sally/vendor` installiert.
 
-.. note::
+  AddOns müssen immer ``sallycms/composer-installer`` in einer beliebigen
+  Version (damit der Typ ``sallycms-addon`` bekannt ist) sowie
+  ``sallycms/sallycms`` (Sally selbst) erfordern. Die Versionsangabe von Sally
+  **muss** in der Form ``"version,version,version"`` erfolgen, wobei jede
+  Version die numerische Sally-Version ist (z.B. ``"0.6,0.7.1,0.7.2"``).
 
-  Alle Versionsnummern sollten als **Strings** notiert werden, damit sie beim
-  Parsen nicht in Floats umgewandelt werden. Das gilt sowohl für die eigene
-  Version als auch für die Versionen im ``sally``-Key.
-
-Die Informationen aus der :file:`static.yml` werden beim Laden des AddOns in die
-Konfiguration an die Stelle ``ADDON/myaddon/...`` geladen und stehen über den
-AddOn-Service zum Abfruf bereit.
+  Benötigte AddOns werden immer **vor** dem AddOn, das sie benötigt, geladen.
 
 .. note::
 
-  Die :file:`static.yml` wird nur geladen, wenn das AddOn installiert und
-  aktiviert ist.
+  Die Angaben zum Autoloader (``autoload``) sind optional und werden von Sally
+  bisher nicht ausgewertet (da Composer keinen 5.2-kompatiblen Autoloader
+  erzeugt). Die in einem AddOn enthaltenen Klassen müssen in der
+  :file:`boot.php` über den ``sly_Loader`` auffindbar gemacht werden.
 
-config.inc.php
---------------
+Unter ``sallycms/extra`` können die folgenden weiteren Keys definiert werden:
+
+**page**
+  Wenn angegeben, wird ein Link im Backend-Menü erzeugt, der auf ``?page=...``
+  zeigt. Der Name des Links muss dazu über den Key ``name`` angegeben werden.
+
+**name**
+  der Name des Links (siehe oben; nur relevant, wenn ``page`` gegegeben ist)
+
+Alle Daten aus der :file:`composer.json` können über den AddOn-Service sowie
+über den AddOn-Package-Service abgerufen werden.
+
+.. sourcecode:: php
+
+  <?php
+  $addonService = sly_Service_Factory::getAddOnService();
+  print $addonService->getComposerKey('initech/stapler', 'version');
+
+boot.php
+--------
 
 .. note::
 
@@ -134,9 +164,9 @@ relativ früh im Sally-Prozess statt, sodass hier noch nicht alle Bestandteile
 fertig initialisiert sind. So steht der Controller noch nicht fest, ebenso wie
 noch kein Artikel gesucht oder Sprache erkannt wurde.
 
-Es wird daher empfohlen, in der :file:`config.inc.php` nur "billige" Operationen
+Es wird daher empfohlen, in der :file:`boot.php` nur "billige" Operationen
 vorzunehmen (keine Datenbank-Queries, keine teuren Berechnungen, ...) und die
-eigentlichen Operationen mindestens bis zum Event ``ADDONS_INCLUDED``
+eigentlichen Operationen mindestens bis zum Event ``SLY_ADDONS_LOADED``
 zurückzustellen. Beim Eintreten dieses Events sind alle Event-Listener der
 AddOns registriert, die APIs stehen zur Verfügung und man kann von einem
 sauberen System ausgehen. Auch kann es sich lohnen, mittels
@@ -145,7 +175,7 @@ sich möglichst intelligent und ressourcenschonend ins System zu integrieren.
 
 .. warning::
 
-  Da die :file:`config.inc.php` immer eingebunden wird, ist nicht garantiert,
+  Da die :file:`boot.php` immer eingebunden wird, ist nicht garantiert,
   dass auch ein Benutzer eingeloggt ist (im Frontend wird beispielsweise
   standardmäßig gar keine Session gestartet). Man sollte in seinem Boot-Script
   also vorsichtig den Systemzustand abklopfen, wenn man nicht aus Versehen die
@@ -155,7 +185,7 @@ sich möglichst intelligent und ressourcenschonend ins System zu integrieren.
 
   <?php
 
-  $here = SLY_ADDONFOLDER.'/myaddon';
+  $here = rtrim(dirname(__FILE__), DIRECTORY_SEPARATOR);
 
   // dafür sorgen, dass Sally unsere Klassen findet
   sly_Loader::addLoadPath($here.'/lib');
@@ -173,7 +203,7 @@ sich möglichst intelligent und ressourcenschonend ins System zu integrieren.
   // Event-Listener registrieren
   $dispatcher = sly_Core::dispatcher();
 
-  $dispatcher->register('ADDONS_INCLUDED',    array('Myaddon', 'initMe'));
+  $dispatcher->register('SLY_ADDONS_LOADED',  array('Myaddon', 'initMe'));
   $dispatcher->register('SLY_ARTICLE_OUTPUT', array('Myaddon', 'fixSpellingMistakesByMagic'));
 
 defaults.yml
