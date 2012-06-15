@@ -5,6 +5,9 @@ Auf diesen Seiten werden die Grundfunktionen von Sally beschrieben. Wir freuen
 uns über jede Mitarbeit :-) Wenn euch also etwas auffällt, was hier noch fehlt,
 zögert nicht und :doc:`erweitert die Dokumentation <contributing/docs>`.
 
+Es steht ebenfalls eine generierte `API-Dokumentation <coco/index.html>`_ zur
+Verfügung.
+
 Für Anwender
 ------------
 
