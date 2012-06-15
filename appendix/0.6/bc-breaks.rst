@@ -94,7 +94,30 @@ Sally-Releases dokumentiert.
   ``($x, $y, $blur, $color)`` zu ``($x, $y, $blur, $spread, $color = '')``
   geändert. Die alte Syntax kann weiterhin verwendet werden.
 
-0.6.3 -> 0.6.next
+0.6.3 -> 0.6.5
+--------------
+
+* jQueryUI wurde auf 1.8.21 aktualisiert.
+* Nutzer müssen die Berechtigung Apps/Backend erhalten, um das Backend zu nutzen
+  (gilt nur für Nicht-Admins).
+* AddOns können über das neue Event ``SLY_USER_FILTER_WHERE`` die Nutzerliste im
+  Backend mitfiltern.
+* Benutzer, die andere Benutzer nur einsehen, aber nicht bearbeiten dürfen,
+  sehen eine gekürzte Version des Nutzerformulars, das über das neue Event
+  ``SLY_USER_VIEW_FORM`` verändert werden kann.
+* In ``sly_Util_Pager`` können Elemente ausgelassen werden, indem ihre Texte
+  auf leere Strings gesetzt werden.
+* ``sly_Util_User::findById($userId)`` wurde hinzugefügt.
+* Das Interface von ``sly_Mail`` ist nun fluid. Alle Setter geben nun immer die
+  Instanz selbst zurück.
+* Die Liste möglicher HTTP-Codes in ``sly_Util_HTTP::redirect()`` wurde
+  erweitert.
+* ``sly_Form_ElementBase->setValue()``, ``->setName()`` und ``->setID()`` wurden
+  hinzugefügt.
+* ``sly_Util_String::humanImplode()`` kann mit assoziativen Arrays aufgerufen
+  werden.
+
+0.6.5 -> 0.6.next
 -----------------
 
 * Das wird die Zeit zeigen...

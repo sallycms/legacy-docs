@@ -1,6 +1,40 @@
 Changelog
 =========
 
+0.6.5 (15. Juni 2012)
+---------------------
+
+.. note::
+
+  Dieses Release enthält kleinere :doc:`BC-Breaks <bc-breaks>`.
+
+* jQueryUI wurde auf 1.8.21 aktualisiert.
+* Nutzer müssen die Berechtigung Apps/Backend erhalten, um das Backend zu nutzen
+  (gilt nur für Nicht-Admins).
+* Non-Admins können die Rechte erhalten, auf die Nutzerverwaltung zuzugreifen
+  und Nutzer anzulegen, bearbeiten und zu löschen. Non-Admins dürfen Admins
+  dabei nur eingeschränkt bearbeiten und sich niemals selbst zum Admin erheben.
+* AddOns können über das neue Event ``SLY_USER_FILTER_WHERE`` die Nutzerliste im
+  Backend mitfiltern.
+* In ``sly_Util_Pager`` können Elemente ausgelassen werden, indem ihre Texte
+  auf leere Strings gesetzt werden.
+* ``sly_Util_User::findById($userId)`` wurde hinzugefügt.
+* Das Interface von ``sly_Mail`` ist nun fluid.
+* Die Liste möglicher HTTP-Codes in ``sly_Util_HTTP::redirect()`` wurde
+  erweitert.
+* ``sly_Form_ElementBase->setValue()``, ``->setName()`` und ``->setID()`` wurden
+  hinzugefügt.
+* ``sly_Util_String::humanImplode()`` kann mit assoziativen Arrays aufgerufen
+  werden.
+* Bugfix: Die Filterfunktion von Tabellen funktionierte nicht.
+* Bugfix: Beim Kopieren von Artikeln traten Fehler auf, wenn der Quellartikel
+  keinen Typ besitzt.
+* Bugfix: Nutzer mit eingeschränkten Rechten wurden in der Strukturansicht im
+  IE9 falsch weitergeleitet.
+* Bugfix: Das min/max-Handling in List-Widgets war fehlerhaft.
+* Bugfix: Notice wenn ein Plugin ein anderes Plugin benötigt korrigiert.
+* weitere kleinere Optimierungen
+
 0.6.4 (29. April 2012)
 ----------------------
 
