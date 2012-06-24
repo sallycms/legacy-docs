@@ -146,7 +146,7 @@ Article-Models
 .. =============================================================================
 
 .. slyevent:: URL_REWRITE
-  :type:    until
+  :type:    filter
   :in:      string
   :out:     string
   :subject: ein leerer String
