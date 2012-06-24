@@ -171,21 +171,3 @@ Sonstige Core-Events
   Listener sollten in diesem Event über die BootCache-API ihre Klassen
   hinzufügen. Dem Event werden daher weder Subject noch weitere Parameter
   mitgegeben.
-
-.. =============================================================================
-
-.. slyevent:: SLY_MEDIUM_FILENAME
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: der bereits vorgefertige Dateiname
-  :since:   0.6.2
-
-  Dieses Event wird ausgeführt, wenn eine neue Datei hochgeladen oder eine
-  Synchronisation im Medienpool ausgeführt wird. Als Eingabe (Subject) dient
-  der bereits vorbereitete Dateiname (z.B. ``tuer.jpg``, wenn eine ``tür.jpg``
-  hochgeladen wurde), bei dem die Deutschen Umlaute und das ß bereits ersetzt
-  wurden. Listener können weitere Ersetzungen vornehmen (z.B. **é** in **e**
-  ersetzen). Im Anschluss an das Event werden alle nicht-alphanumerischen
-  Zeichen entfernt, es ist also nicht möglich, Dateinamen mit Sonderzeichen
-  zurückzugeben und im Medienpool zu verwenden.
