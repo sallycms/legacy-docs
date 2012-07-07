@@ -38,7 +38,10 @@ Slice-Handling
     article_id  (int)
     clang       (int)
 
-  wird **vor** dem Speichern eines neuen Slices ausgeführt
+  wird **vor** dem Speichern eines neuen Slices ausgeführt; seit Version 0.7
+  besteht das Subject nur noch aus den beiden Keys ``SAVE`` und ``VALUES`` (
+  ``MESSAGES`` wurden entfernt, da für Meldungen die Flash-Message benutzt
+  werden sollte).
 
 .. =============================================================================
 
@@ -52,7 +55,10 @@ Slice-Handling
     article_id  (int)
     clang       (int)
 
-  wird **vor** dem Aktualisieren eines Slices ausgeführt
+  wird **vor** dem Aktualisieren eines Slices ausgeführt; seit Version 0.7
+  besteht das Subject nur noch aus den beiden Keys ``SAVE`` und ``VALUES`` (
+  ``MESSAGES`` wurden entfernt, da für Meldungen die Flash-Message benutzt
+  werden sollte).
 
 .. =============================================================================
 
@@ -66,44 +72,35 @@ Slice-Handling
     article_id  (int)
     clang       (int)
 
-  wird **vor** dem Löschen eines Slices ausgeführt
+  wird **vor** dem Löschen eines Slices ausgeführt; seit Version 0.7
+  besteht das Subject nur noch aus den beiden Keys ``SAVE`` und ``VALUES`` (
+  ``MESSAGES`` wurden entfernt, da für Meldungen die Flash-Message benutzt
+  werden sollte).
 
 .. =============================================================================
 
 .. slyevent:: SLY_SLICE_POSTSAVE_ADD
-  :type:    filter
-  :in:      mixed
-  :out:     array
-  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
-            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
-            sie erweitern können)
-  :params:  article_slice_id (int)
+  :type:    notify
+  :in:      int
+  :subject: die Artikelslice-ID
 
   wird **nach** dem Speichern eines neuen Slices ausgeführt
 
 .. =============================================================================
 
 .. slyevent:: SLY_SLICE_POSTSAVE_EDIT
-  :type:    filter
-  :in:      mixed
-  :out:     array
-  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
-            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
-            sie erweitern können)
-  :params:  article_slice_id (int)
+  :type:    notify
+  :in:      int
+  :subject: die Artikelslice-ID
 
   wird **nach** dem Aktualisieren eines Slices ausgeführt
 
 .. =============================================================================
 
 .. slyevent:: SLY_SLICE_POSTSAVE_DELETE
-  :type:    filter
-  :in:      mixed
-  :out:     array
-  :subject: die Erfolgsmeldungen (der erste Listener erhält einen leeren String
-            als Subject, alle folgenden erhalten ein Array von Nachrichten, das
-            sie erweitern können)
-  :params:  article_slice_id (int)
+  :type:    notify
+  :in:      int
+  :subject: die Artikelslice-ID
 
   wird **nach** dem Löschen eines Slices ausgeführt
 

@@ -7,17 +7,6 @@ macht es einfacher, die gewünschte Funktionalität zu finden.
 Dateisystem
 -----------
 
-.. note::
-
-  Die Verzeichnisstruktur wurde zwischen Version 0.4 und 0.5 grundlegend
-  überarbeitet. AddOns müssen daher mit an Sicherheit grenzender
-  Wahrscheinlichkeit für 0.5 angepasst werden.
-
-.. note::
-
-  Zwischen 0.5 und 0.6 hat sich das ``data``-Verzeichnis wieder zurück in den
-  Root des Projekts bewegt.
-
 ::
 
   /
@@ -29,8 +18,11 @@ Dateisystem
   |  +- templates/
   +- sally/                  Core, AddOns, Backend und dynamisch generierte Inhalte
      +- addons/              AddOns
-     |  +- addon1/
-     |  +- addon2/
+     |  +- vendora/
+     |  |  +- addon1/
+     |  |  +- addon2/
+     |  +- vendorb/
+     |  |  +- addon3/
      +- backend/             Backend-Anwendung
      |  +- assets/           CSS/JS des Backends
      |  +- lang/             Sprachdateien
@@ -39,11 +31,7 @@ Dateisystem
      +- core/
      |  +- config/           Default-Konfiguration
      |  +- install/          SQL-Dumps zur Installation
-     |  +- lib/              Sammlung von Bibliotheken
-     |  |  +- babelcache/    BabelCache: Cachingsystem
-     |  |  +- Scaffold/      Scaffold: erweitert und minimiert CSS
-     |  |  +- sfYaml/        sfYaml: YAML-Parser
-     |  |  +- sly/           Core-eigene Bibliothek
+     |  +- lib/              Core-eigene Bibliothek
      |  +- views/            Templates Core-Komponenten (sly_Form / ...)
      |  +- loader.php
      |  +- master.php
@@ -51,6 +39,11 @@ Dateisystem
      +- frontend/            Frontend-Anwendung
      |  +- lib/              Controller, App
      +- tests/               Unittests
+     +- vendor/              weitere Bibliotheken
+        +- fabpot/
+        |  +- yaml/
+        +- leafo
+           +- lessphp/
 
 Sally unterscheidet grundlegend drei Bereiche:
 
