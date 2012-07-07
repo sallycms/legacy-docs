@@ -66,10 +66,10 @@ Häufige Startprobleme
 
   Wenn eine ``RewriteBase`` gesetzt wurde, muss diese auch im Asset-Cache von
   Sally eingetragen werden. Dazu hat Sally nach dem ersten Aufruf des Systems
-  bereits die Datei :file:`data/dyn/internal/sally/static-cache/.htaccess`
+  bereits die Datei :file:`data/dyn/public/sally/static-cache/.htaccess`
   angelegt. Wenn in der Frontend-:file:`.htaccess` die Basis ``/myproject/``
   eingetragen wurde, muss im Asset-Cache die Basis
-  ``/myproject/data/dyn/internal/sally/static-cache/`` notiert werden.
+  ``/myproject/data/dyn/public/sally/static-cache/`` notiert werden.
 
 Installation
 ------------
