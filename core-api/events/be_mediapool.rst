@@ -9,7 +9,7 @@ enthalten sind die Events, die vom :doc:`Medium-Model <core_media>` und vom
   :type:    filter
   :in:      array
   :out:     array
-  :subject: das ``sly_Layout_Navigation_Page``-Objekt des Medienpools
+  :subject: das ``sly_Layout_Navigation_Page``-Objekt des Medienpools (kann ``null`` sein)
 
   wird ausgeführt, bevor das Submenü des Medienpool-Popups ausgegeben wird
 

@@ -24,26 +24,17 @@ für Slices.
 
 .. slyevent:: SLY_ART_META_UPDATED
   :type:    notify
-  :in:      null
+  :in:      sly_Model_Article
   :since:   0.5.0
-  :subject: N/A
+  :subject: der Artikel, dessen Metadaten aktualisiert wurden
   :params:
-    id     (int)
-    clang  (int)
+    id     (int)  (deprecated seit 0.7.0)
+    clang  (int)  (deprecated seit 0.7.0)
 
   Wird ausgeführt, nachdem die **Metadaten** eines Artikels aktualisiert wurden.
-  Vor Version 0.5 hieß dieses Event noch ``ART_META_UPDATED``.
-
-.. =============================================================================
-
-.. slyevent:: SLY_ART_MESSAGES
-  :type:    notify
-  :in:      sly_Model_Article
-  :since:   0.4.0
-  :subject: der aktuell im Backend bearbeitete Artikel
-
-  ermöglicht das Anzeigen von Erfolgs/Fehlernachrichten auf der Sliceseite
-  (insbesondere nützlich, nachdem auf ``SLY_ART_META_UPDATED`` reagiert wurde)
+  Vor Version 0.5 hieß dieses Event noch ``ART_META_UPDATED``. Seit Version 0.7
+  wird der betroffene Artikel als Subject übergeben und die beiden Parameter
+  sind als deprecated markiert worden.
 
 .. =============================================================================
 
