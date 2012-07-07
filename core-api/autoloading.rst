@@ -25,7 +25,7 @@ Case Collisions
 Der o.g. Algorithmus ist **case sensitive**, wird also die Klasse ``Foo`` nicht
 in der Datei :file:`foo.php` finden. Dies ist im Prinzip nur unter Windows
 problematisch, da NTFS **case insensitive** arbeitet und so bei Tippfehlern
-Probleme entstehen, die erst beim Deployment auf ein unioxides Dateisystem
+Probleme entstehen, die erst beim Deployment auf ein unixoides Dateisystem
 bemerkt werden.
 
 .. note::
