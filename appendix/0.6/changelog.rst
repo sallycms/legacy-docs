@@ -1,6 +1,52 @@
 Changelog
 =========
 
+0.6.6 (7. Juli 2012)
+--------------------
+
+* Bei der Datenbankkonfiguration können nun auch Socket-Pfade
+  (``/tmp/mysql.sock``) oder Hosts mit Port (``localhost:1234``) angegeben
+  werden.
+* Encoding-Probleme in PHP 5.4 wurden vorerst umgangen, bis die relevanten
+  PHP-Bugs behoben wurden. Damit werden Assets wieder beim ersten Requests
+  korrekt ausgeliefert.
+* Beim Synchronisieren von Dateien im Medienpool wird nun der Dateiname als
+  Medientitel gesetzt.
+* Der Medienpool-Patch für Chrome 18 wurde nun auch für Chrome 20 angewandt, da
+  der Chrome-Bug wieder aufgetaucht ist.
+* Userland-Code kann im Backend nun Links mit der Klasse ``.sly-confirm-me``
+  versehen, um einen Klick mit einem JavaScript ``confirm()``-Aufruf zu
+  versehen. Die bisherige Klasse ``.sly-delete`` existiert weiterhin, deren
+  Bestätigungsfrage könnte sich allerdings in einem späteren Release von
+  "Sicher?" auf "Sicher, dass das Element gelöscht werden soll?" ändern. Für
+  allgemeine Sicherheitsabfragen wird daher ``.sly-confirm-me`` empfohlen.
+* ``sly_DB_PDO_Persistence->all()`` kann nun den `PDO-Fetchmodus`_ übergeben
+  bekommen.
+* ``sly_Util_User::exists($id)`` und ``::isValid()`` wurden hinzugefügt.
+* ``sly_Util_ArticleSlice::findByArticle()`` wurde hinzugefügt.
+* ``sly_Response`` wurde mit dem aktuellen Stand von Symfony2 synchronisiert.
+  Dabei wurde auch ``sly_Response_Stream`` hinzugefügt, die Dateien als
+  Chunked Response zum Client senden kann.
+* Bugfix: AddOns, die nicht installiert waren, wurden nie auf Änderungen an der
+  ``static.yml`` überprüft und wurden daher im Zweifelsfall nie als kompatibel
+  markiert (:redmine:`6395`, :redmine:`6512`).
+* Bugfix: Die Detailseite des Medienpools kam mit den Output Buffern
+  durcheinander (:redmine:`6459`).
+* Bugfix: Beim Löschen von Sprachen wurde der Laufzeitcache nicht korrekt
+  geleert, sodass AddOns, die direkt im Event ``CLANG_DELETED`` auf die Sprachen
+  zugreifen wollten, fehlerhafte Informationen erhielten.
+* Bugfix: ``; charset=UTF-8`` wird nun nur noch bei ``text/*``- und
+  ``application/javascript``-Responses hinzugefügt.
+* Bugfix: Der Asset-Cache streamt nun wieder korrekt die Dateien zum Client,
+  nachdem sie erzeugt wurden.
+* Bugfix: Nach dem Entfernen eines AddOns aus der Konfiguration tauchte es immer
+  noch für einen weiteren Request im Backend auf. Außerdem werden nun die
+  dynamischen Dateien von AddOns gelöscht, wenn das AddOn gelöscht wird
+  (:redmine:`6499`).
+* weitere kleinere Verbesserungen
+
+.. _PDO-Fetchmodus: http://php.net/manual/de/pdostatement.fetchall.php
+
 0.6.5 (15. Juni 2012)
 ---------------------
 
