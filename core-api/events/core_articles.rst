@@ -137,11 +137,15 @@ Article-Models
     old_type (string)  der vorherige Artikeltyp
 
   Dieses Event wird ausgeführt, nachdem der Typ eines Artikels geändert wurde.
-  Es wird 1x pro Artikel ausgeführt.
 
 .. note::
 
   Der Typ eines Artikels ist immer über alle Sprachen gleich.
+
+.. note::
+
+  Im Gegensatz zu den anderen Events wird dieses Event **nicht** pro Sprache
+  ausgeführt!
 
 .. =============================================================================
 
