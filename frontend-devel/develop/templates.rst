@@ -116,8 +116,8 @@ nur dadurch zu einer Condition, dass jemand für ihn einen Evaluator registriert
 hat.
 
 Die Templates, zwischen denen anhand einer Condition unterschieden werden soll,
-müssen den gleichen internen Namen verwenden (ohne Conditions wäre dies nicht
-erlaubt).
+müssen den **gleichen internen Namen** verwenden (ohne Conditions wäre dies
+nicht erlaubt).
 
 Beispiel
 ^^^^^^^^
@@ -135,11 +135,15 @@ beim Artikeltyp als Template angegeben).
    :language: php
    :lines: 10-17
 
+Wenn Sally nun versucht, das Template ``default`` anzuzeigen, muss es die
+Mehrdeutigkeit auflösen. Dazu werden alle registrierten Evaluatoren
+aufgefordert, die Liste der Dateien "aufzuräumen".
+
 Die Condition **mobile** kann wie folgt ausgewertet werden:
 
 .. literalinclude:: condition.template.php
    :language: php
-   :lines: 19-39
+   :lines: 19-59
 
 Dieser Evaluator muss nun noch beim Sally-Core registriert werden, damit er
 aufgerufen wird, wenn Sally das Template eines Artikels im Frontend benötigt.
@@ -148,7 +152,7 @@ Condition und der Callback übergeben wird.
 
 .. literalinclude:: condition.template.php
    :language: php
-   :lines: 41-
+   :lines: 61-
 
 Das Registrieren des Evaluators muss erfolgen, **bevor** Artikel angezeigt
 werden sollen. Im Template oder in Modulen ist es also bereits zu spät. AddOns
