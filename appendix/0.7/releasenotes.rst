@@ -542,7 +542,7 @@ Konfiguration
 API
 ^^^
 
-* Datenbank
+* **Datenbank**
 
   * Datenbank-Dumps müssen nun eine Composer-kompatible Versionsangabe erhalten.
     Das bedeutet, dass ``-- Sally Database Dump Version 0.7`` wirklich nur
@@ -563,7 +563,7 @@ API
   zurückgegeben wird (Casts finden nur statt, wenn der gesuchte Key in den
   Superglobalen gefunden wurde). Dies entspricht dem Verhalten frührerer
   Sally-Versionen.
-* Models
+* **Models**
 
   * ``sly_Model_ArticleSlice``
 
@@ -596,7 +596,7 @@ API
   * ``->setUpdateColumns()`` und ``->setCreateColumns()`` können auch mit dem
     Loginnamen eines Nutzers als String aufgerufen werden.
 
-* AddOnsystem
+* **AddOnsystem**
 
   * Die bestehenden Services wurden durch die folgenden neuen ersetzt:
 
@@ -619,7 +619,7 @@ API
   * AddOns müssen nun immer über ihren vollen Namen innerhalb der Services
     referenziert werden. Es heißt also ``->isInstalled('sallycms/be-search')``.
 
-* Services
+* **Services**
 
   * Da neben YAML-Dateien für die Konfiguration nun auch JSON-Dateien (von
     Composer) eingelesen werden müssen, wurde ein ``sly_Util_JSON`` ergänzt.
@@ -656,7 +656,7 @@ API
     ``->processLessCSS()`` ersetzt.
   * ``sly_Service_User->setCurrentUser($user)`` wurde ergänzt.
 
-* Utilities
+* **Utilities**
 
   * ``sly_Util_AddOn`` wurde ergänzt und bringt eine ganze Reihe Komfort-Methoden
     mit:
