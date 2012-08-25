@@ -83,3 +83,14 @@ Schema-Updates
      CHANGE COLUMN `created` `createdate`  DATETIME NOT NULL AFTER `timezone`,
      CHANGE COLUMN `updated` `updatedate`  DATETIME NOT NULL AFTER `createdate`,
      CHANGE COLUMN `lasttry` `lasttrydate` DATETIME NOT NULL AFTER `rights`;
+
+  -- change engine to InnoDB
+
+  ALTER TABLE `sly_article`       ENGINE=InnoDB;
+  ALTER TABLE `sly_article_slice` ENGINE=InnoDB;
+  ALTER TABLE `sly_clang`         ENGINE=InnoDB;
+  ALTER TABLE `sly_file`          ENGINE=InnoDB;
+  ALTER TABLE `sly_file_category` ENGINE=InnoDB;
+  ALTER TABLE `sly_registry`      ENGINE=InnoDB;
+  ALTER TABLE `sly_slice`         ENGINE=InnoDB;
+  ALTER TABLE `sly_user`          ENGINE=InnoDB;
