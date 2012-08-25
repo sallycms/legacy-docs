@@ -246,6 +246,12 @@ wird, wenn ein AddOn die Angaben ``page`` und/oder ``name`` in seiner
 Konfiguration hatten, entfernt. Erweiterungen des Menüs müssen immer über die
 Backend-API erfolgen.
 
+Innerhalb von Sally wird außerdem der Begriff "component" nicht mehr verwendet.
+AddOns heißen nun auch im Code "addons", da die Unterscheidung zwischen AddOns
+und Plugins entfernt wurde und nun kein Oberbegriff mehr nötig ist. Mehr
+Hinweise zu Plugins und was aus ihnen geworden ist, liefert der nächste
+Abschnitt.
+
 Plugins
 """""""
 
@@ -357,6 +363,8 @@ Der gesamte Prozess hat uns stolze 33 Monate gekostet (im
 `Dezember 2009 <https://bitbucket.org/SallyCMS/trunk/changesets/tip/0>`_ haben
 wir geforkt). ;-)
 
+.. _innodb:
+
 InnoDB
 """"""
 
@@ -420,3 +428,297 @@ doppelt abgeschickte Formulare effektiv vermeiden und teils auch den Controller
 
 Meldungen bleiben solange im Flash-Message-Objekt, bis sie gerendert wurden. Zum
 Rendern steht ``sly_Helper_Message::renderFlashMessage()`` zur Verfügung.
+
+Passwort-Hashing
+""""""""""""""""
+
+Sally verwendete seit einiger Zeit SHA-1-Hashes, die 1.000mal iteriert und mit
+einem nutzerspezifischen Salt (dem ``createdate``) versehen. Dies war vor
+einigen Jahren noch sicher, heute jedoch im Angesicht von Clouds und
+GPU-Clustern nicht mehr state-of-the-art.
+
+Aus diesem Grund haben wir uns entschieden, das Hashing-Verfahren zu verbessern
+und jeweils die Technik zu nutzen, die auf einem Host verfügbar ist. Ab PHP 5.3
+steht die optimale Variante (bcrypt) immer zur Verfügung. Ist bcrypt nicht
+verfügbar, wird PBKDF2 ausprobiert. Steht dieser Algorithmus ebenso nicht zur
+Verfügung (wenn die ``hash``-Erweiterung fehlt), wird auf SHA-1 zurückgegriffen.
+
+Diese Änderung führt zu einer deutlich verbesserten Sicherheit der Hashes, da
+auch die Salts nun Zufallsstrings und kein erratbarer Werte mehr darstellen.
+
+Sie führt allerdings auch dazu, dass ein Datenbank-Dump (mit enthaltenen
+Nutzerkonten) potentiell auf einem anderen Server nicht nutzbar ist: Wurde auf
+dem Quellsystem PHP 5.3 verwendet, enthält die Datenbank bcrypt-Hashes. Ist dies
+auf dem Zielsystem nicht verfügbar, ist kein Login möglich.
+
+Gleichzeitig werden Hashes immer auf das beste mögliche Verfahren upgegradet.
+Wird also auf einem PHP 5.3-System ein Dump eingespielt, der SHA-1-Passwörter
+enthält, werden diese beim Login der Benutzer (dem einzigen Zeitpunkt, zu dem
+das Passwort im Klartext bekannt ist) automatisch neu berechnet und durch
+bessere Hashes ersetzt.
+
+API-Änderungen
+--------------
+
+Im Folgenden werden soweit möglich alle API-Änderungen zwischen dem 0.6- und dem
+0.7-Branch beschrieben.
+
+Backend
+"""""""
+
+* In allen Sprachdateien wurden Keys mit ``component_`` in ``addon_`` umbenannt.
+
+Assets
+^^^^^^
+
+* Alle CSS-Dateien wurden nach LESS portiert und heißen nun ``.less``.
+* Der Autocompleter (:file:`assets/js/jquery.autocomplete.min.js`) wurde
+  entfernt.
+* jQuery UI wurde entfernt.
+* jQuery Tools v1.2.7 wurde hinzugefügt. Die Implementierungen für den
+  Datepicker und den Slider wurden neugeschrieben.
+* `js-iso8601 <https://github.com/csnover/js-iso8601>`_ wurde hinzugefügt, um
+  korrektes Handling der Datumsangaben im neugeschriebenen Datepicker zu
+  ermöglichen.
+* Es wurde rudimentärer Support für Sprachdateien in JavaScript ergänzt. Das
+  Backend nutzt jetzt ``(locale).js``-Dateien, um einige Texte zu übersetzen.
+
+Konfiguration
+^^^^^^^^^^^^^
+
+* Es wurde ein Recht für den Zugriff auf die Struktur ergänzt
+  (``pages/structure``).
+* Die bestehenden ``transitional``-Rechte wurde entfernt und in neue Tokens
+  migriert.
+
+Controller
+^^^^^^^^^^
+
+* Die AddOn-Hilfeseiten sind nun auch für Nutzer zugänglich, die das Recht
+  ``pages/addons`` haben.
+* Admins können den Medienpool nutzen, ohne das Recht ``pages/mediapool`` zu
+  haben.
+* Der AddOn-Controller wurde komplett neu geschrieben.
+* Der Content-Controller wurde in großen Teilen neu geschrieben.
+* Die aktuelle Medienkategorie-ID wird im Medienpool nun nicht mehr als
+  ``rex_file_category``, sondern als ``category`` im Query-String übermittelt.
+  Dies betrifft auch den Namen des Session-Keys, in dem die Kategorie hinterlegt
+  wird.
+* Setup-Prozedur
+
+  * Im Setup wird nun die MIT-Lizenz angezeigt, die in den Sprachdateien
+    lokalisiert vorliegt.
+  * Die empfohlene PHP-Version wurde auf 5.4 erhöht.
+
+* Der Mechanismus, über ``page`` und ``name``-Angaben in der :file:`static.yml`
+  einen Menüpunkt anzulegen, wurde entfernt. AddOns müssen immer die PHP-API
+  verwenden, um die Navigation zu erweitern.
+
+API
+^^^
+
+* ``sly_App_Backend::redirect($page, $params)`` wurde hinzugefügt, um in
+  Controllern einfacher zu einer anderen Action via HTTP-Redirect weiterzuleiten.
+  Insbesondere beim Einsatz der Flash-Messages, bei der eine Erfolgsmeldung auch
+  über einen Redirect hinweg überlebt, wird das praktisch.
+* ``sly_Helper_Message::renderFlashMessage($message)`` wurde hinzugefügt, um den
+  Inhalt einer Flash-Message zu rendern (sic!).
+* ``sly_Helper_Package`` wurde hinzugefügt und bringt bisher nur eine einzige
+  Methode mit ``::getSupportPage($package)``.
+
+Core
+""""
+
+Konfiguration
+^^^^^^^^^^^^^
+
+* Die Konfiguration von AddOns wird nun nicht mehr unter ``ADDON`` abgelegt,
+  sondern unter ``addons``.
+* Da ``/`` in der Sally-Konfiguration von besonderer Bedeutung als Pfadtrenner
+  ist, wird der Slash im Namen von AddOns durch ``:`` ersetzt, sodass z.B. der
+  ``install``-Key von Image-Resize unter ``addons/sallycms:image-resize/install``
+  zu erreichen ist.
+
+API
+^^^
+
+* Datenbank
+
+  * Datenbank-Dumps müssen nun eine Composer-kompatible Versionsangabe erhalten.
+    Das bedeutet, dass ``-- Sally Database Dump Version 0.7`` wirklich nur
+    Version 0.7.0 meint, nicht aber spätere Bugfix-Releases. Stattdessen muss
+    ``-- Sally Database Dump Version 0.7.*`` notiert werden. Das wird vom
+    Import/Export-AddOn weiterhin erledigt.
+  * ``sly_DB_Importer``
+
+    * größtenteils neu implementiert um Speicherbedarf zu reduzieren
+    * ``import()`` gibt nichts mehr zurück, sondern wirft Exceptions im
+      Fehlerfall.
+
+* Die Konstante ``SLY_VENDORFOLDER`` wurde hinzugefügt. Sie enthält den
+  vollständigen Pfad zum :file:`sally/vendor`-Verzeichnis.
+* Der Standardwert für die globalen ``sly_*``-Funktionen zum Zugriff auf die
+  Superglobalen wurde von ``''`` (leerer String) zu ``null`` geändert. Hier ist
+  zu beachten, dass der Standardwert weiterhin **nicht gecastet** wird, wenn er
+  zurückgegeben wird (Casts finden nur statt, wenn der gesuchte Key in den
+  Superglobalen gefunden wurde). Dies entspricht dem Verhalten frührerer
+  Sally-Versionen.
+* Models
+
+  * ``sly_Model_ArticleSlice``
+
+    * ``->setSlice($slice)``, ``->setSlot($slot)``, ``->setArticle($article)``
+      und ``->setRevision($rev)`` wurden hinzugefügt.
+
+  * ``sly_Model_ArticleSlice``, ``sly_Model_Slice`` sowie ``sly_Model_ISlice``:
+
+    * ``->setSlice($slice)``, ``->setSlot($slot)``, ``->setArticle($article)``
+      und ``->setRevision($rev)`` wurden hinzugefügt.
+    * ``->addValue()`` wurde in ``->setValue()`` umbenannt.
+    * ``getValue()`` kann nun optional als zweiten Parameter einen ``$default``
+      entgegennehmen.
+    * ``->flushValues()`` wurde entfernt.
+
+  * ``sly_Model_SliceValue`` wurde entfernt.
+  * ``sly_Model_User``
+
+    * ``->getAllowedCategories()`` wurde entfernt, da seit 0.6 defekt.
+    * ``->getAllowedMediaCategories()`` wurde entfernt, da seit 0.6 defekt.
+    * ``->getAllowedModules()`` wurde entfernt, da seit 0.6 defekt.
+    * ``->hasStructureRight()`` wurde entfernt.
+
+  * Innerhalb von Models können nun die Typen ``date`` und ``datetime`` für die
+    Attribute in ``$_attributes`` verwendet werden, um transparent die
+    UNIX-Timestamp auf PHP-Seite in ``DATETIME`` für die Datenbank umzuwandeln.
+  * Alle Setter für Datumsangaben (``->setCreateDate()`` et al.) können nun
+    entweder mit einem UNIX-Timestamp als ``int`` oder einem String der Form
+    ``'YYYY-MM-DD HH:MM:SS'`` aufgerufen werden.
+  * ``->setUpdateColumns()`` und ``->setCreateColumns()`` können auch mit dem
+    Loginnamen eines Nutzers als String aufgerufen werden.
+
+* AddOnsystem
+
+  * Die bestehenden Services wurden durch die folgenden neuen ersetzt:
+
+    * ``sly_Service_Package`` sieht nur Composer-Pakete und kümmert sich darum,
+      deren :file:`composer.json` auszuwerten.
+    * ``sly_Service_AddOn`` dient dem Zugriff auf AddOn-Eigenschaften sowie
+      deren Konfiguration. Hier finden sich weiterhin Methoden wie
+      ``->isInstalled()``, ``->getAuthor()`` etc.
+    * ``sly_Service_AddOn_Manager`` implementiert die Statusübergänge von
+      AddOns. Hier sind ``->install()``, ``->activate()`` etc. implementiert.
+
+  * Der Package-Service kann in der Service-Factory für zwei verschiedene
+    Verzeichnisse abgerufen werden:
+
+    * ``::getAddOnPackageService()`` liefert einen Package-Service, der
+      :file:`sally/addons/` liest.
+    * ``::getVendorPackageService()`` liefert einen Package-Service, der
+      :file:`sally/vendor/` liest.
+
+  * AddOns müssen nun immer über ihren vollen Namen innerhalb der Services
+    referenziert werden. Es heißt also ``->isInstalled('sallycms/be-search')``.
+
+* Services
+
+  * Da neben YAML-Dateien für die Konfiguration nun auch JSON-Dateien (von
+    Composer) eingelesen werden müssen, wurde ein ``sly_Util_JSON`` ergänzt.
+    Dieses Utility basiert nun ebenso wie ``sly_Util_YAML`` auf den File-Services:
+    Die Logik, Dateien einzulesen, zu parsen und ihren geparsten Inhalt so lange
+    zu cachen, bis die Originaldatei sich ändert, ist nun in
+    ``sly_Service_File_Base`` implementiert.
+  * Die Services wurden um neue Komfort-Methoden ergänzt. Grundsätzlich wurden
+    Methoden nach dem Schema ``deleteBy[Modelname]`` ergänzt:
+
+    * Allen Id-Model-Services (Artikel, Kategorien, Medien, Benutzer, ...) steht
+      nun eine ``->deleteById($id)``-Methode zur Verfügung.
+    * ``sly_Service_Article->deleteByArticle($article)`` wurde ergänzt.
+    * ``sly_Service_ArticleSlice->deleteByArticleSlice($slice)`` wurde ergänzt.
+    * ``sly_Service_Category->deleteByCategory($cat)`` wurde ergänzt.
+    * ``sly_Service_Language->deleteByLanguage($language)`` wurde ergänzt.
+    * ``sly_Service_MediaCategory->deleteByCategory($cat)`` wurde ergänzt.
+    * ``sly_Service_Medium->deleteByMedium($medium)`` wurde ergänzt.
+    * ``sly_Service_Slice->deleteBySlice($slice)`` wurde ergänzt.
+    * ``sly_Service_User->deleteByUser($user)`` wurde ergänzt.
+    * ``->delete()`` wurde bei den folgenden Services in ``->deleteById()``
+      umbenannt (``->delete()`` ist nun wieder die geerbte Implementierung vom
+      Base-Service):
+
+      * ``sly_Service_Article``
+      * ``sly_Service_Category``
+      * ``sly_Service_MediaCategory``
+      * ``sly_Service_Medium``
+
+  * ``sly_Service_ArticleSlice->findByArticleClangSlot()`` wurde ergänzt.
+  * Der Parameter ``$clang`` wurde von ``sly_Service_ArticleSlice->move()``
+    entfernt.
+  * ``sly_Service_ArticleSlice->processScaffold()`` wurde durch
+    ``->processLessCSS()`` ersetzt.
+  * ``sly_Service_User->setCurrentUser($user)`` wurde ergänzt.
+
+* Utilities
+
+  * ``sly_Util_AddOn`` wurde ergänzt und bringt eine ganze Reihe Komfort-Methoden
+    mit:
+
+    * ``::isInstalled($addon)``
+    * ``::isAvailable($addon)``
+    * ``::assetBaseUri($addon)``
+    * ``::publicDirectory($addon)``
+    * ...
+
+  * ``sly_Util_Article::findNotFoundArticle()`` wurde ergänzt.
+  * ``sly_Util_Composer`` wurde ergänzt und kümmert sich darum, die
+    :file:`composer.json`-Dateien einzulesen und auszuwerten.
+  * ``sly_Util_FlashMessage`` wurde ergänzt.
+  * ``sly_Util_Password`` wurde neu implementiert, um die verbesserten Hashes zu
+    nutzen. Das Interface ist prinzipiell gleich geblieben.
+  * ``sly_Util_User::getPasswordHash()`` wurde entfernt.
+  * ``sly_Util_Versions::isCompatible()`` wurde ergänzt und führt einen
+    Versionscheck analog zu Composer durch.
+
+* Der alte Dateisystem-Cache (``BabelCache_Filesystem``) ist nicht mehr im
+  Backend verfügbar, da er nie sinnvoller ist als der
+  ``BabelCache_Filesystem_Plain``. Dieser wird nun im Backend als "Filesystem"
+  bezeichnet.
+* ``sly_Core::getFlashMessage()`` wurde ergänzt.
+
+Frontend
+""""""""
+
+* ``sly_Util_Navigation`` wurde aus dem Core in die Frontend-App verlagert.
+
+Events
+""""""
+
+* ``ADDONS_INCLUDED`` wurde in ``SLY_ADDONS_LOADED`` umbenannt.
+* ``SLY_CACHE_CLEARED`` ist nun ein **notify-Event**. Eventuelle Erfolgs- oder
+  Fehlermeldungen müssen in der globalen Flash-Message hinterlegt werden, da
+  der Rückgabewert der Listener nun nicht mehr von Relevanz ist.
+* ``SLY_DB_IMPORTER_BEFORE`` ist nun ein **notify-Event** und erhält den
+  Dump nicht als als ``dump``, sondern als Subject. Ebenso wurde mit
+  ``SLY_DB_IMPORTER_AFTER`` verfahren.
+* ``CLANG_UPDATED`` wurde ergänzt und wird nach dem Speichern einer Sprache
+  ausgeführt.
+* ``CLANG_ADDED`` erhält nun nicht mehr einen leeren String, sondern die neue
+  Sprache als Subject übergeben. Meldungen müssen über die Flash-Message
+  ausgegeben werden. Dies gilt ebenso für ``CLANG_DELETED``.
+
+Datenbank
+"""""""""
+
+* Alle Spalten, die bisher UNIX-Timestamps enthielten, verwenden jetzt den
+  nativen Datums-Datentyp des jeweiligen DBMS (z.B. ``DATETIME`` in MySQL).
+* Innerhalb von PHP werden weiterhin UNIX-Timestamps verwendet. Die Umwandlung
+  findet automatisch im Model-Service für alle Sally-Models transparent statt.
+* Alle Sally-Tabellen verwenden InnoDB als Storage-Engine. Dies gilt, sofern
+  nicht ausdrücklich anders gewünscht, auch für AddOns. Siehe :ref:`innodb` für
+  mehr Informationen.
+* Das Feld für den Passwort-Hash von Benutzern heißt nun ``password`` und ist
+  128 Zeichen lang, um den neuen, komplexeren Hashes gerecht zu werden.
+* Die Tabelle ``sly_slice_value`` wurde entfernt. Slice-Werte werden nun direkt
+  am Slice in einer neuen Spalte, ``serialized_values LONGTEXT NOT NULL``,
+  gespeichert. Die Daten liegt dort als JSON-kodiertes Array vor.
+
+Im :doc:`migrate` finden sich SQL-Scripts und ein Migrationsscript in PHP, um
+bei der Umstellung zu helfen.
