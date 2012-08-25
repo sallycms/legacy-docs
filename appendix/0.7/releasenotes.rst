@@ -246,6 +246,54 @@ wird, wenn ein AddOn die Angaben ``page`` und/oder ``name`` in seiner
 Konfiguration hatten, entfernt. Erweiterungen des Menüs müssen immer über die
 Backend-API erfolgen.
 
+Plugins
+"""""""
+
+Die Umstellung auf Composer sorgt dafür, dass innerhalb eines Pakets keine
+Unterpakete vorhanden sein dürfen. Insofern kann ein AddOn keine Plugins mehr
+enthalten.
+
+Stattdessen müssen Plugins als eigenständige Composer-Pakete und damit
+eigenständige AddOns entwickelt werden. So wird aus dem ``debugger``-Plugin für
+realURL2 nun das Paket ``webvariants/realurl2-debugger`` und liegt in einem
+eigenen Repository.
+
+Natürlich funktioniert hier weiterhin das ``require``-System von Composer. Ein
+"Plugin" wird also immer sein dazugehöriges AddOn (sowie eventuell weitere
+benötigte AddOns) eintragen.
+
+Um im Backend wie gewohnt als "Unter-Komponente" von realURL2 angezeigt zu
+werden, kann ein "Plugin" in seiner :file:`composer.json` das Eltern-AddOn in
+``extra/sallycms/parent`` angeben:
+
+.. sourcecode:: javascript
+
+  {
+    "name": "webvariants/realurl2-debugger",
+    "require": {
+      "webvariants/realurl2": "*"
+    },
+    "extra": {
+      "sallycms": {
+        "parent": "webvariants/realurl2"
+      }
+    }
+  }
+
+.. note::
+
+  Diese Angabe wirkt sich **ausschließlich auf die Anzeige** im Backend aus. Sie
+  erzeugt keine Abhängigkeit zum Eltern-AddOn!
+
+Der Begriff "Plugin" ist für Sally damit nicht mehr definiert. An den
+betroffenen Stellen im Backend wird stattdessen im Code von ``sub-addon`` bzw.
+``child`` gesprochen.
+
+Ein großer Vorteil dieser Umstellung ist, dass "Plugins" nun nicht mehr im
+Original-Repository eines AddOns auftauchen müssen. So kann es "Plugins" für
+beliebige AddOns geben, ohne dass der Original-Autor sie in seine Quellen
+übernehmen muss.
+
 LESS statt Scaffold
 """""""""""""""""""
 
@@ -274,6 +322,24 @@ die migriert werden, könnte dies von Bedeutung sein), kann über das
 das alte Verhalten in 0.7 nutzen. Scaffold wird weiterhin ausschließlich auf
 :file:`.css`-Dateien angewandt, sodass parallel LESS und Scaffold zum Einsatz
 kommen können.
+
+jQuery UI
+"""""""""
+
+Sally enthält seit langer Zeit eine Kopie von `jQuery UI <http://jqueryui.org>`_
+in der Backend-Anwendung. Da aus unbegründeter Traffic-Sparsamkeit die Module
+in einzelne Dateien ausgelagert wurden, war die Pflege immer eine lästige
+Aufgabe. Gleichzeitig nutzte Sally nur einen Bruchteil der Bibliothek (für den
+Datepicker und den Slider-Input).
+
+Aus diesem Grund wurde jQuery UI nun aus Sally entfernt und durch
+`jQuery Tools <http://jquerytools.org/>`_ ersetzt. Das spart mehr als 150 KB
+und eine Menge Pflege-Aufwand, da nur eine einzelne Datei in den Assets liegt.
+
+Dies wirkt sich nicht auf die PHP-API der Formular-Elemente aus.
+
+Sollte sich herausstellen, dass jQuery UI im Backend für AddOns praktisch ist,
+wird mit Sicherheit jemand ein AddOn schreiben, das die Bibliothek mitbringt.
 
 GPL-Freiheit
 """"""""""""
