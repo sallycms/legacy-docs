@@ -10,31 +10,19 @@ aktualisieren kann.
   Templates und AddOns führen. Stattdessen soll hier der grundlegende Ablauf
   beschrieben werden.
 
-Vorbereitungen
---------------
+Sally aktualisieren
+-------------------
 
 Das zu migrierende Projekt (Sally 0.5) sollte lokal installiert und lauffähig
-sein. Die Datenbank sollte ebenfalls aktuell sein (ggf. also einen Dump von der
-Live-Installation einspielen).
+sein. Die Datenbank sollte ebenfalls aktuell sein (ggf. also einen normalen
+Dump aus dem Backend der Live-Installation einspielen).
 
-.. note::
+Wenn alles passt, kann mit dem Update von Sally begonnen werden.
 
-  Es wird dringend empfohlen, *erst* die aktuellen Daten einzuspielen und *dann*
-  mit dem Update zu beginnen. Andernfalls werden einige AddOns beim Einspielen
-  des Dumps Probleme machen.
+#. Schalte im Projekt den Cache auf **Memory** und aktiviere den
+   **Entwicklermodus**.
 
-.. note::
-
-  0.5-Dumps lassen sich wegen des Versionsstempels und der geänderten
-  Verzeichnisstruktur nicht in 0.6 einspielen!
-
-.. note::
-
-  Die AddOns sollten vor dem Update *deaktiviert* (nicht *deinstalliert*)
-  werden.
-
-Update
-------
+#. Deaktiviere alle AddOns.
 
 #. Das Projekt wird auf 0.6 aktualisiert. Dabei werden alle Dateien der neuen
    Version in das Projekt kopiert. Wer Mercurial benutzt, kann sich jetzt
@@ -58,77 +46,102 @@ Update
    die auf :file:`sally/data/...` zeigen. Hier muss man also auch noch die Pfade
    anpassen.
 
+#. Nun wird das Backend zum ersten Mal wieder aufgerufen. Fehlende Assets werden
+   bereinigt, indem auf der Systemseite einmal der Cache geleert wird. Hier
+   sollten auch noch einmal die Einstellungen überprüft werden.
+
 #. Nachdem der Core nun aktualisiert ist, können wir die AddOns aktualisieren.
    Mercurial-Benutzer können wieder pullen, alle anderen müssen die AddOns von
-   Hand aktualisieren.
+   Hand aktualisieren. Die AddOns sollten weiterhin deaktiviert bleiben, die
+   Assets können jedoch bereits schon einmal re-initialisiert werden.
 
-.. note::
+Bevor nun auf die veralteten Daten zugegriffen wird, müssen diese migriert
+werden. Der folgende Abschnitt erläutert den Prozess näher.
 
-  Wir sind an dieser Stelle *noch nicht fertig*!
+Daten aktualisieren
+-------------------
 
-Datenbank
----------
-
-Die Datenbank benötigt zwei Updates: Ein formelles (Tabellendefinitionen) und
-ein inhaltliches. Das formelle Update kann direkt in SQL erfolgen:
-
-.. sourcecode:: mysql
-
-  ALTER TABLE `sly_article` CHANGE COLUMN `catprior` `catpos` INT UNSIGNED NOT NULL;
-  ALTER TABLE `sly_article` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULL;
-  ALTER TABLE `sly_article_slice` CHANGE COLUMN `prior` `pos` INT UNSIGNED NOT NULL;
-  ALTER TABLE `sly_file` CHANGE COLUMN `filesize` `filesize` INT UNSIGNED NOT NULL;
-  ALTER TABLE `sly_file_category` CHANGE COLUMN `attributes` `attributes` TEXT NULL;
-  ALTER TABLE `sly_slice_value` DROP COLUMN `type`;
-  ALTER TABLE `sly_user` CHANGE COLUMN `name` `name` VARCHAR(255) NULL;
-  ALTER TABLE `sly_user` CHANGE COLUMN `description` `description` VARCHAR(255) NULL;
+Die lokal bestehende Datenbank des Projekts sollte jetzt mit einem frischen
+SQL-Dump von der Live-Seite ersetzt werden. Dieser SQL-Dump wird im Folgenden
+als **Master-Dump** bezeichnet.
 
 .. warning::
 
-  Durch diese Änderung liegen nun alle Slice-Werte im gleichen Namensraum. Wenn
-  es im Projekt innerhalb eines Slices sowohl eine Medialiste ``foo`` und ein
-  Input-Feld namens ``foo`` gab, so tritt nun ein Konflikt auf. Um diesen zu
-  bereinigen müssen alle Duplikate einfach vorher umbenannt (z.B. die Werte
-  der Medialiste in ``foo_media``) werden.
+  **Dieser** Dump sollte keinesfalls mit dem Import/Export-AddOn angelegt
+  werden, sondern mit einem Tool wie Adminer oder phpMyAdmin. Dies stellt
+  sicher, dass auch Benutzerkonten korrekt exportiert werden.
 
-Die bestehenden Daten müssen nun noch angepasst werden: Slice-Werte werden seit
-0.6 als JSON-Strings gespeichert. Da das Kodieren von Strings in reinem SQL
-nicht (einfach) möglich ist, kann man dazu auch ein kleines PHP-Script wie das
-Folgende verwenden:
+.. note::
 
-.. sourcecode:: php
+  0.5-Dumps, die mit dem Import/Export-AddOn erstellt wurden, lassen sich wegen
+  des Versionsstempels und der geänderten Verzeichnisstruktur nicht in 0.6
+  einspielen!
 
-  <?php
+Falls der Master-Dump ein anderes Tabellen-Präfix als das Projekt verwendet,
+muss dieses noch im Dump ersetzt werden, bevor man ihn lokal einspielt (siehe
+Step-by-Step Anleitung im nächsten Schritt).
 
-  // zur Datenbank verbinden
-  mysql_connect('localhost', 'username', 'password');
-  mysql_select_db('myproject');
-  mysql_query('SET NAMES utf8');
+Der Master-Dump wird nun in die Projekt-Datenbank eingespielt, deren Tabellen
+vorher gelöscht werden sollten (soweit sie im Master-Dump vorhanden sind). Im
+Anschluss kann das Migrationssscript ausgeführt werden.
 
-  // alle Slicewerte aberufen
-  $res = mysql_query('SELECT * FROM sly_slice_value WHERE 1');
+Migrationsscript
+^^^^^^^^^^^^^^^^
 
-  while ($row = mysql_fetch_assoc($res)) {
-     $value = $row['value'];
+.. warning::
 
-     // Bildpfade korrigieren
-     $value = str_replace('"sally/data/mediapool', '"data/mediapool', $value);
+  Die Migration findet nicht im Browser, sondern auf der Kommandozeile/Shell
+  statt!
 
-     // JSON-Kodierung
-     $value = json_encode($value);
+Das unten verlinkte Migrationsscript stellt eine gute Ausgangsbasis für die
+Migration dar. Prinzipbedingt sind nicht alle möglichen AddOns enthalten und in
+vielen Fällen wird man noch weitere Kleinigkeiten an der Datenbank anpassen
+möchte, die projektspezifisch sind. Prominente Beispiele für solche Anpassungen
+sind:
 
-     // and update it
-     mysql_query('UPDATE sly_slice_value SET value = "'.mysql_real_escape_string($value).'" WHERE id = '.intval($row['id']));
-  }
+* Umbenennung von Artikeltypen
+* Ändern der ``finder``-Werte für Slice-Values (``SLY_VALUE[1]`` zu ``title``)
+* Slices entfernen
+* Erweiterung der UTF-8-Kodierung auf andere AddOn-Tabellen
 
-  mysql_close();
+Außerdem müssen der Name der Datenbank-Tabelle sowie die Zugangsdaten angepasst
+werden. Das verfügbare Script sollte in :file:`develop/migration/migrate.php`
+abgelegt und **über die Kommandozeile/Shell** ausgeführt werden.
+
+Das vollständige `Migrationsscript <https://gist.github.com/3460331>`_ ist als
+Gist verfügbar. Wir freuen uns über Verbesserungsvorschläge und Patches. :-)
+
+Migration
+^^^^^^^^^
+
+#. Spiele den Master-Dump mit einem Tool wie Adminer oder phpMyAdmin in die
+   Zieldatenbank ein. Verwende dazu **nicht** das Import/Export-AddOn.
+
+   .. warning::
+
+     Dies wird die bestehenden Tabellen überschreiben. Eventuell bereits
+     eingepflegte Testinhalte gehen dabei verloren.
+
+   .. note::
+
+     Nicht vergessen, dies überschreibt auch die lokalen Benutzerkonten mit denen
+     der Live-Seite!
+
+#. Öffne eine Kommandozeile/Shell in :file:`/pfad/zum/projekt/develop/migration`
+   und führe das Migrationsscript aus::
+
+   > php migrate.php
+
+#. Solange Fehler im Script auftreten, Code debuggen und wieder zu Schritt 2
+   springen.
 
 Einrichtung
 -----------
 
 Jetzt ist es an der Zeit, das Backend das erste Mal seit Beginn der Migration
 aufzurufen. Hier sollte ein paar mal hart neugeladen werden (Strg+F5), damit
-alle veralteten Core-Assets im Browsercache ersetzt werden.
+alle veralteten Core-Assets im Browsercache ersetzt werden, sowie der
+Systemcache geleert werden.
 
 Wenn das Backend soweit läuft, können nun die AddOns nach und nach wieder
 aktiviert werden. Man sollte auch jedes AddOn re-initialisieren, damit die

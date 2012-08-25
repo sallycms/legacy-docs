@@ -549,10 +549,25 @@ Bestehende Daten gehen dabei nicht verloren.
   ALTER TABLE `sly_user` CHANGE COLUMN `name` `name` VARCHAR(255) NULL;
   ALTER TABLE `sly_user` CHANGE COLUMN `description` `description` VARCHAR(255) NULL;
 
+.. warning::
+
+  Durch diese Änderung liegen nun alle Slice-Werte im gleichen Namensraum. Wenn
+  es im Projekt innerhalb eines Slices sowohl eine Medialiste ``foo`` und ein
+  Input-Feld namens ``foo`` gab, so tritt nun ein Konflikt auf. Um diesen zu
+  bereinigen müssen alle Duplikate einfach vorher umbenannt (z.B. die Werte
+  der Medialiste in ``foo_media``) werden.
+
 .. note::
 
   Ein PHP-Script, das die JSON-Konvertierung der Slicewerte vornimmt, ist im
   :doc:`Migrationsleitfaden <migrate>` gegeben.
+
+Außerdem müssen die Tabellen-Inhalte in echtes UTF-8 re-kodiert werden, da
+Sally 0.6 nun endlich eine echte UTF-8-Verbindung nutzt und Daten jetzt nicht
+mehr durch die Verbindung fehlerhaft in der Datenbank landen. Dazu liest man
+die Tabellen in PHP ein, nachdem man ``SET NAMES latin1`` ausgeführt hat und
+schreibt die Daten wieder in die Datenbank, nachdem man ``SET NAMES utf8``
+ausgeführt hat.
 
 .. note::
 
