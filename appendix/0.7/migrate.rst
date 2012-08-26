@@ -22,6 +22,16 @@ Schema-Updates
 
 .. sourcecode:: mysql
 
+  -- rename psw column on users
+
+  ALTER TABLE `sly_user`
+     CHANGE COLUMN `psw` `password` VARCHAR(128) NULL DEFAULT NULL AFTER `login`;
+
+  -- add new column for slice values
+
+  ALTER TABLE `sly_slice`
+     ADD COLUMN `serialized_values` LONGTEXT NOT NULL AFTER `module`;
+
   -- add temp column pairs
 
   ALTER TABLE `sly_article`
