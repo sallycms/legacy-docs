@@ -15,6 +15,11 @@ PHP-Implementierung von LESS) verarbeitet.
 .. _LESS: http://lesscss.org/
 .. _lessphp: https://github.com/leafo/lessphp
 
+.. note::
+
+  Für Projekte, die von älteren Sally-Versionen migriert werden, kann der
+  :ref:`Support für Scaffold <scaffold>` über ein AddOn nachgerüstet werden.
+
 Beispiel
 --------
 
@@ -56,3 +61,30 @@ AddOns
 
 AddOn-Assets werden ebenfalls durch den :doc:`Asset-Cache </core-api/assetcache>`
 verarbeitet und damit durch LESS verarbeitet.
+
+.. _scaffold:
+
+Scaffold (Legacy)
+-----------------
+
+Anstelle von LESS kann optional auch Scaffold (wie in Sally-Projekten vor 0.7)
+verwendet werden. Scaffold wird dabei als AddOn nachinstalliert und verarbeitet
+alle Assets, die auf ``.css`` enden.
+
+Das `AddOn <https://bitbucket.org/webvariants/scaffold>`_ steht unter MIT-Lizenz
+bereit und kann über Composer eingebunden werden.
+
+.. sourcecode:: javascript
+
+  {
+     "require": {
+        "webvariants/scaffold": "*@dev"
+     }
+  }
+
+.. note::
+
+  Der Scaffold-Einsatz wird nur für Projekte, die von früheren Versionen
+  migriert werden, empfohlen. Scaffold ist buggy, wird nicht aktiv entwickelt
+  und vom Rest der Welt quasi ignoriert. Neue Projekte sollten unbedingt LESS
+  verwenden.
