@@ -74,25 +74,25 @@ Schema-Updates
   -- rename new columns
 
   ALTER TABLE `sly_article`
-     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL AFTER `type`,
-     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL AFTER `createdate`;
+     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL,
+     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL;
 
   ALTER TABLE `sly_article_slice`
-     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL AFTER `article_id`,
-     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL AFTER `createdate`;
+     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL,
+     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL;
 
   ALTER TABLE `sly_file`
-     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL AFTER `title`,
-     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL AFTER `createdate`;
+     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL,
+     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL;
 
   ALTER TABLE `sly_file_category`
-     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL AFTER `attributes`,
-     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL AFTER `createdate`;
+     CHANGE COLUMN `created` `createdate` DATETIME NOT NULL,
+     CHANGE COLUMN `updated` `updatedate` DATETIME NOT NULL;
 
   ALTER TABLE `sly_user`
-     CHANGE COLUMN `created` `createdate`  DATETIME NOT NULL AFTER `timezone`,
-     CHANGE COLUMN `updated` `updatedate`  DATETIME NOT NULL AFTER `createdate`,
-     CHANGE COLUMN `lasttry` `lasttrydate` DATETIME NOT NULL AFTER `rights`;
+     CHANGE COLUMN `created` `createdate`  DATETIME NOT NULL,
+     CHANGE COLUMN `updated` `updatedate`  DATETIME NOT NULL,
+     CHANGE COLUMN `lasttry` `lasttrydate` DATETIME NULL;
 
   -- change engine to InnoDB
 
@@ -104,3 +104,10 @@ Schema-Updates
   ALTER TABLE `sly_registry`      ENGINE=InnoDB;
   ALTER TABLE `sly_slice`         ENGINE=InnoDB;
   ALTER TABLE `sly_user`          ENGINE=InnoDB;
+
+  -- remove unused table
+  -- You should do this *after* you have migrated the slice contents into the
+  -- new serialized_value column. See the migration script for a basic
+  -- implementation.
+
+  -- DROP TABLE `sly_slice_value`;
