@@ -186,8 +186,8 @@ nur die Sally-Dateien zu überschreiben. Siehe dazu die
   gesetzt.
 * Bugfix: Fehlender I18N-String (en_GB) bei der AddOn-Installation ergänzt.
 * Bugfix: Fehlendes ``alt``-Attribut im Medienpool hinzugefügt.
-* Bugfix: :doc:`Scaffold </frontend-devel/scaffold>` brach mit einem Error ab, wenn
-  in einer CSS-Property ein Entity vorkam.
+* Bugfix: Scaffold brach mit einem Error ab, wenn in einer CSS-Property ein
+  Entity vorkam.
 
 0.4.1 (18. Mai 2011)
 --------------------
