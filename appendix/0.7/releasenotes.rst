@@ -5,27 +5,28 @@ Release-Notes
 
 .. note::
 
-  Version 0.7 befindet sich noch im Beta-Stadium und ist noch nicht für den
-  produktiven Einsatz geeignet. Die hier genannten Details können sich bis zum
-  finalen Release jederzeit ändern.
+  Version 0.7 befindet sich noch im Release Candidate-Stadium und ist noch nicht
+  für den produktiven Einsatz geeignet. Die hier genannten Details können sich
+  bis zum finalen Release jederzeit ändern.
 
 Gut ein halbes Jahr nach dem Release der letzten großen Major-Version freut sich
-das Sally-Team, nun die Verfügbarkeit der ersten *Beta* von SallyCMS 0.7
-bekanntzugeben. Das neue Major Release konzentriert sich vor allem auf die
-`Composer <https://getcomposer.org>`_-Integration, über die zukünftig AddOns,
-Plugins und weitere Bibliotheken in Sally integriert werden, sowie den Wechsel
-von Scaffold hin zu `LESS <http://lesscss.org/>`_. Gleichzeitig stellt es das
-erste Release dar, dass **vollständig MIT-lizenziert** ist.
+das Sally-Team, nun die Verfügbarkeit des ersten *Release Candidates* von
+SallyCMS 0.7 bekanntzugeben. Das neue Major Release konzentriert sich vor allem
+auf die `Composer <https://getcomposer.org>`_-Integration, über die zukünftig
+AddOns, Plugins und weitere Bibliotheken in Sally integriert werden, sowie den
+Wechsel von Scaffold hin zu `LESS <http://lesscss.org/>`_. Gleichzeitig stellt
+es das erste Release dar, dass **vollständig MIT-lizenziert** ist.
 
 Der grobe :doc:`Ablauf eines Updates auf 0.7 <migrate>` wird auf einer extra
-Seite beschrieben.
+Seite beschrieben. Der Migrationsleitfaden wird bis zum finalen Release noch
+vervollständigt.
 
 **Sally im Web**
 
 * `Downloads <https://projects.webvariants.de/projects/sallycms/files>`_
 * `Google+ <https://plus.google.com/b/114660281857431220675/>`_ und
   `Twitter <https://twitter.com/#!/webvariants>`_
-* `Repository <https://bitbucket.org/SallyCMS/0.7/>`_ und
+* `Repository <https://bitbucket.org/SallyCMS/trunk/>`_ und
   `Code-Statistik bei Ohloh <http://www.ohloh.net/p/sallycms>`_
 * `Bugtracker <https://projects.webvariants.de/projects/sallycms/issues/>`_ und
   `Forum <https://projects.webvariants.de/projects/sallycms/boards/>`_
