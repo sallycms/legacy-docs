@@ -117,7 +117,20 @@ Sally-Releases dokumentiert.
 * ``sly_Util_String::humanImplode()`` kann mit assoziativen Arrays aufgerufen
   werden.
 
-0.6.5 -> 0.6.next
+0.6.5 -> 0.6.6
+--------------
+
+* keine BC-Breaks
+
+0.6.6 -> 0.6.7
+--------------
+
+* Beim Anlegen einer neuen Sprache wird nun nicht mehr die erste, sondern die
+  Standardsprache als Quelle verwendet. Alle AddOns, die bisher die erste
+  Sprache (also die mit der niedrigsten ID) als Quelle verwendet haben, sollten
+  entsprechend angepasst werden, um ein konsistentes Verhalten zu erzeugen.
+
+0.6.7 -> 0.6.next
 -----------------
 
 * Das wird die Zeit zeigen...

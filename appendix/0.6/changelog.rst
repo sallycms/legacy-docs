@@ -1,6 +1,36 @@
 Changelog
 =========
 
+0.6.7 (4. September 2012)
+-------------------------
+
+* **Bugfix: Es war möglich, Kategorien zu löschen, die noch Kinder enthielten,
+  sofern alle Kinder offline waren.**
+* Beim Anlegen einer neuen Sprache wird nun nicht mehr die erste, sondern die
+  Standardsprache als Quelle verwendet.
+* Beim Rendern eines Tabellenkopfes können nun die GET-Parameter, die an die
+  Pager-Links angehängt werden, explizit gesetzt werden. Dies erlaubt es,
+  Tabellen als Antwort auf POST-Requests anzuzeigen.
+* Das ``@sly class``-Attribut in Developdateien kann nun nicht mehr nur eine
+  einzelne Klasse enthalten, sondern alternativ ein Array.
+* ``sly_Response_Stream`` wurde so erweitert, dass statt eines Dateinamens auch
+  ein offener Filepointer übergeben werden kann.
+* Das Attribut ``required`` wird nun für Datepicker unterstützt.
+* ``sly_Util_User::getCurrentUser()`` wurde um den Parameter ``$forceRefresh``
+  erweitert.
+* Der Asset-Cache kann über ``->removeCacheFiles($file)`` nun auch eine einzelne
+  Datei aus dem Cache entfernen.
+* Der Parametername ``templateFile_C3476zz3g21ug327ur623`` steht nun im
+  Template-Service für Templates zur Verfügung. ;-)
+* Bugfix: Versionsinformationen von AddOns wurden bei der Deinstallation nicht
+  entfernt (:redmine:`6511`).
+* Bugfix: ``sly_Slice_Values->getUrl()`` war defekt.
+* Bugfix: Die Permission-Tokens für AddOns wurden nicht korrekt geladen.
+* Bugfix: Das Recht auf "alle" Module wurde beim Verschieben oder Löschen von
+  Modulen nicht beachtet.
+* Bugfix: ``<em>`` und ``<a>`` waren in ``.sly-message`` so gestylt, dass man
+  sie nicht erkennen konnte.
+
 0.6.6 (7. Juli 2012)
 --------------------
 
