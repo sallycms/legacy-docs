@@ -333,6 +333,58 @@ das alte Verhalten in 0.7 nutzen. Scaffold wird weiterhin ausschließlich auf
 :file:`.css`-Dateien angewandt, sodass parallel LESS und Scaffold zum Einsatz
 kommen können.
 
+Frontend-Nutzung
+""""""""""""""""
+
+Es hat sich gezeigt, dass immer häufiger aus dem Frontend heraus Änderungen am
+Inhalt einer Sally-Website vorgenommen werden. Sei es durch gänzlich neue Apps,
+durch eigene Frontend-Controller oder schlicht aus Templates heraus. Wir freuen
+uns über diesen kreativen Einsatz der verfügbaren API und machen es mit Version
+0.7 noch einfacher, sie aus Nicht-Backend-Code heraus zu verwenden.
+
+Ein großes Problem war bisher, dass für viele Operationen (Anlegen von Artikeln,
+Hochladen von Dateien in den Medienpool etc.) ein Nutzerkontext benötigt wurde.
+Schließlich muss an jedem Artikel der ``createuser`` und ``updateuser`` gesetzt
+werden. Da im Frontend jedoch standardmäßig niemand eingeloggt ist (und es in
+den meisten Fällen nicht einmal eine aktive Session gibt), gibt es hier häufig
+Probleme. Die Probleme gingen so weit, dass man für bestimmte Service-Methoden
+einen aktuellen Nutzer vortäuschen und in der Session eine Nutzer-ID ablegen
+musste.
+
+In Sally 0.7 ist es daher möglich, bei allen relevanten Service-Methoden einen
+Nutzer explizit anzugeben. So könnte man aus dem Frontend heraus einen Artikel
+wie folgt anlegen:
+
+.. sourcecode:: php
+
+  <?
+  $user    = sly_Util_User::findByLogin('dummyuser');
+  $service = sly_Service_Factory::getArticleService();
+
+  $service->add(0, 'Hallo Welt!', true, -1, $user);
+
+Damit wird der Nutzer **dummyuser** (den man im Backend anlegen muss und im
+Idealfall mit keinerlei Rechten ausstatten sollte) als Autor des Artikels
+verwendet. Somit entfällt das lästige Arbeiten mit
+``sly_Util_Session::set('UID', ...)`` und man muss sich keine Sorgen mehr über
+aus Versehen geöffnete Sessions und eingeloggte Nutzer machen. Obiger Code würde
+**keine** Session öffnen und auch keinen Login durchführen!
+
+.. warning::
+
+  Während der Entwicklung sollte man allerdings unbedingt darauf achten, nicht
+  aus Versehen im Backend eingeloggt zu sein, während man seinen Frontend-Code
+  testet: Wird **kein** Nutzer angegeben, so versucht Sally, den eingeloggten
+  Nutzer zu verwenden (so zum Beispiel im Backend). Ist man selbst eingeloggt,
+  funktioniert der Code. Kommt später ein echter, nicht eingeloggter, Besucher,
+  so explodiert der Code. Zum Testen sollte also unbedingt ein zweiter Browser
+  oder ein paralleles Browserprofil zum Einsatz kommen, um solche
+  versehentlichen Fehler auszuschließen.
+
+Alle Service-Methoden, die nun einen optionalen Nutzer entgegennehmen, geben
+diesen ebenfalls in den Events als weiteren Parameter an. Event-Listener können
+so genau ermitteln, welcher Nutzer bei der Operation zum Einsatz kam.
+
 jQuery UI
 """""""""
 
