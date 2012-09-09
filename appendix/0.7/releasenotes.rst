@@ -31,8 +31,11 @@ vervollständigt.
 * `Bugtracker <https://projects.webvariants.de/projects/sallycms/issues/>`_ und
   `Forum <https://projects.webvariants.de/projects/sallycms/boards/>`_
 
-Wir freuen uns über *jedes* Feedback. Kommentare können via Ticket, eMail,
+Wir freuen uns über *jedes* Feedback. Kommentare können via Ticket_, eMail_,
 Tweet oder Google+-Kommentar eingeschickt werden. :-)
+
+.. _Ticket: https://projects.webvariants.de/projects/sallycms/issues
+.. _eMail:  info@sallycms.de
 
 Änderungen
 ----------
@@ -457,6 +460,28 @@ Wird also auf einem PHP 5.3-System ein Dump eingespielt, der SHA-1-Passwörter
 enthält, werden diese beim Login der Benutzer (dem einzigen Zeitpunkt, zu dem
 das Passwort im Klartext bekannt ist) automatisch neu berechnet und durch
 bessere Hashes ersetzt.
+
+Änderungen zwischen RC1 und RC2
+-------------------------------
+
+* In den meisten Service-Methoden (``sly_Service_Article->add()``, ``->edit()``
+  etc.) kam ein weiterer, optionaler Parameter ``$user`` hinzu. Über diesen
+  kann im Service ein expliziter Nutzerkontext hergestellt werden, sodass auch
+  aus dem Frontend heraus, wo niemand eingeloggt ist, Content verwaltet werden
+  kann. Damit müssen keine Logins mehr gefälscht und die Session manipuliert
+  werden, um diese Methoden aus dem Frontend heraus zu nutzen.
+* Innerhalb der Services kommen mehr Transaktionen zum Einsatz, um die
+  Konsistenz der Datenbank zu gewährleisten.
+* Die Konstrukturen der meisten Services nehmen nun ihre Abhängigkeiten direkt
+  entgegen. Die Factory kümmert sich um die korrekte Instanziierung. Wer
+  Services von Hand instanziieren möchte, muss nun alle abhängigen Services
+  ebenso korrekt zusammensetzen. Diese "Mini Dependency Injection" erlaubt es,
+  den Code ausführlicher und v.a. einfacher zu testen.
+* Im Formular auf der Systemseite wird nun der Name des Backend-Locales anstatt
+  des Locales (de_de) angezeigt.
+* ``sly_DB_PDO_Persistence->isTransRunning()`` wurde hinzufügt.
+* alle Bugfixes aus dem 0.6-Branch
+* weitere kleinere Korrekturen
 
 API-Änderungen
 --------------
