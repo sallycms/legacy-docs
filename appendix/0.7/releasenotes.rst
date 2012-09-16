@@ -839,6 +839,22 @@ Events
   * ``SLY_USER_ADDED``
   * ``SLY_USER_UPDATED``
 
+* Events können in bestimmten Fällen die eigentliche Aktion, wegen der sie
+  ausgeführt wurden, abbrechen, indem aus einem Listener heraus eine Exception
+  geworfen wird. Hierbei ist unbedingt zu beachten, dass dies zwar die
+  Sally-Transaktion rückgängig gemacht, in der auch alle Listener ausgeführt
+  werden, es aber trotzdem sein kann, dass ein anderer Listener (also ein
+  anderes AddOn) nicht problemlos damit zurecht kommt, dass die Transaktion
+  abgebrochen wird! Für alle nicht genannten Events gilt, dass sie entweder
+  nicht im Kontext einer Transaktion oder **nach** der Transkation ausgeführt
+  werden. Die betroffenen Events sind:
+
+  * ``CLANG_DELETED``
+  * ``SLY_ART_ADDED``
+  * ``SLY_ART_COPIED``
+  * ``SLY_ART_MOVED``
+  * ``SLY_CAT_ADDED``
+
 Datenbank
 """""""""
 

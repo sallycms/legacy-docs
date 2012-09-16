@@ -33,3 +33,9 @@ Sprach-Events
     name  (string)  Name der gelöschten Sprache
 
   Dieses Event wird ausgelöst nachdem eine Sprache gelöscht wurde.
+
+  .. note::
+
+    Wirft ein Listener zu diesem Event eine Exception, so bricht dies die
+    aktuelle Transaktion ab und macht alle Änderungen an der Datenbank
+    rückgängig.

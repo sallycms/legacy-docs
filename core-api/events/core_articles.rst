@@ -45,6 +45,12 @@ Article-Models
   wird ausgeführt, nachdem ein Artikel angelegt wurde (*wird einmal pro Sprache
   ausgeführt!*)
 
+  .. note::
+
+    Wirft ein Listener zu diesem Event eine Exception, so bricht dies die
+    aktuelle Transaktion ab und macht alle Änderungen an der Datenbank
+    rückgängig.
+
 .. =============================================================================
 
 .. slyevent:: SLY_ART_COPIED
@@ -57,6 +63,12 @@ Article-Models
 
   wird ausgeführt, nachdem ein Artikel kopiert wurde (*wird einmal pro Sprache
   ausgeführt!*)
+
+  .. note::
+
+    Wirft ein Listener zu diesem Event eine Exception, so bricht dies die
+    aktuelle Transaktion ab und macht alle Änderungen an der Datenbank
+    rückgängig.
 
 .. =============================================================================
 
@@ -71,6 +83,12 @@ Article-Models
 
   wird ausgeführt, nachdem ein Artikel verschoben wurde (*wird einmal pro
   Sprache ausgeführt!*)
+
+  .. note::
+
+    Wirft ein Listener zu diesem Event eine Exception, so bricht dies die
+    aktuelle Transaktion ab und macht alle Änderungen an der Datenbank
+    rückgängig.
 
 .. =============================================================================
 
