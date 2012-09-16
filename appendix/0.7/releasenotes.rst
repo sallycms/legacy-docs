@@ -522,6 +522,8 @@ bessere Hashes ersetzt.
   aus dem Frontend heraus, wo niemand eingeloggt ist, Content verwaltet werden
   kann. Damit müssen keine Logins mehr gefälscht und die Session manipuliert
   werden, um diese Methoden aus dem Frontend heraus zu nutzen.
+* ``sly_Util_Medium::upload()`` wurde ebenfalls um einen ``$user``-Parameter
+  erweitert.
 * Innerhalb der Services kommen mehr Transaktionen zum Einsatz, um die
   Konsistenz der Datenbank zu gewährleisten.
 * Die Konstrukturen der meisten Services nehmen nun ihre Abhängigkeiten direkt
@@ -531,7 +533,13 @@ bessere Hashes ersetzt.
   den Code ausführlicher und v.a. einfacher zu testen.
 * Im Formular auf der Systemseite wird nun der Name des Backend-Locales anstatt
   des Locales (de_de) angezeigt.
+* Der Parameter ``$default`` wurde von ``sly_ini_get()`` entfernt, da es nicht
+  möglich ist, ein konsistentes Verhalten in PHP 5.2 und 5.3+ zu ermöglichen.
+* AddOns liegen nun standardmäßig im Mercurial-Ignorefilter.
 * ``sly_DB_PDO_Persistence->isTransRunning()`` wurde hinzufügt.
+* Alle submittende Buttons eines Formulars (submit, apply, delete) erhalten nun
+  die CSS-Klasse ``.sly-form-submit``. Dies behebt u.a. Probleme mit dem
+  WYMeditor.
 * alle Bugfixes aus dem 0.6-Branch
 * weitere kleinere Korrekturen
 
@@ -633,6 +641,8 @@ API
     * ``import()`` gibt nichts mehr zurück, sondern wirft Exceptions im
       Fehlerfall.
 
+  * ``sly_DB_PDO_Persistence->isTransRunning()`` wurde hinzufügt.
+
 * Die Konstante ``SLY_VENDORFOLDER`` wurde hinzugefügt. Sie enthält den
   vollständigen Pfad zum :file:`sally/vendor`-Verzeichnis.
 * Der Standardwert für die globalen ``sly_*``-Funktionen zum Zugriff auf die
@@ -641,6 +651,8 @@ API
   zurückgegeben wird (Casts finden nur statt, wenn der gesuchte Key in den
   Superglobalen gefunden wurde). Dies entspricht dem Verhalten frührerer
   Sally-Versionen.
+* Der Parameter ``$default`` wurde von ``sly_ini_get()`` entfernt, da es nicht
+  möglich ist, ein konsistentes Verhalten in PHP 5.2 und 5.3+ zu ermöglichen.
 * **Models**
 
   * ``sly_Model_ArticleSlice``
@@ -727,12 +739,31 @@ API
       * ``sly_Service_MediaCategory``
       * ``sly_Service_Medium``
 
+    * Folgende Service-Methoden wurden um einen weiteren Parameter,
+      ``sly_Model_User $user = null`` erweitert, um bei einem Aufruf aus dem
+      Frontend heraus einen expliziten Nutzerkontext zu ermöglichen:
+
+      * ``sly_Service_Article``:
+        ``add()``, ``changeStatus()``, ``convertToStartArticle()``, ``copy()``, ``copyContent()``, ``edit()``, ``move()``, ``setType()``
+      * ``sly_Service_ArticleSlice->move()``
+      * ``sly_Service_Category``: ``add()``, ``changeStatus()``, ``edit()``, ``move()``
+      * ``sly_Service_MediaCategory``: ``add()``, ``update()``
+      * ``sly_Service_Medium``: ``add()``, ``update()``
+      * ``sly_Service_User``: ``add()``, ``create()``, ``save()``
+
   * ``sly_Service_ArticleSlice->findByArticleClangSlot()`` wurde ergänzt.
   * Der Parameter ``$clang`` wurde von ``sly_Service_ArticleSlice->move()``
     entfernt.
   * ``sly_Service_ArticleSlice->processScaffold()`` wurde durch
     ``->processLessCSS()`` ersetzt.
   * ``sly_Service_User->setCurrentUser($user)`` wurde ergänzt.
+  * Die Konstrukturen der meisten Services nehmen nun ihre Abhängigkeiten direkt
+    entgegen. Die Factory kümmert sich um die korrekte Instanziierung. Wer
+    Services von Hand instanziieren möchte, muss nun alle abhängigen Services
+    ebenso korrekt zusammensetzen. Diese "Mini Dependency Injection" erlaubt es,
+    den Code ausführlicher und v.a. einfacher zu testen.
+  * Innerhalb der Services kommen mehr Transaktionen zum Einsatz, um die
+    Konsistenz der Datenbank zu gewährleisten.
 
 * **Utilities**
 
@@ -754,6 +785,8 @@ API
   * ``sly_Util_User::getPasswordHash()`` wurde entfernt.
   * ``sly_Util_Versions::isCompatible()`` wurde ergänzt und führt einen
     Versionscheck analog zu Composer durch.
+  * ``sly_Util_Medium::upload()`` wurde um einen optionalen ``$user``-Parameter
+    erweitert.
 
 * Der alte Dateisystem-Cache (``BabelCache_Filesystem``) ist nicht mehr im
   Backend verfügbar, da er nie sinnvoller ist als der
@@ -781,6 +814,30 @@ Events
 * ``CLANG_ADDED`` erhält nun nicht mehr einen leeren String, sondern die neue
   Sprache als Subject übergeben. Meldungen müssen über die Flash-Message
   ausgegeben werden. Dies gilt ebenso für ``CLANG_DELETED``.
+* Die folgenden Events wurden um einen ``user``-Parameter erweitert, der den
+  Nutzer enthält, mit dem eine Aktion ausgeführt wurde. Insbesondere wenn ein
+  Event im Frontend gefeuert wurde, ist dies relevant, damit Listener wissen,
+  welcher Nutzer relevant ist:
+
+  * ``SLY_ART_ADDED``
+  * ``SLY_ART_CONTENT_COPIED``
+  * ``SLY_ART_COPIED``
+  * ``SLY_ART_MOVED``
+  * ``SLY_ART_STATUS``
+  * ``SLY_ART_TO_STARTPAGE``
+  * ``SLY_ART_TYPE``
+  * ``SLY_ART_UPDATED``
+  * ``SLY_CAT_ADDED``
+  * ``SLY_CAT_MOVED``
+  * ``SLY_CAT_STATUS``
+  * ``SLY_CAT_UPDATED``
+  * ``SLY_MEDIA_ADDED``
+  * ``SLY_MEDIA_UPDATED``
+  * ``SLY_MEDIACAT_ADDED``
+  * ``SLY_MEDIACAT_UPDATED``
+  * ``SLY_SLICE_MOVED``
+  * ``SLY_USER_ADDED``
+  * ``SLY_USER_UPDATED``
 
 Datenbank
 """""""""

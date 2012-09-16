@@ -5,7 +5,9 @@ Article-Models
   :type:    notify
   :in:      int
   :subject: die ID des Artikels, der zum Startartikel wurde
-  :params:  old_cat (int) die ID des vorherigen Startartikels
+  :params:
+    old_cat (int)             die ID des vorherigen Startartikels
+    user    (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   wird ausgeführt, nachdem ein Artikel zum Startartikel einer Kategorie wurde
 
@@ -16,10 +18,11 @@ Article-Models
   :in:      null
   :subject: N/A
   :params:
-    from_id     (int)  die ID des Quellartikels
-    from_clang  (int)  die Sprach-ID des Quellartikels
-    to_id       (int)  die ID des Zielartikels
-    to_clang    (int)  die Sprach-ID des Zielartikels
+    from_id     (int)             die ID des Quellartikels
+    from_clang  (int)             die Sprach-ID des Quellartikels
+    to_id       (int)             die ID des Zielartikels
+    to_clang    (int)             die Sprach-ID des Zielartikels
+    user        (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   wird ausgeführt, nachdem der **Inhalt** eines Artikels kopiert wurde
 
@@ -30,13 +33,14 @@ Article-Models
   :in:      int
   :subject: die ID des neuen Artikels
   :params:
-    re_id     (int)     ID der enthaltenden Kategorie
-    clang     (int)     ID der Sprache (siehe Beschreibung!)
-    name      (string)  Name des Artikels
-    position  (int)     Position des neuen Artikels
-    path      (string)  Kategorie-Pfad (``|id|id|...|``)
-    status    (int)     Artikelstatus
-    type      (string)  Artikeltyp
+    re_id     (int)             ID der enthaltenden Kategorie
+    clang     (int)             ID der Sprache (siehe Beschreibung!)
+    name      (string)          Name des Artikels
+    position  (int)             Position des neuen Artikels
+    path      (string)          Kategorie-Pfad (``|id|id|...|``)
+    status    (int)             Artikelstatus
+    type      (string)          Artikeltyp
+    user      (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   wird ausgeführt, nachdem ein Artikel angelegt wurde (*wird einmal pro Sprache
   ausgeführt!*)
@@ -49,6 +53,7 @@ Article-Models
   :subject: der duplizierte Artikel
   :params:
     source  (sly_Model_Article)  der Quellartikel
+    user    (sly_Model_User)     der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   wird ausgeführt, nachdem ein Artikel kopiert wurde (*wird einmal pro Sprache
   ausgeführt!*)
@@ -60,8 +65,9 @@ Article-Models
   :in:      int
   :subject: die ID des Quellartikels
   :params:
-    clang   (int)  ID der Sprache (siehe Beschreibung!)
-    target  (int)  ID der Zielkategorie
+    clang   (int)             ID der Sprache (siehe Beschreibung!)
+    target  (int)             ID der Zielkategorie
+    user    (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   wird ausgeführt, nachdem ein Artikel verschoben wurde (*wird einmal pro
   Sprache ausgeführt!*)
@@ -72,6 +78,8 @@ Article-Models
   :type:    notify
   :in:      sly_Model_Article
   :subject: der aktualisierte Artikel
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgeführt, nachdem ein Artikel umbenannt oder verschoben
   (innerhalb der gleichen Kategorie) wurde.
@@ -101,6 +109,8 @@ Article-Models
   :type:    notify
   :in:      sly_Model_Article
   :subject: der aktualisierte Artikel
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgeführt, nachdem der Status eines Artikels geändert
   wurde.
@@ -134,7 +144,8 @@ Article-Models
   :in:      sly_Model_Article
   :subject: der aktualisierte Artikel
   :params:
-    old_type (string)  der vorherige Artikeltyp
+    old_type (string)          der vorherige Artikeltyp
+    user     (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgeführt, nachdem der Typ eines Artikels geändert wurde.
 

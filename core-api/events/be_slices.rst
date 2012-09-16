@@ -23,6 +23,7 @@ Slice-Handling
     direction (string)  'up' oder 'down'
     old_pos   (int)
     new_pos   (int)
+    user      (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   wird nach dem Verschieben eines Slices ausgeführt
 
