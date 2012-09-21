@@ -513,8 +513,11 @@ enthält, werden diese beim Login der Benutzer (dem einzigen Zeitpunkt, zu dem
 das Passwort im Klartext bekannt ist) automatisch neu berechnet und durch
 bessere Hashes ersetzt.
 
-Änderungen zwischen RC1 und RC2
--------------------------------
+Änderungen seit dem RC1
+-----------------------
+
+Release Candidate 2
+"""""""""""""""""""
 
 * In den meisten Service-Methoden (``sly_Service_Article->add()``, ``->edit()``
   etc.) kam ein weiterer, optionaler Parameter ``$user`` hinzu. Über diesen
@@ -542,6 +545,12 @@ bessere Hashes ersetzt.
   WYMeditor.
 * alle Bugfixes aus dem 0.6-Branch
 * weitere kleinere Korrekturen
+
+Release Candidate 3
+"""""""""""""""""""
+
+* Die Setup-Prozedur war defekt, sofern auf dem System nicht zufällig ein
+  MySQL-Nutzer namens "sally" ohne gesetztes Passwort existierte.
 
 API-Änderungen
 --------------
