@@ -47,3 +47,25 @@ Sonstige Backend-Events
 
   Über dieses Event können AddOns das Menü von Sally noch einmal verändern,
   bevor es gerendert wird.
+
+.. =============================================================================
+
+.. slyevent:: SLY_BE_LOGIN
+  :type:    notify
+  :in:      sly_Model_User
+  :since:   0.7.0
+  :subject: der Nutzer, der sich gerade eingeloggt hat
+
+  Dieses Event wird ausgelöst, nachdem sich ein Benutzer im Backend eingeloggt
+  hat. Dazu muss der Nutzer auch das Recht ``apps/backend`` haben.
+
+.. =============================================================================
+
+.. slyevent:: SLY_BE_LOGOUT
+  :type:    notify
+  :in:      sly_Model_User
+  :since:   0.7.0
+  :subject: der Nutzer, der sich gerade ausgeloggt hat
+
+  Dieses Event wird ausgelöst, nachdem sich ein Benutzer aus dem Backend
+  ausgeloggt hat.
