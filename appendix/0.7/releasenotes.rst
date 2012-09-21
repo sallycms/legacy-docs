@@ -561,6 +561,7 @@ Assets
 * Der Autocompleter (:file:`assets/js/jquery.autocomplete.min.js`) wurde
   entfernt.
 * jQuery UI wurde entfernt.
+* jQuery wurde auf v1.8.2 aktualisiert.
 * jQuery Tools v1.2.7 wurde hinzugefügt. Die Implementierungen für den
   Datepicker und den Slider wurden neugeschrieben.
 * `js-iso8601 <https://github.com/csnover/js-iso8601>`_ wurde hinzugefügt, um
@@ -624,6 +625,9 @@ Konfiguration
   ist, wird der Slash im Namen von AddOns durch ``:`` ersetzt, sodass z.B. der
   ``install``-Key von Image-Resize unter ``addons/sallycms:image-resize/install``
   zu erreichen ist.
+* Es ist nun einfacher, eine vom Standard abweichende Verbindung zu einem
+  Memcached-Daemon aufzubauen. Dazu kann ``babelcache/memcached`` überschrieben
+  und ein andere Tupel aus Host und Port definiert werden.
 
 API
 ^^^
@@ -752,6 +756,7 @@ API
       * ``sly_Service_User``: ``add()``, ``create()``, ``save()``
 
   * ``sly_Service_ArticleSlice->findByArticleClangSlot()`` wurde ergänzt.
+  * ``sly_Service_ArticleSlice->add()`` wurde ergänzt.
   * Der Parameter ``$clang`` wurde von ``sly_Service_ArticleSlice->move()``
     entfernt.
   * ``sly_Service_ArticleSlice->processScaffold()`` wurde durch
@@ -787,12 +792,14 @@ API
     Versionscheck analog zu Composer durch.
   * ``sly_Util_Medium::upload()`` wurde um einen optionalen ``$user``-Parameter
     erweitert.
+  * ``sly_Util_Template::renderAsString()`` wurde hinzugefügt.
 
 * Der alte Dateisystem-Cache (``BabelCache_Filesystem``) ist nicht mehr im
   Backend verfügbar, da er nie sinnvoller ist als der
   ``BabelCache_Filesystem_Plain``. Dieser wird nun im Backend als "Filesystem"
   bezeichnet.
 * ``sly_Core::getFlashMessage()`` wurde ergänzt.
+* ``sly_cookie()`` wurde analog zu ``sly_get()`` etc. hinzugefügt.
 
 Frontend
 """"""""
@@ -854,6 +861,9 @@ Events
   * ``SLY_ART_COPIED``
   * ``SLY_ART_MOVED``
   * ``SLY_CAT_ADDED``
+
+* ``SLY_BE_LOGIN`` und ``SLY_BE_LOGOUT`` wurden hinzugefügt. Es sind jeweils
+  ``notify``-Events, die den betroffenen Nutzer als Subject mitbringen.
 
 Datenbank
 """""""""
