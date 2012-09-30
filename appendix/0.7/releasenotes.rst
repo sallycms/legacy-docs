@@ -3,19 +3,13 @@ Release-Notes
 
 .. centered:: -- Composer, LESS is more & no more GPL --
 
-.. note::
-
-  Version 0.7 befindet sich noch im Release Candidate-Stadium und ist noch nicht
-  für den produktiven Einsatz geeignet. Die hier genannten Details können sich
-  bis zum finalen Release jederzeit ändern.
-
 Gut ein halbes Jahr nach dem Release der letzten großen Major-Version freut sich
-das Sally-Team, nun die Verfügbarkeit des ersten *Release Candidates* von
-SallyCMS 0.7 bekanntzugeben. Das neue Major Release konzentriert sich vor allem
-auf die `Composer <https://getcomposer.org>`_-Integration, über die zukünftig
-AddOns, Plugins und weitere Bibliotheken in Sally integriert werden, sowie den
-Wechsel von Scaffold hin zu `LESS <http://lesscss.org/>`_. Gleichzeitig stellt
-es das erste Release dar, dass **vollständig MIT-lizenziert** ist.
+das Sally-Team, nun die Verfügbarkeit von **SallyCMS 0.7** bekanntzugeben. Das
+neue Major Release konzentriert sich vor allem auf die
+`Composer <https://getcomposer.org>`_-Integration, über die zukünftig AddOns,
+Plugins und weitere Bibliotheken in Sally integriert werden, sowie den Wechsel
+von Scaffold hin zu `LESS <http://lesscss.org/>`_. Gleichzeitig stellt es das
+erste Release dar, dass **vollständig MIT-lizenziert** ist.
 
 Der grobe :doc:`Ablauf eines Updates auf 0.7 <migrate>` wird auf einer extra
 Seite beschrieben. Der Migrationsleitfaden wird bis zum finalen Release noch
@@ -516,8 +510,8 @@ bessere Hashes ersetzt.
 Änderungen seit dem RC1
 -----------------------
 
-Release Candidate 2
-"""""""""""""""""""
+RC 2
+""""
 
 * In den meisten Service-Methoden (``sly_Service_Article->add()``, ``->edit()``
   etc.) kam ein weiterer, optionaler Parameter ``$user`` hinzu. Über diesen
@@ -546,11 +540,35 @@ Release Candidate 2
 * alle Bugfixes aus dem 0.6-Branch
 * weitere kleinere Korrekturen
 
-Release Candidate 3
-"""""""""""""""""""
+RC 3
+""""
 
 * Die Setup-Prozedur war defekt, sofern auf dem System nicht zufällig ein
   MySQL-Nutzer namens "sally" ohne gesetztes Passwort existierte.
+
+0.7 Final
+"""""""""
+
+* Die Konfiguration wurde leicht überarbeitet und ist jetzt mit mehr Unit Tests
+  abgedeckt.
+* BabelCache wurde auf 1.2.14 aktualisiert.
+* Im Setup wird nun nicht mehr die irrelevante Version der mysql-Clientlib
+  geprüft, sondern die Serverversion. Außerdem wird dabei PDO genutzt.
+* Die Tabellen-API wurde verbessert:
+
+  * ``sly_Table_Column::factory()`` erstellt einfache Objekte
+  * ``sly_Table_Column::icon()`` erstellt Tabellenspalten für Icons
+  * ``sly_Table_Column::sprite()`` erstellt Tabellenspalten für Sprites
+  * Die API von ``sly_Table_Column`` ist nun fluid.
+
+* Innerhalb eines Formulars können nun einzelne Elemente gezielt ersetzt werden.
+* Das ``SLY_PROFILE_FORM``-Event wurde hinzugefügt.
+* Das ``PAGE_HEADER``-Event enthält nun das betroffenen ``sly_Layout``-Objekt
+  als Subject.
+* In ``SLY_LAYOUT_NAVI`` wird das Backend-Layout nun als zusätzlicher Parameter
+  ``layout`` mitgegeben.
+* ``sly_Util::includeTemplate()`` wurde entfernt.
+* kleinere Verbesserungen
 
 API-Änderungen
 --------------
@@ -605,6 +623,10 @@ Controller
   * Im Setup wird nun die MIT-Lizenz angezeigt, die in den Sprachdateien
     lokalisiert vorliegt.
   * Die empfohlene PHP-Version wurde auf 5.4 erhöht.
+  * Es wird nun nicht mehr die irrelevante Version der mysql-Clientlib
+    geprüft, sondern die Serverversion. Außerdem wird dabei PDO genutzt. Es ist
+    damit möglich, Sally auf Systemen zu installieren, die weder ``php_mysql``
+    noch ``php_mysqli`` aktiviert haben.
 
 * Der Mechanismus, über ``page`` und ``name``-Angaben in der :file:`static.yml`
   einen Menüpunkt anzulegen, wurde entfernt. AddOns müssen immer die PHP-API
@@ -624,6 +646,8 @@ API
 
 Core
 """"
+
+* BabelCache wurde auf 1.2.14 aktualisiert.
 
 Konfiguration
 ^^^^^^^^^^^^^
@@ -803,12 +827,22 @@ API
     erweitert.
   * ``sly_Util_Template::renderAsString()`` wurde hinzugefügt.
 
+* **Tabellen**
+
+  * ``sly_Table_Column::factory()`` erstellt einfache Objekte
+  * ``sly_Table_Column::icon()`` erstellt Tabellenspalten für Icons
+  * ``sly_Table_Column::sprite()`` erstellt Tabellenspalten für Sprites
+  * Die API von ``sly_Table_Column`` ist nun fluid.
+
 * Der alte Dateisystem-Cache (``BabelCache_Filesystem``) ist nicht mehr im
   Backend verfügbar, da er nie sinnvoller ist als der
   ``BabelCache_Filesystem_Plain``. Dieser wird nun im Backend als "Filesystem"
   bezeichnet.
 * ``sly_Core::getFlashMessage()`` wurde ergänzt.
 * ``sly_cookie()`` wurde analog zu ``sly_get()`` etc. hinzugefügt.
+* ``sly_Form->replaceElement()`` wurde hinzugefügt, um einzelne Elemente in
+  Formularen zu ersetzen.
+* ``sly_Util::includeTemplate()`` wurde entfernt.
 
 Frontend
 """"""""
@@ -873,6 +907,11 @@ Events
 
 * ``SLY_BE_LOGIN`` und ``SLY_BE_LOGOUT`` wurden hinzugefügt. Es sind jeweils
   ``notify``-Events, die den betroffenen Nutzer als Subject mitbringen.
+* Das ``SLY_PROFILE_FORM``-Event wurde hinzugefügt.
+* Das ``PAGE_HEADER``-Event enthält nun das betroffenen ``sly_Layout``-Objekt
+  als Subject.
+* In ``SLY_LAYOUT_NAVI`` wird das Backend-Layout nun als zusätzlicher Parameter
+  ``layout`` mitgegeben.
 
 Datenbank
 """""""""
