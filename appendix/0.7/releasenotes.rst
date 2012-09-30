@@ -20,7 +20,7 @@ vervollständigt.
 * `Downloads <https://projects.webvariants.de/projects/sallycms/files>`_
 * `Google+ <https://plus.google.com/b/114660281857431220675/>`_ und
   `Twitter <https://twitter.com/#!/webvariants>`_
-* `Repository <https://bitbucket.org/SallyCMS/trunk/>`_ und
+* `Repository <https://bitbucket.org/SallyCMS/0.7/>`_ und
   `Code-Statistik bei Ohloh <http://www.ohloh.net/p/sallycms>`_
 * `Bugtracker <https://projects.webvariants.de/projects/sallycms/issues/>`_ und
   `Forum <https://projects.webvariants.de/projects/sallycms/boards/>`_
@@ -410,7 +410,7 @@ Die alte :file:`_lizenz.txt` wurde daher entfernt, beim Setup erscheint nun die
 (auf Deutsch und Englisch verfügbare) MIT-Lizenz.
 
 Der gesamte Prozess hat uns stolze 33 Monate gekostet (im
-`Dezember 2009 <https://bitbucket.org/SallyCMS/trunk/changesets/tip/0>`_ haben
+`Dezember 2009 <https://bitbucket.org/SallyCMS/0.7/changesets/tip/0>`_ haben
 wir geforkt). ;-)
 
 .. _innodb:
