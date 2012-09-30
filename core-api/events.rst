@@ -322,6 +322,7 @@ selbst wenn deren API vom Backend aufgerufen wird.
      * SLY_BE_LOGIN
      * SLY_BE_LOGOUT
      * SLY_LAYOUT_NAVI
+     * SLY_PROFILE_FORM
 
 
 Frontend
