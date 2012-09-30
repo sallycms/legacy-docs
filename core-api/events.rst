@@ -319,6 +319,8 @@ selbst wenn deren API vom Backend aufgerufen wird.
      * PAGE_CHECKED
      * PAGE_TITLE
      * PAGE_TITLE_SHOWN
+     * SLY_BE_LOGIN
+     * SLY_BE_LOGOUT
      * SLY_LAYOUT_NAVI
 
 
