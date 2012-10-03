@@ -280,7 +280,7 @@ AddOns ein::
 
   Grundsätzlich ist es auch kein Problem, AddOns einzubinden, die nicht auf
   Packagist angemeldet sind. Die Composer-Dokumentation enthält weitere Hinweise
-  zu Custom Repositories und Repositories.
+  zu Custom Packages und Repositories.
 
 Alle AddOns, die nicht über Composer verwaltet werden können, sollten manuell
 auf die aktuelle Version aktualisiert werden.
