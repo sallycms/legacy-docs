@@ -12,8 +12,7 @@ von Scaffold hin zu `LESS <http://lesscss.org/>`_. Gleichzeitig stellt es das
 erste Release dar, dass **vollständig MIT-lizenziert** ist.
 
 Der grobe :doc:`Ablauf eines Updates auf 0.7 <migrate>` wird auf einer extra
-Seite beschrieben. Der Migrationsleitfaden wird bis zum finalen Release noch
-vervollständigt.
+Seite beschrieben.
 
 **Sally im Web**
 
