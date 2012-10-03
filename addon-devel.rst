@@ -2,7 +2,7 @@ AddOns entwickeln
 =================
 
 AddOns sind Erweiterungen für SallyCMS, die sowohl im Frontend als auch im
-Backend bei jedem Request geladen (ausgeführt) werden. AddOns können daher
+Backend bei jedem Seitenaufruf geladen (ausgeführt) werden. AddOns können daher
 wesentlich tiefer ins System eingreifen als es Module oder Templates könnten.
 
 AddOns können beispielsweise eigene Backend-Seiten anlegen, ihre eigenen

@@ -7,6 +7,7 @@ Projektentwicklung
    frontend-devel/develop
    frontend-devel/assets
    frontend-devel/lesscss
+   frontend-devel/addons
    frontend-devel/listeners
    frontend-devel/controllers
    frontend-devel/mercurial
