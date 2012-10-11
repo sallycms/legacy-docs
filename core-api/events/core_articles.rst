@@ -83,6 +83,17 @@ Article-Models
 
 .. =============================================================================
 
+.. slyevent:: SLY_ART_PRE_DELETE
+  :type:    notify
+  :in:      sly_Model_Article
+  :subject: der zu löschende Artikel
+  :since:   0.6.8 / v0.7.1
+
+  Dieses Event wird ausgelöst, bevor ein Artikel gelöscht wird. Der Vorgang
+  kann gestoppt werden, indem eine Exception geworfen wird.
+
+.. =============================================================================
+
 .. slyevent:: SLY_ART_DELETED
   :type:    notify
   :in:      sly_Model_Article

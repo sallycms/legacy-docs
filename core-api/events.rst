@@ -175,6 +175,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_ART_CONTENT_COPIED
      * SLY_ART_DELETED
      * SLY_ART_MOVED
+     * SLY_ART_PRE_DELETE
      * SLY_ART_STATUS
      * SLY_ART_STATUS_TYPES
      * SLY_ART_TO_STARTPAGE
@@ -187,6 +188,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_CAT_ADDED
      * SLY_CAT_DELETED
      * SLY_CAT_MOVED
+     * SLY_CAT_PRE_DELETE
      * SLY_CAT_STATUS
      * SLY_CAT_STATUS_TYPES
      * SLY_CAT_UPDATED
@@ -208,6 +210,7 @@ Sally-Standardbackend) als auch im Frontend auftreten.
 
      * SLY_USER_ADDED
      * SLY_USER_DELETED
+     * SLY_USER_PRE_DELETE
      * SLY_USER_UPDATED
 
    * :doc:`events/core_layout`
