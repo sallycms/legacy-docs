@@ -23,15 +23,18 @@ Sonstige Core-Events
 
 .. =============================================================================
 
-.. slyevent:: ADDONS_INCLUDED
+.. slyevent:: SLY_ADDONS_LOADED
   :type:    notify
   :in:      null
+  :since:   0.7.0
   :subject: N/A
 
   Dieses Event wird ausgelöst, nachdem der Systemkern alle aktivierten AddOns
   und Plugins geladen hat. In den meisten Fällen es ist ratsam,
   Initialisierungen von AddOns mindestens bis zu diesem Event aufzuschieben.
   Das ermöglicht es, dass alle Event-Listener bereits registriert sind.
+
+  Dieses Event hieß vor 0.7 ``ADDONS_INCLUDED``.
 
 .. =============================================================================
 
@@ -48,14 +51,12 @@ Sonstige Core-Events
 .. =============================================================================
 
 .. slyevent:: SLY_DB_IMPORTER_AFTER
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: die Erfolgsnachricht vom Core
+  :type:    notify
+  :in:      sly_DB_Dump
+  :subject: der eingespielte Dump
   :params:
-    dump     (sly_DB_Dump)  der eingespielte Dump
-    filename (string)       der Dateiname des eingespielten Dumps
-    filesize (int)          die Dateigröße des Dumps in Byte
+    filename  (string)  der Dateiname des eingespielten Dumps
+    filesize  (int)     die Dateigröße des Dumps in Byte
 
   Dieses Event wird ausgelöst, nachdem ein Datenbank-Dump importiert wurde. Es
   wird auch während der Sally-Setups ausgeführt, allerdings kann zu diesem
@@ -68,20 +69,18 @@ Sonstige Core-Events
   erweitert wurde. In diesem Fall müsste das dafür zuständige AddOn (Metainfo)
   bei diesem Event die überschüssigen Daten entfernen und fehlende ergänzen.
 
-  Im Anschluss an dieses Event wird der Cache geleert (es wird ``ALL_GENERATED``
+  Im Anschluss an dieses Event wird der Cache geleert (es wird ``SLY_CACHE_CLEARED``
   ausgeführt).
 
 .. =============================================================================
 
 .. slyevent:: SLY_DB_IMPORTER_BEFORE
-  :type:    filter
-  :in:      string
-  :out:     string
-  :subject: Hinweisnachricht (initial ein leerer String)
+  :type:    notify
+  :in:      sly_DB_Dump
+  :subject: der einzuspielende Dump
   :params:
-    dump     (sly_DB_Dump)  der eingespielte Dump
-    filename (string)       der Dateiname des eingespielten Dumps
-    filesize (int)          die Dateigröße des Dumps in Byte
+    filename (string)  der Dateiname des eingespielten Dumps
+    filesize (int)     die Dateigröße des Dumps in Byte
 
   Dieses Event wird ausgelöst, bevor ein Datenbank-Dump importiert wurde.
   Listener können nur die später auszugebende Erfolgsnachricht um eigene Infos
@@ -115,16 +114,18 @@ Sonstige Core-Events
 .. =============================================================================
 
 .. slyevent:: SLY_CACHE_CLEARED
-  :type:    filter
+  :type:    notify
   :since:   0.6
-  :in:      string
-  :out:     string
-  :subject: die Erfolgsnachricht
+  :in:      null
+  :subject: N/A
 
   Wird ausgeführt, nachdem der Core-Cache (Artikel, Templates, ...) geleert
   wurde. Alle Bestandteile des Systems, die Daten in irgendeiner Art cachen,
   sollten auf dieses Event reagieren und ihren Cache **vollständig** leeren.
   Früher war dieses Event als ``ALL_GENERATED`` bekannt.
+
+  Seit Version 0.7 ist dieses Event ein **notify**-Event. Listener müssen ihre
+  Meldungen seither über die Flash-Message ausgeben.
 
 .. note::
 

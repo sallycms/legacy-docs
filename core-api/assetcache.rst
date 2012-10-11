@@ -33,8 +33,9 @@ Auslieferung
 
 Über eine RewriteRule werden zu cachende Assets beim ersten Zugriff durch einen
 Client durch Sally verarbeitet und gecached. Diese Verarbeitung beinhaltet für
-CSS-Dateien eine Verarbeitung mit :doc:`Scaffold </frontend-devel/scaffold>`.
-Alle weiteren Dateien werden standardmäßig nur entsprechend des
+CSS-Dateien eine Verarbeitung mit :doc:`LESS </frontend-devel/lesscss>`,
+sofern diese ``.less`` benannt sind (reguläre ``.css``-Dateien werden nicht
+verarbeitet). Alle weiteren Dateien werden standardmäßig nur entsprechend des
 ``Accept-Encoding``-Headers des Clients komprimiert und in einem dynamisch
 angelegten Verzeichnis abgelegt. Von dort aus werden die Dateien bei jedem
 weiteren Zugriff direkt durch den Apache ausgeliefert, ohne dass PHP zum Einsatz
@@ -108,17 +109,17 @@ Erweiterung / Nutzung in Addons
 Probleme
 --------
 
-Scaffold CSS-Includes
-^^^^^^^^^^^^^^^^^^^^^
+CSS-Imports
+^^^^^^^^^^^
 
 Dieses Konzept wird problematisch, wenn mehrere CSS-Dateien in einer
-"Importdatei" über ``@include file.css`` eingebunden wird. Wird nun nur die
+"Importdatei" über ``@import 'file.less';`` eingebunden wird. Wird nun nur die
 Importdatei im HTML-Kopf verlinkt, so wird auch nur sie vom Server verarbeitet
-und gecached. Dabei wird Scaffold alle Includes auflösen. Ändert sich nun eine
-eingebundene Datei (:file:`file.css`), wird dies vom Sally-Cache nicht bemerkt,
-da dieser nur auf Änderungen der :file:`import.css` prüft.
+und gecacht. Dabei wird lessphp alle Includes auflösen. Ändert sich nun eine
+eingebundene Datei (:file:`file.less`), wird dies vom Sally-Cache nicht bemerkt,
+da dieser nur auf Änderungen der :file:`import.less` prüft.
 
-Um dieses Problem zu umgehen, sollten **keine @include-Direktiven benutzt** und
+Um dieses Problem zu umgehen, sollten **keine @import-Direktiven benutzt** und
 alle CSS-Dateien **einzeln** in den HTML-Kopf eingefügt werden. Ein AddOn wie
 der Deployer kann die Dateien dann zusammenfassen und so doch nur eine einzelne
 CSS-Datei im HTML-Kopf verlinken.

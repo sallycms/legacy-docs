@@ -66,6 +66,15 @@ werden. Dazu registrieren wir über eine beliebige Konfigurationsdatei in
 
   LISTENERS:
      SLY_FRONTEND_ROUTER: ['sly_Controller_Frontend_Hello::addRoutes']
+     
+.. note::
+
+  Sollte man in einem Addon mehrere Frontend-Controller erstellt haben, dann sollten die verschiedenen Controller wie folgt dargestellt werden
+  
+.. sourcecode:: yaml
+
+  LISTENERS:
+     SLY_FRONTEND_ROUTER: ['sly_Controller_Frontend_Hello::addRoutes','sly_Controller_Frontend_Goodbye::addRoutes']
 
 Ergebnis
 --------

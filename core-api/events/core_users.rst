@@ -5,6 +5,8 @@ User-Models
   :type:    notify
   :in:      sly_Model_User
   :subject: der hinzugefügte Benutzer
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgelöst nachdem eine neuer Benutzer angelegt wurde.
 
@@ -14,6 +16,8 @@ User-Models
   :type:    notify
   :in:      sly_Model_User
   :subject: der aktualisierte Benutzer
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgelöst nachdem ein Benutzer bearbeitet wurde.
 

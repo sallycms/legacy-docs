@@ -51,8 +51,8 @@ auch Inline-Codes und andere Inhalte noch einmal gefiltert werden.
 
 .. slyevent:: PAGE_HEADER
   :type:    notify
-  :in:      string
-  :subject: ein leerer String
+  :in:      sly_Layout
+  :subject: das betroffene Layout
 
   Dieses Event wird ausgelöst bevor die Kopfangaben eines Layouts ausgegeben
   werden. Es wird sowohl vom XHTML- als auch vom XHTML5-Layout ausgeführt.
@@ -61,3 +61,8 @@ auch Inline-Codes und andere Inhalte noch einmal gefiltert werden.
 
   Dieses Event ist *deprecated* und wird in einer zukünftigen Version durch ein
   etwas allgemeineres Event ersetzt werden (à la ``LAYOUT_HEAD``).
+
+.. note::
+
+  Seit Sally 0.7 erhält dieses Event das betroffene Layout als Subject. Früher
+  wurde ein leerer String übergeben.

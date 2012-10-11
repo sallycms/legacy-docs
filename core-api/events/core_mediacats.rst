@@ -5,6 +5,8 @@ MediaCategory-Models
   :type:    notify
   :in:      sly_Model_MediaCategory
   :subject: die hinzugefügte Kategorie
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgelöst nachdem eine neue Medienkategorie angelegt wurde.
 
@@ -14,6 +16,8 @@ MediaCategory-Models
   :type:    notify
   :in:      sly_Model_MediaCategory
   :subject: die aktualisierte Kategorie
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgelöst nachdem eine Medienkategorie umbenannt wurde.
 

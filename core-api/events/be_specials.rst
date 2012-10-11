@@ -15,6 +15,8 @@ Systemseite
   ``DEFAULT_CLANG_ID``, ``DEFAULT_ARTICLE_TYPE``, ``DEVELOPER_MODE``,
   ``DEFAULT_LOCALE``, ``PROJECTNAME``, ``CACHING_STRATEGY``, ``TIMEZONE``.
 
+.. =============================================================================
+
 .. slyevent:: SLY_SYSTEM_CACHES
   :type:    filter
   :in:      sly_Form_Select_Checkbox

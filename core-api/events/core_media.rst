@@ -5,6 +5,8 @@ Medium-Models
   :type:    notify
   :in:      sly_Model_Medium
   :subject: das hinzugefügte Medium
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgelöst nachdem ein neues Medium angelegt wurde. Dies kann
   nach einem Upload oder nach dem Synchronisieren von Dateien geschehen.
@@ -15,6 +17,8 @@ Medium-Models
   :type:    notify
   :in:      sly_Model_Medium
   :subject: das aktualisierte Medium
+  :params:
+    user (sly_Model_User)  der Nutzer, der die Aktion ausgeführt hat; seit v0.7
 
   Dieses Event wird ausgelöst nachdem eine Medienkategorie umbenannt wurde.
 

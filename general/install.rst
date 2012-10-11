@@ -1,5 +1,25 @@
-Installationshinweise
-=====================
+Installation
+============
+
+Dieser Guide beschreibt die Installation des Basissystems von SallyCMS.
+
+Sally steht in zwei verschiedenen Ausführungen bereit:
+
+**Composer**
+  Die Composer-Version enthält ausschließlich das Kernsystem und muss, bevor
+  sie installiert werden kann, erst mittels Composer_ eingerichtet werden. Dabei
+  werden die benötigten Bibliotheken runtergeladen und installiert.
+  Diese Variante ist für alle Nutzer empfohlen, da sie es erlaubt, automatisch
+  Aktualisierungen für Sally und die verwendeten AddOns zu erhalten.
+
+**Standalone**
+  Für Nutzer, die kein Composer verwenden können oder wollen, steht auch noch
+  eine Standalone-Version bereit. Hier sind bereits die nötigen Bibliotheken
+  enthalten (nicht jedoch eventuelle AddOns).
+  Es ist problemlos möglich, mit einem Standalone-Paket zu beginnen und später
+  Composer einzusetzen, um Aktualisierungen oder AddOns zu erhalten.
+
+.. _Composer: http://getcomposer.org/
 
 Systemvoraussetzungen
 ---------------------
@@ -10,8 +30,13 @@ Systemvoraussetzungen
     deaktiviert sein.
   * Die Standard-Module von PHP werden benötigt: mbstring, PCRE,
     zlib, gd, PDO, json, DateTime, ...
+  * Für den Einsatz von Composer ist PHP 5.3+ notwendig. Für das reine
+    Ausführen von Sally ist dabei weiterhin 5.2 benötigt; Composer kommt nur
+    "außerhalb" von Sally zum Verwalten der Abhängigkeiten zum Einsatz. Ein
+    Composer-Projekt kann also problemlos auf Servern mit PHP 5.2 deployt
+    werden.
 
-* MySQL 5.0
+* MySQL 5.0 oder MariaDB 5.0
 * Apache 2.2
 
   * `mod_rewrite <http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html>`_,
@@ -25,27 +50,35 @@ zu steigern:
 * XCache, APC, Zend Data Server, eAccelerator
 * Memcache (php_memcache), Memcached (php_memcached)
 
-Wir empfehlen XCache oder APC unter Windows und APC mit Memcached auf
-Produktivsystemen.
+Wir empfehlen APC unter Windows und APC mit Memcached auf Produktivsystemen.
 
-Upload
-------
+Projekt starten
+---------------
 
-#. Entpacke das heruntergladene Archiv auf deinen Rechner.
-#. Lade alle Dateien bis auf die folgenden aus dem Download-Archiv auf deinen
-   Webspace.
+#. Lade den Code herunter. Dazu gibt es mehrere Möglichkeiten:
 
-   * :file:`contrib/`
-   * :file:`sally/tests/`
-   * :file:`version`
+   * Lade ein `fertiges Download-Archiv <https://projects.webvariants.de/projects/sallycms/files>`_ herunter.
+   * Klone mit Mercurial das `Sally-Repository bei Bitbucket <https://bitbucket.org/SallyCMS/0.7>`_.
+   * Klone mit Git das `Sally-Repository bei GitHub <https://github.com/sallycms/0.7>`_.
+
+   Beachte, dass die Repositories die benötigten Bibliotheken nicht enthalten
+   und daher Composer verwendet werden muss, um daraus lauffähige Projekte zu
+   erstellen.
+#. Falls keine Standalone-Variante verwendet wurde, muss Composer einmal
+   aufgerufen werden. Die :file:`composer.phar` kann auf der Composer-Website
+   kostenlos heruntergeladen werden und sollte im Hauptverzeichnis von Sally
+   abgelegt werden. Danach kann sie aufgerufen werden::
+
+   $ php composer.phar install
 
 #. Stelle sicher, dass Sally beim ersten Aufruf das Verzeichnis :file:`data`
    erstellen kann, falls es nicht vorhanden ist. :file:`data` und alle darin
    enthaltenen Verzeichnisse sollten auf *guten* Servern ``chmod 664`` haben.
    Server, bei denen Webserver und FTP als verschiedene User laufen, benötigen
-   ``chmod 0777``.
-#. Rufe das von dir erstellte Verzeichnis im Browser auf, z. B. via
-   http://example.com/backend/. Du solltest dann automatisch zum Setup
+   ``chmod 0777``. Auf Windows-Rechnern gibt es keine Probleme mit den
+   Dateiberechtigungen.
+#. Rufe das von dir erstellte Projekt im Browser auf, z. B. via
+   ``http://localhost/mein-projekt/``. Du solltest dann automatisch zum Setup
    weitergeleitet werden.
 
 Häufige Startprobleme
@@ -86,8 +119,9 @@ Lizenzabkommen
 
 .. image:: /_static/step1.png
 
-Akzeptiere die Lizenz. Du musst hier der GPL zustimmen, da Sally noch
-nicht ausschließlich aus MIT-lizensiertem Code besteht.
+Akzeptiere die Lizenz. Du musst hier der MIT zustimmen, die für den Systemkern
+sowie alle AddOns von SallyCMS (BE-Search, Import/Export und Image-Resize) gilt.
+AddOns können natürlich ggf. andere Lizenzen einsetzen.
 
 Schritt 1: Systemvoraussetzungen
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -96,8 +130,8 @@ Schritt 1: Systemvoraussetzungen
 
 In diesem Schritt wird die Konfiguration des Servers geprüft. Treten Probleme
 auf, die eine Installation verhindern, kannst du den Vorgang ab diesem Punkt
-nicht fortsetzen. Andernfalls bestätige den Schritt und gehe zur
-Datenbank-Einrichtung weiter.
+nicht fortsetzen. Wenn es keine Probleme gibt, wird dieser Schritt automatisch
+übersprungen und du zum Datenbank-Setup weitergeleitet.
 
 Schritt 2: Datenbankinformationen
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -113,6 +147,11 @@ erscheinen und das Formular wieder erscheinen.
   Auch wenn es bei der Datenbank-Einrichtung so klingt, als wären die anderen
   DBMS neben MySQL eine gefährliche, aber mögliche Wahl: Dem ist nicht so. Du
   musst MySQL auswählen.
+
+.. note::
+
+  Du kannst auch problemlos MariaDB anstatt MySQL verwenden. Im Setup wählt
+  man dabei hingegen trotzdem MySQL aus.
 
 Schritt 3: Datenbank einrichten
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
