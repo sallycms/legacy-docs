@@ -1,6 +1,29 @@
 Changelog
 =========
 
+0.6.8 (12. Oktober 2012)
+------------------------
+
+* Security: Nutzer konnten im Strukturcontroller mehr Aktionen ausführen als
+  erlaubt.
+* **Bugfix: Der Bugfix aus v0.6.7 war nicht vollständig. Es war weiterhin
+  möglich, Kategorien zu löschen, die nur weitere Artikel enthielten.**
+* ``sly_Model_ArticleSlice->getNext()`` und ``->getPrev()`` wurden ergänzt.
+* Die beiden Tabellen in der Strukturansicht im Backend sind nun mit ``data-``-
+  Attributen ausgestattet, um die Ansicht leichter per JavaScript zu erweitern.
+* Das Löschen von Artikeln, Kategorien und Benutzern kann jetzt unterbrochen
+  werden, indem auf das Event ``SLY_PRE_ART_ADDED`` (``SLY_PRE_CAT_ADDED`` und
+  ``SLY_PRE_USER_ADDED`` respektive) gelauscht und eine Exception geworfen wird.
+* Bugfix: Im Frontend fehlten ein paar Core-Translations.
+* Bugfix: ``sly_Form_ElementBase->addStyle()`` fügte Styles nicht korrekt
+  zusammen.
+* Bugfix: WYMeditoren können nun wieder als Metainfos verwendet werden.
+* Bugfix: Artikel, die über ein Routing-AddOn eine absolute URL erhielten,
+  wurden auf der Contentseite im Backend nicht korrekt verlinkt.
+* Bugfix: Auf der System- und Profilseite wird nun nicht mehr aus Versehen das
+  Locale geändert.
+* weitere kleinere Verbesserungen
+
 0.6.7 (4. September 2012)
 -------------------------
 
