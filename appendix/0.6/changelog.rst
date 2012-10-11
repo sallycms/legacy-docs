@@ -12,8 +12,8 @@ Changelog
 * Die beiden Tabellen in der Strukturansicht im Backend sind nun mit ``data-``-
   Attributen ausgestattet, um die Ansicht leichter per JavaScript zu erweitern.
 * Das Löschen von Artikeln, Kategorien und Benutzern kann jetzt unterbrochen
-  werden, indem auf das Event ``SLY_PRE_ART_ADDED`` (``SLY_PRE_CAT_ADDED`` und
-  ``SLY_PRE_USER_ADDED`` respektive) gelauscht und eine Exception geworfen wird.
+  werden, indem auf das Event ``SLY_PRE_ART_DELETE`` (``SLY_PRE_CAT_DELETE`` und
+  ``SLY_PRE_USER_DELETE`` respektive) gelauscht und eine Exception geworfen wird.
 * Bugfix: Im Frontend fehlten ein paar Core-Translations.
 * Bugfix: ``sly_Form_ElementBase->addStyle()`` fügte Styles nicht korrekt
   zusammen.
