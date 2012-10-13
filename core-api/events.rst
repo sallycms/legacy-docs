@@ -213,6 +213,12 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_USER_PRE_DELETE
      * SLY_USER_UPDATED
 
+   * :doc:`events/core_languages`
+
+     * CLANG_ADDED
+     * CLANG_DELETED
+     * CLANG_UPDATED
+
    * :doc:`events/core_layout`
 
      * HEADER_CSS
