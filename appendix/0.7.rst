@@ -7,3 +7,4 @@
    0.7/releasenotes
    0.7/migrate
    0.7/changelog
+   0.7/bc-breaks
