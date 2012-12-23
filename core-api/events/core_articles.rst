@@ -189,6 +189,24 @@ Article-Models
 
 .. =============================================================================
 
+.. slyevent:: SLY_URL_REDIRECT
+  :type:    filter
+  :in:      sly_Model_Article
+  :out:     sly_Model_Article
+  :subject: der betroffene Artikel
+  :since:   0.7.3
+  :params:
+    params        (mixed)   die URL-Parameter
+    divider       (string)  der Trenner für die URL-Parameter
+    disable_cache (bool)    wenn true, sollte die URL nicht aus einem Cache ermittelt werden
+
+  Über dieses Event kann das Ziel einer URL verändert werden. So kann ein
+  Artikel X statt seiner eigenen URL die eines anderen Artikels zurückgeben.
+  Dies ist nützlich für Redirects, bei denen bereits beim Generieren der URL
+  klar ist, dass die URL nur einen Redirect auf eine andere URL auslösen würde.
+
+.. =============================================================================
+
 .. slyevent:: URL_REWRITE
   :type:    filter
   :in:      string

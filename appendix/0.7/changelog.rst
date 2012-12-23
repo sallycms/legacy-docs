@@ -1,6 +1,45 @@
 Changelog
 =========
 
+0.7.3 (23. Dezember 2012)
+-------------------------
+
+* Das Session-Cookie von Sally wird nun immer mit dem ``httponly``-Flag
+  gesendet.
+* ``sly_Loader`` unterstützt nun PHP 5.3-Namespaces (wow, seriously?).
+* Im Frontend wird nun automatisch die System-Standardsprache als aktuelle
+  Sprache eingestellt.
+* Vor dem Hinzufügen eines Nutzers wird nun das Event ``SLY_PRE_USER_ADD``,
+  vor dem Aktualisieren eines bestehenden Nutzers ``SLY_PRE_USER_UPDATED``
+  gefeuert.
+* Die Meldungen auf der Slice-Seite eines Artikels wurden etwas optimiert und
+  umorganisiert.
+* Das Benutzer-Formlar zeigt nun auch das Registrierdatum sowie das Datum der
+  letzten Aktualisierung an.
+* Beim Ermitteln der URL eines Artikels wird vor ``URL_REWRITE`` nun noch das
+  neue Event ``SLY_URL_REDIRECT`` ausgelöst, mit dem das Ziel überschrieben
+  werden kann.
+* Die Response-Klasse wurde um von Symfony2 portierte Caching-Funktionen
+  erweitert.
+* ``sly_Util_HTTP::getBasePath()`` wurde ergänzt.
+* ``sly_Util_HTTP::replaceSallyLinks()`` wurde ergänzt und übernimmt die Aufgabe
+  von ``sly_Slice_Render->replaceLinks()``.
+* Bugfix: Das Recht auf "alle" Module wurde nicht korrekt beachtet.
+* Bugfix: AddOn-Abhängigkeiten wurde nicht korrekt erkannt.
+* Bugfix: Datetime-Picker wurden nicht korrekt positioniert, seit jQuery 1.8
+  zum Einsatz kommt.
+* Bugfix: Module, die im Backend eine Exception warfen, führten zu ungültigem
+  HTML.
+* Bugfix: Doppelte Unterstriche werden im Medienpool beim Hinzufügen einer
+  Datei entfernt (da sie sonst zu Konflikten mit Image-Resize führen und noch
+  dazu hässlich sind).
+* Bugfix: Links im Medienpool waren an bestimmten Stellen fehlerhaft.
+* Bugfix: ``sly_Model_ArticleSlice->setValue()`` funktionierte nicht.
+* Bugfix: ``sly_Util_HTTP`` hatte Probleme mit Non-Standard Ports.
+* Bugfix: Vendor-Pakete, die von Hand installiert wurden, wurden nicht korrekt
+  erkannt.
+* weitere kleine Korrekturen
+
 0.7.2 (28. Oktober 2012)
 ------------------------
 
