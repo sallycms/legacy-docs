@@ -16,7 +16,21 @@ Auf dieser Seite werden alle rückwärts-inkompatiblen API-Änderungen aus allen
 * ``sly_Service_Factory::getSliceValueService()`` wurde entfernt, da es den
   Service nicht mehr gibt.
 
-0.7.2 -> 0.7.next
+0.7.2 -> 0.7.3
+---------------
+
+* keine Breaks
+
+0.7.3 -> 0.7.4
+--------------
+
+* ``sly_Layout->getBodyAttr()`` gibt nun, wenn ein Attribut-Name angegeben ist,
+  der nicht gesetzt ist, nicht mehr sämtliche Attribute zurück, sondern
+  ``null``. Um alle Attribute zu erhalten, muss ``null`` übergeben werden.
+* ``SLY_ART_TYPE`` enthält den Artikel in der übergebenen Sprache und nicht mehr
+  in der letzten Systemsprache.
+
+0.7.4 -> 0.7.next
 -----------------
 
 * Das wird die Zeit zeigen...
