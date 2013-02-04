@@ -1,0 +1,10 @@
+0.8-Release
+===========
+
+.. toctree::
+   :maxdepth: 2
+
+   0.8/releasenotes
+   0.8/migrate
+   0.8/changelog
+   0.8/bc-breaks
