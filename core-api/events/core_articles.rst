@@ -189,6 +189,37 @@ Article-Models
 
 .. =============================================================================
 
+.. slyevent:: SLY_SLICE_PRE_RENDER
+  :type:    filter
+  :in:      sly_Model_ISlice
+  :out:     sly_Model_ISlice
+  :subject: das zu rendernde Slice
+  :since:   0.7.4
+  :params:
+    module (string)  der Modulname
+
+  Über dieses Event kann beim Rendern des Outputs eines Slice das Slice
+  ausgetauscht oder verändert werden, **bevor** das Rendern ausgeführt wird.
+  Wenn das Event ``null`` zurückgibt, wird das Rendern **abgebrochen** und
+  stattdessen ein leerer String zurückgegeben.
+
+.. =============================================================================
+
+.. slyevent:: SLY_SLICE_POST_RENDER
+  :type:    filter
+  :in:      string
+  :out:     string
+  :subject: der Output des Moduls
+  :since:   0.7.4
+  :params:
+    slice  (sly_Model_ISlice)  das ursprünglich an die ``renderOutput()``-Methode übergebene Slice
+    module (string)            der Modulname
+
+  Über dieses Event kann beim Rendern des Outputs eines Slice der Output noch
+  einmal modifiziert werden, bevor er zurückgegeben wird.
+
+.. =============================================================================
+
 .. slyevent:: SLY_URL_REDIRECT
   :type:    filter
   :in:      sly_Model_Article

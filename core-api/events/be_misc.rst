@@ -83,3 +83,33 @@ Sonstige Backend-Events
     user (sly_Model_User)  der betroffene Benutzer
 
   Dieses Event wird ausgelöst, wenn das Profilformular gerendert werden soll.
+
+.. =============================================================================
+
+.. slyevent:: SLY_LINKMAP_URL_PARAMS
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: alle dynamischen URL-Parameter
+  :since:   0.7.4
+
+  Über dieses Event kann ein Listener die Liste der Parameter, die über alle
+  Requests innerhalb der Linkmap an alle URLs und alle Formulare angefügt
+  werden, modifizieren. Das Subject ist ein assoziatives Array, wobei der Key
+  jeweils der Name des Parameters und der Value jeweils der Datentyp des
+  Parameters ist (z.B: ``array('callback' => 'string')``).
+
+.. =============================================================================
+
+.. slyevent:: SLY_I18N_MISSING_TRANSLATION
+  :type:    notify
+  :in:      string
+  :subject: der nicht gefundene Key
+  :since:   0.7.4
+  :params:
+    locale (string)  das aktuelle Locale
+
+  Dieses Event wird gefeuert, wenn ``sly_I18N->setReportMissing(true)``
+  aufgerufen wurde. Listener können darüber noch nicht übersetzte Keys sammeln
+  und weiterverarbeiten. Listener können hierüber jedoch **keine Übersetzung**
+  zurückgeben.

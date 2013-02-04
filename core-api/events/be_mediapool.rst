@@ -133,3 +133,18 @@ enthalten sind die Events, die vom :doc:`Medium-Model <core_media>` und vom
   relativer Link zur Backendseite, auf der die Referenz zum Bild
   bearbeitet/entfernt werden kann, beispielsweise ``index.php?page=...&id=...``)
   besteht.
+
+.. =============================================================================
+
+.. slyevent:: SLY_MEDIAPOOL_URL_PARAMS
+  :type:    filter
+  :in:      array
+  :out:     array
+  :subject: alle dynamischen URL-Parameter
+  :since:   0.7.4
+
+  Über dieses Event kann ein Listener die Liste der Parameter, die über alle
+  Requests innerhalb des Medienpools an alle URLs und alle Formulare angefügt
+  werden, modifizieren. Das Subject ist ein assoziatives Array, wobei der Key
+  jeweils der Name des Parameters und der Value jeweils der Datentyp des
+  Parameters ist (z.B: ``array('callback' => 'string')``).

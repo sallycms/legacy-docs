@@ -181,6 +181,8 @@ Sally-Standardbackend) als auch im Frontend auftreten.
      * SLY_ART_TO_STARTPAGE
      * SLY_ART_TYPE
      * SLY_ART_UPDATED
+     * SLY_SLICE_PRE_RENDER
+     * SLY_SLICE_POST_RENDER
      * URL_REWRITE
 
    * :doc:`events/core_categories`
@@ -294,6 +296,7 @@ selbst wenn deren API vom Backend aufgerufen wird.
 
      * PAGE_MEDIAPOOL_HEADER
      * SLY_MEDIAPOOL_MENU
+     * SLY_MEDIAPOOL_URL_PARAMS
      * SLY_MEDIA_FORM_ADD
      * SLY_MEDIA_FORM_EDIT
      * SLY_MEDIA_FORM_SYNC
@@ -330,7 +333,10 @@ selbst wenn deren API vom Backend aufgerufen wird.
      * PAGE_TITLE_SHOWN
      * SLY_BE_LOGIN
      * SLY_BE_LOGOUT
+     * SLY_I18N_MISSING_TRANSLATION
      * SLY_LAYOUT_NAVI
+     * SLY_LINKMAP_URL_PARAMS
+     * SLY_PROFILE_FORM
      * SLY_PROFILE_FORM
 
 
