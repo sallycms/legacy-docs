@@ -301,6 +301,64 @@ bereitgestellt.
 Die alten URLs in Form von ``index.php?page=...&func=...`` werden weiterhin
 unterstützt.
 
+Request-Objekt
+""""""""""""""
+
+Analog zum in Version 0.7 eingeführten Response-Objekt (``sly_Response``) bringt
+Sally nun mit ``sly_Request`` eine entsprechende, an Symfony2 angelehnte
+Abstraktion für den Request mit. Es enthält alle Request-Inhalte (GET, POST,
+Cookies, Header, Uploads und ``$_SERVER``) und macht die alten globalen
+Funktionen ``sly_get()``, ``sly_post()`` etc. überflüssig. Die Funktionen sind
+damit ab diesem Release deprecated, werden vermutlich aber noch nicht in 0.9
+entfernt werden.
+
+Das Request-Objekt steht allen Controllern automatisch über die geerbte
+``getRequest()``-Methode zur Verfügung und kann vom Container ebenfalls via
+``getRequest()`` abgerufen werden.
+
+.. sourcecode:: php
+
+  <?
+
+  // sly_get('foo', 'string', 'bar');
+  $request->get('foo', 'string', 'bar');
+  $request->get->get('foo', 'string', 'bar');
+
+  // sly_post('foo', 'string', 'bar');
+  $request->post('foo', 'string', 'bar');
+  $request->post->get('foo', 'string', 'bar');
+
+  // sly_request und sly_cookie funktionieren analog,
+  // ebenso die Array-Varianten (sly_getArray(), ...)
+
+  // $_SERVER['HTTP_FOO_HEADER']
+  $request->header('foo-header');
+  $request->header('Foo-Header');
+  $request->header('FOO_HEADER');
+  $request->server('HTTP_FOO_HEADER');
+
+  // von Symfony2 übernommen
+  $request->getClientIp();
+  $request->getScheme();
+  $request->getPort();
+  $request->getRequestUri();
+  // ...
+
+An allen Stellen, an denen Daten aus dem Request benötigt werden, kann nun
+optional eine Instanz von ``sly_Request`` übergeben werden. Wird keine
+übergeben, so wird die globale aus dem Container verwendet. Entsprechende
+Methoden sind unter anderem ``sly_Form->render()``, ``sly_Table->render()`` und
+``sly_Util_Csrf::checkToken()``.
+
+Stateless Session
+"""""""""""""""""
+
+Die bisher in ``sly_Util_Session`` implementierten statische Methoden (mit
+Ausname von ``start()``) sind nun deprecated, da die Session zukünftig über eine
+Instanz von ``sly_Session`` (Container: ``getSession()``) verwaltet wird. Dieses
+Objekt enthält analoge, allerdings non-static Methoden bereit und sollte
+anstelle des Utils verwendet werden.
+
 API-Änderungen
 --------------
 
