@@ -120,12 +120,93 @@ haben, sich die Aufrufe zu ``sly_Loader`` in ihrer :file:`boot.php` sparen.
 Neues Setup
 """""""""""
 
-**TODO**
+In bisherigen Versionen war das Setup ein Bestandteil der Backend-App, was dazu
+führte, dass es dort vielerorts Checks der Form *if-setup-stuff-else-other-stuff*
+gab. Sämtliche dieser Checks sind im Produktivbetrieb einer Website ebenso
+irrelevant wie die eigentliche Setup-Funktionalität. Gleichzeitig wird in den
+kommenden Monaten an einem neuen Backend gearbeitet, sodass das Setup als
+Teil des "Legacy-Backends" problematisch wird.
+
+Aus diesem Grund wurde das Setup aus dem Backend herausgelöst und existiert nun
+als `eigenständige App <https://bitbucket.org/SallyCMS/sallycms-setup>`_. Sie
+wird in einem Standard-Projekt mitinstalliert, kann aber auf Wunsch nach der
+erfolgten Einrichtung vollständig gelöscht werden (insbes. nach dem Deployment
+auf den Produktivserver, um die mögliche Angriffsfläche zu verringern).
+
+Im Zuge dieses Umbaus wurde das Setup vollständig re-implementiert. Da das vom
+Backend vorgegebene Layout nicht zur Verfügung steht, kommt hierbei ein
+minimales, auf Bootstrap basierendes Layout zum Einsatz.
+
+.. image:: /_static/0.8-setup-1.png
+.. image:: /_static/0.8-setup-2.png
+.. image:: /_static/0.8-setup-3.png
+
+Einige der Goodies im neuen Setup sind:
+
+* Sprachauswahl anhand des ``Accept-Language``-Headers (spart einen nutzlosen
+  Schritt ein); Sprache kann jederzeit gewechselt werden
+* Lizenzannahme über einfache Checkbox (spart einen weiteren nutzlosen Schritt
+  ein)
+* Projektkonfiguration (Titel, Zeitzone) und Datenbank-Konfiguration auf einer
+  Seite (spart ebenfalls einen Schritt ein)
+* Es werden grundsätzlich nur diejenigen Möglichkeiten angezeigt, die auch
+  wirklich zur Verfügung steht. Wenn die Datenbank leer ist, steht "weiter ohne
+  Einrichtung" nicht zur Verfügung. Existiert noch kein Nutzer, muss einer
+  angelegt werden.
+* Fehlermeldungen & Probleme sollen nur angezeigt werden, wenn sie wirklich
+  auftreten. Keine sinnfreie "Alles ist in Ordnung, weitermachen"-Seite.
+* Es kann - je nach Zustand der Konfiguration - beliebig zwischen den Seiten
+  im Assistenten gewechselt werden. Wenn die Datenbank-Konfiguration passt,
+  kann direkt auf den "Einrichten"-Tab gewechselt werden. Ist die Datenbank
+  okay und ein Nutzer vorhanden, kann vom Start aus direkt auf die
+  "Profit!"-Seite gewechselt werden.
+* Eine obligatorische South Park-Referenz ist ebenfalls enthalten.
+
+Noch nicht implementiert, aber bis zur finalen 0.8-Version geplant, ist ein
+CLI-Script zur Installation, um sie soweit nötig zu automatisieren (insbes.
+bei automatischen Deployments kann das interessant werden).
 
 DI-Container
 """"""""""""
 
-**TODO**
+Aus Sicht der Sally-API ist die Einführung des Dependency Injection Containers
+sicherlich die größte Neuerung in Version 0.8. Sally setzt dabei so gut es mit
+PHP 5.2 eben geht einen Container um, der in ``sly_Container`` implementiert
+und für das Erzeugen/Verwalten fast aller System-Objekte zuständig ist. Sallys
+Container orientiert sich stark an Fabien Potenciers `Pimple
+<http://pimple.sensiolabs.org/>`_, allerdings mit einer Menge Helper-Methoden,
+da PHP 5.2 uns keine Closures erlaubt.
+
+Für Entwickler stellt der Container nun **die** zentrale Anlaufstelle für alle
+Objekte, Services etc. dar. Dazu zählen der Autoloader, die Konfiguration, die
+Model-Services, der Request & die Response und viele weitere "globale"
+Instanzen.
+
+Der Container kann beliebig von jedem, der Zugriff auf ihn erlangt, erweitert
+und verändert werden. So können neue Services hinzugefügt oder bestehende
+ausgetauscht werden. So kann zum Beispiel der Event-Dispatcher einfach
+ausgetauscht werden: ``$container['sly-dispatcher'] = new MyDispatcher();``
+
+Obwohl der Sinn des Containers u.a. ist, alle möglichen Abhängigkeiten zu
+kapseln und globalen Zustand zu vermeiden, hält Sally eine zentrale Instanz des
+Containers statisch bereit. Von jeder beliebigen Stelle kann über
+``sly_Core::getContainer()`` darauf zugegriffen werden, allerdings ist diese
+Art des Zugriffes nicht empfohlen. Für viele Stellen in der Sallywelt ist es
+leider schlichtweg erforderlich, diesen Zugriff zu ermöglichen, z.B. wenn man
+an statische Eventlistener-Funktionen denkt.
+
+Innerhalb von Controllern sollte der zu verwendende Controller über die
+in ``sly_Controller_Base`` implementierte ``getContainer()``-Methode abgerufen
+werden. Sally wird einen Controller entsprechend initialisieren, bevor es seine
+Action ausführt, sodass hier kein Griff in den globalen Zustand notwendig ist.
+Dies ist auch die empfohlene Art, innerhalb von Controllern an den Request (ein
+weiteres in 0.8 neu eingeführtes Objekt, siehe weiter unten) zu gelangen.
+
+Ebenfalls deprecated sind fast sämtliche Methoden innerhalb von ``sly_Core``.
+So gut wie alle sind nur noch inhaltslose Proxies, sodass
+``sly_Core::setCurrentArticle()`` nur ein Alias für
+``sly_Core::getContainer()->setCurrentArticle()`` ist. Soweit möglich sollten
+die Methoden in ``sly_Core`` vermieden werden.
 
 CSRF-Schutz
 """""""""""
