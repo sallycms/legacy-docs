@@ -211,7 +211,44 @@ die Methoden in ``sly_Core`` vermieden werden.
 CSRF-Schutz
 """""""""""
 
-**TODO**
+Sally vergibt beginnend mit dieser Version für jeden Nutzer ein CSRF-Token, das
+in der Session abgelegt und für deren gesamte Lebenszeit gültig ist. Dieses
+Token muss für sämtliche Aktionen im Backend, die den Zustand des Systems
+verändern, im Request enthalten sein. Damit es nicht in irgendwelchen Logs
+landet, kann es ausschließlich in POST-Requests übermittelt werden, womit auch
+sämtliche statusändernden Funktionen nun via POST stattfinden.
+
+Die einzige Ausnahme von dieser Regel stellt ein Login am Backend dar, da Sally
+für noch nicht eingeloggte Benutzer keine Session öffnet. Außerdem ist ein Login
+ein eher uninteressantes CSRF-Target, da ein Angriff den Nutzernamen und das
+Passwort erfordert. Mit diesem Wissen sind allerdings ganz andere Dinge möglich.
+Außerdem verwendet das neue Setup keinen CSRF-Schutz, da es ebenfalls keine
+Session öffnet.
+
+Der Weg, ein für die gesamte Session gültiges Token zu verwenden, wurde bewusst
+gewählt. Er stellt einen guten Kompromiss zwischen Sicherheit und Usability dar,
+bei dem Formulare problemlos mehrfach abgeschickt werden können und keine
+Probleme beim Einsatz mehrerer Browser-Tabs auftreten.
+
+Um das Durchführen von POST-Requests zu vereinfachen, führt Sally die
+HTML-Klasse ``sly-postlink`` ein. Jeder Link, der diese Klasse besitzt, wird von
+Sallys JavaScript abgefangen und in Form eines POSTs (über ein erzeugtes
+verstecktes Formular) abgeschickt. Dabei werden alle in der URL enthaltenen
+Parameter als hidden Inputs verschickt. Das Token wird dabei automatisch aus
+einem Meta-Tag bezogen und darf keinesfalls in der URL auftauchen.
+
+Die Überprüfung des Tokens geschieht nicht automatisch, sondern muss von Hand
+z.B. im Controller und dessen ``checkPermission()``-Methode erfolgen. AddOns
+sind dementsprechend nicht automatisch in 0.8 geschützt, sondern müssen dafür
+erweitert werden. Ein für alle POST-Request geltender CSRF-Schutz ist eine zu
+heftige Einschränkung des Systems und wurde daher bewusst nicht implementiert.
+Die Überprüfung kann über die neu eingeführte Klasse ``sly_Util_Csrf`` erfolgen,
+die einfache Helper zur Verfügung stellt.
+
+Das CSRF-Token wird automatisch in alle von ``sly_Form`` erzeugten Formulare
+als ``sly-csrf-token`` eingebettet. Formulare, die via GET verschickt werden
+sollen, müssen es explizit abschalten, da das Formular andernfalls das Rendern
+mit einer Exception ablehnt.
 
 Backend-Routing
 """""""""""""""
