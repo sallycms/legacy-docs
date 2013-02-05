@@ -253,7 +253,53 @@ mit einer Exception ablehnt.
 Backend-Routing
 """""""""""""""
 
-**TODO**
+Im Backend kommt nun ebenso wie im Frontend ein Router zum Einsatz, der
+virtuelle URLs auflösen und generieren kann. Standardmäßig gibt es zwei Routen,
+die auch für das Erzeugen von URLs verwendet werden:
+
+* ``backend/:controller/?`` (entspricht ``index.php?page=controller``)
+* ``backend/:controller/:action/?`` (entspricht ``index.php?page=controller&func=action``)
+
+Die volle URL zum Anlegen eines neuen Nutzers lautet damit
+``example.com/backend/user/add``, die URL zum Bearbeiten ist
+``example.com/backend/user/edit?id=42``. Technisch werden die Platzhalter in den
+Routen als GET-Parameter im Request-Objekt angelegt. Bei der URL zum Anlegen
+eines Artikels existiert dort also der GET-Parameter ``page`` mit dem Wert
+``user``.
+
+Um passende URLs zu erzeugen, kann ebenfalls der Router verwendet werden. Er
+wird dafür für alle Views, die von Controllern über die geerbte
+``render()``-Methode gerendert werden, in der Variable ``$_router``
+bereitgestellt.
+
+.. sourcecode:: php
+
+  <?
+
+  // './user' wenn der aktuelle Controller 'user' ist
+  $_router->getUrl(null);
+
+  // './user'
+  $_router->getUrl('user');
+
+  // './user/add'
+  $_router->getUrl('user', 'add');
+
+  // './user/add?foo=bar'
+  $_router->getUrl('user', 'add', array('foo' => 'bar'));
+
+  // './user/add?foo=bar&amp;foo2=bar'
+  $_router->getUrl('user', 'add', array('foo' => 'bar', 'foo2' => 'bar'));
+
+  // './user/add?foo=bar&foo2=bar'
+  $_router->getUrl('user', 'add', array('foo' => 'bar', 'foo2' => 'bar'), '&');
+  $_router->getPlainUrl('user', 'add', array('foo' => 'bar', 'foo2' => 'bar'));
+
+  // 'http://www.example.com/backend/user'
+  $_router->getAbsoluteUrl('user');
+
+Die alten URLs in Form von ``index.php?page=...&func=...`` werden weiterhin
+unterstützt.
 
 API-Änderungen
 --------------
