@@ -365,4 +365,117 @@ API-Änderungen
 Im Folgenden werden soweit möglich alle API-Änderungen zwischen dem 0.7- und dem
 0.8-Branch beschrieben.
 
-**TODO**
+Backend
+"""""""
+
+* Modernizr wurde auf 2.6.2 aktualisiert.
+* Das Setup wurde entfernt und in eine eigene App ausgelagert.
+* Das CSRF-Token wird als Meta-Tag mit dem Namen ``sly-csrf-token`` dem Head
+  hinzugefügt.
+* Links, die die Klasse ``sly-postlink`` haben, werden per JavaScript
+  automatisch beim Klick in versteckte Formulare umgewandelt und als
+  POST-Request abgeschickt. Das CSRF-Token wird dabei automatisch eingefügt und
+  darf keinesfalls in der URL des Links auftauchen.
+* Die ``render()``-Methode in ``sly_Controller_Backend`` setzt, wenn nicht
+  bereits in den ``$params`` gesetzt, immer den Backend-Router als Variable
+  ``$_router`` hinzu, sodass der Router in allen Views zur Verfügung steht.
+* Beim Cache-leeren ist eine Option zum Re-Initialisieren sämtlicher AddOns
+  hinzugekommen. Sie ist standardmäßig nicht ausgewählt.
+* In ``sly_Popup_Helper->init()`` können nun der aktuelle Request und der
+  Event-Dispatcher explizit angegeben werden.
+* ``sly_Layout_Backend``
+
+  * der Konstruktor erfordert nun drei Instanzen:
+    ``__construct(sly_I18N $i18n, sly_Configuration $config, sly_Request $request)``
+  * ``setCurrentPage()`` wurde um die optionale Angabe des aktuellen Nutzers
+    erweitert: ``setCurrentPage($page, sly_Model_User $user = null)``
+  * Über ``setRouter(sly_Router_Backend)`` kann der zu verwendende Router
+    überschrieben werden.
+
+Core
+""""
+
+* Es gibt nun nur noch einen einzelnen Bootcache für alle Apps.
+
+  * ``sly_Util_BootCache::init()`` erfordert kein ``$environment`` mehr.
+  * Aus den beiden BootCache-Events wurde das einzelne
+    ``SLY_BOOTCACHE_CLASSES``-Event.
+
+* Über die Konfiguration ``LESS_IMPORT_DIRS`` können eine Liste von
+  Import-Dirs für lessphp definiert werden.
+* ``sly_App_Interface``
+
+  * ``dispatch()`` und ``getController()`` wurden entfernt.
+  * ``getContainer()`` und ``isBackend()`` wurden hinzugefügt.
+
+* In ``sly_Controller_Base`` wurden folgende Methoden ergänzt:
+
+  * ``->getContainer()``
+  * ``->setContainer(sly_Container $container)``
+  * ``->getRequest()``
+  * ``->setRequest(sly_Request $request)``
+
+* Der Konstruktor von ``sly_DB_PDO_Persistence`` wurde um ``$prefix = ''``
+  erweitert.
+* ``sly_Model_User``
+
+  * ``->setPassword()`` erlaubt nun keinen leeren String mehr.
+  * ``->setRights()`` wurde entfernt
+  * ``->setAttribute($key, $value)``, ``->getAttribute($key, $default = null)``,
+    ``->setIsAdmin($flag)``, ``->setStartPage($startPage)`` und
+    ``->setBackendLocale($backendLocale)`` wurden ergänzt.
+
+* ``sly_Response_Action->execute()`` erfordert nun eine
+  ``sly_Dispatcher``-Instanz.
+* ``sly_Response_Stream->send()`` wurde auf
+  ``send(sly_Request $request = null, sly_Event_IDispatcher $dispatcher = null)``
+  erweitert.
+
+Datenbank
+"""""""""
+
+* Die Datenbank-Spalte ``rights`` in ``sly_user`` wurde in ``attributes``
+  umbenannt und enthält nun ein JSON-kodiertes Objekt mit den Eigenschaften des
+  Nutzers.
+* Anstelle des Spalten-Typs ``json`` muss nun innerhalb der Models und ihrer
+  ``$_attributes`` der Typ ``array`` verwendet werden.
+
+Formular-Framework
+""""""""""""""""""
+
+* Die folgenden Methoden im Formular-Framework wurden um einen optionalen
+  Parameter ``sly_Request $request = null`` ergänzt:
+
+  * ``sly_Form_ElementBase->getDisplayValueHelper()``
+  * ``sly_Fieldset->render()``
+  * ``sly_Form->render()``
+  * ``sly_Form_Helper::parseFormValue()``
+
+* Das CSRF-Token wird immer in Formulare eingebettet, es sei denn, es wird via
+  ``sly_Form->setCsrfEnabled(false)`` deaktiviert. Diese Deaktivierung muss für
+  GET-Formulare explizit geschehen.
+* ``sly_Form->getMethod()`` wurde ergänzt.
+
+Deprecated
+""""""""""
+
+======================================== ===========================================
+alt                                      neu
+======================================== ===========================================
+``sly_DB_Persistence::getInstance()``    ``sly_Container->getPersistence()``
+``sly_Model_User->hasRight()``           ``->hasPermission()``
+======================================== ===========================================
+
+Entfernte API
+"""""""""""""
+
+============================================== ==============================================
+entfernt                                       Alternative
+============================================== ==============================================
+``sly_Model_Base_Article->getCatPrior()``      ``->getCatPosition()``
+``sly_Model_Base_Article->setCatPrior()``      ``->setCatPosition()``
+``sly_Model_Base_Article->getPrior()``         ``->getPosition()``
+``sly_Model_Base_Article->setPrior()``         ``->setPosition()``
+``sly_Model_ArticleSlice->getPrior()``         ``->getPosition()``
+``sly_Model_User->setRights()``                ``->setIsAdmin()``, ...
+============================================== ==============================================
