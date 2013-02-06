@@ -2,6 +2,22 @@ table.hlist td {
 	vertical-align: top
 }
 
+tt {
+	background-color: #FFF;
+	border: 1px solid #CCC;
+	border-radius: 3px;
+	padding: 1px 4px;
+}
+
+table.docutils td, table.docutils th {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-bottom-color: #CCC;
+}
+
+table.docutils td tt {
+	border: 0 none;
+}
 
 .highlight .hll { background-color: #ffffcc }
 div.highlight  { background: #f8f8f8; }
