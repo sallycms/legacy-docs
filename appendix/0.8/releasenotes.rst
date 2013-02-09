@@ -430,6 +430,63 @@ Core
 * ``sly_Response_Stream->send()`` wurde auf
   ``send(sly_Request $request = null, sly_Event_IDispatcher $dispatcher = null)``
   erweitert.
+* ``sly_Service_File_Base->remove($file)`` wurde hinzugefügt und löscht neben
+  der Originaldatei ``$file`` auch die dazugehörige Cache-Datei.
+* ``sly_Service_AddOn->getRequiredSallyVersions()`` wurde in
+  ``getRequiredSallyVersion()`` umbenannt. Statt einer Liste von Versionen
+  wird dabei 1:1 das in der :file:`composer.json` eines AddOns angegebene
+  Requirement, z.B. ``~0.7``, zurückgegeben.
+* ``sly_Service_Factory``
+
+  * Die gesamte Klasse ist deprecated, da sie vollständig vom Container
+    abgelöst wurde. Sämtliche Methoden sind reine Proxies auf den Container.
+  * Die generische ``getService()``-Methode sollte, obgleich sie im Container
+    ebenfalls vorhanden ist, keinesfalls zum Abrufen der im Core fest
+    verankerten Services (diejenigen, die auch bisher an der Factory eine
+    dedizierte Getter-Methode hatten) verwendet werden. Es kann hierbei nicht
+    garantiert werden, dass ``$container->getService('template')`` der gleichen
+    Instanz wie ``$container->getTemplateService()`` entspricht.
+
+* ``sly_Service_User``
+
+  * Bei ``->add()`` wurde ``string $rights`` als Parameter durch
+    ``array $attributes`` ersetzt.
+  * Beim Logout über ``->logout()`` werden alle Inhalte der aktuellen
+    Sally-Installation aus der Session entfernt (vorher wurde nur ``UID``
+    entfernt).
+
+Routing
+"""""""
+
+* Router sind nun nicht mehr zustandsbehaftet, d.h. beim Matchen eines
+  Requests wird das Ergebnis nicht mehr im Router abgelegt, sondern es wird
+  der gematchte Request um die gefundenen Werte erweitert. Damit können
+  Router-Instanzen wiederverwendet werden und gleichzeitig ist die
+  Auflösung der Routen für alle weiteren Schritte transparent. Ein in der URL
+  gefundener Platzhalter ``foo`` steht damit als regulärer GET-Parameter zur
+  Verfügung.
+* In Controllern sollten dementsprechend die URL-Parameter direkt vom Request
+  (``$this->getRequest()->get('myparam', ...)``) abgerufen anstatt auf den
+  verwendeten Router zugegriffen werden.
+* ``sly_Router_Interface`` hat sich vollständig verändert:
+
+  * ``getController()`` und ``getAction()`` wurden entfernt.
+  * ``match(sly_Request $request)`` wurde hinzugefügt.
+  * ``addRoute($route, array $values)`` wurde hinzugefügt.
+  * ``getRoutes()`` wurde hinzugefügt.
+  * ``clearRoutes()`` wurde hinzugefügt.
+
+* ``sly_Router_Base`` wurde analog angepasst:
+
+  * ``hasMatch()`` und ``get()`` wurden entfernt.
+  * ``getRequestUri()`` ist nicht mehr public und erwartet nun ein
+    ``sly_Request``-Objekt als Parameter.
+  * Ein Platzhalter wie ``:foo`` wird nun nicht mehr nach
+    ``[a-z_][a-z0-9-_]*``, sondern nach ``[a-z0-9_]*`` übersetzt. Damit sind
+    leere Werte ebenso erlaubt wie Werte, die mit einer Ziffer beginnen. Dies
+    ist nötig, damit URLs wie ``/article/edit/1/`` nicht über eine von Hand
+    zusammengebastelte Regex gematcht werden müssen. Mit der Entwicklung der
+    REST-API für Sally wird dies ein häufiger Use-Case sein.
 
 Datenbank
 """""""""
@@ -464,6 +521,8 @@ alt                                      neu
 ======================================== ===========================================
 ``sly_DB_Persistence::getInstance()``    ``sly_Container->getPersistence()``
 ``sly_Model_User->hasRight()``           ``->hasPermission()``
+``sly_Service_Factory::getService()``    ``sly_Container->getService()``
+``sly_Service_Factory::get***Service()`` ``sly_Container->get***Service()``
 ======================================== ===========================================
 
 Entfernte API
