@@ -3,6 +3,12 @@ Release-Notes
 
 .. centered:: -- Composer, Dependency Injection & Other Goodies --
 
+.. note::
+
+  Sally 0.8 befindet sich zur Zeit im **Release Candidate**-Stadium. Bis zum
+  finalen Release können sich noch Kleinigkeiten ändern. Neue Feature sind
+  allerdings nicht zu erwarten.
+
 Knapp fünf Monate nach dem Release der letzten großen Major-Version freut sich
 das Sally-Team, nun die Verfügbarkeit von **SallyCMS 0.8** bekanntzugeben. Das
 neue Major Release treibt vor allem die Composer-Integration weiter voran und
