@@ -493,7 +493,7 @@ Core
   * In ``::readFromSession()`` muss nun zusätzlich eine ``sly_Session``-Instanz
     übergeben werden.
 
-* ``sly_Util_HTML``
+* ``sly_Util_HTTP``
 
   * ``::tempRedirect()`` wurde als Shortcut für ``::redirect()`` mit
     ``$status = 302`` ergänzt.
