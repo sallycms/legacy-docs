@@ -621,6 +621,6 @@ entfernt                                          Alternative
 ``sly_Model_Base_Article->setCatPrior()``         ``->setCatPosition()``
 ``sly_Model_Base_Article->setPrior()``            ``->setPosition()``
 ``sly_Model_User->setRights()``                   ``->setIsAdmin()``, ...
-``sly_Service_AddOn->getRequiredSallyVersions()`` ``->getRequiredSallyVersion()``, ...
+``sly_Service_AddOn->getRequiredSallyVersions()`` ``->getRequiredSallyVersion()``
 ``sly_Util_Requirements``                         --
 ================================================= ==============================================
