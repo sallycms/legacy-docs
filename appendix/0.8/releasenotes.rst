@@ -397,7 +397,8 @@ Core
 
 * Es gibt nun nur noch einen einzelnen Bootcache für alle Apps.
 
-  * ``sly_Util_BootCache::init()`` erfordert kein ``$environment`` mehr.
+  * ``sly_Util_BootCache::init()`` erfordert kein ``$environment`` mehr, ebenso
+    ``::recreate()``, ``::getCacheFile()`` und ``::createCacheFile()``.
   * Aus den beiden BootCache-Events wurde das einzelne
     ``SLY_BOOTCACHE_CLASSES``-Event.
 
@@ -454,6 +455,82 @@ Core
   * Beim Logout über ``->logout()`` werden alle Inhalte der aktuellen
     Sally-Installation aus der Session entfernt (vorher wurde nur ``UID``
     entfernt).
+
+* ``sly_Service_VersionParser``
+
+  * ist eine 1:1-Adaption von Composers ``VersionParser``-Klasse, mit dem
+    Unterschied, dass sie PHP 5.2-kompatibel ist und ein paar wenige
+    Sonderfeatures von Composer nicht enthalten sind.
+  * Sally kann damit die Requirements von AddOns besser und korrekter parsen.
+    AddOn-Autoren müssen nicht mehr unbedingt eine Liste kompatibler Versionen
+    angeben, sondern können alle Ausdrücke verwenden, die Composer unterstützt.
+
+* Die folgenden Methoden wurden um ``sly_Request $request = null`` als weiteren
+  Parameter erweitert.
+
+  * ``sly_Table_Column->render()``
+  * ``sly_Table->render()``
+  * ``sly_Table->renderHeader()``
+  * ``sly_Table->getSortKey()``
+  * ``sly_Table->getDirection()``
+  * ``sly_Table::isDragAndDropMode()``
+  * ``sly_Table::getPagingParameters()``
+  * ``sly_Table::getSearchParameters()``
+  * ``sly_Table::getSortingParameters()``
+
+* ``sly_Util_ArrayObject`` wurde als neue Container-Klasse (nicht mit dem
+  DI-Container zu verwechseln!) angelegt. Im Unterschied zu ``sly_Util_Array``
+  unterstützt sie jedoch keine verschachtelten Pfade, dafür aber das
+  Normalisieren von Keys. Die Klasse kommt beim Request-Objekt zum Einsatz, um
+  HTTP-Header und dergleichen zu normalisieren.
+* ``sly_Util_Csrf`` ist hinzugekommen und stellt Methoden zum Setzen und
+  Überprüfen von CSRF-Tokens zur Verfügung. Insbesondere
+  ``sly_Util_Csrf::checkToken()`` ist dabei für AddOn-Entwickler von Relevanz.
+* ``sly_Util_FlashMessage``
+
+  * ``::store()`` und ``::removeFromSession()`` wurden um den optionalen
+    Parameter ``sly_Session $session`` erweitert.
+  * In ``::readFromSession()`` muss nun zusätzlich eine ``sly_Session``-Instanz
+    übergeben werden.
+
+* ``sly_Util_HTML``
+
+  * ``::tempRedirect()`` wurde als Shortcut für ``::redirect()`` mit
+    ``$status = 302`` ergänzt.
+  * ``::queryString()`` wurde um den weiteren Parameter
+    ``$prependDivider = true`` ergänzt.
+
+* ``sly_Util_Password::getRandomData()`` wurde um den optionalen Parameter
+  ``$base64Encode = false`` erweitert.
+* ``sly_Util_Requirements`` wurde aus dem Core entfernt und in die neue
+  Setup-App migriert. Sie sollte nicht mehr als API angesehen werden.
+* Die meisten Methoden in ``sly_Util_Session`` sind nur noch Proxies zu der
+  globalen ``sly_Session``-Instanz. Da die Session im Frontend wichtig ist,
+  wurde das Util beibehalten und vorerst **nicht** als deprecated markiert.
+  AddOns sollten allerdings nicht mehr das Util, sondern die Session aus dem
+  Container verwenden.
+* Das Vorgabeargument für ``$default`` in ``sly_Util_Session::get()`` wurde von
+  einem leeren String auf ``null`` geändert.
+* ``sly_Util_Template`` wurde um ``::renderFile()`` zum kontext-sicheren
+  Includen von Dateien ergänzt.
+* In ``sly_Authorisation::hasPermission()`` kann nun optional der zu verwendende
+  User-Service übergeben werden.
+* Die ``sly_Cache::factory()``-Methode enthält kein spezielles Handling für
+  Unit-Tests mehr. Auch muss nun die zu erzeugende Strategie explizit angegeben
+  werden, da ``sly_Cache`` nicht mehr statisch weiß, welche Strategie relevant
+  ist.
+
+Konfiguration
+"""""""""""""
+
+* Die Konfiguration wird im Produktivmodus nun noch stärker gecacht.
+* Der Konstruktur von ``sly_Configuration`` nimmt nun einen File-Service sowie
+  das Verzeichnis, in dem die Konfigurationsdateien geschrieben werden sollen,
+  entgegen.
+* ``->loadDevelop()`` wurde in ``->loadDevelopConfig()`` umbenannt.
+* ``->clearCache()`` wurde hinzugefügt.
+* Alle Methoden, die Daten in die Konfiguration schreiben (Setter) geben nun
+  nicht mehr den gesetzten Wert, sondern ``true`` oder ``false`` zurück.
 
 Routing
 """""""
@@ -523,18 +600,27 @@ alt                                      neu
 ``sly_Model_User->hasRight()``           ``->hasPermission()``
 ``sly_Service_Factory::getService()``    ``sly_Container->getService()``
 ``sly_Service_Factory::get***Service()`` ``sly_Container->get***Service()``
+``sly_Util_Session::reset()``            ``sly_Session->delete()``
 ======================================== ===========================================
 
 Entfernte API
 """""""""""""
 
-============================================== ==============================================
-entfernt                                       Alternative
-============================================== ==============================================
-``sly_Model_Base_Article->getCatPrior()``      ``->getCatPosition()``
-``sly_Model_Base_Article->setCatPrior()``      ``->setCatPosition()``
-``sly_Model_Base_Article->getPrior()``         ``->getPosition()``
-``sly_Model_Base_Article->setPrior()``         ``->setPosition()``
-``sly_Model_ArticleSlice->getPrior()``         ``->getPosition()``
-``sly_Model_User->setRights()``                ``->setIsAdmin()``, ...
-============================================== ==============================================
+================================================= ==============================================
+entfernt                                          Alternative
+================================================= ==============================================
+``sly_Cache::disable()``                          --
+``sly_Cache::enable()``                           --
+``sly_Cache::getInstance()``                      --
+``sly_Cache::getStrategy()``                      ``sly_Container->getConfig()->get('CACHING_STRATEGY')``
+``sly_Cache::getFallbackStrategy()``              ``sly_Container->getConfig()->get('FALLBACK_CACHING_STRATEGY')``
+``sly_Configuration->loadDevelop()``              ``->loadDevelopConfig()``
+``sly_Model_ArticleSlice->getPrior()``            ``->getPosition()``
+``sly_Model_Base_Article->getCatPrior()``         ``->getCatPosition()``
+``sly_Model_Base_Article->getPrior()``            ``->getPosition()``
+``sly_Model_Base_Article->setCatPrior()``         ``->setCatPosition()``
+``sly_Model_Base_Article->setPrior()``            ``->setPosition()``
+``sly_Model_User->setRights()``                   ``->setIsAdmin()``, ...
+``sly_Service_AddOn->getRequiredSallyVersions()`` ``->getRequiredSallyVersion()``, ...
+``sly_Util_Requirements``                         --
+================================================= ==============================================
