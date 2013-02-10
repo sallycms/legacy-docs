@@ -117,6 +117,34 @@ haben, sich die Aufrufe zu ``sly_Loader`` in ihrer :file:`boot.php` sparen.
   und aktiviert sind. Ein ``class_exists('My_AddOn_Class')`` ist damit keine
   geeignete Methode mehr, zu überprüfen, ob ein AddOn aktiviert ist!
 
+.. note::
+
+  Die Standard-Verzeichnisse, die Sally dem Autoloader hinzufügt, werden nun
+  ebenfalls von Composer verwaltet. Damit ist es ohne weitere Konfiguration von
+  ``sly_Loader`` nicht mehr möglich, in diesen Verzeichnissen Klassen abzulegen,
+  die mit einem Unterstrich beginnen. Dies betrifft insbesondere
+  ``develop/lib``.
+
+Bootstraping
+^^^^^^^^^^^^
+
+Sally verwendet nun nur noch eine einzelne :file:`index.php` im Root des
+Projekts für das Laden sämtlicher Apps. Von dort aus wird jeweils die
+:file:`boot.php` der aufgerufenen App eingebunden und ausgeführt.
+
+Die Entscheidung, welche App geladen werden soll, findet über die
+``mod_rewrite``-Regeln statt: hier werden nun die Umgebungsvariablen ``SLYAPP``
+und ``SLYBASE`` gesetzt, die von der :file:`index.php` ausgewertet werden.
+``SLYAPP`` enthält den Verzeichnisnamen der gewünschten App, z.B. ``setup`` für
+das Setup. ``SLYBASE`` ist die Basis-URL und im Frontend ``/``, für das
+Backend ``/backend`` usw..
+
+Über diese Konfiguration können Apps auf beliebige URL-Präfixe gelegt werden.
+Auf Wunsch kann das Backend damit auch auf ``/redaxion`` konfiguriert werden
+oder auch gänzlich unzugänglich gemacht werden. So ist es möglich, das Setup
+abzuschalten, indem die dazugehörigen Regeln in der :file:`.htaccess`
+auskommentiert werden.
+
 Neues Setup
 """""""""""
 
@@ -430,7 +458,8 @@ Core
   ``sly_Dispatcher``-Instanz.
 * ``sly_Response_Stream->send()`` wurde auf
   ``send(sly_Request $request = null, sly_Event_IDispatcher $dispatcher = null)``
-  erweitert.
+  erweitert. Ebenso wurde ``->isNotModified()`` um die optionale Angabe des
+  Requests erweitert.
 * ``sly_Service_File_Base->remove($file)`` wurde hinzugefügt und löscht neben
   der Originaldatei ``$file`` auch die dazugehörige Cache-Datei.
 * ``sly_Service_AddOn->getRequiredSallyVersions()`` wurde in
@@ -519,9 +548,63 @@ Core
   Unit-Tests mehr. Auch muss nun die zu erzeugende Strategie explizit angegeben
   werden, da ``sly_Cache`` nicht mehr statisch weiß, welche Strategie relevant
   ist.
+* ``sly_Dispatcher`` wurde ergänzt und übernimmt nun das Dispatching, das früher
+  in den einzelnen Apps implementiert war. Er dient damit als Grundlage für ein
+  generisches Dispatching und befreit neue Apps von der lästigen Arbeit, das
+  Verfahren selbst zu implementieren oder sich von einer bestehenden App
+  abzuleiten und damit eine Abhängigkeit einzuführen.
+* ``sly_I18N`` merkt sich hinzugefügte Sprachdateien und verhindert, dass
+  Dateien mehrfach geladen werden. Außerdem werden beim Wechseln der Locales
+  alle bisher geladenen Sprachdateien in der jeweils neuen Sprache geladen.
+* ``sly_Loader`` sollte soweit möglich nicht mehr verwendet werden.
+  Stattdessen steht in ``sly_Container->getClassLoader()`` der von Composer
+  generierte Loader zur Verfügung, dessen Einsatz empfohlen wird. ``sly_Loader``
+  wird nur für das Laden von Klassen, die mit einem Unterstrich beginnen,
+  benötigt.
+* ``sly_Log::setLogDirectory()`` versucht nun das Verzeichnis anzulegen, wenn
+  es nicht bereits existiert.
+* In ``sly_Request`` sind die meisten Methoden nun fluent gestaltet und geben
+  daher das Response-Objekt selbst zurück.
+* Die :file:`master.php` wurde wie folgt geändert:
+
+  * Die Konstante ``SLY_HTDOCS_PATH`` wurde entfernt.
+  * Es wird nicht mehr implizit ein Output Buffer gestartet.
+  * Alle Konstanten bis auf ``SLY_COREFOLDER`` können vordefiniert werden.
+  * Der System-Container wird initialisiert und in ``sly_Core`` registriert.
+  * Die erstellten Variablen werden vor Ende des Scripts aus dem Global Scope
+    entfernt.
+
+sly_Core
+^^^^^^^^
+
+* Die meisten Getter und Setter sind nun nur noch simple Proxies, die auf den
+  in ``sly_Core`` verwalteten Container zeigen. Die folgenden Methoden haben
+  keine 1:1-Entsprechung im Container und bieten daher weiterhin einen (kleinen)
+  Mehrwert:
+
+  * ``::getContainer()`` zum Abrufen und
+    ``::setContainer(sly_Container $container)`` zum Setzen des Containers.
+  * ``::getCurrentLanguage()`` kombiniert weiterhin die aktuelle Sprache und
+    den Language-Service (die beide einzeln im Container verfügbar sind). Ebenso
+    verhält es sich mit ``::getCurrentArticle()``.
+  * ``::setDispatcher()`` liefert weiterhin im Gegensatz zum Container den
+    vorherigen Dispatcher zurück.
+  * ``::isBackend()`` fragt den Backend-Status von der aktuellen App ab (es gibt
+    kein ``->isBackend()`` im Container).
+  * Alle Getter, die sich auf einzelne Konfigurations-Elemente beziehen
+    (``::getDefaultLocale()``, ``::getProjectName()`` etc.).
+  * ``::loadAddons()`` lädt weiterhin die AddOns und feuert das
+    ``SLY_ADDONS_LOADED``-Event.
+  * ``::clearCache()`` kombiniert weiterhin die verschiedenen Stellen, deren
+    Cache geleert werden kann.
+
+* ``->getNavigation()`` wurde entfernt. Die Navigation muss vom Backend-Layout
+  abgerufen werden.
+* ``->getCurrentPage()`` wurde ebenfalls entfernt.
+* ``::isSetup()`` wurde ergänzt.
 
 Konfiguration
-"""""""""""""
+^^^^^^^^^^^^^
 
 * Die Konfiguration wird im Produktivmodus nun noch stärker gecacht.
 * Der Konstruktur von ``sly_Configuration`` nimmt nun einen File-Service sowie
@@ -533,7 +616,7 @@ Konfiguration
   nicht mehr den gesetzten Wert, sondern ``true`` oder ``false`` zurück.
 
 Routing
-"""""""
+^^^^^^^
 
 * Router sind nun nicht mehr zustandsbehaftet, d.h. beim Matchen eines
   Requests wird das Ergebnis nicht mehr im Router abgelegt, sondern es wird
@@ -566,7 +649,7 @@ Routing
     REST-API für Sally wird dies ein häufiger Use-Case sein.
 
 Datenbank
-"""""""""
+^^^^^^^^^
 
 * Die Datenbank-Spalte ``rights`` in ``sly_user`` wurde in ``attributes``
   umbenannt und enthält nun ein JSON-kodiertes Objekt mit den Eigenschaften des
@@ -575,7 +658,7 @@ Datenbank
   ``$_attributes`` der Typ ``array`` verwendet werden.
 
 Formular-Framework
-""""""""""""""""""
+^^^^^^^^^^^^^^^^^^
 
 * Die folgenden Methoden im Formular-Framework wurden um einen optionalen
   Parameter ``sly_Request $request = null`` ergänzt:
@@ -589,6 +672,15 @@ Formular-Framework
   ``sly_Form->setCsrfEnabled(false)`` deaktiviert. Diese Deaktivierung muss für
   GET-Formulare explizit geschehen.
 * ``sly_Form->getMethod()`` wurde ergänzt.
+
+Frontend
+""""""""
+
+* Im Artikel-Controller wird der erzeugte Artikel-Content nicht mehr im
+  Anschluss an ``SLY_ARTICLE_OUTPUT`` ausgegeben, sondern direkt am
+  Response-Objekt gesetzt. Es hat damit keinen Zweck mehr, sich auf
+  ``OUTPUT_FILTER`` zu registrieren, um Artikel nachzuebarbeiten. Man muss sich
+  auf (das eh besser dafür geeignete) ``SLY_ARTICLE_OUTPUT``-Event registrieren.
 
 Deprecated
 """"""""""
@@ -615,6 +707,9 @@ entfernt                                          Alternative
 ``sly_Cache::getStrategy()``                      ``sly_Container->getConfig()->get('CACHING_STRATEGY')``
 ``sly_Cache::getFallbackStrategy()``              ``sly_Container->getConfig()->get('FALLBACK_CACHING_STRATEGY')``
 ``sly_Configuration->loadDevelop()``              ``->loadDevelopConfig()``
+``sly_Core::getNavigation()``                     ``sly_Container->getLayout()->getNavigation()`` (nur im Backend)
+``sly_Core::getCurrentPage()``                    ``sly_Container->getApplication()->getCurrentControllerName()``
+``sly_Loader::getClassCount()``                   --
 ``sly_Model_ArticleSlice->getPrior()``            ``->getPosition()``
 ``sly_Model_Base_Article->getCatPrior()``         ``->getCatPosition()``
 ``sly_Model_Base_Article->getPrior()``            ``->getPosition()``
@@ -623,4 +718,11 @@ entfernt                                          Alternative
 ``sly_Model_User->setRights()``                   ``->setIsAdmin()``, ...
 ``sly_Service_AddOn->getRequiredSallyVersions()`` ``->getRequiredSallyVersion()``
 ``sly_Util_Requirements``                         --
+``sly_get()``                                     ``sly_Request->get()``
+``sly_post()``                                    ``sly_Request->post()``
+``sly_request()``                                 ``sly_Request->request()``
+``sly_cookie()``                                  ``sly_Request->cookie()``
+``sly_getArray()``                                ``sly_Request->getArray()``
+``sly_postArray()``                               ``sly_Request->postArray()``
+``sly_requestArray()``                            ``sly_Request->requestArray()``
 ================================================= ==============================================
