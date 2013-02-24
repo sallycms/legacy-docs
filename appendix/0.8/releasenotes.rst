@@ -393,6 +393,93 @@ Instanz von ``sly_Session`` (Container: ``getSession()``) verwaltet wird. Dieses
 Objekt enthält analoge, allerdings non-static Methoden bereit und sollte
 anstelle des Utils verwendet werden.
 
+Änderungen seit dem RC1
+-----------------------
+
+RC 2
+""""
+
+Im zweiten Release Candidate haben sich noch einige Änderungen und Feinschliff
+ergeben, die vor allem durch die Entwicklung der Sally-Console bedingt wurden.
+
+.. warning::
+
+  Bei Projekt-Updates vom RC1 reicht daher ein ``composer update`` nicht aus, um
+  alle Änderungen des RC2 zu erhalten. Zusätzlich müssen die
+  :file:`composer.json` und die :file:`index.php` manuell aktualisiert werden.
+
+Core
+^^^^
+
+* Das Bootstraping des Cores wurde runderneuert und ist nun flexibler
+  einsetzbar. Dabei hat sich auch die :file:`index.php` im Projektroot
+  geändert.
+
+  * Apps sind nun selber dafür verantwortlich, das Error-Handling zu
+    initialisieren.
+  * Die :file:`master.php` wurde entfernt. Das Autoloading (und nur das) kann
+    über die neue :file:`autoload.php` initialisiert werden.
+  * Das Filtern von ``register_globals`` und ``magic_quotes_gpc`` wird von der
+    neuen :file:`request-filter.php` übernommen.
+  * Das eigentliche Bootstrapen (Einrichten des Containers, Laden der
+    Konfiguration) ist in ``sly_Core::boot()`` verschoben wurden.
+
+* Dank Updates für Composer kann nun der Sally-kompatible Autoloader auch
+  erzeugt/erneuert werden, wenn ``composer dump-autoload`` ausgeführt wird.
+* AddOns erhalten nun den DI-Container als vordefinierte Variable ``$container``
+  in ihre :file:`boot.php`, :file:`install.php` und :file:`uninstall.php`
+  reingegeben. Die entsprechenden Methoden am AddOn-Manager wurden um die
+  optionale Angabe des zu verwendenden Containers erweitert.
+* Die Konfiguration ``DEVELOPER_MODE`` wurde durch ``environment`` ersetzt.
+
+  * ``environment`` kann einen beliebigen String (wie ``dev`` oder ``prod``)
+    enthalten.
+  * Apps steuern selbst, welches Environment verwendet werden soll, wobei bis
+    auf die Sally Console alle Apps das Environment aus der Konfiguration
+    verwenden.
+  * Es gilt, dass jedes Environment außer ``prod`` als "Entwicklermodus"
+    angesehen wird (``sly_Core::isDeveloperMode()`` existiert also weiterhin).
+  * Im Backend existiert weiterhin die altbekannte
+    Checkbox, die nun zwischen ``dev`` und ``prod`` umschaltet.
+  * Das Environment kann über ``->getEnvironment()`` vom Container abgerufen
+    werden.
+  * Offensichtlich hat das Setzen von ``DEVELOPER_MODE`` nun keinen Effekt mehr.
+
+* ``SLY_START_TIME`` wurde entfernt und durch den Wert ``sly-start-time`` am
+  Container ersetzt.
+* ``SLY_IS_TESTING`` wurde vollständig entfernt.
+* ``sly_Util_Cache`` wurde vollständig entfernt. Es gibt keinen Grund, ihre
+  Funktionalität nicht über ein AddOn nachzurüsten.
+* ``sly_DB_PDO_Connection::getDriverInstance()`` wurde statisch ergänzt. Von
+  einer bestehenden Verbindung kann nun über ``->getDriver()`` der Driver
+  abgerufen werden.
+* Benutzernamen können nun bis zu 128 Zeichen lang sein.
+* Bugfix: ErrorHandler konnten nicht am ``sly_Container`` gesetzt werden, da
+  ein nicht existierendes Interface erfordert wurde.
+* Bugfix: Conditional Comments für JavaScript wurden nicht korrekt eingerückt.
+
+Backend
+^^^^^^^
+
+* Die mitgelieferte Version von Modernizr unterstützt nun folgende weitere
+  Checks: ``canvas_todataurl_type``, ``contenteditable``, ``contextmenu``,
+  ``css_displaytable``, ``css_remunit``, ``file_api``, ``forms_fileinput``,
+  ``forms_formattribute``, ``file_filesystem``, ``forms_placeholder``,
+  ``forms_validation``, ``ie8compat``, ``json``, ``requestanimationframe``,
+  ``script_async`` und ``script_defer``.
+
+* ``sly_Helper_Modernizr`` ist nun nicht mehr statisch, sondern muss unter
+  Angabe eines ``sly_Request``-Objekts instantiiert werden.
+* Die Workarounds für Popups unter Chrome 18 & 20 wurden entfernt.
+* Bugfix: Artikelslices konnten nicht gelöscht werden.
+
+Sonstiges
+^^^^^^^^^
+
+* Die Lizenzabfrage wurde aus dem Setup entfernt.
+* Das Setup kann nun über den ``sly:install``-Befehl auf der Sally Console
+  ausgeführt werden.
+
 API-Änderungen
 --------------
 
