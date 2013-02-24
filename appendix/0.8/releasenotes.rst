@@ -423,6 +423,10 @@ Core
     neuen :file:`request-filter.php` übernommen.
   * Das eigentliche Bootstrapen (Einrichten des Containers, Laden der
     Konfiguration) ist in ``sly_Core::boot()`` verschoben wurden.
+  * Der BootCache wurde vollständig entfernt, bis er in einer späteren Version
+    in verbesserten Form wiederkehren wird. In seiner jetzigen Fassung bringt
+    er zu wenig Performace-Vorteile und führt oft zu subtilen und schwer zu
+    debuggenden Problemen.
 
 * Dank Updates für Composer kann nun der Sally-kompatible Autoloader auch
   erzeugt/erneuert werden, wenn ``composer dump-autoload`` ausgeführt wird.
