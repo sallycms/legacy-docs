@@ -16,8 +16,8 @@ führt dazu ein neues, an Symfony2 angelegtes Repository-System ein.
 
 Neben der verbesserten Composer-Integration bringt Version 0.8 ebenfalls noch
 ein von Grund auf **neu entwickeltes Setup**, einen
-**Dependency Injection**-Container, einen integrierten **CSRF-Schutz** sowie ein
-flexibles **Backend-Routing** mit.
+**Dependency Injection**-Container, eine **CLI-Console**, einen integrierten
+**CSRF-Schutz** sowie ein flexibles **Backend-Routing** mit.
 
 Der grobe :doc:`Ablauf eines Updates auf 0.8 <migrate>` wird auf einer extra
 Seite beschrieben.
@@ -241,6 +241,35 @@ So gut wie alle sind nur noch inhaltslose Proxies, sodass
 ``sly_Core::setCurrentArticle()`` nur ein Alias für
 ``sly_Core::getContainer()->setCurrentArticle()`` ist. Soweit möglich sollten
 die Methoden in ``sly_Core`` vermieden werden.
+
+Sally Console
+"""""""""""""
+
+Über das neue Paket ``sallycms/console`` kann eine Kommandozeilen-Anwendung zur
+Administration von Sally bezogen werden. Die Console basiert auf der
+Symfony2-Komponente und benötigt daher PHP 5.3+. Da sie zum Betrieb einer Seite
+nicht notwendig ist und man für Composer eh mindestens 5.3 auf dem System haben
+muss, stellt dieser Griff in die Zukunft kein Problem dar.
+
+Die Console bietet (zukünftig) eine Reihe von Kommandos an, darunter
+``sly:install`` zur automatisierten Installation eines Projekts und
+``sly:cache:clear`` zum Leeren des Caches und Re-Initialiseren der AddOns.
+AddOns und Projekte können beliebige weitere Kommandos mitbringen, um weitere
+Buildprozesse zu unterstüzen oder zu integrieren oder eine Möglichkeit
+anzubieten, langlaufende Aufgaben wie Datenbank-Exports auf der Shell (und damit
+ohne Zeitlimit) auszuführen. Außerdem eignen sich Kommandos ideal für den
+Einsatz als Cronjobs.
+
+.. image:: /_static/0.8-console.png
+
+Um die Console aufzurufen, muss das Script ``sally/vendor/bin/console``
+aufgerufen (und vorher ggf. mit den dafür nötigen Rechten versehen) werden.
+
+Die Console ist noch experimentell und daher nicht Bestandteil der Standard
+Distribution von Sally. Sie kann aber über einen entsprechenden Eintrag in
+die :file:`composer.json` des Projekts einfach installiert werden. Das
+`Repository bei Bitbucket <https://bitbucket.org/SallyCMS/sallycms-console>`_
+enthält eine kurze Dokumentation mit weiteren technischen Details.
 
 CSRF-Schutz
 """""""""""
