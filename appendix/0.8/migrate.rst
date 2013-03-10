@@ -85,13 +85,14 @@ Datenbank
 
 Die Datenbank hat sich nur minimal geändert. Die Spalte ``rights`` in
 ``sly_user`` wurde in ``attributes`` umbenannt und enthält nun ein
-JSON-kodiertes Array mit den Angaben ``isAdmin``, ``startpage`` etc.
+JSON-kodiertes Array mit den Angaben ``isAdmin``, ``startpage`` etc.. Außerdem
+wurde die Maximallänge des Logins von 50 auf 128 Zeichen angehoben.
 
-Die Änderung des Spalten-Typs kann statisch über die unten genannte Query
-erfolgen. Das Re-Kodieren der Informationen in dieser Spalte ist, wenngleich
-mit SQL sicherlich möglich, idealerweise über ein wenig (PHP-)Code zu erledigen.
-Dazu eignet sich das `Migrationsscript`_ hervorragend, da es den nötigen Code
-bereits enthält.
+Die Änderung der Spalten kann statisch über die unten genannte Queries erfolgen.
+Das Re-Kodieren der Informationen in dieser Spalte ist, wenngleich mit SQL
+sicherlich möglich, idealerweise über ein wenig (PHP-)Code zu erledigen. Dazu
+eignet sich das `Migrationsscript`_ hervorragend, da es den nötigen Code bereits
+enthält.
 
 Es ist jetzt an der Zeit, den Datenbank-Dump des Referenz-Projekts in die
 Datenbank des neuen Projekts zu importieren. Alle bestehenden Tabellen müssen
@@ -109,6 +110,7 @@ Schema-Updates
 
 .. sourcecode:: mysql
 
+  ALTER TABLE `sly_user` CHANGE COLUMN `login` `login` VARCHAR(128) NOT NULL;
   ALTER TABLE `sly_user` CHANGE COLUMN `rights` `attributes` TEXT NULL;
 
 Migrationsscript
