@@ -3,13 +3,7 @@ Release-Notes
 
 .. centered:: -- Composer, Dependency Injection & Other Goodies --
 
-.. note::
-
-  Sally 0.8 befindet sich zur Zeit im **Release Candidate**-Stadium. Bis zum
-  finalen Release können sich noch Kleinigkeiten ändern. Neue Feature sind
-  allerdings nicht zu erwarten.
-
-Knapp fünf Monate nach dem Release der letzten großen Major-Version freut sich
+Knapp sechs Monate nach dem Release der letzten großen Major-Version freut sich
 das Sally-Team, nun die Verfügbarkeit von **SallyCMS 0.8** bekanntzugeben. Das
 neue Major Release treibt vor allem die Composer-Integration weiter voran und
 führt dazu ein neues, an Symfony2 angelegtes Repository-System ein.
@@ -512,6 +506,16 @@ Sonstiges
 * Die Lizenzabfrage wurde aus dem Setup entfernt.
 * Das Setup kann nun über den ``sly:install``-Befehl auf der Sally Console
   ausgeführt werden.
+
+0.8 Final
+"""""""""
+
+* Bugfix: Das Umschalten zwischen Produktiv- und Entwicklermodus funktionierte
+  nicht.
+* Bugfix: In der Console traten Warnings auf, wenn auf die Session zugegriffen
+  wurde. Um den Zugriff transparent abzufangen, verwendet die Console daher
+  eine eigene Implementierung, ``sly\Console\NullSession``, die als Blackhole
+  fungiert.
 
 API-Änderungen
 --------------
