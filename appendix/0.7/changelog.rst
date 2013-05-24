@@ -1,6 +1,21 @@
 Changelog
 =========
 
+0.7.5 (25. Mai 2013)
+--------------------
+
+* Listener auf ``SLY_URL_REDIRECT`` können jetzt auch ein ``sly_Model_Article``-
+  Objekt zurückgeben.
+* Das Frontend sendet einen HTTP 404, wenn der aufgerufene Artikel kein Template
+  hat.
+* Der Beschreibungstext eines Boolean Inputs in ``sly_Form`` wird nun
+  automatisch übersetzt.
+* Bugfix: War eine Datei ``AB.jpg`` in einem Modul eingepflegt, so konnte eine
+  Datei ``B.jpg`` nicht gelöscht werden.
+* Bugfix: Der Konfigurationscache wurde zu oft neu generiert.
+* Bugfix: Artikel ohne Template konnten nicht kopiert werden.
+* weitere kleinere Fixes
+
 0.7.4 (4. Februar 2013)
 -----------------------
 
