@@ -29,20 +29,17 @@ class sly_Controller_Frontend_Hello extends sly_Controller_Frontend_Base {
 	/**
 	 * Eine weitere Action
 	 *
-	 * Diese Action nutzt einen Parameter aus der Route (Teil des virtuellen
-	 * Request Filename, nicht aus dem Query-String), um jemanden persönlich
+	 * Diese Action nutzt einen Parameter aus dem Request, um jemanden persönlich
 	 * zu begrüßen.
 	 */
 	public function greetAction() {
-		// aktuelle App (Frontend-App)
-		$app = sly_Core::getCurrentApp();
+		// aktueller Request
+		$request = $this->getRequest();
 
-		// die Frontend-App (und nur sie!) gibt den Router preis
-		$router = $app->getRouter();
-
-		// die getroffene Route hat weitere Daten, auf die wir via ->get()
-		// zugreifen können.
-		$name = $router->get('name');
+		// 'name' wird im Query-String (als GET-Parameter) erwartet.
+		// Alternativ kann 'name' auch in einer Route als Platzhalter vorkommen,
+		// da ein Treffer dann den entsprechenden Wert im Request-Objekt setzt.
+		$name = $request->get('name', 'string');
 
 		// as usual
 		$response = new sly_Response('hallo '.$name.'!');

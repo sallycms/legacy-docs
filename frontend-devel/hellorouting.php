@@ -21,28 +21,29 @@ class sly_Controller_Frontend_Hello extends sly_Controller_Frontend_Base {
 		// Jede Route besteht aus zwei Teilen: Das URL-Muster und die zusätzlichen
 		// Parameter. Das Muster ist ein regulärer Ausdruck, der zusätzlich
 		// Platzhalter der Form ':placeholder' erlaubt. Diese Platzhalter matchen
-		// auf [a-z_][a-z0-9-_]* und erlauben es, direkt auf die gematchen Werte
-		// zuzugreifen.
+		// auf [a-z_][a-z0-9-_]* und erzeugen bei einem Treffer den gefundenen
+		// Wert im Request.
 
 		// Route zur greet Action
-		// ':name' steht später ebenso wie 'controller' über ->get() zur Verfügung.
-		// 'controller' gibt den Namen des Controllers an, der den Request handeln
-		// soll. 'action' gibt den Namen der Action an (ohne das 'Action'-Suffix).
+		// ':name' steht später im Request zur Verfügung.
+		// 'slycontroller' gibt den Namen des Controllers an, der den Request
+		// handeln soll. 'slyaction' gibt den Namen der Action an (ohne das
+		// 'Action'-Suffix).
 		// Beide Werte müssen vorhanden sein, wobei es OK ist, wenn sie in dem
 		// URL-Muster als Platzhalter auftauchen. Treffer im Muster haben Vorrang
 		// vor den zusätzlich gegebenen Werten (diese fungieren also als Default-
 		// Werte).
 
 		$router->addRoute('/hello/:name', array(
-			'controller' => 'hello',
-			'action'     => 'greet'
+			'slycontroller' => 'hello',
+			'slyaction'     => 'greet'
 		));
 
 		// Route zum allgemeinen Controller
 
 		$router->addRoute('/hello', array(
-			'controller' => 'hello'
-			// keine 'action', also wird 'index' angenommen
+			'slycontroller' => 'hello'
+			// keine 'slyaction', also wird 'index' angenommen
 		));
 
 		// und den Router an den nächsten Listener weitergeben
