@@ -197,6 +197,7 @@ Article-Models
   :since:   0.7.4
   :params:
     module (string)  der Modulname
+    values (array)   die Modulwerte (verfügbar seit 0.8.1)
 
   Über dieses Event kann beim Rendern des Outputs eines Slice das Slice
   ausgetauscht oder verändert werden, **bevor** das Rendern ausgeführt wird.
@@ -214,6 +215,7 @@ Article-Models
   :params:
     slice  (sly_Model_ISlice)  das ursprünglich an die ``renderOutput()``-Methode übergebene Slice
     module (string)            der Modulname
+    values (array)             die Modulwerte (verfügbar seit 0.8.1)
 
   Über dieses Event kann beim Rendern des Outputs eines Slice der Output noch
   einmal modifiziert werden, bevor er zurückgegeben wird.

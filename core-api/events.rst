@@ -253,17 +253,15 @@ Sally-Standardbackend) als auch im Frontend auftreten.
 
    * :doc:`events/core_misc`
 
-     * __AUTOLOAD
-     * ADDONS_INCLUDED
      * OUTPUT_FILTER
+     * SLY_ADDONS_LOADED
+     * SLY_CACHE_CLEARED
      * SLY_DB_IMPORTER_AFTER
      * SLY_DB_IMPORTER_BEFORE
+     * SLY_DEVELOP_REFRESHED
      * SLY_LISTENERS_REGISTERED
      * SLY_MAIL_CLASS
-     * SLY_CACHE_CLEARED
      * SLY_SEND_RESPONSE
-     * SLY_DEVELOP_REFRESHED
-     * SLY_BOOTCACHE_CLASSES\_*
 
 Backend
 ^^^^^^^

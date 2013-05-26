@@ -1,28 +1,6 @@
 Sonstige Core-Events
 ====================
 
-.. slyevent:: __AUTOLOAD
-  :type:    until
-  :in:      string
-  :out:     void
-  :since:   0.1.0
-  :subject: der volle Name der zu ladenden Klasse
-
-  Dieses Event wird ausgelöst, wenn eine zu ladende Klasse von ``sly_Loader``
-  nicht gefunden werden konnte. Listener können hierüber Klassen laden, die
-  nicht dem Standard-Layout für Klassennamen folgen.
-
-  Der Rückgabewert des Events wird nicht weiter ausgewertet, es ist also
-  irrelevant, was ein Listener zurückgibt, wenn er eine Klasse geladen hat.
-
-.. warning::
-
-  Die Verwendung dieses Events ist *deprecated*, da es sich hierbei mehr um ein
-  Relikt aus REDAXO 4.2-Zeiten handelt. Alle Komponenten des Systems sollten
-  ihre Klassen in einer autoloadbaren Struktur mitbringen.
-
-.. =============================================================================
-
 .. slyevent:: SLY_ADDONS_LOADED
   :type:    notify
   :in:      null
@@ -154,20 +132,3 @@ Sonstige Core-Events
   Wird ausgeführt nachdem die Develop-Inhalte (Templates und Module)
   synchronisiert wurden (nur, wenn sich tatsächlich etwas geändert hat, nicht
   bei jedem Request).
-
-.. =============================================================================
-
-.. slyevent:: SLY_BOOTCACHE_CLASSES_*
-  :type:    notify
-  :in:      null
-  :subject: N/A
-
-  Dieses Event wird ausgeführt, um die Klassen zu sammeln, die schlussendlich im
-  :doc:`BootCache </extended/bootcache>` abgelegt werden sollen. Anstelle des
-  Sterns (``*``) wird der Name der App eingefügt, sodass es im Moment zwei
-  konkrete Events gibt: ``SLY_BOOTCACHE_CLASSES_FRONTEND`` und
-  ``SLY_BOOTCACHE_CLASSES_BACKEND``.
-
-  Listener sollten in diesem Event über die BootCache-API ihre Klassen
-  hinzufügen. Dem Event werden daher weder Subject noch weitere Parameter
-  mitgegeben.
