@@ -1,6 +1,29 @@
 Changelog
 =========
 
+0.8.2 (29. August 2013)
+-----------------------
+
+* Bugfix: Der Sync-Controller vom Medienpool verwendete PHP 5.3-Synatx.
+* Bugfix: Noch ein Versuch, das Routing stabil auf allen Hostern zu gestalten.
+* Bugfix: Notice wenn keine Session geöffnet und dennoch auf
+  ``sly_Util_Session`` zugegriffen wurde.
+* Bugfix: Lief Sally mit einem Deutschen Locale, so wurde unter bestimmten
+  Umständen ungültiges YAML erzeugt, wenn die Daten Float-Werte enthielten.
+* Bugfix: Condition Evaluators erhielten nicht den korrekten Parameternamen
+  übergeben.
+* Bugfix: Der Pager auf der Nutzerseite funktionierte nicht.
+* Der Router wird nun unbenannte Gruppen nicht mehr capturen (d.h. es gibt
+  keinen ``0``-Parameter in ``$_GET`` mehr).
+* Wird eine URL nicht vollständig aufgelöst (durch eine
+  realurl-Implementierung), so wird versucht zumindest die Sprache korrekt zu
+  ermitteln.
+* Die Prüfung, ob ein Artikel ein Template besitzt, wird im Frontend später
+  ausgeführt, damit AddOns noch in ``SLY_CURRENT_ARTICLE`` auf den aufgerufenen
+  Artikel zugreifen können.
+* Zu langer Content (Artikelnamen) kann nun in Modulen und der Linkmap im
+  Backend nicht mehr das Layout zerreißen.
+
 0.8.1 (26. Mai 2013)
 --------------------
 
