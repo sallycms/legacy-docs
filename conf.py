@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'SallyCMS'
-copyright = u'2012, webvariants GbR'
+copyright = u'2013, webvariants GbR'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
