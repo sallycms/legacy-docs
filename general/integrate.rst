@@ -42,9 +42,8 @@ ausgelegt:
   später nur die Eingabemöglichkeiten erhält, die er wirklich benötigt.
 * **Global Settings** machen beliebig komplexe Einstellungen im Backend möglich
   und erlauben so, Aspekte wie die Adresse im Footer einer Seite zu bearbeiten.
-* **Benutzer** (FrontendUser) erhalten genau die Eigenschaften, die im Projekt
-  benötigt werden. Es werden keine unnötigen Standardfelder angezeigt, die
-  ungenutzt bleiben.
+* **Benutzer** erhalten genau die Eigenschaften, die im Projekt benötigt werden.
+  Es werden keine unnötigen Standardfelder angezeigt, die ungenutzt bleiben.
 
 Neben dieser Struktur des Projekts gibt es den Inhalt, der nicht in YAML-Dateien
 erfasst werden kann, da dieser im Backend änderbar sein sollte.
