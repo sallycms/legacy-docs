@@ -5,6 +5,7 @@ Kern-API
    :maxdepth: 2
 
    core-api/autoloading
+   core-api/di-container
    core-api/slycore
    core-api/configuration
    core-api/events
