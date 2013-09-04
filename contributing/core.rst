@@ -28,17 +28,17 @@ werden können, hier noch ein paar Hinweise / Guidelines:
 
 * Verwende **kein** Namenspräfix oder sonstige Markierung in der
   Commit-Nachricht ("[xrstf]", "[i18n]", "[Backend]" oder dergleichen).
-* Stelle sicher, dass deine Commits / Patches auf einer aktuellen Sally-Revision
-  basieren. Führe notfalls
-  `rebase <http://mercurial.selenic.com/wiki/RebaseExtension#Integration_with_pull>`_
-  aus, um deine Änderungen zu aktualisieren. Konflikte beim Einspielen werden
-  wir nicht beheben: Es sind deine Änderungen, von denen **du** die meiste
-  Ahnung hast.
+* Stelle sicher, dass deine Commits / Patches auf dem aktuellen Stand dieses
+  Branches basieren. Führe notfalls rebase_ aus, um deine Änderungen zu
+  aktualisieren. Konflikte beim Einspielen werden wir nicht beheben: Es sind
+  deine Änderungen, von denen **du** die meiste Ahnung hast.
 * Wenn möglich, sag uns, zu welchem Branch deine Änderung gehört. Neue Features
-  werden immer in den Trunk aufgenommen, während Bugfixes soweit als möglich in
-  Branches gemacht werden.
+  werden immer in den ``default``-Branch aufgenommen, während Bugfixes soweit
+  als möglich in Branches gemacht werden.
 * Eingesendeter Code wird in SallyCMS unter MIT-Lizenz veröffentlicht.
   **GPL-Code ist damit nicht erlaubt.**
+
+.. _rebase: http://mercurial.selenic.com/wiki/RebaseExtension#Integration_with_pull
 
 Clone & Pull-Request auf Bitbucket (empfohlen)
 ----------------------------------------------
