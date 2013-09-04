@@ -23,17 +23,6 @@ eine übersichtliche Website zu gestalten.
 Kategorien und Artikel erhalten stets einen **Namen**. Mit der **Position**
 (Pos) wird die Reihenfolge angegeben (die Position entspricht auch der
 Sortierung, weswegen die Positionsnummer standardmäßig nicht angezeigt wird).
-Der **Status** zeigt an, ob das Element *online* oder *offline* (unsichtbar)
-ist.
-
-.. note::
-
-  Artikel, die offline sind, können trotzdem im Frontend aufgerufen werden,
-  wenn ihre URL bekannt ist. Der Offline-Status dient **nicht** dazu, den
-  Zugriff auf Artikel zu beschränken, sondern nur ihre Sichtbarkeit zu steuern.
-  So können in einer Website Artikel verwaltet werden, die zwar nicht in der
-  Navigation im Frontend auftauchen, aber deren URL beispielsweise in
-  Newslettern oder Flyern weitergegeben werden kann.
 
 Um sich den Inhalt einer Kategorie anzuzeigen, klickt man auf den Namen der
 Kategorie (oder das kleine Icon links davon). Ein Klick auf einen Artikel führt
@@ -113,10 +102,6 @@ den nebenstehenden Button legt das Element an.
 
    Kategorieliste nachdem die Kategorie hinzugefügt wurde
 
-Neue Kategorien und Artikel sind am Anfang auf *offline* gestellt und damit für
-Besucher der Website unsichtbar. Dies ermöglicht es, in Ruhe die Inhalte
-vollständig einzupflegen, bevor die Seite *online* gestellt wird.
-
 Elemente bearbeiten
 -------------------
 
@@ -158,13 +143,6 @@ Kategorien können nur gelöscht werden, wenn sie keine Artikel (abgesehen vom
 Startartikel) mehr enthalten. Der Startartikel selbst kann nicht manuell
 gelöscht werden (um ihn zu löschen, muss seine Kategorie gelöscht werden).
 
-Status ändern
--------------
-
-Um den Status einer Kategorie oder eines Artikels zu ändern, reicht es, auf den
-Status zu klicken. Er wird von *offline* zu *online* bzw. von *online* zu
-*offline* wechseln.
-
 Weitere Funktionen
 ------------------
 
@@ -173,3 +151,12 @@ können Kategorien verschoben werden. Diese Funktionen sind allerdings nicht in
 der Strukturansicht, sondern in der :doc:`Inhaltsverwaltung <content/meta>` zu
 finden. Der Zugriff auf diese Funktionen kann durch Benutzerrechte eingeschränkt
 werden, sodass ggf. nicht alle Funktionen zur Verfügung stehen.
+
+Versionierung
+-------------
+
+Alle Änderungen am Inhalt von Artikeln werden in Sally automatisch versioniert,
+d.h. wenn ein Artikel umbenannt wird, so entsteht eine neue Version. Die
+Strukturansicht zeigt grundsätzlich von allen Kategorien und Artikeln die
+letzte (jüngste) Version an. Innerhalb der :doc:`Inhaltsverwaltung <content/meta>`
+kann zwischen den verschiedenen Versionen gewechselt werden.
