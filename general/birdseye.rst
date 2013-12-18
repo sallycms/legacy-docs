@@ -23,6 +23,8 @@ Dateisystem
      |  |  +- addon2/
      |  +- vendorb/
      |  |  +- addon3/
+     +- assets/              Asset-Anwendung (liefert CSS/JS/... aus)
+     |  +- lib/              Controller, App
      +- backend/             Backend-Anwendung
      |  +- assets/           CSS/JS des Backends
      |  +- lang/             Sprachdateien
@@ -40,7 +42,7 @@ Dateisystem
      |  +- lib/              Controller, App
      +- tests/               Unittests
      +- vendor/              weitere Bibliotheken
-        +- fabpot/
+        +- symfony/
         |  +- yaml/
         +- leafo
            +- lessphp/
@@ -74,27 +76,19 @@ kurz angerissen werden soll.
   +- data/
      +- config/              Projektkonfiguration (nicht per HTTP zugänglich)
      |  +- sly_local.yml     nur für diesen Host gültige Konfiguation (-> Datenbankzugang)
-     |  +- sly_project.yml   hostübergreifende Konfiguration
-     +- dyn/
-     |  +- internal/         Systemdateien (nicht per HTTP zugänglich)
-     |  |  +- sally/         sly_Loader-Cache, YAML-Cache, Artikelcache, Templatecache, Logs, ...
-     |  |  +- addon1/
-     |  |  +- addon2/
-     |  |  +- addon3/
-     |  +- public/           öffentliche generierte Dateien (Assets der AddOns, Cache von ImageResize)
-     |     +- sally/         CSS von Sally
-     |     +- addon1/
-     |     +- addon2/
-     |     +- addon3/
-     +- import_export/       Datenbank-Exports (nicht per HTTP zugänglich)
+     +- temp/                temporäre Dateien (nicht per HTTP zugänglich)
+     |  +- sally/            Dateisystem-Cache, YAML/JSON-Cache, Logs, ...
+     |  +- vendor/
+     |     +- addon/         Dateien des AddOns 'vendor/addon'
+     +- import-export/       Datenbank-Exports (nicht per HTTP zugänglich)
      +- mediapool/           Medienpool
 
 Um an die Pfade zu gelangen, stellen die :doc:`Services </core-api/services/addon>`
 eine Reihe von Methoden zur Verfügung.
 
 SallyCMS kümmert sich automatisch darum, dass :file:`data/config`,
-:file:`data/dyn/internal` und :file:`data/import_export` per
-htaccess für den Zugriff via HTTP gesperrt werden.
+:file:`data/temp` und :file:`data/import-export` per htaccess für den Zugriff
+via HTTP gesperrt werden.
 
 develop-Verzeichnis
 ^^^^^^^^^^^^^^^^^^^
@@ -108,10 +102,9 @@ Die Sally-Bibliothek
 --------------------
 
 Sally bringt eine ganze Reihe von Klassen mit. Ihre grobe Struktur soll im
-Folgenden beschrieben werden. Durch den :doc:`Autoloader </core-api/autoloading>`
-werden die Verzeichnisnamen 1:1 auf Klassennamen gemappt, sodass die Klasse
-``sly_Model_Article`` in der Datei :file:`sly/Model/Article.php` zu finden ist.
-Das untenstehende Klassendiagramm beschreibt also gleichzeitig die
+Folgenden beschrieben werden. Dateinamen folgen dem `PSR-0 Standard <https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md>`_, sodass die
+Klasse ``sly_Model_Article`` in der Datei :file:`sly/Model/Article.php` zu
+finden ist. Das untenstehende Klassendiagramm beschreibt also gleichzeitig die
 Klassenpräfixe.
 
 .. note::
@@ -139,14 +132,12 @@ Klassenpräfixe.
   +- Table/                 Tabellenframework
   +- Util/                  Utilities (allgemeine Hilfsklassen und Shortcuts für Services)
   +- Authorisation.php      Authorisierungs-API
-  +- Cache.php              Wrapper für BabelCache
   +- Configuration.php      Systemkonfiguration
   +- Core.php               Systemkern (wichtigste Methoden: aktueller User, Artikel, Sprache, ...)
   +- Form.php               Formularframework
   +- I18N.php               Mehrsprachigkeits-API
   +- Layout.php             abstraktes Layout
-  +- Loader.php             Autoloader
-  +- Log.php                Logging-API
+  +- Log.php                simpler, dateibasierter Logger
   +- Mail.php               Mailing-API
   +- Table.php              Tabellenframework
   +- Util.php               gemischte Methoden, die sonst nirgends hingehören
@@ -179,9 +170,8 @@ Services
 
 :doc:`Services </core-api/services>` bieten einen Großteil der Kernfunktionalität
 von Sally an. Sie dienen dazu, Models zu speichern oder anzulegen, AddOns zu
-verwalten, Templates zu synchronisieren etc. Sie sind als Singletons ausgelegt
-und werden über die ``sly_Service_Factory`` (die selbst kein Service ist)
-instantiiert.
+verwalten, Templates zu synchronisieren etc. Services sind über den
+:doc:`DI-Container </core-api/di-container>` zugänglich.
 
 In einem klassischen objektorientierten Entwurf sind Eigenschaften und
 Verhaltensweisen in **einer** Klasse gekapselt. Sally trennt diese Kapselung auf
@@ -202,8 +192,8 @@ um insbesondere beim Entwickeln von Templates und Modulen die Arbeit zu
 erleichtern. So gibt es ein ``sly_Util_Article``, das Shortcuts für Methoden in
 ``sly_Service_Article`` anbietet. Allerdings gibt es weder für alle Services
 eine entsprechende Utility-Klasse, noch enthalten die Utilities ausschließlich
-Helfer für Services. ``sly_Util_YAML`` stellt zum Beispiel Methoden zum
-gecachten Laden von YAML-Dateien bereit und hat nichts mit Services zu tun.
+Helfer für Services. So gibt es einige HTML-Helper in ``sly_Util_HTML``, zu
+denen kein Service existiert.
 
 Generell sind Utility-Klassen eine Sammlung von statischen Methoden. Instanzen
 dieser Klassen werden nie benötigt.

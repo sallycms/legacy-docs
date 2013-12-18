@@ -1,41 +1,50 @@
 Starterkit
 ==========
 
-Beginnend mit Sally 0.4 veröffentlichen wir den Kern zusammen mit einer Reihe
-von AddOns, die sowohl den Einstieg erleichtern sollen, als auch als
-Demonstration dienen, wie AddOns für Sally entwickelt werden können.
+Das Starterkit ist eine schnelle und einfache Art, mit der Entwicklung eines
+Sally-Projekts zu beginnen oder Sally erst einmal kennenzulernen. Außerdem zeigt
+es einige Best Practices in der Projektentwicklung.
 
-* aus REDAXO bekannt
+Dazu sind im Starterkit enthalten:
 
-  * **ImageResize** kann Bilder im Frontend verkleinern und zuschneiden.
-  * **Import/Export** dient zum Sichern der Datenbank und der Konfiguration.
-  * **BeSearch** vereinfacht die Navigation in der Strukturansicht.
+* ein minimales Frontend
 
-* neue Sally-AddOns
+  * einfache Navigation
+  * Header und Footer basierend auf Global Settings
+  * Spamschutz im CKEditor-Content
+  * simples XHTML5-Layout
 
-  * `Metainfo <https://projects.webvariants.de/projects/metainfoex>`_ dient zur
-    Verwaltung der Metainformationen (sic!).
-  * `Developer Utils <https://projects.webvariants.de/projects/developerutils>`_
-    ist ein AddOn, das eine Sammlung zusätzlicher Bibliotheken bereitstellt (wie
-    z.B. ``WV_Sally``, die Datentypen und weitere).
-  * `Global Settings <https://projects.webvariants.de/projects/globalsettings>`_
+* ein wenig Demo-Content (Artikel, Kategorien)
+* einige "Standard"-AddOns
+
+  * Der `CKEditor <https://bitbucket.org/mediastuttgart/ckeditor>`_
+    stellt einen umfangreichen Editor für das Backend zur Verfügung.
+  * `realURL2 <https://bitbucket.org/webvariants/realurl2>`_ kümmert sich um die
+    sprechenden, "SEO-freundlichen" URLs.
+  * `BE-Search <https://bitbucket.org/SallyCMS/be-search>`_ vereinfacht die
+    Navigation in der Strukturansicht.
+  * `Image Resize <https://bitbucket.org/SallyCMS/image-resize>`_ kann Bilder im
+    Frontend verkleinern und zuschneiden.
+  * `Metainfo <https://bitbucket.org/webvariants/meta-infos>`_ dient zur
+    Verwaltung der Metainformationen (sic!) an Artikeln, Kategorien, Medien und
+    Nutzern.
+  * `Global Settings <https://bitbucket.org/webvariants/global-settings>`_
     dient zur Verwaltung von Einstellungen, wie zum Beispiel speziellen
     Artikeln, bestimmten Texten, eMail-Adressen, etc.
-  * Der `Deployer <https://projects.webvariants.de/projects/deployer-ng>`_ dient
+  * Das `rbac-AddOn <https://bitbucket.org/webvariants/rbac>`_ stellt
+    Berechtigungen für Backend-Nutzer auf Basis von Benutzerollen zur Verfügung.
+    Das dazugehörige `rbac-treeview-AddOn <https://bitbucket.org/webvariants/rbac-treeview>`_
+    sorgt für eine optimierte Anzeige der vielen Optionen beim Bearbeiten einer
+    Rolle.
+  * Der `Deployer <https://bitbucket.org/webvariants/deployer>`_ dient
     dazu, über ``sly_Layout`` eingebundene CSS/JS-Dateien automatisch
     zusammenzufassen und zu minimieren. Dies geschieht für den Entwickler
     transparent.
-  * Das `rbac-AddOn <https://projects.webvariants.de/projects/rbac>`_ stellt
-    einen Auth-Provider auf Basis von Benutzerollen zur Verfügung.
-  * `realURL2 <https://projects.webvariants.de/projects/realurl2>`_ kümmert sich
-    um die kanonischen URLs.
-  * Der `WYMeditor <https://projects.webvariants.de/projects/wymeditor-addon>`_
-    stellt einen WYSIWYM-Editor zur Verfügung.
+  * `Import/Export <https://bitbucket.org/SallyCMS/import-export>`_ dient zum
+    Sichern der Datenbank und der Konfiguration.
+  * `Developer Utils <https://bitbucket.org/webvariants/developer-utils>`_
+    ist ein AddOn, das eine Sammlung zusätzlicher Bibliotheken bereitstellt (wie
+    z.B. ``WV_Sally``, die Datentypen und weitere).
 
-Hinweise zur Nutzung der AddOns finden sich in den entsprechenden Projektwikis.
-
-.. note::
-
-  Der `Error Handler <https://projects.webvariants.de/projects/errorhandler>`_
-  ist ab Version 0.5 nicht mehr im Starterkit enthalten, da Sally nun seinen
-  eigenen, rudimentären :doc:`Error Handler </extended/errorhandler>` mitbringt.
+Die Installation des Starterkits verläuft quasi analog zur
+:doc:`regulären Installation <install>`.

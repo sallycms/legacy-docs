@@ -3,16 +3,17 @@ Sonstige Core-Events
 
 .. slyevent:: SLY_ADDONS_LOADED
   :type:    notify
-  :in:      null
+  :in:      sly_Container
   :since:   0.7.0
-  :subject: N/A
+  :subject: der verwendete Container
 
   Dieses Event wird ausgelöst, nachdem der Systemkern alle aktivierten AddOns
   und Plugins geladen hat. In den meisten Fällen es ist ratsam,
   Initialisierungen von AddOns mindestens bis zu diesem Event aufzuschieben.
   Das ermöglicht es, dass alle Event-Listener bereits registriert sind.
 
-  Dieses Event hieß vor 0.7 ``ADDONS_INCLUDED``.
+  Dieses Event hieß vor 0.7 ``ADDONS_INCLUDED``. Seit Version 0.8.3 wird der
+  Container übergeben, vorher war das Subject ``null``.
 
 .. =============================================================================
 

@@ -1,6 +1,39 @@
 Changelog
 =========
 
+0.8.3 (18. Dezember 2013)
+-------------------------
+
+.. note::
+
+  Das Upgrade auf lessphp 0.4 stellt einen :doc:`BC-Break <bc-breaks>` dar.
+
+* Sally verwendet nun lessphp 0.4.*.
+* Sally erlaubt nun das Hashing von Passwörtern nur noch bis zu einer Länge von
+  4096 Zeichen. Dies dient zur Verhinderung von DoS-Attacken auf den Server.
+* ``sly_Service_Medium::findMediaByExtension()`` unterstützt nun eine
+  Sortierung.
+* Attribute an ``sly_Layout``-Instanzen können nun auch keinen Wert besitzen und
+  somit zu ``<html foo bar>`` führen. Gleichzeitig werden die Attribute für das
+  ``<html>``-Tag nun auch über das Objekt verwaltet. Damit ist es einfacher
+  möglich, JavaScript-Frameworks wie AngularJS zu verwenden.
+* ``SLY_ADDONS_LOADED`` enthält nun den Container als zusätzlichen Parameter.
+* ``sly_DB_PDO_Persistence::query()`` gibt nun die Persistence-Instanz selbst
+  zurück.
+* Bugfix: Migrierte Passwörter konnten nicht verwendet werden.
+* Bugfix: Es werden nur noch AddOn-Abhängigkeiten vom AddOn-Service ausgewertet.
+  Damit wird es möglich, dass ein AddOn z.B. ``guzzle/http`` benötigt und ein
+  weiteres ``guzzle/guzzle``. Da ``guzzle/guzzle`` die kleinere HTTP-only-Library
+  beinhaltet, ist im Projekt nur die große, vollständige Library vorhanden. Ohne
+  tiefgreifendes Verarbeiten der Composer-Infos wäre es Sally unmöglich zu
+  erkennen, dass das Requirement auf ``guzzle/http`` erfüllt ist.
+* Bugfix: Ein fehlgeschlagener Login führt nun nicht mehr zu einer
+  Login-Schleife beim nächsten Versuch.
+* Bugfix: Die Zeitzone wird nun auch als ``php.ini``-Wert gesetzt.
+* Bugfix: ``readonly`` und ``disabled`` wurden am DateTime-Formularelement nicht
+  verarbeitet.
+* weitere kleine Fixes
+
 0.8.2 (29. August 2013)
 -----------------------
 

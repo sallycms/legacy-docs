@@ -4,7 +4,7 @@ Coding-Guidelines
 Spielregeln
 -----------
 
-* Code muss mit PHP 5.2 und MySQL 5.0 (mit InnoDB) kompatibel sein.
+* Code muss mit PHP 5.3 und MySQL 5.0 (mit InnoDB) kompatibel sein.
 * ``error_reporting`` = ``E_ALL | E_STICT | E_NOTICE`` (für PHP 5.3-Nutzer
   sollte auch ``E_DEPRECATED`` aktiviert sein)
 * ``display_errors`` = ``On``
