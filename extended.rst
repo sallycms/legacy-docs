@@ -6,5 +6,4 @@ Weiterführendes
 
    extended/logging
    extended/errorhandler
-   extended/bootcache
    extended/cronjobs
